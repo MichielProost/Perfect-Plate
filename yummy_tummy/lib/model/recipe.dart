@@ -65,4 +65,18 @@ class Recipe {
   String getImageURL(){
     return this.imageURL;
   }
+
+  /// Deserialize received data from Firestore.
+  /// Initialize a new recipe object.
+  Recipe.fromMap(Map<String, dynamic> data, String id)
+      : this(
+          id: id,
+          title: data['title'],
+          description: data['description'],
+          type: RecipeType.values[data['type']],
+          isVegetarian: data['isVegetarian'],
+          duration: data['duration'],
+          ingredients: new List<String>.from(data['ingredients']),
+          imageURL: data['imageURL'],
+        );
 }
