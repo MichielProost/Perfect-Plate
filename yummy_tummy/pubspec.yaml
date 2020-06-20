@@ -1,5 +1,5 @@
-name: flutterapp
-description: A new Flutter application.
+name: yummytummy
+description: The application acts as a database for user-made recipes. Cheffs around the world can make, share and review recipes. Additionally, we want to make the learning process for beginners more fun
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
