@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:yummytummy/app.dart';
+
 import 'package:yummytummy/model/Database.dart';
 import 'package:yummytummy/model/user.dart';
+import 'package:yummytummy/user_interface/home_screen.dart';
 
 /// For testing purposes. Is to be removed later.
 void testFirestore(){
@@ -11,6 +12,6 @@ void testFirestore(){
 
 /// Main function just runs the app.
 void main() {
-  // testFirestore();
-  runApp(new RecipesApp());
+  //testFirestore();
+  runApp(new HomeScreen());
 }

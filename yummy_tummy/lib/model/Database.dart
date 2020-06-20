@@ -1,8 +1,8 @@
 import 'dart:collection';
-import 'package:cloud_firestore/cloud_firestore.dart';
+//import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:yummytummy/model/user.dart';
 
-final databaseReference = Firestore.instance;
+//final databaseReference = Firestore.instance;
 
 class Database{
   void addUser(String name, int score, RankType type){
@@ -17,6 +17,6 @@ class Database{
     print(user);
 
     /// Add a new document with a generated ID.
-    databaseReference.collection("users").add(user);
+  //  databaseReference.collection("users").add(user);
   }
 }
