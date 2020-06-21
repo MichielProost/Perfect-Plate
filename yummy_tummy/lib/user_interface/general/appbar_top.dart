@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../constants.dart';
+
 enum ActivePage {
   home,
   top,
@@ -13,6 +15,7 @@ class AppBarTop extends StatelessWidget implements PreferredSizeWidget {
 
   final AppBar _appbar = AppBar(
     title: Text("Yummy tummy"),
+    backgroundColor: Constants.main,
   );
 
   @override
