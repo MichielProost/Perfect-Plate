@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:yummytummy/model/Database.dart';
+import 'package:yummytummy/model/database.dart';
 import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/user_interface/screen_scroller.dart';
 
@@ -14,7 +14,7 @@ void testFirestore(){
 
 /// Main function just runs the app.
 void main() {
-  //testFirestore();
+  testFirestore();
   runApp(YummyTummy());
 }
 

@@ -13,15 +13,10 @@ class Database{
     /// Print user on console as test.
     ///print(user);
 
-    print("TEST");
-
-    /// Create Firestore database.
-    final db = Firestore.instance;
-
     print("Now creating document");
 
     /// Add a new document with a generated ID.
-    db.collection("users").add(
+    Firestore.instance.collection("users").add(
     {
       "name" : name,
       "score" : score,
