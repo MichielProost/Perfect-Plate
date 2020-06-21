@@ -36,39 +36,38 @@ class AppBarBottomState extends State<AppBarBottom> {
     Color elementColor = _currentPage == page ? Constants.accent : Colors.white;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
-      child: Container(
+      child: SizedBox(
         height: 70.0,
         width: 70.0,
-        child: Column(
-          children: <Widget>[
-            Icon(
-              icon,
-              color: elementColor,
-              size: 30.0,
-            ),
-            Text(
-              text,
-              style: TextStyle(
+        child: InkWell(
+          onTap: () { 
+            _controller.jumpToPage(page.index);
+            refresh(page);
+          },
+          child: Column(
+            children: <Widget>[
+              Icon(
+                icon,
                 color: elementColor,
+                size: 30.0,
               ),
-            ),
-            Container(
-              height: 2.0,
-              width: 40.0,
-              color: _currentPage == page ? Constants.accent : Constants.main,
-            ),
-          ],
+              Text(
+                text,
+                maxLines: 1,
+                style: TextStyle(
+                  color: elementColor,
+                ),
+              ),
+              Container(
+                height: 2.0,
+                width: 40.0,
+                color: _currentPage == page ? Constants.accent : Constants.main,
+              ),
+            ],
+          ),
         ),
       ),
     );
-
-    //     ),
-    //     onPressed: () {
-    //       _controller.jumpToPage(page.index);
-    //       refresh(page);
-    //     },
-    //   ),
-    // );
   }
 
   @override
@@ -85,7 +84,7 @@ class AppBarBottomState extends State<AppBarBottom> {
             Expanded(
               child: SizedBox(),
             ),
-            createNavButton(Icons.bookmark, "Favourites", AppPage.favourites),
+            createNavButton(Icons.bookmark, "Saved", AppPage.favourites),
             createNavButton(Icons.person, "Profile", AppPage.profile)
           ],
         ),

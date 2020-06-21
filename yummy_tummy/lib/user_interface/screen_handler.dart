@@ -66,6 +66,7 @@ class ScreenHandler extends StatelessWidget {
         ),
       ),
       floatingActionButton: AddRecipeButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: _appBarBottom,
     );
   }
