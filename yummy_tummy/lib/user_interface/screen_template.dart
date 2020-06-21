@@ -1,11 +1,11 @@
 /// Functions as a template for new screens. Should not actually be used
 
 import 'package:flutter/material.dart';
-import 'package:yummytummy/user_interface/general/add_recipe_button.dart';
 
-import 'package:yummytummy/user_interface/general/appbar_bottom.dart';
-import 'package:yummytummy/user_interface/general/appbar_top.dart';
-import 'package:yummytummy/user_interface/general/side_menu.dart';
+import 'general/add_recipe_button.dart';
+import 'general/appbar_bottom.dart';
+import 'general/appbar_top.dart';
+import 'general/side_menu.dart';
 
 class ScreenTemplate extends StatelessWidget {
 

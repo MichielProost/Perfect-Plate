@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:yummytummy/user_interface/general/appbar_bottom.dart';
 
-import 'package:yummytummy/user_interface/general/appbar_top.dart';
-import 'package:yummytummy/user_interface/general/side_menu.dart';
+import 'general/appbar_top.dart';
+import 'general/side_menu.dart';
 
 class HomeScreen extends StatelessWidget {
+
+  final PageController pageController = PageController(
+    initialPage: 1,
+  );
 
   Widget buildIconLink(IconData icon, String pageName, )
   {

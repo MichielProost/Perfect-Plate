@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:yummytummy/model/Database.dart';
 import 'package:yummytummy/model/user.dart';
-import 'package:yummytummy/user_interface/home_screen.dart';
+import 'package:yummytummy/user_interface/screen_scroller.dart';
+
+import 'user_interface/feed_screen.dart';
 
 /// For testing purposes. Is to be removed later.
 void testFirestore(){
@@ -17,12 +19,14 @@ void main() {
 }
 
 class YummyTummy extends StatelessWidget {
-  
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Yummy Tummy",
-      home: HomeScreen(),
+      // TODO implement home screen
+      //home: HomeScreen(), 
+      home: ScreenScroller(),
     );
   }
 
