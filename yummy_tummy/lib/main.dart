@@ -13,5 +13,17 @@ void testFirestore(){
 /// Main function just runs the app.
 void main() {
   //testFirestore();
-  runApp(new HomeScreen());
+  runApp(YummyTummy());
+}
+
+class YummyTummy extends StatelessWidget {
+  
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: "Yummy Tummy",
+      home: HomeScreen(),
+    );
+  }
+
 }

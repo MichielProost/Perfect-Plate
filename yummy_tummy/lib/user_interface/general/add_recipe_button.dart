@@ -5,8 +5,6 @@ class AddRecipeButton extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      
-    );
+    return Text("Button TBA");
   }
 }
