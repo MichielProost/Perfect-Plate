@@ -5,10 +5,6 @@ import 'general/side_menu.dart';
 
 class HomeScreen extends StatelessWidget {
 
-  final PageController pageController = PageController(
-    initialPage: 1,
-  );
-
   Widget buildIconLink(IconData icon, String pageName, )
   {
     return Container(
