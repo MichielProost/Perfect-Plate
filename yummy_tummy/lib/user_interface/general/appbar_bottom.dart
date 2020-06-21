@@ -7,8 +7,8 @@ class AppBarBottom extends StatefulWidget {
   
   final AppBarBottomState appBarBottomState;
 
-  AppBarBottom(AppPage currentPage):
-    appBarBottomState = AppBarBottomState( currentPage );
+  AppBarBottom(AppPage currentPage, PageController controller):
+    appBarBottomState = AppBarBottomState( currentPage, controller );
 
   @override
   State<StatefulWidget> createState() {
@@ -19,8 +19,9 @@ class AppBarBottom extends StatefulWidget {
 class AppBarBottomState extends State<AppBarBottom> {
   
   AppPage _currentPage;
+  PageController _controller;
 
-  AppBarBottomState(this._currentPage);
+  AppBarBottomState(this._currentPage, this._controller);
 
   void refresh (AppPage newPage)
   {
@@ -29,15 +30,63 @@ class AppBarBottomState extends State<AppBarBottom> {
     });
   }
 
+
+  Widget createNavButton(IconData icon, String text, AppPage page)
+  {
+    Color elementColor = _currentPage == page ? Constants.accent : Colors.white;
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      child: Container(
+        height: 70.0,
+        width: 70.0,
+        child: Column(
+          children: <Widget>[
+            Icon(
+              icon,
+              color: elementColor,
+              size: 30.0,
+            ),
+            Text(
+              text,
+              style: TextStyle(
+                color: elementColor,
+              ),
+            ),
+            Container(
+              height: 2.0,
+              width: 40.0,
+              color: _currentPage == page ? Constants.accent : Constants.main,
+            ),
+          ],
+        ),
+      ),
+    );
+
+    //     ),
+    //     onPressed: () {
+    //       _controller.jumpToPage(page.index);
+    //       refresh(page);
+    //     },
+    //   ),
+    // );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BottomAppBar(
+    return Container(
       color: Constants.main,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.only(top: 15.0),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            Text("Placeholder, broooo!  " + _currentPage.toString()),
+            createNavButton(Icons.star, "Feed", AppPage.feed),
+            createNavButton(Icons.search, "Search", AppPage.search),
+            Expanded(
+              child: SizedBox(),
+            ),
+            createNavButton(Icons.bookmark, "Favourites", AppPage.favourites),
+            createNavButton(Icons.person, "Profile", AppPage.profile)
           ],
         ),
       ),

@@ -41,7 +41,7 @@ class ScreenHandler extends StatelessWidget {
   ScreenHandler()
   {
     _currentPage = AppPage.values[_controller.initialPage];
-    _appBarBottom = AppBarBottom(_currentPage);
+    _appBarBottom = AppBarBottom(_currentPage, _controller);
   }
 
 
@@ -50,8 +50,6 @@ class ScreenHandler extends StatelessWidget {
     return Scaffold(
       appBar: AppBarTop(),
       drawer: SideMenu(),
-      bottomNavigationBar: _appBarBottom,
-      floatingActionButton: AddRecipeButton(),
       body: Center(
         child: PageView (
           controller: _controller,
@@ -67,6 +65,8 @@ class ScreenHandler extends StatelessWidget {
           ],
         ),
       ),
+      floatingActionButton: AddRecipeButton(),
+      bottomNavigationBar: _appBarBottom,
     );
   }
 
