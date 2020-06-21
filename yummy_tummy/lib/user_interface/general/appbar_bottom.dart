@@ -5,12 +5,10 @@ import '../screen_handler.dart';
 
 class AppBarBottom extends StatefulWidget {
   
-  final AppPage _currentPage;
-  AppBarBottomState appBarBottomState;
+  final AppBarBottomState appBarBottomState;
 
-  AppBarBottom(this._currentPage) {
-    appBarBottomState = AppBarBottomState(_currentPage);
-  }
+  AppBarBottom(AppPage currentPage):
+    appBarBottomState = AppBarBottomState( currentPage );
 
   @override
   State<StatefulWidget> createState() {
@@ -26,7 +24,6 @@ class AppBarBottomState extends State<AppBarBottom> {
 
   void refresh (AppPage newPage)
   {
-    if (this.mounted)
     setState(() {
       _currentPage = newPage;
     });
@@ -40,7 +37,7 @@ class AppBarBottomState extends State<AppBarBottom> {
         padding: const EdgeInsets.all(8.0),
         child: Row(
           children: <Widget>[
-            Text("Placeholder, broooo!" + _currentPage.toString()),
+            Text("Placeholder, broooo!  " + _currentPage.toString()),
           ],
         ),
       ),
