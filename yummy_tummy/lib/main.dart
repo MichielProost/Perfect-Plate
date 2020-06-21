@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:yummytummy/model/Database.dart';
 import 'package:yummytummy/model/user.dart';
-import 'package:yummytummy/user_interface/screen_scroller.dart';
-
-import 'user_interface/feed_screen.dart';
+import 'package:yummytummy/user_interface/screen_handler.dart';
 
 /// For testing purposes. Is to be removed later.
 void testFirestore(){
@@ -26,7 +24,7 @@ class YummyTummy extends StatelessWidget {
       title: "Yummy Tummy",
       // TODO implement home screen
       //home: HomeScreen(), 
-      home: ScreenScroller(),
+      home: ScreenHandler(),
     );
   }
 
