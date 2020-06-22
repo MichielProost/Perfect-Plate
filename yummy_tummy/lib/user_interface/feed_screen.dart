@@ -8,14 +8,14 @@ import 'components/recipe_card.dart';
 
 class FeedScreen extends StatelessWidget {
 
-  List<Recipe> _recipes = getRecipes();
+  final List<Recipe> _recipes = getRecipes();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: <Widget>[
-          for (Recipe recipe in _recipes) RecipeCard(recipe, showBookmark: false,),
+          for (Recipe recipe in _recipes) RecipeCard(recipe, showBookmark: false),
         ],
       ),
     );

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:yummytummy/model/recipe.dart';
 
+import 'rating_row.dart';
+
 class RecipeCard extends StatelessWidget {
   
   final Recipe _recipe;
@@ -19,7 +21,9 @@ class RecipeCard extends StatelessWidget {
           children: <Widget>[
             Text(_recipe.getTitle()),
             Row(
-              
+              children: <Widget>[
+                RatingRow(_recipe.getRating())
+              ],
             ),
           ],
         ),

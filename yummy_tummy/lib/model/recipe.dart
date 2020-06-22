@@ -8,6 +8,7 @@ enum RecipeType {
 class Recipe {
   final String id;
   final String title;
+  final double _rating;
   final String description;
   final RecipeType type;
   final bool isVegetarian;
@@ -18,13 +19,14 @@ class Recipe {
   const Recipe({
     this.id,
     this.title,
+    double rating: 0.0,
     this.description,
     this.type,
     this.isVegetarian,
     this.duration,
     this.ingredients,
     this.imageURL,
-  });
+  }) : _rating = rating;
 
   /// Returns the recipe's id.
   String getId(){
@@ -34,6 +36,12 @@ class Recipe {
   /// Returns the recipe's title.
   String getTitle(){
     return this.title;
+  }
+
+  /// Returns the average rating for this recipe
+  double getRating()
+  {
+    return _rating;
   }
 
   /// Returns the recipe's description.

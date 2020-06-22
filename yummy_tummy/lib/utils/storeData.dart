@@ -9,6 +9,7 @@ List<Recipe> getRecipes() {
     Recipe(
       id: '0',
       title: 'Carpaccio van komkommer met geitenkaas',
+      rating: 4.6,
       description:
         'Dit vegetarische voorgerecht is niet alleen lekker, maar ook een feest voor de ogen. Flinterdunne plakjes komkommer met staafjes appel, plakjes radijs en blokjes avocado. Daartussen komen toefjes geitenkaas die Jeroen op smaak brengt met wat bieslook en peper.',
       type: RecipeType.lunch,
@@ -28,6 +29,7 @@ List<Recipe> getRecipes() {
     Recipe(
       id: '1',
       title: 'Vlaamse wafels met vanilleshake',
+      rating: 3.8,
       description:
         'Vlaamse wafels bakken wordt een koud kunstje dankzij dit authentieke recept van Jeroen. Een lekker tussendoortje om het weekend goed in te zetten!',
       type: RecipeType.desserts,
