@@ -4,9 +4,9 @@ import 'model/test.dart';
 
 /// Main function just runs the app.
 void main() {
+  runApp(YummyTummy());
   Test test = new Test();
   test.testMethods();
-  runApp(YummyTummy());
 }
 
 class YummyTummy extends StatelessWidget {
