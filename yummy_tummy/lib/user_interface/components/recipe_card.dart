@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:yummytummy/model/recipe.dart';
 
+import '../constants.dart';
 import 'rating_row.dart';
 
 class RecipeCard extends StatelessWidget {
@@ -15,14 +16,49 @@ class RecipeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Constants.gray,
       child: Padding(
-        padding: const EdgeInsets.all(5.0),
+        padding: const EdgeInsets.all(10.0),
         child: Column(
           children: <Widget>[
-            Text(_recipe.getTitle()),
+            Text(
+              _recipe.getTitle(),
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(
+              height: 10.0,
+            ),
             Row(
               children: <Widget>[
-                RatingRow(_recipe.getRating())
+                RatingRow(_recipe.getRating()),
+              ],
+            ),
+            SizedBox(
+              height: 10.0,
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  width: 140.0,
+                  height: 140.0,
+                  child: Image(
+                    image: NetworkImage(_recipe.getImageURL()),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10.0),
+                    child: Text(
+                      _recipe.getDescription(),
+                      textAlign: TextAlign.justify,
+                    ),
+                  ),
+                ),
               ],
             ),
           ],

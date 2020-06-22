@@ -2,13 +2,27 @@ import 'package:flutter/material.dart';
 
 class RatingRow extends StatelessWidget {
   
+
   final double _rating;
+
 
   /// Creates a row of stars that accurately display the given rating
   /// The rating must be in the range [0, 5]
   /// A rating smaller than 0 will result in zero filled stars, and a rating bigger than five will result in five filled stars
   RatingRow(this._rating);
 
+
+  /// Creates an icon that follows the star guidelines but displays the given icon
+  Icon _createStar(IconData icon)
+  {
+    return Icon(
+      icon,
+      size: 20.0,
+    );
+  }
+  
+
+  /// Creates a List of icons that visually show the relevant rating and returns that list
   List<Widget> _createStars()
   {
     List<Widget> stars = new List<Widget>();
@@ -24,7 +38,7 @@ class RatingRow extends StatelessWidget {
       numRemaining--;
 
       stars.add(
-        Icon(Icons.star)
+        _createStar(Icons.star)
       );
     }
 
@@ -34,7 +48,7 @@ class RatingRow extends StatelessWidget {
       numRemaining--;
 
       stars.add(
-        Icon(Icons.star_half)
+        _createStar(Icons.star_half)
       );
     }
 
@@ -44,12 +58,13 @@ class RatingRow extends StatelessWidget {
       numRemaining--;
 
       stars.add(
-        Icon(Icons.star_border)
+        _createStar(Icons.star_border)
       );
     }
 
     return stars;
   }
+
 
   @override
   Widget build(BuildContext context) {
