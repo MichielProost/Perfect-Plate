@@ -13,7 +13,7 @@ class FeedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
+      body: ListView(
         children: <Widget>[
           for (Recipe recipe in _recipes) RecipeCard(recipe, showBookmark: false),
         ],
