@@ -9,25 +9,21 @@ class Test{
 
   /// Define test methods here.
   void testMethods() async {
-    print("Test methods.");
-    var userID = await testAddUser("tempUser", 0, RankType.beginner);
-    print("Creating now user document...");
+    testAddUser("tempUser", 0, RankType.beginner);
+    print("Creating user document...");
   }
 
   /// Add a new user to Firestore database.
   Future<String> testAddUser(String name, int score, RankType type){
-    // Test
-    print("In TestAddUser method...");
 
     // Print new document ID to console.
     this.db.collection("users").add(
     {
       "name" : name,
+      "rank" : type.index,
       "score" : score,
-      "rank"  : type,
     }).then((value){
-      print("Document ID: "+ value.documentID);
-      return Future.delayed(null, () => value.documentID);
+      print("Created new user with ID " + value.documentID);
     });
   }
 }
