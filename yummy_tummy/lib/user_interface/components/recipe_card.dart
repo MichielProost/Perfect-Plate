@@ -23,12 +23,24 @@ class RecipeCard extends StatelessWidget {
           padding: const EdgeInsets.all(10.0),
           child: Column(
             children: <Widget>[
-              Text(
-                _recipe.getTitle(),
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Expanded(
+                    child: Text(
+                      _recipe.getTitle(),
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  if (_showBookmark)
+                  Icon(
+                    Icons.bookmark,
+                    size: 40.0,
+                  ),
+                ],
               ),
               SizedBox(
                 height: 10.0,

@@ -8,6 +8,7 @@ import 'components/recipe_card.dart';
 
 class FeedScreen extends StatelessWidget {
 
+  // TODO implement a recipe selection algorithm
   final List<Recipe> _recipes = getRecipes();
 
   @override
