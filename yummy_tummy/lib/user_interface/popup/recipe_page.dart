@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:share/share.dart';
 import 'package:yummytummy/model/recipe.dart';
 
 import '../constants.dart';
@@ -19,7 +20,6 @@ class _RecipePageState extends State<RecipePage> {
   final Recipe _recipe;
   //TODO properly implement favourite
   bool _isFavorite = false;
-  List<Image> stepImages = List<Image>();
 
   _RecipePageState(this._recipe);
 
@@ -35,7 +35,6 @@ class _RecipePageState extends State<RecipePage> {
             children: <Widget>[
 
               // Button bar for user
-              // TODO add share button
               Row(
                 children: <Widget>[
                   
@@ -48,6 +47,19 @@ class _RecipePageState extends State<RecipePage> {
                     ), 
                     onPressed: () {
                       // TODO add timer
+                    },
+                  ),
+
+                  // Share button
+                  IconButton(
+                    icon: Icon(
+                      Icons.share,
+                      size: 35.0,
+
+                    ), 
+                    onPressed: () {
+                      // TODO implement actual share logic
+                      //Share.share( _recipe.getId() );
                     },
                   ),
 
@@ -129,11 +141,9 @@ class _RecipePageState extends State<RecipePage> {
               // Recipe description
               Padding(
                 padding: const EdgeInsets.only(top: 10.0),
-                child: Expanded(
-                  child: Text(
-                    _recipe.getDescription(),
-                    textAlign: TextAlign.justify,
-                  ),
+                child: Text(
+                  _recipe.getDescription(),
+                  textAlign: TextAlign.justify,
                 ),
               ),
 
@@ -160,25 +170,6 @@ class _RecipePageState extends State<RecipePage> {
                   ),
                 ),
               ),
-
-              // Images of this step
-              // TODO make images clickable and update for each step
-              // Container(
-              //   height: 150,
-              //   child: ListView(
-              //     scrollDirection: Axis.horizontal,
-              //     children: <Widget>[
-              //       for (int i = 0; i < 12; i++)
-              //         Padding(
-              //           padding: const EdgeInsets.all(3.0),
-              //           child: Container(
-              //              height: double.infinity,
-              //              color: Colors.green,
-              //           ),
-              //         ),
-              //     ],
-              //   ),
-              // ),
             ],
           ),
         ),

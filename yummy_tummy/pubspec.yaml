@@ -23,7 +23,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cloud_firestore: ^0.13.7
+  cloud_firestore: ^0.13.7  # Dart firestore package, basic database functionality
+  share: ^0.6.4+3           # Allows recipe sharing through social media and alike
 
 
   # The following adds the Cupertino Icons font to your application.
