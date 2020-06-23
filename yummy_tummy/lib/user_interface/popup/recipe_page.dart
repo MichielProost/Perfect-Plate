@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:yummytummy/model/recipe.dart';
 
+import '../constants.dart';
+
 class RecipePage extends StatefulWidget {
   
   final Recipe _recipe;
@@ -17,6 +19,7 @@ class _RecipePageState extends State<RecipePage> {
   final Recipe _recipe;
   //TODO properly implement favourite
   bool _isFavorite = false;
+  List<Image> stepImages = List<Image>();
 
   _RecipePageState(this._recipe);
 
@@ -30,10 +33,13 @@ class _RecipePageState extends State<RecipePage> {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: <Widget>[
+
+              // Button bar for user
+              // TODO add share button
               Row(
-                mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   
+                  // Timer button
                   IconButton(
                     icon: Icon(
                       Icons.timer,
@@ -45,7 +51,7 @@ class _RecipePageState extends State<RecipePage> {
                     },
                   ),
 
-                  // Button to bookmark/unmark
+                  // Bookmark button
                   IconButton(
                     icon: Icon(
                       _isFavorite ? Icons.bookmark : Icons.bookmark_border,
@@ -59,7 +65,15 @@ class _RecipePageState extends State<RecipePage> {
                     }
                   ),
 
-                  // Icon button to close the menu
+                  // Provide space between icons 
+                  Expanded(
+                    child: SizedBox(
+                      height: 1.0,
+                      width: 1.0,
+                    ),
+                  ),
+
+                  // Close recipe button
                   IconButton(
                     icon: Icon(
                       Icons.close,
@@ -71,9 +85,13 @@ class _RecipePageState extends State<RecipePage> {
                   ),
                 ],
               ),
+
+              // Recipe title banner
               Stack(
                 alignment: Alignment.bottomCenter,
                 children: <Widget>[
+
+                  // Image component
                   ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
                     child: Container(
@@ -85,6 +103,8 @@ class _RecipePageState extends State<RecipePage> {
                       ),
                     ),
                   ),
+
+                  // Text component
                   Padding(
                     padding: const EdgeInsets.only(bottom: 10.0),
                     child: Text(
@@ -105,6 +125,60 @@ class _RecipePageState extends State<RecipePage> {
                   ),
                 ],
               ),
+
+              // Recipe description
+              Padding(
+                padding: const EdgeInsets.only(top: 10.0),
+                child: Expanded(
+                  child: Text(
+                    _recipe.getDescription(),
+                    textAlign: TextAlign.justify,
+                  ),
+                ),
+              ),
+
+              // TODO add recipe info: vegetarian, vegan, dish type (salad), 
+
+              // Separator line
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
+                child: Container(
+                  height: 1.0,
+                  width: double.infinity,
+                  color: Colors.black,
+                ),
+              ),
+
+              // Recipe info: ingrediënts and steps
+              Expanded(
+                child: Container(
+                  color: Colors.red,
+                  child: ListView(
+                    children: <Widget>[
+                      
+                    ],
+                  ),
+                ),
+              ),
+
+              // Images of this step
+              // TODO make images clickable and update for each step
+              // Container(
+              //   height: 150,
+              //   child: ListView(
+              //     scrollDirection: Axis.horizontal,
+              //     children: <Widget>[
+              //       for (int i = 0; i < 12; i++)
+              //         Padding(
+              //           padding: const EdgeInsets.all(3.0),
+              //           child: Container(
+              //              height: double.infinity,
+              //              color: Colors.green,
+              //           ),
+              //         ),
+              //     ],
+              //   ),
+              // ),
             ],
           ),
         ),

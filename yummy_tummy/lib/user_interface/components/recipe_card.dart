@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:yummytummy/model/recipe.dart';
-import 'package:yummytummy/popup/recipe_page.dart';
-import 'package:yummytummy/popup/snackbar_util.dart';
+import 'package:yummytummy/user_interface/popup/recipe_page.dart';
+import 'package:yummytummy/user_interface/popup/snackbar_util.dart';
 
 import '../constants.dart';
 import 'rating_row.dart';
@@ -29,6 +29,7 @@ class _RecipeCardState extends State<RecipeCard> {
   /// Showbookmark will decide whether or not to display the bookmark icon
   _RecipeCardState(this._recipe, {bool showBookmark: false}): _showBookmark = showBookmark;
   
+  // TODO add dish type perhaps?
   @override
   Widget build(BuildContext context) {
     return InkWell(
