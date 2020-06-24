@@ -87,4 +87,10 @@ class Recipe {
           ingredients: new List<String>.from(data['ingredients']),
           imageURL: data['imageURL'],
         );
+
+  void printSummary(){
+    print("Recipe Document ID: " + this.getId());
+    print("Title: " + this.getTitle());
+    print("Description: " + this.getDescription());
+  }
 }
