@@ -25,7 +25,11 @@ class Test{
     //print("Creating new recipe...");
 
     // Get recipe object from title.
-    //getRecipeFromTitle("Carpaccio van komkommer met geitenkaas");
+    getRecipeFromTitle("Carpaccio van komkommer met geitenkaas")
+    .then((value){
+      // Print a summary of the recipe.
+      value.printSummary();
+    });
   }
 
   /// Add a new user to Firestore database.
@@ -61,17 +65,18 @@ class Test{
     });
   }
 
-  Future<void> getRecipeFromTitle(String title){
+  // Return recipe object when supplying it with a title.
+  Future<Recipe> getRecipeFromTitle(String title){
+    Recipe fetchedRecipe;
     this.db
         .collection("recipes")
         .where("title", isEqualTo: title)
         .getDocuments()
         .then((QuerySnapshot docs){
-          if (docs.documents.isNotEmpty) {
-            Recipe recipe = Recipe.fromMap(docs.documents[0].data, docs.documents[0].documentID);
-            // Print a summary of the recipe.
-            recipe.printSummary();
-          }
+        if (docs.documents.isNotEmpty) {
+          fetchedRecipe = Recipe.fromMap(docs.documents[0].data, docs.documents[0].documentID);
+        }
         });
+    return Future<Recipe>.value(fetchedRecipe);
   }
 }
