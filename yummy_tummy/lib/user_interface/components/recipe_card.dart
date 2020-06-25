@@ -32,10 +32,10 @@ class _RecipeCardState extends State<RecipeCard> {
   // TODO add dish type perhaps?
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () => showDialog(context: context, child: RecipePage(_recipe)),
-      child: Padding(
-        padding: const EdgeInsets.all(4.0),
+    return Padding(
+      padding: const EdgeInsets.all(4.0),
+      child: InkWell(
+        onTap: () => showDialog(context: context, child: RecipePage(_recipe)),
         child: Card(
           color: Constants.gray,
           child: Padding(
