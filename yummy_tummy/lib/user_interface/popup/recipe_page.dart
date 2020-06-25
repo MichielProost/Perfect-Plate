@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 import 'package:yummytummy/model/recipe.dart';
+import 'package:yummytummy/user_interface/popup/info_popup.dart';
 
 import '../constants.dart';
 
@@ -20,9 +21,45 @@ class _RecipePageState extends State<RecipePage> {
   final Recipe _recipe;
   //TODO properly implement favourite
   bool _isFavorite = false;
+  List<String> steps = [
+    "Pak een kommeke",
+    "Pak een aantal ingrediëntekes klaar", 
+    "Haal ze uit hun verpakkingskes",
+    "Klets die bij mekaar in een kommeke",
+    "Doe beetje mengen enzo",
+    "Duw da in de oven",
+    "En kleir"
+  ];
 
   _RecipePageState(this._recipe);
 
+  Widget buildStepWidget(int stepIndex, String stepDescription)
+  {
+    return Card(
+      child: Row(
+        children: <Widget>[
+          Text(
+            stepIndex.toString(),
+            style: TextStyle(
+              fontSize: 150.0,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 15.0),
+            child: Container(
+              width: 1.0,
+              height: double.infinity,
+              color: Colors.black,
+            ),
+          ),
+          Text(
+            stepDescription,
+            textAlign: TextAlign.justify,
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +69,22 @@ class _RecipePageState extends State<RecipePage> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: <Widget>[
 
               // Button bar for user
               Row(
                 children: <Widget>[
                   
+                  IconButton(
+                    icon: Icon(
+                      Icons.info_outline,
+                      size: 35.0,
+                    ),
+                    // TODO add proper language system
+                    onPressed:  () => showDialog(context: context, child: InfoPopup("Description", _recipe.getDescription(), Icons.info_outline)),
+                  ),
+
                   // Timer button
                   IconButton(
                     icon: Icon(
@@ -138,38 +185,21 @@ class _RecipePageState extends State<RecipePage> {
                 ],
               ),
 
-              // Recipe description
-              Padding(
-                padding: const EdgeInsets.only(top: 10.0),
-                child: Text(
-                  _recipe.getDescription(),
-                  textAlign: TextAlign.justify,
-                ),
-              ),
-
               // TODO add recipe info: vegetarian, vegan, dish type (salad), 
 
-              // Separator line
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
-                child: Container(
-                  height: 1.0,
-                  width: double.infinity,
-                  color: Colors.black,
-                ),
-              ),
-
               // Recipe info: ingrediënts and steps
-              Expanded(
-                child: Container(
-                  color: Colors.red,
-                  child: ListView(
-                    children: <Widget>[
-                      
-                    ],
-                  ),
-                ),
-              ),
+              //  Container(
+              //    height: MediaQuery.of(context).size.height,
+              //    width: MediaQuery.of(context).size.width,
+              //    child: ListWheelScrollView(
+              //       itemExtent: 3,
+              //       children: <Widget>[
+              //         for (int i= 0; i < steps.length; i++)
+              //           Text("Placeholder"),
+              //           //buildStepWidget(i, steps[i]),
+              //       ],
+              //     ),
+              //  ),
             ],
           ),
         ),
