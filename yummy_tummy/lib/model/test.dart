@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:yummytummy/database/recipeService.dart';
+import 'package:yummytummy/database/userService.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/utils/storeData.dart';
@@ -9,27 +10,17 @@ const int FETCH_LIMIT = 20;
 
 class Test {
   final RecipeService recipeService;
+  final UserService userService;
 
   /// Test constructor.
-  Test() : this.recipeService = new RecipeService();
+  Test() : this.recipeService = new RecipeService(), this.userService = new UserService();
 
   /// Define test methods here. Uncomment the functions you want to execute.
   void testMethods() async {
-    // Get random recipe
-    List<Recipe> recipes = getRecipes();
 
-    // Add a new user to database. Uncomment to test.
-    //testAddUser("tempUser", 0, RankType.beginner);
-    //print("Creating user document...");
-
-    // Add a new recipe to the database. Uncomment to test.
-    this.recipeService.addRecipe(recipes[1]);
-    print("Creating new recipe...");
-
-    // Get recipe object from title.
-    //Recipe fetchedRecipe = await getRecipeFromTitle("Carpaccio van komkommer met geitenkaas");
-    // Print a summary of fetched recipe.
-    //fetchedRecipe.printSummary();
+    //testAddRecipes();
+    //testAddUser();
+    testGetRecipeFromTitle();
 
     // Get vegetarian recipes from Firestore.
     //List<Recipe> vegetarianRecipes = await getVegetarianRecipes();
@@ -39,30 +30,39 @@ class Test {
     //}
   }
 
-  /// Add a new user to Firestore database.
-  Future<void> testAddUser(String name, int score, RankType type) {
-    // Print new user document ID to console.
-    Firestore.instance.collection("users").add(
-        {
-          "name": name,
-          "rank": type.index,
-          "score": score,
-        }).then((value) {
-      print("Created new user with ID " + value.documentID);
-    });
+  /// TEST: Add recipes in temporary database (class storeData) to Firestore.
+  void testAddRecipes(){
+    // Temporary database.
+    List<Recipe> recipes = getRecipes();
+
+    // Add each recipe in database to Firestore.
+    for(int i = 0; i < recipes.length; i++) {
+      this.recipeService.addRecipe(recipes[i]);
+      print("Creating new recipe...");
+    }
   }
 
-  /// Return recipe object when supplying it with a title.
-  Future<Recipe> getRecipeFromTitle(String title) async {
-    Recipe fetchedRecipe =
-    await Firestore.instance.collection("recipes")
-        .where("title", isEqualTo: title)
-        .getDocuments()
-        .then((QuerySnapshot docs) {
-      return docs.documents.isNotEmpty ? Recipe.fromMap(
-          docs.documents[0].data, docs.documents[0].documentID) : null;
-      });
-    return fetchedRecipe;
+  /// TEST: Add a new user to Firestore.
+  void testAddUser(){
+    // Create a new user.
+    User user = new User(
+        name: 'Jeroen Meus',
+        score: 9500,
+        rank: RankType.professional,
+        favourites: []
+    );
+
+    // Add new user to Firestore.
+    this.userService.addUser(user);
+    print("Creating new user...");
+  }
+
+  /// TEST: Get and prints recipe from Firestore when given a title.
+  void testGetRecipeFromTitle() async{
+    // Get recipe object from title.
+    Recipe fetchedRecipe = await recipeService.getRecipeFromTitle("Panna cotta met tartaar van kiwi en kokoscrumble");
+    // Print a summary of fetched recipe.
+    fetchedRecipe.printSummary();
   }
 
   /// Last test method. Get all vegetarian recipes from Firestore.

@@ -31,4 +31,17 @@ class RecipeService{
       print("Created new recipe with ID " + value.documentID);
     });
   }
+
+  /// Returns recipe object with given title.
+  Future<Recipe> getRecipeFromTitle(String title) async {
+    Recipe fetchedRecipe =
+    await this.db.collection("recipes")
+        .where("title", isEqualTo: title)
+        .getDocuments()
+        .then((QuerySnapshot docs) {
+      return docs.documents.isNotEmpty ? Recipe.fromMap(
+          docs.documents[0].data, docs.documents[0].documentID) : null;
+    });
+    return fetchedRecipe;
+  }
 }

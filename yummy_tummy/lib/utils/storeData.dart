@@ -34,7 +34,7 @@ List<Recipe> getRecipes() {
       image:
       'https://images.vrt.be/dako2017_1600s_j75/2018/04/26/edac70a0-492c-11e8-abcc-02b7b76bf47f.png',
       numberOfReviews: 0,
-      userMap: {'name' : 'Jeroen Meus', 'Rank' : RankType.amateur.index},
+      userMap: {'id' : 'id', 'name' : 'Jeroen Meus', 'Rank' : RankType.amateur.index},
     ),
     Recipe(
       id: '1',
@@ -62,7 +62,7 @@ List<Recipe> getRecipes() {
       image:
       'https://images.vrt.be/dako2017_1600s_j75/2019/03/01/4289ca34-3bfa-11e9-abcc-02b7b76bf47f.jpg',
       numberOfReviews: 0,
-      userMap: {'name' : 'Jeroen Meus', 'Rank' : RankType.amateur.index},
+      userMap: {'id' : 'id', 'name' : 'Jeroen Meus', 'Rank' : RankType.amateur.index},
     ),
     Recipe(
       id: '2',
@@ -89,7 +89,34 @@ List<Recipe> getRecipes() {
       image:
       'https://images.vrt.be/dako2017_1600s_j75/2020/06/04/b108f8fd-a66e-11ea-aae0-02b7b76bf47f.jpg',
       numberOfReviews: 0,
-      userMap: {'name' : 'Jeroen Meus', 'Rank' : RankType.amateur.index},
+      userMap: {'id' : 'id', 'name' : 'Jeroen Meus', 'Rank' : RankType.amateur.index},
+    ),
+    Recipe(
+      id: '3',
+      title: 'Secreto met gegrilde abrikozen en gebakken aardappelen',
+      description:
+      'Jeroen kookt vanop de Plaza Ochavada in het zonovergoten Archidona, waar hij aan de slag gaat met secreto. Dit prachtig stukje varkensvlees is doorspekt met vet en heeft daardoor ontzettend veel smaak. Serveer met gebakken aardappelen en een simpele fruitsalade.',
+      type: RecipeType.mains,
+      isVegetarian: false,
+      ingredients: [
+        'aardappelen',
+        'olijfolie',
+        'knoflook',
+      ],
+      stepDescriptions: [
+        'Verwarm de barbecue.',
+        'Kook de aardappelen in de pel gaar in een pot gezouten water.'
+      ],
+      stepImages: [
+        'https://images.vrt.be/dako2017_1600s_j75/2018/07/26/a551d429-90df-11e8-abcc-02b7b76bf47f.jpg',
+        'https://images.vrt.be/dako2017_1600s_j75/2018/07/26/a551d429-90df-11e8-abcc-02b7b76bf47f.jpg',
+      ],
+      rating: 2.5,
+      duration: 25,
+      image:
+      'https://images.vrt.be/dako2017_1600s_j75/2018/07/26/a551d429-90df-11e8-abcc-02b7b76bf47f.jpg',
+      numberOfReviews: 0,
+      userMap: {'id' : 'id', 'name' : 'Michiel Proost', 'Rank' : RankType.beginner.index},
     ),
   ];
 }
