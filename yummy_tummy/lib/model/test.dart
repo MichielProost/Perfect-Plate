@@ -93,6 +93,7 @@ class Test {
     await this.db.collection("recipes")
         .where("isVegetarian", isEqualTo: true)
         .getDocuments()
+        //.orderBy('name')
         //.limit(FETCH_LIMIT)
         .then((QuerySnapshot docs){
           Recipe recipe;
