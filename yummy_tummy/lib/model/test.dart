@@ -25,11 +25,9 @@ class Test{
     //print("Creating new recipe...");
 
     // Get recipe object from title.
-    getRecipeFromTitle("Carpaccio van komkommer met geitenkaas")
-    .then((value){
-      // Print a summary of the recipe.
-      value.printSummary();
-    });
+    Recipe fetchedRecipe = await getRecipeFromTitle("Carpaccio van komkommer met geitenkaas");
+    // Print a summary of fetched recipe.
+    fetchedRecipe.printSummary();
   }
 
   /// Add a new user to Firestore database.
@@ -66,17 +64,14 @@ class Test{
   }
 
   // Return recipe object when supplying it with a title.
-  Future<Recipe> getRecipeFromTitle(String title){
-    Recipe fetchedRecipe;
-    this.db
-        .collection("recipes")
+  Future<Recipe> getRecipeFromTitle(String title) async{
+    Recipe fetchedRecipe =
+    await this.db.collection("recipes")
         .where("title", isEqualTo: title)
         .getDocuments()
         .then((QuerySnapshot docs){
-        if (docs.documents.isNotEmpty) {
-          fetchedRecipe = Recipe.fromMap(docs.documents[0].data, docs.documents[0].documentID);
-        }
+        return docs.documents.isNotEmpty ? Recipe.fromMap(docs.documents[0].data, docs.documents[0].documentID) : null;
         });
-    return Future<Recipe>.value(fetchedRecipe);
+    return fetchedRecipe;
   }
 }
