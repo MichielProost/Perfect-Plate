@@ -9,12 +9,10 @@ List<Recipe> getRecipes() {
     Recipe(
       id: '0',
       title: 'Carpaccio van komkommer met geitenkaas',
-      rating: 4.6,
       description:
         'Dit vegetarische voorgerecht is niet alleen lekker, maar ook een feest voor de ogen. Flinterdunne plakjes komkommer met staafjes appel, plakjes radijs en blokjes avocado. Daartussen komen toefjes geitenkaas die Jeroen op smaak brengt met wat bieslook en peper.',
-      type: RecipeType.lunch,
+      type: RecipeType.salads,
       isVegetarian: true,
-      duration: 40,
       ingredients: [
         'zachte geitenkaas zonder korst',
         'komkommer',
@@ -23,68 +21,75 @@ List<Recipe> getRecipes() {
         'radijs',
         'bieslook',
       ],
-      imageURL:
+      stepDescriptions: [
+        'Verwarm de oven voor tot 200 °C.',
+        'Snijd de ciabatta in zo dun mogelijke plakjes met een gekarteld mes.'
+      ],
+      stepImages: [
         'https://images.vrt.be/dako2017_1600s_j75/2018/04/26/edac70a0-492c-11e8-abcc-02b7b76bf47f.png',
+        'https://images.vrt.be/dako2017_1600s_j75/2018/04/26/edac70a0-492c-11e8-abcc-02b7b76bf47f.png',
+      ],
+      rating: 4.6,
+      duration: 40,
+      image:
+      'https://images.vrt.be/dako2017_1600s_j75/2018/04/26/edac70a0-492c-11e8-abcc-02b7b76bf47f.png',
+      numberOfReviews: 0,
+      userMap: {'name' : 'Jeroen Meus', 'Rank' : RankType.amateur.index},
     ),
     Recipe(
       id: '1',
-      title: 'Vlaamse wafels met vanilleshake',
-      rating: 3.8,
+      title: 'Panna cotta met tartaar van kiwi en kokoscrumble',
       description:
-        'Vlaamse wafels bakken wordt een koud kunstje dankzij dit authentieke recept van Jeroen. Een lekker tussendoortje om het weekend goed in te zetten!',
-      type: RecipeType.desserts,
+      'Zó eenvoudig, maar ook zó lekker: panna cotta is een klassieker als nagerecht. Je hebt er niet veel werk aan, maar hou er rekening mee dat dit dessert minstens 2 uur nodig heeft om op te stijven. Dat geeft jou wel voldoende tijd om nog een heerlijke tartaar van kiwi en een kokoscrumble te maken.',
+      type: RecipeType.mains,
       isVegetarian: false,
-      duration: 30,
       ingredients: [
-        'boter',
-        'bloem',
-        'eieren',
+        'gelatine',
         'melk',
-        'kristalsuiker',
-        'vanille-ijs',
+        'room',
+        'vanillestok',
       ],
-      imageURL:
-        'https://images.vrt.be/dako2017_1200s630_j70/2020/06/11/196fd3f2-abde-11ea-aae0-02b7b76bf47f.jpg'
+      stepDescriptions: [
+        'Leg de gelatineblaadjes in een beker met koud water en laat ze weken.',
+        'Bereid het ‘infuus’ van melk en room. Melk absorbeert zeer gemakkelijk smaken en aroma’s. Meet de juiste hoeveelheden melk en room en doe ze samen in een pot of pan op een matig vuur.'
+      ],
+      stepImages: [
+        'https://images.vrt.be/dako2017_1600s_j75/2019/03/01/4289ca34-3bfa-11e9-abcc-02b7b76bf47f.jpg',
+        'https://images.vrt.be/dako2017_1600s_j75/2019/03/01/4289ca34-3bfa-11e9-abcc-02b7b76bf47f.jpg',
+      ],
+      rating: 3.5,
+      duration: 55,
+      image:
+      'https://images.vrt.be/dako2017_1600s_j75/2019/03/01/4289ca34-3bfa-11e9-abcc-02b7b76bf47f.jpg',
+      numberOfReviews: 0,
+      userMap: {'name' : 'Jeroen Meus', 'Rank' : RankType.amateur.index},
     ),
     Recipe(
       id: '2',
-      title: 'Varkensgebraad met gegratineerde aardappelen',
-      rating: 3.9,
+      title: 'Cannelloni met gerookte zalm, asperges en spinazie',
       description:
-        'Een klassiek stuk varkensgebraad wordt altijd gesmaakt, zeker met sjalot, rozemarijn en blond bier.',
-      type: RecipeType.lunch,
-      isVegetarian: true,
-      duration: 40,
+      'Een cannelloni met het klassieke trio: zalm, spinazie en ricotta. Het pastagerecht past helemaal binnen dit seizoen dankzij de verrukkelijke asperges. Een toppertje dat gegarandeerd met open armen zal worden ontvangen thuis! ',
+      type: RecipeType.mains,
+      isVegetarian: false,
       ingredients: [
-        'zachte geitenkaas zonder korst',
-        'komkommer',
-        'avocado',
-        'groene appel',
-        'radijs',
-        'bieslook',
+        'asperge',
+        'zout',
+        'gerookte zalm',
       ],
-      imageURL:
-        'https://images.vrt.be/dako2017_1600s_j75/2017/03/06/0dd6b922-024e-11e7-8f5f-00163edf48dd.jpg',
-    ),
-    Recipe(
-      id: '3',
-      title: 'Gevulde aardappel met ei, spek en kaas',
-      rating: 1.4,
-      description:
-        'Met witte en groene asperges en een stukje krokant gebakken spek erbij, is dit een perfect voorgerecht.',
-      type: RecipeType.lunch,
-      isVegetarian: true,
-      duration: 40,
-      ingredients: [
-        'zachte geitenkaas zonder korst',
-        'komkommer',
-        'avocado',
-        'groene appel',
-        'radijs',
-        'bieslook',
+      stepDescriptions: [
+        'Verwarm de oven voor op 180°C.',
+        'Zet een pot gezouten water op het vuur en doe er meteen de asperges in. Breng de asperges aan de kook.'
       ],
-      imageURL:
-        'https://images.vrt.be/dako2017_1600s_j75/2018/04/30/58ba254b-4c7c-11e8-abcc-02b7b76bf47f.png',
+      stepImages: [
+        'https://images.vrt.be/dako2017_1600s_j75/2020/06/04/b108f8fd-a66e-11ea-aae0-02b7b76bf47f.jpg',
+        'https://images.vrt.be/dako2017_1600s_j75/2020/06/04/b108f8fd-a66e-11ea-aae0-02b7b76bf47f.jpg',
+      ],
+      rating: 4.9,
+      duration: 125,
+      image:
+      'https://images.vrt.be/dako2017_1600s_j75/2020/06/04/b108f8fd-a66e-11ea-aae0-02b7b76bf47f.jpg',
+      numberOfReviews: 0,
+      userMap: {'name' : 'Jeroen Meus', 'Rank' : RankType.amateur.index},
     ),
   ];
 }
@@ -97,12 +102,14 @@ List<User> getUsers(){
       name: 'Michiel',
       score: 1500,
       rank: RankType.amateur,
+      favourites: ['0', '1'],
     ),
     User(
       id: '3',
       name: 'Dieter',
       score: 500,
       rank: RankType.beginner,
+      favourites: ['2'],
     ),
   ];
 }

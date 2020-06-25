@@ -47,7 +47,7 @@ class _RecipeCardState extends State<RecipeCard> {
                   children: <Widget>[
                     Expanded(
                       child: Text(
-                        _recipe.getTitle(),
+                        _recipe.title,
                         style: TextStyle(
                           fontSize: 20.0,
                           fontWeight: FontWeight.bold,
@@ -77,7 +77,7 @@ class _RecipeCardState extends State<RecipeCard> {
                 ),
                 Row(
                   children: <Widget>[
-                    RatingRow(_recipe.getRating()),
+                    RatingRow(_recipe.rating),
                   ],
                 ),
                 SizedBox(
@@ -90,7 +90,7 @@ class _RecipeCardState extends State<RecipeCard> {
                       width: 140.0,
                       height: 140.0,
                       child: Image(
-                        image: NetworkImage(_recipe.getImageURL()),
+                        image: NetworkImage(_recipe.image),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -98,7 +98,7 @@ class _RecipeCardState extends State<RecipeCard> {
                       child: Padding(
                         padding: const EdgeInsets.only(left: 10.0),
                         child: Text(
-                          _recipe.getDescription(),
+                          _recipe.description,
                           textAlign: TextAlign.justify,
                         ),
                       ),

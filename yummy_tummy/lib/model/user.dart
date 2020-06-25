@@ -1,41 +1,25 @@
+// User can be classified into a rank.
 enum RankType {
   beginner,
   amateur,
   professional
 }
 
+/// User object. Initialized with User.fromMap method.
 class User{
-  final String id;
-  final String name;
-  final int score;
-  final RankType rank;
+  final String id;                // Document ID.
+  final String name;              // Name of user.
+  final int score;                // User's total score.
+  final RankType rank;            // User's rank.
+  final List<String> favourites;  // Document IDs of favourite recipes.
 
   const User({
     this.id,
     this.name,
     this.score,
     this.rank,
+    this.favourites,
   });
-
-  /// Returns the user's id.
-  String getId(){
-    return this.id;
-  }
-
-  /// Returns the user's name.
-  String getName(){
-    return this.name;
-  }
-
-  /// Returns the user's score.
-  int getScore(){
-    return this.score;
-  }
-
-  /// Returns the user's rank.
-  RankType getRank(){
-    return this.rank;
-  }
 
   /// Deserialize received data from Firestore.
   /// Initialize a new user object.
@@ -45,5 +29,12 @@ class User{
           name: data['name'],
           score: data['score'],
           rank: RankType.values[data['type']],
+          favourites: new List<String>.from(data['favourites']),
         );
+
+  /// Print summary of user to console.
+  void printSummary(){
+    print("Document ID: " + this.id);
+    print("Name: " + this.name);
+  }
 }

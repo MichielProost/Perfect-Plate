@@ -1,78 +1,42 @@
+// Recipe can be classified into a type.
 enum RecipeType {
-  breakfast,
-  lunch,
-  dinner,
-  desserts,
+  soups,
+  salads,
+  mains,
+  desserts
 }
 
+/// Recipe object. Initialized with Recipe.fromMap method.
 class Recipe {
-  final String id;
-  final String title;
-  final double _rating;
-  final String description;
-  final RecipeType type;
-  final bool isVegetarian;
-  final int duration;
-  final List<String> ingredients;
-  final String imageURL;
+  final String id;                      // Document ID.
+  final String title;                   // Title of recipe.
+  final String description;             // Main description.
+  final RecipeType type;                // Type of recipe.
+  final bool isVegetarian;              // Vegetarian recipe?
+  final List<String> ingredients;       // Used ingredients.
+  final List<String> stepDescriptions;  // Contains description of each step.
+  final List<String> stepImages;        // Contains image URL of each step.
+  final double rating;                  // Rating of dish.
+  final int duration;                   // How long does it take to make the recipe.
+  final String image;                   // Image URL of result.
+  final int numberOfReviews;            // Number of reviews.
+  final Map<String, dynamic> userMap;   // Map with user information.
 
   const Recipe({
     this.id,
     this.title,
-    double rating: 0.0,
     this.description,
     this.type,
     this.isVegetarian,
-    this.duration,
     this.ingredients,
-    this.imageURL,
-  }) : _rating = rating;
-
-  /// Returns the recipe's id.
-  String getId(){
-    return this.id;
-  }
-
-  /// Returns the recipe's title.
-  String getTitle(){
-    return this.title;
-  }
-
-  /// Returns the average rating for this recipe
-  double getRating()
-  {
-    return _rating;
-  }
-
-  /// Returns the recipe's description.
-  String getDescription(){
-    return this.description;
-  }
-
-  /// Returns the recipe's type.
-  RecipeType getType(){
-    return this.type;
-  }
-
-  /// Returns true when recipe is vegetarian.
-  bool getIsVegetarian(){
-    return this.isVegetarian;
-  }
-
-  /// Returns the recipe's duration.
-  int getDuration(){
-    return this.duration;
-  }
-
-  /// Returns a list of the recipe's ingredients.
-  List<String> getIngredients(){
-    return this.ingredients;
-  }
-
-  /// Returns the image URL of the recipe.
-  String getImageURL(){
-    return this.imageURL;
-  }
+    this.stepDescriptions,
+    this.stepImages,
+    this.rating,
+    this.duration,
+    this.image,
+    this.numberOfReviews,
+    this.userMap,
+  });
 
   /// Deserialize received data from Firestore.
   /// Initialize a new recipe object.
@@ -83,14 +47,20 @@ class Recipe {
           description: data['description'],
           type: RecipeType.values[data['type']],
           isVegetarian: data['isVegetarian'],
-          duration: data['duration'],
           ingredients: new List<String>.from(data['ingredients']),
-          imageURL: data['imageURL'],
+          stepDescriptions: new List<String>.from(data['stepDescriptions']),
+          stepImages: new List<String>.from(data['stepImages']),
+          rating: data['rating'],
+          duration: data['duration'],
+          image: data['image'],
+          numberOfReviews: data['numberOfReviews'],
+          userMap: new Map<String, dynamic>.from(data['userMap']),
         );
 
+  /// Print summary of recipe to console.
   void printSummary(){
-    print("Recipe Document ID: " + this.getId());
-    print("Title: " + this.getTitle());
-    print("Description: " + this.getDescription());
+    print("Document ID: " + this.id);
+    print("Title: " + this.title);
+    print("Description: " + this.description);
   }
 }

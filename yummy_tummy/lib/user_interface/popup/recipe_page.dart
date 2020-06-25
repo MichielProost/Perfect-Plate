@@ -110,7 +110,7 @@ class _RecipePageState extends State<RecipePage> {
                       height: 140.0,
                       width: double.infinity,
                       child: Image(
-                        image: NetworkImage(_recipe.getImageURL()),
+                        image: NetworkImage(_recipe.image),
                         fit: BoxFit.fitWidth
                       ),
                     ),
@@ -120,7 +120,7 @@ class _RecipePageState extends State<RecipePage> {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 10.0),
                     child: Text(
-                      _recipe.getTitle(),
+                      _recipe.title,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,
@@ -142,7 +142,7 @@ class _RecipePageState extends State<RecipePage> {
               Padding(
                 padding: const EdgeInsets.only(top: 10.0),
                 child: Text(
-                  _recipe.getDescription(),
+                  _recipe.description,
                   textAlign: TextAlign.justify,
                 ),
               ),

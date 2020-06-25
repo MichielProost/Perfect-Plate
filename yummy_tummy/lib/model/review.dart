@@ -1,30 +1,34 @@
-import 'package:yummytummy/model/user.dart';
-
-/// Still needs to be implemented.
-/// Temporary placeholder.
+/// Review object. Initialized with Review.fromMap method.
 class Review{
-  final User user;
-  final int rating;
-  final String description;
+  final String id;                      // Document ID.
+  final Map<String, dynamic> userMap;   // Map with user information.
+  final String recipeID;                // Recipe ID.
+  final int rating;                     // Rating from specific user.
+  final String description;             // Description from specific user.
 
   const Review({
-    this.user,
+    this.id,
+    this.userMap,
+    this.recipeID,
     this.rating,
     this.description,
   });
 
-  /// Returns author of review.
-  User getUser(){
-    return this.user;
-  }
+  /// Deserialize received data from Firestore.
+  /// Initialize a new review object.
+  Review.fromMap(Map<String, dynamic> data, String id)
+      : this(
+          id: id,
+          userMap: new Map<String, dynamic>.from(data['userMap']),
+          recipeID: data['recipeID'],
+          rating: data['rating'],
+          description: data['description'],
+      );
 
-  /// Returns review's rating.
-  int getRating(){
-    return this.rating;
-  }
-
-  /// Returns review's description
-  String getDescription(){
-    return this.description;
+  /// Print summary of review to console.
+  void printSummary(){
+    print("Document ID: " + this.id);
+    print("Recipe ID: " + this.recipeID);
+    print("Rating: $rating");
   }
 }
