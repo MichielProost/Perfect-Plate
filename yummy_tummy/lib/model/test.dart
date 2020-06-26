@@ -23,9 +23,10 @@ class Test {
 
     //testAddRecipes();
     //testAddUser();
-    //testGetRecipeFromTitle();
+    testGetRecipeFromTitle();
     //testAddReview();
-    testGetRecipesFromUser();
+    //testGetRecipesFromUser();
+    //testGetVegetarianRecipes();
 
   }
 
@@ -81,28 +82,19 @@ class Test {
 
   /// TEST: Get recipes from specific user.
   void testGetRecipesFromUser() async {
-    List<Recipe> recipes = await recipeService.getRecipesFromUser("Jeroen Meus");
-    // Print summary of all vegetarian recipes.
+    List<Recipe> recipes = await recipeService.getRecipesFromUser(UserMapField.name, "Jeroen Meus");
+    // Print summary of all recipes.
     for (int i = 0; i < recipes.length; i++) {
       recipes[i].printSummary();
     }
   }
 
-  /// Last test method. Get all vegetarian recipes from Firestore.
-  Future<List<Recipe>> getVegetarianRecipes() async {
-    List<Recipe> fetchedRecipes=
-    await Firestore.instance.collection("recipes")
-        .where("isVegetarian", isEqualTo: true)
-        .getDocuments()
-        .then((QuerySnapshot docs){
-          Recipe recipe;
-          List<Recipe> recipes = new List(docs.documents.length);
-          for (int i = 0; i < docs.documents.length; i++){
-            recipe = Recipe.fromMap(docs.documents[i].data, docs.documents[i].documentID);
-            recipes[i] = recipe;
-          }
-      return docs.documents.isNotEmpty ? recipes : null;
-    });
-    return fetchedRecipes;
+  /// TEST: Get list of all vegetarian recipes.
+  void testGetVegetarianRecipes() async {
+    List<Recipe> recipes = await recipeService.getVegetarianRecipes();
+    // Print summary of all recipes.
+    for (int i = 0; i < recipes.length; i++) {
+      recipes[i].printSummary();
+    }
   }
 }

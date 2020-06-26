@@ -1,3 +1,10 @@
+// Fields in UserMap.
+// Map is used in other classes to specify a specific user.
+enum UserMapField{
+  id,
+  name
+}
+
 // User can be classified into a rank.
 enum RankType {
   beginner,

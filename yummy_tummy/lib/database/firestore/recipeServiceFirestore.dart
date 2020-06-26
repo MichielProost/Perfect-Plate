@@ -1,7 +1,8 @@
 import 'dart:collection';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:yummytummy/database/recipeService.dart';
+import 'file:///D:/Recipe-Application/yummy_tummy/lib/database/interfaces/recipeService.dart';
 import 'package:yummytummy/model/recipe.dart';
+import 'package:yummytummy/model/user.dart';
 
 /// Firestore services involving recipes.
 class RecipeServiceFirestore implements RecipeService{
@@ -46,11 +47,13 @@ class RecipeServiceFirestore implements RecipeService{
     return fetchedRecipe;
   }
 
-  /// Get a list of recipes created by a specific user.
-  Future<List<Recipe>> getRecipesFromUser(String name) async {
+  /// Get a list of recipes created by a user.
+  /// Specify field of UserMap ("id" or "name")
+  /// Specify value of field.
+  Future<List<Recipe>> getRecipesFromUser(UserMapField field, String value) async {
     List<Recipe> fetchedRecipes=
     await Firestore.instance.collection("recipes")
-        .where("userMap.name", isEqualTo: name)
+        .where("userMap." + field.toString().split(".").last, isEqualTo: value)
         .getDocuments()
         .then((QuerySnapshot docs){
           Recipe recipe;
@@ -59,6 +62,24 @@ class RecipeServiceFirestore implements RecipeService{
             recipe = Recipe.fromMap(docs.documents[i].data, docs.documents[i].documentID);
             recipes[i] = recipe;
           }
+      return docs.documents.isNotEmpty ? recipes : null;
+    });
+    return fetchedRecipes;
+  }
+
+  /// Get a list of vegetarian recipes (no limit yet).
+  Future<List<Recipe>> getVegetarianRecipes() async {
+    List<Recipe> fetchedRecipes=
+    await Firestore.instance.collection("recipes")
+        .where("isVegetarian", isEqualTo: true)
+        .getDocuments()
+        .then((QuerySnapshot docs){
+      Recipe recipe;
+      List<Recipe> recipes = new List(docs.documents.length);
+      for (int i = 0; i < docs.documents.length; i++){
+        recipe = Recipe.fromMap(docs.documents[i].data, docs.documents[i].documentID);
+        recipes[i] = recipe;
+      }
       return docs.documents.isNotEmpty ? recipes : null;
     });
     return fetchedRecipes;
