@@ -1,6 +1,6 @@
 import 'dart:collection';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'file:///D:/Recipe-Application/yummy_tummy/lib/database/interfaces/userService.dart';
+import 'package:yummytummy/database/interfaces/userService.dart';
 import 'package:yummytummy/model/user.dart';
 
 /// Firestore services involving recipes.

@@ -1,7 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'file:///D:/Recipe-Application/yummy_tummy/lib/database/Firestore/recipeServiceFirestore.dart';
-import 'file:///D:/Recipe-Application/yummy_tummy/lib/database/Firestore/reviewServiceFirestore.dart';
-import 'file:///D:/Recipe-Application/yummy_tummy/lib/database/Firestore/userServiceFirestore.dart';
+import 'package:yummytummy/database/Firestore/recipeServiceFirestore.dart';
+import 'package:yummytummy/database/Firestore/reviewServiceFirestore.dart';
+import 'package:yummytummy/database/Firestore/userServiceFirestore.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/review.dart';
 import 'package:yummytummy/model/user.dart';
