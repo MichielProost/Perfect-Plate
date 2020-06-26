@@ -7,4 +7,7 @@ abstract class RecipeService {
 
   /// Returns recipe object with given title.
   Future<Recipe> getRecipeFromTitle(String title);
+
+  /// Get a list of recipes created by a specific user.
+  Future<List<Recipe>> getRecipesFromUser(String name);
 }

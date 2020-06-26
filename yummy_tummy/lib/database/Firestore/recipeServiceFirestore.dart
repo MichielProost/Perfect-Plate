@@ -45,4 +45,22 @@ class RecipeServiceFirestore implements RecipeService{
     });
     return fetchedRecipe;
   }
+
+  /// Get a list of recipes created by a specific user.
+  Future<List<Recipe>> getRecipesFromUser(String name) async {
+    List<Recipe> fetchedRecipes=
+    await Firestore.instance.collection("recipes")
+        .where("userMap.name", isEqualTo: name)
+        .getDocuments()
+        .then((QuerySnapshot docs){
+          Recipe recipe;
+          List<Recipe> recipes = new List(docs.documents.length);
+          for (int i = 0; i < docs.documents.length; i++){
+            recipe = Recipe.fromMap(docs.documents[i].data, docs.documents[i].documentID);
+            recipes[i] = recipe;
+          }
+      return docs.documents.isNotEmpty ? recipes : null;
+    });
+    return fetchedRecipes;
+  }
 }

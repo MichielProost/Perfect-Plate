@@ -23,15 +23,10 @@ class Test {
 
     //testAddRecipes();
     //testAddUser();
-    testGetRecipeFromTitle();
+    //testGetRecipeFromTitle();
     //testAddReview();
+    testGetRecipesFromUser();
 
-    // Get vegetarian recipes from Firestore.
-    //List<Recipe> vegetarianRecipes = await getVegetarianRecipes();
-    // Print summary of all vegetarian recipes.
-    //for (int i = 0; i < vegetarianRecipes.length; i++){
-    //  vegetarianRecipes[i].printSummary();
-    //}
   }
 
   /// TEST: Add recipes in temporary database (class storeData) to Firestore.
@@ -82,6 +77,15 @@ class Test {
     // Add new recipe to Firestore.
     this.reviewService.addReview(review);
     print("Creating new review...");
+  }
+
+  /// TEST: Get recipes from specific user.
+  void testGetRecipesFromUser() async {
+    List<Recipe> recipes = await recipeService.getRecipesFromUser("Jeroen Meus");
+    // Print summary of all vegetarian recipes.
+    for (int i = 0; i < recipes.length; i++) {
+      recipes[i].printSummary();
+    }
   }
 
   /// Last test method. Get all vegetarian recipes from Firestore.

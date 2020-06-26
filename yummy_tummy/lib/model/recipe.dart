@@ -38,7 +38,7 @@ class Recipe {
     this.userMap,
   });
 
-  /// Deserialize received data from Firestore.
+  /// Deserialize received data from database.
   /// Initialize a new recipe object.
   Recipe.fromMap(Map<String, dynamic> data, String id)
       : this(
