@@ -1,22 +1,22 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:yummytummy/database/recipeService.dart';
-import 'package:yummytummy/database/reviewService.dart';
-import 'package:yummytummy/database/userService.dart';
+import 'file:///D:/Recipe-Application/yummy_tummy/lib/database/Firestore/recipeServiceFirestore.dart';
+import 'file:///D:/Recipe-Application/yummy_tummy/lib/database/Firestore/reviewServiceFirestore.dart';
+import 'file:///D:/Recipe-Application/yummy_tummy/lib/database/Firestore/userServiceFirestore.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/review.dart';
 import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/utils/storeData.dart';
 
 class Test {
-  final RecipeService recipeService;
-  final UserService userService;
-  final ReviewService reviewService;
+  final RecipeServiceFirestore recipeService;
+  final UserServiceFirestore userService;
+  final ReviewServiceFirestore reviewService;
 
   /// Test constructor.
   Test() :
-        this.recipeService = new RecipeService(),
-        this.userService = new UserService(),
-        this.reviewService = new ReviewService();
+        this.recipeService = new RecipeServiceFirestore(),
+        this.userService = new UserServiceFirestore(),
+        this.reviewService = new ReviewServiceFirestore();
 
   /// Define test methods here. Uncomment the functions you want to execute.
   void testMethods() async {
@@ -50,9 +50,9 @@ class Test {
   void testAddUser(){
     // Create a new user.
     User user = new User(
-        name: 'Jeroen Meus',
-        score: 9500,
-        rank: RankType.professional,
+        name: 'Tony Proost',
+        score: 2000,
+        rank: RankType.amateur,
         favourites: []
     );
 

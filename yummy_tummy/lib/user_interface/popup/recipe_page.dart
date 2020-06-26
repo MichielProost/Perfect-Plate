@@ -82,7 +82,7 @@ class _RecipePageState extends State<RecipePage> {
                       size: 35.0,
                     ),
                     // TODO add proper language system
-                    onPressed:  () => showDialog(context: context, child: InfoPopup("Description", _recipe.getDescription(), Icons.info_outline)),
+                    onPressed:  () => showDialog(context: context, child: InfoPopup("Description", _recipe.description, Icons.info_outline)),
                   ),
 
                   // Timer button

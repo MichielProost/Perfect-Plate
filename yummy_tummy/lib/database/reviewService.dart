@@ -1,25 +1,7 @@
-import 'dart:collection';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:yummytummy/model/review.dart';
 
-class ReviewService{
-  final db;
-
-  /// Constructor.
-  ReviewService() : this.db = Firestore.instance;
-
+/// INTERFACE: Same methods are issued when changing database.
+abstract class ReviewService{
   /// Add new recipe to Firestore database.
-  Future<void> addReview(Review review){
-    // Make map with review information.
-    Map reviewMap = new HashMap<String, Object>();
-    reviewMap.putIfAbsent("userMap", () => review.userMap);
-    reviewMap.putIfAbsent("recipeID", () => review.recipeID);
-    reviewMap.putIfAbsent("rating", () => review.description);
-    reviewMap.putIfAbsent("description", () => review.description);
-
-    // Print new review document ID to console.
-    this.db.collection("reviews").add(reviewMap).then((value) {
-      print("Created new review with ID " + value.documentID);
-    });
-  }
+  Future<void> addReview(Review review);
 }
