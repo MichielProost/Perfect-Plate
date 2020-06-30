@@ -10,8 +10,8 @@ class UserServiceFirestore implements UserService{
   /// Constructor.
   UserServiceFirestore() : this.db = Firestore.instance;
 
-  /// Add new user to Firestore database.
-  Future<void> addUser(User user){
+  /// Add new user to database. Return Document ID.
+  Future<String> addUser(User user) async {
     // Make map with user information.
     Map userMap = new HashMap<String, Object>();
     userMap.putIfAbsent("name", () => user.name);
@@ -19,9 +19,13 @@ class UserServiceFirestore implements UserService{
     userMap.putIfAbsent("rank", () => user.rank.index);
     userMap.putIfAbsent("favourites", () => user.favourites);
 
-    // Print new recipe document ID to console.
-    this.db.collection("users").add(userMap).then((value) {
-      print("Created new user with ID " + value.documentID);
+    // Add user to database and return document ID.
+    String documentID =
+    await this.db.collection("users")
+        .add(userMap)
+        .then((value) {
+      return value.documentID;
     });
+    return documentID;
   }
 }

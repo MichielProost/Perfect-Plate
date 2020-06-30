@@ -4,25 +4,28 @@ import 'package:yummytummy/database/Firestore/userServiceFirestore.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/review.dart';
 import 'package:yummytummy/model/user.dart';
+import 'package:yummytummy/utils/consoleWriter.dart';
 import 'package:yummytummy/utils/storeData.dart';
 
 class Test {
   final RecipeServiceFirestore recipeService;
   final UserServiceFirestore userService;
   final ReviewServiceFirestore reviewService;
+  final ConsoleWriter consoleWriter;
 
   /// Test constructor.
   Test() :
         this.recipeService = new RecipeServiceFirestore(),
         this.userService = new UserServiceFirestore(),
-        this.reviewService = new ReviewServiceFirestore();
+        this.reviewService = new ReviewServiceFirestore(),
+        this.consoleWriter = new ConsoleWriter();
 
   /// Define test methods here. Uncomment the functions you want to execute.
   void testMethods() async {
 
     //testAddRecipes();
     //testAddUser();
-    testGetRecipeFromTitle();
+    //testGetRecipeFromTitle();
     //testAddReview();
     //testGetRecipesFromUser();
     //testGetVegetarianRecipes();
@@ -30,29 +33,31 @@ class Test {
   }
 
   /// TEST: Add recipes in temporary database (class storeData) to Firestore.
-  void testAddRecipes(){
+  void testAddRecipes() async{
     // Temporary database.
     List<Recipe> recipes = getRecipes();
 
     // Add each recipe in database to Firestore.
     for(int i = 0; i < recipes.length; i++) {
-      this.recipeService.addRecipe(recipes[i]);
+      String documentID = await recipeService.addRecipe(recipes[i]);
+      consoleWriter.CreatedDocument(documentType.Recipe, documentID);
       print("Creating new recipe...");
     }
   }
 
   /// TEST: Add a new user to Firestore.
-  void testAddUser(){
+  void testAddUser() async{
     // Create a new user.
     User user = new User(
-        name: 'Tony Proost',
-        score: 2000,
+        name: 'Ann Van Geystelen',
+        score: 1500,
         rank: RankType.amateur,
         favourites: []
     );
 
     // Add new user to Firestore.
-    this.userService.addUser(user);
+    String documentID = await userService.addUser(user);
+    consoleWriter.CreatedDocument(documentType.User, documentID);
     print("Creating new user...");
   }
 

@@ -11,8 +11,8 @@ class RecipeServiceFirestore implements RecipeService{
   /// Constructor.
   RecipeServiceFirestore() : this.db = Firestore.instance;
 
-  /// Add new recipe to Firestore database.
-  Future<void> addRecipe(Recipe recipe){
+  /// Add new recipe to database. Return Document ID.
+  Future<String> addRecipe(Recipe recipe) async {
     // Make map with recipe information.
     Map recipeMap = new HashMap<String, Object>();
     recipeMap.putIfAbsent("title", () => recipe.title);
@@ -28,10 +28,14 @@ class RecipeServiceFirestore implements RecipeService{
     recipeMap.putIfAbsent("numberOfReviews", () => recipe.numberOfReviews);
     recipeMap.putIfAbsent("userMap", () => recipe.userMap);
 
-    // Print new recipe document ID to console.
-    this.db.collection("recipes").add(recipeMap).then((value) {
-      print("Created new recipe with ID " + value.documentID);
+    // Add recipe to database and return document ID.
+    String documentID =
+    await this.db.collection("recipes")
+        .add(recipeMap)
+        .then((value) {
+      return value.documentID;
     });
+    return documentID;
   }
 
   /// Returns recipe object with given title.
@@ -52,7 +56,7 @@ class RecipeServiceFirestore implements RecipeService{
   /// Specify value of field.
   Future<List<Recipe>> getRecipesFromUser(UserMapField field, String value) async {
     List<Recipe> fetchedRecipes=
-    await Firestore.instance.collection("recipes")
+    await this.db.collection("recipes")
         .where("userMap." + field.toString().split(".").last, isEqualTo: value)
         .getDocuments()
         .then((QuerySnapshot docs){
@@ -70,7 +74,7 @@ class RecipeServiceFirestore implements RecipeService{
   /// Get a list of vegetarian recipes (no limit yet).
   Future<List<Recipe>> getVegetarianRecipes() async {
     List<Recipe> fetchedRecipes=
-    await Firestore.instance.collection("recipes")
+    await this.db.collection("recipes")
         .where("isVegetarian", isEqualTo: true)
         .getDocuments()
         .then((QuerySnapshot docs){

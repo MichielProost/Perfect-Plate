@@ -3,8 +3,8 @@ import 'package:yummytummy/model/user.dart';
 
 /// INTERFACE: Same methods are issued when changing database.
 abstract class RecipeService {
-  /// Add new recipe to Firestore database.
-  Future<void> addRecipe(Recipe recipe);
+  /// Add new recipe to database. Return Document ID.
+  Future<String> addRecipe(Recipe recipe);
 
   /// Returns recipe object with given title.
   Future<Recipe> getRecipeFromTitle(String title);
