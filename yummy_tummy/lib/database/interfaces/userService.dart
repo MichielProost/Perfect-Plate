@@ -1,7 +1,9 @@
 import 'package:yummytummy/model/user.dart';
 
-/// INTERFACE: Same methods are issued when changing database.
+/// INTERFACE: Required methods when changing database.
 abstract class UserService{
-  /// Add new user to Firestore database.
+
+  /// Add a new user to the database. Returns the document ID.
   Future<String> addUser(User user);
+
 }

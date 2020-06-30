@@ -1,10 +1,10 @@
-/// Review object. Initialized with Review.fromMap method.
 class Review{
+
   final String id;                      // Document ID.
-  final Map<String, dynamic> userMap;   // Map with user information.
+  final Map<String, dynamic> userMap;   // Duplicate data. Information of user.
   final String recipeID;                // Recipe ID.
-  final int rating;                     // Rating from specific user.
-  final String description;             // Description from specific user.
+  final int rating;                     // Rating from user.
+  final String description;             // Description from user.
 
   const Review({
     this.id,
@@ -31,4 +31,5 @@ class Review{
     print("Recipe ID: " + this.recipeID);
     print("Rating: $rating");
   }
+
 }

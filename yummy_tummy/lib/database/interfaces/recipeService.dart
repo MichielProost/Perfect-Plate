@@ -1,19 +1,21 @@
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/user.dart';
 
-/// INTERFACE: Same methods are issued when changing database.
+/// INTERFACE: Required methods when changing database.
 abstract class RecipeService {
-  /// Add new recipe to database. Return Document ID.
+
+  /// Add a new recipe to the database. Returns the document ID.
   Future<String> addRecipe(Recipe recipe);
 
-  /// Returns recipe object with given title.
+  /// Returns recipe object with a given title.
   Future<Recipe> getRecipeFromTitle(String title);
 
-  /// Get a list of recipes created by a user.
-  /// Specify field of UserMap ("id" or "name")
-  /// Specify value of field.
+  /// Returns all recipes made by a specific user.
+  /// Field: Specify user by name or id.
+  /// Value: Value of the field.
   Future<List<Recipe>> getRecipesFromUser(UserMapField field, String value);
 
-  /// Get a list of vegetarian recipes (no limit yet).
+  /// Returns all vegetarian recipes.
   Future<List<Recipe>> getVegetarianRecipes();
+
 }

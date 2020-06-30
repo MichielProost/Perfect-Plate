@@ -1,4 +1,4 @@
-// Recipe can be classified into a type.
+// Recipes are classified in one of many types.
 enum RecipeType {
   soups,
   salads,
@@ -6,21 +6,21 @@ enum RecipeType {
   desserts
 }
 
-/// Recipe object. Initialized with Recipe.fromMap method.
 class Recipe {
+
   final String id;                      // Document ID.
   final String title;                   // Title of recipe.
   final String description;             // Main description.
   final RecipeType type;                // Type of recipe.
   final bool isVegetarian;              // Vegetarian recipe?
-  final List<String> ingredients;       // Used ingredients.
-  final List<String> stepDescriptions;  // Contains description of each step.
-  final List<String> stepImages;        // Contains image URL of each step.
+  final List<String> ingredients;       // Ingredients.
+  final List<String> stepDescriptions;  // A list of descriptions. Each element represents a step.
+  final List<String> stepImages;        // Image URL of each step.
   final double rating;                  // Rating of dish.
-  final int duration;                   // How long does it take to make the recipe.
+  final int duration;                   // How long it takes to make the recipe.
   final String image;                   // Image URL of result.
   final int numberOfReviews;            // Number of reviews.
-  final Map<String, dynamic> userMap;   // Map with user information.
+  final Map<String, dynamic> userMap;   // Duplicate data. Information of user.
 
   const Recipe({
     this.id,
@@ -63,4 +63,5 @@ class Recipe {
     print("Title: " + this.title);
     print("Description: " + this.description);
   }
+
 }

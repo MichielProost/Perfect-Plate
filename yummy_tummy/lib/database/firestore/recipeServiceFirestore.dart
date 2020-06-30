@@ -4,16 +4,18 @@ import 'package:yummytummy/database/interfaces/recipeService.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/user.dart';
 
-/// Firestore services involving recipes.
+/// Firestore specific recipe services.
 class RecipeServiceFirestore implements RecipeService{
+
   final db;
 
   /// Constructor.
   RecipeServiceFirestore() : this.db = Firestore.instance;
 
-  /// Add new recipe to database. Return Document ID.
+  /// Add a new recipe to the database. Returns the document ID.
   Future<String> addRecipe(Recipe recipe) async {
-    // Make map with recipe information.
+
+    // Create map from specified recipe object.
     Map recipeMap = new HashMap<String, Object>();
     recipeMap.putIfAbsent("title", () => recipe.title);
     recipeMap.putIfAbsent("description", () => recipe.description);
@@ -28,7 +30,7 @@ class RecipeServiceFirestore implements RecipeService{
     recipeMap.putIfAbsent("numberOfReviews", () => recipe.numberOfReviews);
     recipeMap.putIfAbsent("userMap", () => recipe.userMap);
 
-    // Add recipe to database and return document ID.
+    // Create a new recipe document.
     String documentID =
     await this.db.collection("recipes")
         .add(recipeMap)
@@ -36,10 +38,12 @@ class RecipeServiceFirestore implements RecipeService{
       return value.documentID;
     });
     return documentID;
+
   }
 
-  /// Returns recipe object with given title.
+  /// Returns recipe object with a given title.
   Future<Recipe> getRecipeFromTitle(String title) async {
+
     Recipe fetchedRecipe =
     await this.db.collection("recipes")
         .where("title", isEqualTo: title)
@@ -49,12 +53,14 @@ class RecipeServiceFirestore implements RecipeService{
           docs.documents[0].data, docs.documents[0].documentID) : null;
     });
     return fetchedRecipe;
+
   }
 
-  /// Get a list of recipes created by a user.
-  /// Specify field of UserMap ("id" or "name")
-  /// Specify value of field.
+  /// Returns all recipes made by a specific user.
+  /// Field: Specify user by name or id.
+  /// Value: Value of the field.
   Future<List<Recipe>> getRecipesFromUser(UserMapField field, String value) async {
+
     List<Recipe> fetchedRecipes=
     await this.db.collection("recipes")
         .where("userMap." + field.toString().split(".").last, isEqualTo: value)
@@ -69,10 +75,12 @@ class RecipeServiceFirestore implements RecipeService{
       return docs.documents.isNotEmpty ? recipes : null;
     });
     return fetchedRecipes;
+
   }
 
-  /// Get a list of vegetarian recipes (no limit yet).
+  /// Returns all vegetarian recipes.
   Future<List<Recipe>> getVegetarianRecipes() async {
+
     List<Recipe> fetchedRecipes=
     await this.db.collection("recipes")
         .where("isVegetarian", isEqualTo: true)
@@ -88,4 +96,5 @@ class RecipeServiceFirestore implements RecipeService{
     });
     return fetchedRecipes;
   }
+
 }

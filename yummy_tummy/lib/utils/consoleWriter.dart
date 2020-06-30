@@ -1,4 +1,5 @@
-enum documentType{
+// Each document in Firestore belongs to a collection.
+enum CollectionType{
   Recipe,
   User,
   Review
@@ -6,8 +7,12 @@ enum documentType{
 
 /// Write relevant information (database & UI) to console.
 class ConsoleWriter{
+
   /// A document was created.
-  void CreatedDocument(documentType type, String documentID){
+  void CreatedDocument(CollectionType type, String documentID){
+
     print("NEW " + type.toString().split(".").last.toUpperCase() + " DOCUMENT: " + documentID);
+
   }
+
 }

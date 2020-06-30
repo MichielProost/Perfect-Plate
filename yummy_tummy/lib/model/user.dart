@@ -1,24 +1,24 @@
-// Fields in UserMap.
-// Map is used in other classes to specify a specific user.
+// The Recipe and Review Class contain a UserMap.
+// This map contains the most important information of the user.
 enum UserMapField{
   id,
   name
 }
 
-// User can be classified into a rank.
+// The rank a specific user can have.
 enum RankType {
   beginner,
   amateur,
   professional
 }
 
-/// User object. Initialized with User.fromMap method.
 class User{
+
   final String id;                // Document ID.
   final String name;              // Name of user.
   final int score;                // User's total score.
   final RankType rank;            // User's rank.
-  final List<String> favourites;  // Document IDs of favourite recipes.
+  final List<String> favourites;  // Document IDs of user's favourite recipes.
 
   const User({
     this.id,
@@ -44,4 +44,5 @@ class User{
     print("Document ID: " + this.id);
     print("Name: " + this.name);
   }
+
 }

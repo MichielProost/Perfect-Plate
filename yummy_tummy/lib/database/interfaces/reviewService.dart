@@ -1,7 +1,9 @@
 import 'package:yummytummy/model/review.dart';
 
-/// INTERFACE: Same methods are issued when changing database.
+/// INTERFACE: Required methods when changing database.
 abstract class ReviewService{
-  /// Add new recipe to Firestore database.
+
+  /// Add a new review to the database. Returns the document ID.
   Future<void> addReview(Review review);
+
 }

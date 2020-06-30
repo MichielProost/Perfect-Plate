@@ -8,12 +8,13 @@ import 'package:yummytummy/utils/consoleWriter.dart';
 import 'package:yummytummy/utils/storeData.dart';
 
 class Test {
+
   final RecipeServiceFirestore recipeService;
   final UserServiceFirestore userService;
   final ReviewServiceFirestore reviewService;
   final ConsoleWriter consoleWriter;
 
-  /// Test constructor.
+  /// Constructor.
   Test() :
         this.recipeService = new RecipeServiceFirestore(),
         this.userService = new UserServiceFirestore(),
@@ -32,22 +33,25 @@ class Test {
 
   }
 
-  /// TEST: Add recipes in temporary database (class storeData) to Firestore.
-  void testAddRecipes() async{
-    // Temporary database.
+  /// TEST: Add recipes from the StoreData Class to Firestore.
+  void testAddRecipes() async {
+
+    // Get recipes from StoreData Class.
     List<Recipe> recipes = getRecipes();
 
-    // Add each recipe in database to Firestore.
+    // Add each recipe in list to Firestore.
     for(int i = 0; i < recipes.length; i++) {
       String documentID = await recipeService.addRecipe(recipes[i]);
-      consoleWriter.CreatedDocument(documentType.Recipe, documentID);
+      consoleWriter.CreatedDocument(CollectionType.Recipe, documentID);
       print("Creating new recipe...");
     }
+
   }
 
   /// TEST: Add a new user to Firestore.
-  void testAddUser() async{
-    // Create a new user.
+  void testAddUser() async {
+
+    // Create user object.
     User user = new User(
         name: 'Ann Van Geystelen',
         score: 1500,
@@ -55,23 +59,27 @@ class Test {
         favourites: []
     );
 
-    // Add new user to Firestore.
+    // Add user to Firestore.
     String documentID = await userService.addUser(user);
-    consoleWriter.CreatedDocument(documentType.User, documentID);
+    consoleWriter.CreatedDocument(CollectionType.User, documentID);
     print("Creating new user...");
+
   }
 
-  /// TEST: Get and prints recipe from Firestore when given a title.
-  void testGetRecipeFromTitle() async{
+  /// TEST: Get a specific recipe from Firestore.
+  void testGetRecipeFromTitle() async {
+
     // Get recipe object from title.
     Recipe fetchedRecipe = await recipeService.getRecipeFromTitle("Panna cotta met tartaar van kiwi en kokoscrumble");
-    // Print a summary of fetched recipe.
+    // Print summary of fetched recipe.
     fetchedRecipe.printSummary();
+
   }
 
   /// TEST: Add a new review to Firestore.
   void testAddReview(){
-    // Create a new review.
+
+    // Create review object.
     Review review = new Review(
       userMap: {'id' : 'YgyesZOJd6PXCzqeEIec', 'name' : 'Michiel Proost', 'Rank' : RankType.beginner.index},
       recipeID: 'r1oe9s9Jc9Ntq3vaf5Ji',
@@ -79,26 +87,31 @@ class Test {
       description: 'I hate this.'
     );
 
-    // Add new recipe to Firestore.
+    // Add review to Firestore.
     this.reviewService.addReview(review);
     print("Creating new review...");
+
   }
 
-  /// TEST: Get recipes from specific user.
+  /// TEST: Get all recipes made by a specific user.
   void testGetRecipesFromUser() async {
+
     List<Recipe> recipes = await recipeService.getRecipesFromUser(UserMapField.name, "Jeroen Meus");
-    // Print summary of all recipes.
+    // Print summary of fetched recipes.
     for (int i = 0; i < recipes.length; i++) {
       recipes[i].printSummary();
     }
+
   }
 
-  /// TEST: Get list of all vegetarian recipes.
+  /// TEST: Get all vegetarian recipes in Firestore.
   void testGetVegetarianRecipes() async {
+
     List<Recipe> recipes = await recipeService.getVegetarianRecipes();
     // Print summary of all recipes.
     for (int i = 0; i < recipes.length; i++) {
       recipes[i].printSummary();
     }
   }
+
 }
