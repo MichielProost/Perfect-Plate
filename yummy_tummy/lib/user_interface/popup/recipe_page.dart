@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/user_interface/components/rating_row.dart';
+import 'package:yummytummy/user_interface/components/review_form.dart';
+import 'package:yummytummy/user_interface/components/selectable_stars.dart';
 import 'package:yummytummy/user_interface/general/icon_builder.dart';
 
 import '../constants.dart';
@@ -59,10 +61,10 @@ class _RecipePageState extends State<RecipePage> {
                   // Show all steps
                   for (int stepNumber = 0; stepNumber < _recipe.stepDescriptions.length; stepNumber++) 
                     buildExpansionTile(stepNumber),
+
+                  ReviewForm(),
                 ]),
               ),
-
-              // TODO add recipe info: vegetarian, vegan, dish type (salad),
 
               // Recipe info: ingrediënts and steps
               //  Container(
@@ -349,6 +351,7 @@ class _RecipePageState extends State<RecipePage> {
         title: Text(
           "Step " + (index + 1).toString(),
           style: TextStyle(
+            fontWeight: FontWeight.bold,
             color: Constants.main,
           ),
         ),
