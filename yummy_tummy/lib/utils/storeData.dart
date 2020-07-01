@@ -13,6 +13,7 @@ List<Recipe> getRecipes() {
         'Dit vegetarische voorgerecht is niet alleen lekker, maar ook een feest voor de ogen. Flinterdunne plakjes komkommer met staafjes appel, plakjes radijs en blokjes avocado. Daartussen komen toefjes geitenkaas die Jeroen op smaak brengt met wat bieslook en peper.',
       type: RecipeType.salads,
       isVegetarian: true,
+      isVegan: true,
       ingredients: [
         'zachte geitenkaas zonder korst',
         'komkommer',
@@ -43,6 +44,7 @@ List<Recipe> getRecipes() {
       'Zó eenvoudig, maar ook zó lekker: panna cotta is een klassieker als nagerecht. Je hebt er niet veel werk aan, maar hou er rekening mee dat dit dessert minstens 2 uur nodig heeft om op te stijven. Dat geeft jou wel voldoende tijd om nog een heerlijke tartaar van kiwi en een kokoscrumble te maken.',
       type: RecipeType.mains,
       isVegetarian: false,
+      isVegan: false,
       ingredients: [
         'gelatine',
         'melk',
@@ -71,6 +73,7 @@ List<Recipe> getRecipes() {
       'Een cannelloni met het klassieke trio: zalm, spinazie en ricotta. Het pastagerecht past helemaal binnen dit seizoen dankzij de verrukkelijke asperges. Een toppertje dat gegarandeerd met open armen zal worden ontvangen thuis! ',
       type: RecipeType.mains,
       isVegetarian: false,
+      isVegan: false,
       ingredients: [
         'asperge',
         'zout',
@@ -98,6 +101,7 @@ List<Recipe> getRecipes() {
       'Jeroen kookt vanop de Plaza Ochavada in het zonovergoten Archidona, waar hij aan de slag gaat met secreto. Dit prachtig stukje varkensvlees is doorspekt met vet en heeft daardoor ontzettend veel smaak. Serveer met gebakken aardappelen en een simpele fruitsalade.',
       type: RecipeType.mains,
       isVegetarian: false,
+      isVegan: false,
       ingredients: [
         'aardappelen',
         'olijfolie',
