@@ -19,6 +19,8 @@ class _RecipePageState extends State<RecipePage> {
   final Recipe _recipe;
   //TODO properly implement favourite
   bool _isFavorite = false;
+
+  // TODO remove placeholder steps
   List<String> steps = [
     "Pak een kommeke",
     "Pak een aantal ingrediëntekes klaar",
@@ -186,11 +188,13 @@ class _RecipePageState extends State<RecipePage> {
   }
 
   /// Creates a list of ingredients for this recipe
-  Widget buildIngredients() {}
+  Widget buildIngredients() {
+    //TODO add ingredient list
+  }
 
   /// Create an ExpansionTile for the step with given index
   Widget buildExpansionTile(int index) {
-    // TODO add language
+    // TODO add language support
     return Theme(
       data: ThemeData(
         accentColor: Constants.main,
@@ -205,7 +209,8 @@ class _RecipePageState extends State<RecipePage> {
         initiallyExpanded: true,
         children: <Widget>[
           Text(
-            steps[index],
+            _recipe.stepDescriptions[index],
+            textAlign: TextAlign.justify,
             style: TextStyle(
               color: Colors.black,
             ),
@@ -307,7 +312,7 @@ class _RecipePageState extends State<RecipePage> {
                   buildIntroText(),
                   buildInfoPanel(),
                   // Show all steps
-                  for (int stepNumber = 0; stepNumber < steps.length; stepNumber++) buildExpansionTile(stepNumber),
+                  for (int stepNumber = 0; stepNumber < _recipe.stepDescriptions.length; stepNumber++) buildExpansionTile(stepNumber),
                 ]),
               ),
 

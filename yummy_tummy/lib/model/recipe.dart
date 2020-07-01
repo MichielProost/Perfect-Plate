@@ -62,6 +62,7 @@ class Recipe {
 
   /// Convert the RecipeType field to a readable format where the first letter is uppercase and return it
   String getReadableType() {
+    //TODO Better way to retreive a display name of this type (multiple languages support)
     String lowercase = type.toString().toLowerCase().split('.')[1];
     return '${lowercase[0].toUpperCase()}${lowercase.substring(1)}';
   }
