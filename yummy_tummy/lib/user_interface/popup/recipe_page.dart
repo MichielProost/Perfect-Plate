@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/user_interface/general/icon_builder.dart';
-import 'package:yummytummy/user_interface/popup/info_popup.dart';
 
 import '../constants.dart';
 
@@ -20,46 +19,8 @@ class _RecipePageState extends State<RecipePage> {
   //TODO properly implement favourite
   bool _isFavorite = false;
 
-  // TODO remove placeholder steps
-  List<String> steps = [
-    "Pak een kommeke",
-    "Pak een aantal ingrediëntekes klaar",
-    "Haal ze uit hun verpakkingskes",
-    "Klets die bij mekaar in een kommeke",
-    "Doe beetje mengen enzo",
-    "Duw da in de oven",
-    "En kleir"
-  ];
-
   _RecipePageState(this._recipe);
 
-  // TODO remove if no longer needed
-  // Widget buildStepWidget(int stepIndex, String stepDescription) {
-  //   return Card(
-  //     child: Row(
-  //       children: <Widget>[
-  //         Text(
-  //           stepIndex.toString(),
-  //           style: TextStyle(
-  //             fontSize: 150.0,
-  //           ),
-  //         ),
-  //         Padding(
-  //           padding: const EdgeInsets.symmetric(vertical: 15.0),
-  //           child: Container(
-  //             width: 1.0,
-  //             height: double.infinity,
-  //             color: Colors.black,
-  //           ),
-  //         ),
-  //         Text(
-  //           stepDescription,
-  //           textAlign: TextAlign.justify,
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
 
   /// Generate the banner for this recipe
   Widget buildBanner() {
@@ -94,6 +55,15 @@ class _RecipePageState extends State<RecipePage> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget buildDivider()
+  {
+    return Container(
+      width: double.infinity,
+      height: 1.0,
+      color: Constants.gray,
     );
   }
 
@@ -143,11 +113,7 @@ class _RecipePageState extends State<RecipePage> {
   Widget buildInfoPanel() {
     return Column(
       children: <Widget>[
-        Container(
-          height: 1.0,
-          width: double.infinity,
-          color: Constants.gray,
-        ),
+        buildDivider(),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10.0),
           child: Row(
@@ -178,23 +144,70 @@ class _RecipePageState extends State<RecipePage> {
             ],
           ),
         ),
-        Container(
-          height: 1.0,
-          width: double.infinity,
-          color: Constants.gray,
-        ),
+        buildDivider(),
       ],
+    );
+  }
+
+  /// Builds the ingredient item of this index to be displayed
+  Widget buildIngredientItem(int index)
+  {
+    return Padding(
+      padding: const EdgeInsets.all(4.0),
+      child: Text(
+        _recipe.ingredients[index],
+      ),
     );
   }
 
   /// Creates a list of ingredients for this recipe
   Widget buildIngredients() {
-    //TODO add ingredient list
+    List<String> ingredients = _recipe.ingredients;
+    return Column(
+      children: <Widget>[
+        buildDivider(),
+        //TODO add language system
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            "Ingredients",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                for (int i = 0; i < ingredients.length; i+=2)
+                  buildIngredientItem(i),
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                for (int i = 1; i < ingredients.length; i+=2)
+                  buildIngredientItem(i),
+              ],
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 15.0,
+        ),
+        buildDivider(),
+      ],
+    );
   }
 
   /// Create an ExpansionTile for the step with given index
   Widget buildExpansionTile(int index) {
     // TODO add language support
+    // TODO add step image support
     return Theme(
       data: ThemeData(
         accentColor: Constants.main,
@@ -311,8 +324,10 @@ class _RecipePageState extends State<RecipePage> {
                   buildBanner(),
                   buildIntroText(),
                   buildInfoPanel(),
+                  buildIngredients(),
                   // Show all steps
-                  for (int stepNumber = 0; stepNumber < _recipe.stepDescriptions.length; stepNumber++) buildExpansionTile(stepNumber),
+                  for (int stepNumber = 0; stepNumber < _recipe.stepDescriptions.length; stepNumber++) 
+                    buildExpansionTile(stepNumber),
                 ]),
               ),
 
