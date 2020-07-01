@@ -29,7 +29,7 @@ class Test {
     //testGetRecipeFromTitle();
     //testAddReview();
     //testGetRecipesFromUser();
-    testGetVegetarianRecipes();
+    //testGetVegetarianRecipes();
 
   }
 
