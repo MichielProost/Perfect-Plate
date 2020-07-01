@@ -12,6 +12,26 @@ enum RankType {
   professional
 }
 
+extension Rank on RankType {
+
+  /// Get the corresponding rank of this index
+  /// Must be >= 0
+  /// An index that is too high will simply result in the highest rank
+  RankType getRank(int index)
+  {
+    return index < RankType.values.length ? RankType.values[index] : RankType.values[ RankType.values.length-1 ];
+  }
+
+  // Get a user-ready String of the rank name
+  String getString()
+  {
+    //TODO implement better way to implement this with regards to languages
+    String lowercase = this.toString().toLowerCase().split('.')[1];
+    return '${lowercase[0].toUpperCase()}${lowercase.substring(1)}';
+  }
+
+}
+
 class User{
 
   final String id;                // Document ID.

@@ -1,4 +1,6 @@
 // Recipes are classified in one of many types.
+import 'package:yummytummy/model/user.dart';
+
 enum RecipeType {
   soups,
   salads,
@@ -21,6 +23,8 @@ class Recipe {
   final int duration;                   // How long it takes to make the recipe.
   final String image;                   // Image URL of result.
   final int numberOfReviews;            // Number of reviews.
+  // TODO watch out!! User is mutable, and can be edited from anywhere!
+  final User user;                      // Duplicate data. Information of user (creator)
   final Map<String, dynamic> userMap;   // Duplicate data. Information of user.
 
   const Recipe({
@@ -37,6 +41,7 @@ class Recipe {
     this.duration,
     this.image,
     this.numberOfReviews,
+    this.user,
     this.userMap,
   });
 
@@ -57,12 +62,13 @@ class Recipe {
           duration: data['duration'],
           image: data['image'],
           numberOfReviews: data['numberOfReviews'],
-          userMap: new Map<String, dynamic>.from(data['userMap']),
+          userMap: Map<String, dynamic>.from( data['userMap'] ),
+          user: User.fromMap( Map<String, dynamic>.from(data['userMap']), "" ),
         );
 
   /// Convert the RecipeType field to a readable format where the first letter is uppercase and return it
   String getReadableType() {
-    //TODO Better way to retreive a display name of this type (multiple languages support)
+    //TODO Better way to retreive a display name of this type (multiple languages)
     String lowercase = type.toString().toLowerCase().split('.')[1];
     return '${lowercase[0].toUpperCase()}${lowercase.substring(1)}';
   }

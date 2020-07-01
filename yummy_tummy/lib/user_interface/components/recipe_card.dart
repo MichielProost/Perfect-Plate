@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yummytummy/model/recipe.dart';
+import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/user_interface/popup/recipe_page.dart';
 import 'package:yummytummy/user_interface/popup/snackbar_util.dart';
 
@@ -76,8 +77,11 @@ class _RecipeCardState extends State<RecipeCard> {
                   height: 10.0,
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    RatingRow(_recipe.rating),
+                    RatingRow(_recipe.rating, _recipe.numberOfReviews),
+                    Text( RankType.values[_recipe.userMap['Rank']].getString() ),
+                    Text( _recipe.userMap['name'] ),
                   ],
                 ),
                 SizedBox(
