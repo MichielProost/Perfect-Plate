@@ -29,7 +29,7 @@ class Test {
     //testGetRecipeFromTitle();
     //testAddReview();
     //testGetRecipesFromUser();
-    //testGetVegetarianRecipes();
+    testGetVegetarianRecipes();
 
   }
 
@@ -77,18 +77,19 @@ class Test {
   }
 
   /// TEST: Add a new review to Firestore.
-  void testAddReview(){
+  void testAddReview() async {
 
     // Create review object.
     Review review = new Review(
-      userMap: {'id' : 'YgyesZOJd6PXCzqeEIec', 'name' : 'Michiel Proost', 'Rank' : RankType.beginner.index},
-      recipeID: 'r1oe9s9Jc9Ntq3vaf5Ji',
-      rating: 2,
-      description: 'I hate this.'
+      userMap: {'id' : '1w7FGM8kiBbk3iwJB7b2', 'name' : 'Jeroen Meus', 'Rank' : RankType.professional.index},
+      recipeID: 'DSPzAAQHbGm2PJibhDVi',
+      rating: 4,
+      description: 'Amazing recipe Michiel! Keep it up!'
     );
 
     // Add review to Firestore.
-    this.reviewService.addReview(review);
+    String documentID = await reviewService.addReview(review);
+    consoleWriter.CreatedDocument(CollectionType.Review, documentID);
     print("Creating new review...");
 
   }

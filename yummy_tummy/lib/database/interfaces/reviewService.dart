@@ -4,6 +4,6 @@ import 'package:yummytummy/model/review.dart';
 abstract class ReviewService{
 
   /// Add a new review to the database. Returns the document ID.
-  Future<void> addReview(Review review);
+  Future<String> addReview(Review review);
 
 }

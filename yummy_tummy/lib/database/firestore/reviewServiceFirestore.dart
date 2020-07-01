@@ -11,21 +11,23 @@ class ReviewServiceFirestore{
   ReviewServiceFirestore() : this.db = Firestore.instance;
 
   /// Add a new review to the database. Returns the document ID.
-  Future<void> addReview(Review review){
+  Future<String> addReview(Review review) async{
 
     // Create map from specified review object.
     Map reviewMap = new HashMap<String, Object>();
     reviewMap.putIfAbsent("userMap", () => review.userMap);
     reviewMap.putIfAbsent("recipeID", () => review.recipeID);
-    reviewMap.putIfAbsent("rating", () => review.description);
+    reviewMap.putIfAbsent("rating", () => review.rating);
     reviewMap.putIfAbsent("description", () => review.description);
 
     // Create a new review document.
-    this.db.collection("reviews")
+    String documentID =
+    await this.db.collection("reviews")
         .add(reviewMap)
         .then((value) {
-      print("Created new review with ID " + value.documentID);
+      return value.documentID;
     });
+    return documentID;
 
   }
 
