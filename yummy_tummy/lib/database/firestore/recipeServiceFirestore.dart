@@ -21,6 +21,7 @@ class RecipeServiceFirestore implements RecipeService{
     recipeMap.putIfAbsent("description", () => recipe.description);
     recipeMap.putIfAbsent("type", () => recipe.type.index);
     recipeMap.putIfAbsent("isVegetarian", () => recipe.isVegetarian);
+    recipeMap.putIfAbsent("isVegan", () => recipe.isVegan);
     recipeMap.putIfAbsent("ingredients", () => recipe.ingredients);
     recipeMap.putIfAbsent("stepDescriptions", () => recipe.stepDescriptions);
     recipeMap.putIfAbsent("stepImages", () => recipe.stepImages);

@@ -13,6 +13,7 @@ class Recipe {
   final String description;             // Main description.
   final RecipeType type;                // Type of recipe.
   final bool isVegetarian;              // Vegetarian recipe?
+  final bool isVegan;                   // Vegan recipe?
   final List<String> ingredients;       // Ingredients.
   final List<String> stepDescriptions;  // A list of descriptions. Each element represents a step.
   final List<String> stepImages;        // Image URL of each step.
@@ -28,6 +29,7 @@ class Recipe {
     this.description,
     this.type,
     this.isVegetarian,
+    this.isVegan,
     this.ingredients,
     this.stepDescriptions,
     this.stepImages,
@@ -47,6 +49,7 @@ class Recipe {
           description: data['description'],
           type: RecipeType.values[data['type']],
           isVegetarian: data['isVegetarian'],
+          isVegan: data['isVegan'],
           ingredients: new List<String>.from(data['ingredients']),
           stepDescriptions: new List<String>.from(data['stepDescriptions']),
           stepImages: new List<String>.from(data['stepImages']),
