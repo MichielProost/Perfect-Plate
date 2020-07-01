@@ -70,8 +70,7 @@ class _RecipePageState extends State<RecipePage> {
           child: Container(
             height: 140.0,
             width: double.infinity,
-            child:
-                Image(image: NetworkImage(_recipe.image), fit: BoxFit.fitWidth),
+            child: Image(image: NetworkImage(_recipe.image), fit: BoxFit.fitWidth),
           ),
         ),
 
@@ -107,11 +106,76 @@ class _RecipePageState extends State<RecipePage> {
     );
   }
 
+  /// Build an information icon with one-word description which gets enabled/disabled colors
+  Widget buildIconInfoCustom(CustomIcon icon, String text, bool isTrue) {
+    Color color = isTrue ? Constants.green : Constants.gray;
+    return buildIconInfoByIcon(IconBuilder(icon, color: color), text, color);
+  }
+
+  /// Build an information icon with one-word description which gets enabled/disabled colors
+  Widget buildIconInfo(IconData icon, String text, bool isTrue) {
+    Color color = isTrue ? Constants.green : Constants.gray;
+    return buildIconInfoByIcon(Icon(icon, color: color), text, color);
+  }
+
+  /// Build an information icon with one-word description which gets enabled/disabled colors
+  Widget buildIconInfoByIcon(Widget icon, String text, Color textColor) {
+    return Row(
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(3.0),
+          child: icon,
+        ),
+        Text(
+          text,
+          style: TextStyle(
+            color: textColor,
+          ),
+        ),
+      ],
+    );
+  }
+
   /// Creates an info panel about this recipe
   /// Indicates properties
   Widget buildInfoPanel() {
     return Column(
       children: <Widget>[
+        Container(
+          height: 1.0,
+          width: double.infinity,
+          color: Constants.gray,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10.0),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  buildIconInfo(Icons.fastfood, _recipe.getReadableType(), true),
+                  buildIconInfoCustom(CustomIcon.vegetarian, "Vegetarian", _recipe.isVegetarian),
+                ],
+              ),
+              SizedBox(
+                width: 50.0,
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  buildIconInfo(Icons.timer, _recipe.duration.toString() + "''", true),
+                  buildIconInfoCustom(CustomIcon.vegan, "Vegan", _recipe.isVegan),
+                ],
+              ),
+            ],
+          ),
+        ),
         Container(
           height: 1.0,
           width: double.infinity,
@@ -161,8 +225,7 @@ class _RecipePageState extends State<RecipePage> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:
-          const EdgeInsets.only(left: 5.0, right: 5.0, top: 60.0, bottom: 5.0),
+      padding: const EdgeInsets.only(left: 5.0, right: 5.0, top: 60.0, bottom: 5.0),
       child: Card(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -242,11 +305,9 @@ class _RecipePageState extends State<RecipePage> {
                   // Recipe title banner
                   buildBanner(),
                   buildIntroText(),
+                  buildInfoPanel(),
                   // Show all steps
-                  for (int stepNumber = 0;
-                      stepNumber < steps.length;
-                      stepNumber++)
-                    buildExpansionTile(stepNumber),
+                  for (int stepNumber = 0; stepNumber < steps.length; stepNumber++) buildExpansionTile(stepNumber),
                 ]),
               ),
 

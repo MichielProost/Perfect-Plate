@@ -18,7 +18,7 @@ class IconBuilder extends StatelessWidget {
       : _imgPath = iconPaths[iconType];
 
   @override
-  Widget build(BuildContext context) {
+  ImageIcon build(BuildContext context) {
     return ImageIcon(
       AssetImage(_imgPath),
       color: color,

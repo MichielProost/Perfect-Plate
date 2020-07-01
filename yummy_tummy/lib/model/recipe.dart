@@ -60,6 +60,12 @@ class Recipe {
           userMap: new Map<String, dynamic>.from(data['userMap']),
         );
 
+  /// Convert the RecipeType field to a readable format where the first letter is uppercase and return it
+  String getReadableType() {
+    String lowercase = type.toString().toLowerCase().split('.')[1];
+    return '${lowercase[0].toUpperCase()}${lowercase.substring(1)}';
+  }
+
   /// Print summary of recipe to console.
   void printSummary(){
     print("Document ID: " + this.id);
