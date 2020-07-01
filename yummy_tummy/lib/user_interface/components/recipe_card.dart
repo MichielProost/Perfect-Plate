@@ -62,7 +62,7 @@ class _RecipeCardState extends State<RecipeCard> {
                           _isBookMarked = !_isBookMarked;
                         });
                         // TODO implement language system
-                        String text = _isBookMarked ? "This recipe will not be deleted" : "This recipe will be deleted soon. Press the save button to undo this action.";
+                        String text = _isBookMarked ? "This recipe will not be deleted" : "This recipe will be deleted soon. Press the save button again to undo this action.";
                         Scaffold.of(context).removeCurrentSnackBar();
                         Scaffold.of(context).showSnackBar(SnackBarUtil.createTextSnackBar(text));
                       },

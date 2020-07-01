@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 import 'package:yummytummy/model/recipe.dart';
+import 'package:yummytummy/user_interface/components/rating_row.dart';
 import 'package:yummytummy/user_interface/general/icon_builder.dart';
 
 import '../constants.dart';
@@ -20,6 +21,68 @@ class _RecipePageState extends State<RecipePage> {
   bool _isFavorite = false;
 
   _RecipePageState(this._recipe);
+
+
+    @override
+  Widget build(BuildContext context) {
+    // TODO add reviews page 
+    return Padding(
+      padding: const EdgeInsets.only(left: 5.0, right: 5.0, top: 5.0, bottom: 5.0),
+      child: Card(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              // Button bar for user
+              buildButtonBar(),
+
+              Padding(
+                padding: const EdgeInsets.only(bottom: 3.0, left: 10.0, right: 10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    RatingRow(_recipe.rating, _recipe.numberOfReviews),
+                    Text(_recipe.userMap['name']),
+                  ],
+                ),
+              ),
+
+              // Scrollable recipe
+              Expanded(
+                child: ListView(shrinkWrap: true, children: <Widget>[
+                  // Recipe title banner
+                  buildBanner(),
+                  buildIntroText(),
+                  buildInfoPanel(),
+                  buildIngredients(),
+                  // Show all steps
+                  for (int stepNumber = 0; stepNumber < _recipe.stepDescriptions.length; stepNumber++) 
+                    buildExpansionTile(stepNumber),
+                ]),
+              ),
+
+              // TODO add recipe info: vegetarian, vegan, dish type (salad),
+
+              // Recipe info: ingrediënts and steps
+              //  Container(
+              //    height: MediaQuery.of(context).size.height,
+              //    width: MediaQuery.of(context).size.width,
+              //    child: ListWheelScrollView(
+              //       itemExtent: 3,
+              //       children: <Widget>[
+              //         for (int i= 0; i < steps.length; i++)
+              //           Text("Placeholder"),
+              //           //buildStepWidget(i, steps[i]),
+              //       ],
+              //     ),
+              //  ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 
 
   /// Generate the banner for this recipe
@@ -103,6 +166,76 @@ class _RecipePageState extends State<RecipePage> {
           style: TextStyle(
             color: textColor,
           ),
+        ),
+      ],
+    );
+  }
+
+  Widget buildButtonBar()
+  {
+    return
+    Row(
+      children: <Widget>[
+        // IconButton(
+        //   icon: Icon(
+        //     Icons.info_outline,
+        //     size: 35.0,
+        //   ),
+        //   // TODO add proper language system
+        //   onPressed:  () => showDialog(context: context, child: InfoPopup("Description", _recipe.description, Icons.info_outline)),
+        // ),
+
+        // TODO implement timer
+        // Timer button
+        // IconButton(
+        //   icon: Icon(
+        //     Icons.timer,
+        //     size: 35.0,
+        //   ),
+        //   onPressed: () {
+        //     // TODO add timer
+        //   },
+        // ),
+
+        // Share button
+        IconButton(
+          icon: Icon(
+            Icons.share,
+            size: 35.0,
+          ),
+          onPressed: () {
+            // TODO implement actual share logic
+            //Share.share( _recipe.getId() );
+          },
+        ),
+
+        // Bookmark button
+        IconButton(
+            icon: Icon(
+              _isFavorite ? Icons.bookmark : Icons.bookmark_border,
+              size: 35.0,
+            ),
+            onPressed: () {
+              setState(() {
+                _isFavorite = !_isFavorite;
+              });
+              //TODO add favourite/unfavourite logic
+            }),
+
+        // Provide space between icons
+        Expanded(
+          child: SizedBox(
+            height: 1.0,
+            width: 1.0,
+          ),
+        ),
+
+        // Close recipe button
+        IconButton(
+          icon: Icon(Icons.close, size: 35.0),
+          onPressed: () {
+            Navigator.pop(context, null);
+          },
         ),
       ],
     );
@@ -236,120 +369,6 @@ class _RecipePageState extends State<RecipePage> {
             height: 15.0,
           ),
         ],
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // TODO add reviews page 
-    return Padding(
-      padding: const EdgeInsets.only(left: 5.0, right: 5.0, top: 60.0, bottom: 5.0),
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              // Button bar for user
-              Row(
-                children: <Widget>[
-                  // IconButton(
-                  //   icon: Icon(
-                  //     Icons.info_outline,
-                  //     size: 35.0,
-                  //   ),
-                  //   // TODO add proper language system
-                  //   onPressed:  () => showDialog(context: context, child: InfoPopup("Description", _recipe.description, Icons.info_outline)),
-                  // ),
-
-                  // TODO implement timer
-                  // Timer button
-                  // IconButton(
-                  //   icon: Icon(
-                  //     Icons.timer,
-                  //     size: 35.0,
-                  //   ),
-                  //   onPressed: () {
-                  //     // TODO add timer
-                  //   },
-                  // ),
-
-                  // Share button
-                  IconButton(
-                    icon: Icon(
-                      Icons.share,
-                      size: 35.0,
-                    ),
-                    onPressed: () {
-                      // TODO implement actual share logic
-                      //Share.share( _recipe.getId() );
-                    },
-                  ),
-
-                  // Bookmark button
-                  IconButton(
-                      icon: Icon(
-                        _isFavorite ? Icons.bookmark : Icons.bookmark_border,
-                        size: 35.0,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          _isFavorite = !_isFavorite;
-                        });
-                        //TODO add favourite/unfavourite logic
-                      }),
-
-                  // Provide space between icons
-                  Expanded(
-                    child: SizedBox(
-                      height: 1.0,
-                      width: 1.0,
-                    ),
-                  ),
-
-                  // Close recipe button
-                  IconButton(
-                    icon: Icon(Icons.close, size: 35.0),
-                    onPressed: () {
-                      Navigator.pop(context, null);
-                    },
-                  ),
-                ],
-              ),
-
-              // Scrollable recipe
-              Expanded(
-                child: ListView(shrinkWrap: true, children: <Widget>[
-                  // Recipe title banner
-                  buildBanner(),
-                  buildIntroText(),
-                  buildInfoPanel(),
-                  buildIngredients(),
-                  // Show all steps
-                  for (int stepNumber = 0; stepNumber < _recipe.stepDescriptions.length; stepNumber++) 
-                    buildExpansionTile(stepNumber),
-                ]),
-              ),
-
-              // TODO add recipe info: vegetarian, vegan, dish type (salad),
-
-              // Recipe info: ingrediënts and steps
-              //  Container(
-              //    height: MediaQuery.of(context).size.height,
-              //    width: MediaQuery.of(context).size.width,
-              //    child: ListWheelScrollView(
-              //       itemExtent: 3,
-              //       children: <Widget>[
-              //         for (int i= 0; i < steps.length; i++)
-              //           Text("Placeholder"),
-              //           //buildStepWidget(i, steps[i]),
-              //       ],
-              //     ),
-              //  ),
-            ],
-          ),
-        ),
       ),
     );
   }
