@@ -7,18 +7,30 @@ import 'package:yummytummy/model/recipe.dart';
 
 class DummyDatabase implements RecipeService, ReviewService, UserService {
   
+  final int delayInMilliseconds;
+
+  /// DummyDatabase supports adding a delay after each request
+  DummyDatabase({this.delayInMilliseconds = 0});
+
+  /// Halt execution, await this method call!!
+  Future<void> enforceDelay() async {
+    return await Future.delayed(Duration(milliseconds: delayInMilliseconds));
+  }
+
   // ---
   // RecipeService
   // ---
 
   /// Add a new recipe to the database. Returns the document ID.
   Future<String> addRecipe(Recipe recipe) async {
+    await enforceDelay();
     return recipe.id;
   }
 
   /// Returns recipe object with a given title.
   /// NOT functional in dummy database!
   Future<Recipe> getRecipeFromTitle(String title) async {
+    await enforceDelay();
     return Recipe(title: title);
   }
 
@@ -26,11 +38,13 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
   /// Field: Specify user by name or id.
   /// Value: Value of the field.
   Future<List<Recipe>> getRecipesFromUser(UserMapField field, String value) async {
+    await enforceDelay();
     return getRecipes();
   }
 
   /// Returns all vegetarian recipes.
   Future<List<Recipe>> getVegetarianRecipes() async {
+    await enforceDelay();
     return getRecipes();
   }
 
@@ -40,6 +54,7 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
 
   /// Add a new review to the database. Returns the document ID.
   Future<String> addReview(Review review) async {
+    await enforceDelay();
     return review.id;
   }
 
@@ -47,11 +62,13 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
   /// Field: Specify user by name or id.
   /// Value: Value of the field.
   Future<List<Review>> getReviewsFromUser(UserMapField field, String value) async {
+    await enforceDelay();
     return getReviews();
   }
 
   /// Returns all reviews made for a specific recipe.
   Future<List<Review>> getReviewsFromRecipe(String recipeID) async {
+    await enforceDelay();
     return getReviews();
   }
 
@@ -61,6 +78,7 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
 
   /// Add a new user to the database. Returns the document ID.
   Future<String> addUser(User user) async {
+    await enforceDelay();
     return user.id;
   }
 
