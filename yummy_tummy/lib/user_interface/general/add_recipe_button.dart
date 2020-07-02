@@ -8,10 +8,17 @@ class AddRecipeButton extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    return FloatingActionButton(
+    return Container(
+      height: 65,
+      width: 65,
+      child: FloatingActionButton(
         onPressed: () => {},
-        child: Icon(Icons.add),
+        child: Icon(
+          Icons.add,
+          size: 30.0,
+        ),
         backgroundColor: Constants.main,
-      );
+      ),
+    );
   }
 }

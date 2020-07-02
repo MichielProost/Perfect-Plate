@@ -72,7 +72,8 @@ class AppBarBottomState extends State<AppBarBottom> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return BottomAppBar(
+      shape: CircularNotchedRectangle(),
       color: Constants.main,
       child: Padding(
         padding: const EdgeInsets.only(top: 15.0),
