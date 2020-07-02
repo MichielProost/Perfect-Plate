@@ -27,10 +27,12 @@ class Test {
 
     //testAddRecipes();
     //testAddUser();
-    testGetRecipeFromTitle();
+    //testGetRecipeFromTitle();
     //testAddReview();
     //testGetRecipesFromUser();
     //testGetVegetarianRecipes();
+    //testGetReviewsFromUser();
+    //testGetReviewsFromRecipe();
 
   }
 
@@ -43,7 +45,7 @@ class Test {
     // Add each recipe in list to Firestore.
     for(int i = 0; i < recipes.length; i++) {
       String documentID = await recipeService.addRecipe(recipes[i]);
-      consoleWriter.CreatedDocument(CollectionType.Recipe, documentID);
+      print("Document ID: " + documentID);
       print("Creating new recipe...");
     }
 
@@ -62,7 +64,7 @@ class Test {
 
     // Add user to Firestore.
     String documentID = await userService.addUser(user);
-    consoleWriter.CreatedDocument(CollectionType.User, documentID);
+    print("Document ID: " + documentID);
     print("Creating new user...");
 
   }
@@ -90,7 +92,7 @@ class Test {
 
     // Add review to Firestore.
     String documentID = await reviewService.addReview(review);
-    consoleWriter.CreatedDocument(CollectionType.Review, documentID);
+    print("Document ID: " + documentID);
     print("Creating new review...");
 
   }
@@ -114,6 +116,28 @@ class Test {
     for (int i = 0; i < recipes.length; i++) {
       recipes[i].printSummary();
     }
+  }
+
+  /// TEST: Get all reviews made by a specific user.
+  void testGetReviewsFromUser() async {
+
+    List<Review> reviews = await reviewService.getReviewsFromUser(UserMapField.id, "YgyesZOJd6PXCzqeEIec");
+    // Print summary of fetched reviews.
+    for (int i = 0; i < reviews.length; i++) {
+      reviews[i].printSummary();
+    }
+
+  }
+
+  /// TEST: Get all reviews made for a specific recipe.
+  void testGetReviewsFromRecipe() async {
+
+    List<Review> reviews = await reviewService.getReviewsFromRecipe("r1oe9s9Jc9Ntq3vaf5Ji");
+    // Print summary of fetched reviews.
+    for (int i = 0; i < reviews.length; i++) {
+      reviews[i].printSummary();
+    }
+
   }
 
 }

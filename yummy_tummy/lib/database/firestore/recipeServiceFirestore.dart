@@ -3,14 +3,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:yummytummy/database/interfaces/recipeService.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/user.dart';
+import 'package:yummytummy/utils/consoleWriter.dart';
 
 /// Firestore specific recipe services.
-class RecipeServiceFirestore implements RecipeService{
+class RecipeServiceFirestore implements RecipeService {
 
   final db;
+  final ConsoleWriter consoleWriter;
 
   /// Constructor.
-  RecipeServiceFirestore() : this.db = Firestore.instance;
+  RecipeServiceFirestore() :
+        this.db = Firestore.instance,
+        this.consoleWriter = new ConsoleWriter();
 
   /// Add a new recipe to the database. Returns the document ID.
   Future<String> addRecipe(Recipe recipe) async {
@@ -38,6 +42,8 @@ class RecipeServiceFirestore implements RecipeService{
         .then((value) {
       return value.documentID;
     });
+
+    consoleWriter.CreatedDocument(CollectionType.Recipe, documentID);
     return documentID;
 
   }
@@ -53,6 +59,8 @@ class RecipeServiceFirestore implements RecipeService{
       return docs.documents.isNotEmpty ? Recipe.fromMap(
           docs.documents[0].data, docs.documents[0].documentID) : null;
     });
+
+    consoleWriter.FetchedDocument(CollectionType.Recipe, fetchedRecipe.id);
     return fetchedRecipe;
 
   }
@@ -72,6 +80,7 @@ class RecipeServiceFirestore implements RecipeService{
           for (int i = 0; i < docs.documents.length; i++){
             recipe = Recipe.fromMap(docs.documents[i].data, docs.documents[i].documentID);
             recipes[i] = recipe;
+            consoleWriter.FetchedDocument(CollectionType.Recipe, recipe.id);
           }
       return docs.documents.isNotEmpty ? recipes : null;
     });
@@ -92,6 +101,7 @@ class RecipeServiceFirestore implements RecipeService{
       for (int i = 0; i < docs.documents.length; i++){
         recipe = Recipe.fromMap(docs.documents[i].data, docs.documents[i].documentID);
         recipes[i] = recipe;
+        consoleWriter.FetchedDocument(CollectionType.Recipe, recipe.id);
       }
       return docs.documents.isNotEmpty ? recipes : null;
     });

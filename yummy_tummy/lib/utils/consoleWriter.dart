@@ -15,4 +15,11 @@ class ConsoleWriter{
 
   }
 
+  /// A document was fetched.
+  void FetchedDocument(CollectionType type, String documentID){
+
+    print("FETCHED " + type.toString().split(".").last.toUpperCase() + " DOCUMENT: " + documentID);
+
+  }
+
 }
