@@ -1,6 +1,6 @@
-// Recipes are classified in one of many types.
 import 'package:yummytummy/model/user.dart';
 
+// Recipes are classified in one of many types.
 enum RecipeType {
   soups,
   salads,
@@ -24,7 +24,7 @@ class Recipe {
   final String image;                   // Image URL of result.
   final int numberOfReviews;            // Number of reviews.
   // TODO watch out!! User is mutable, and can be edited from anywhere!
-  final User user;                      // Duplicate data. Information of user (creator)
+  final User user;                      // User object.
   final Map<String, dynamic> userMap;   // Duplicate data. Information of user.
 
   const Recipe({
@@ -63,7 +63,7 @@ class Recipe {
           image: data['image'],
           numberOfReviews: data['numberOfReviews'],
           userMap: Map<String, dynamic>.from( data['userMap'] ),
-          user: User.fromMap( Map<String, dynamic>.from(data['userMap']), "" ),
+          user: User.fromMap( Map<String, dynamic>.from(data['userMap']), null),
         );
 
   /// Convert the RecipeType field to a readable format where the first letter is uppercase and return it

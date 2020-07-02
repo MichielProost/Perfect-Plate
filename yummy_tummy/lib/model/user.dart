@@ -52,11 +52,12 @@ class User{
   /// Initialize a new user object.
   User.fromMap(Map<String, dynamic> data, String id)
       : this(
-          id: id,
-          name: data['name'],
-          score: data['score'],
-          rank: RankType.values[data['type']],
-          favourites: new List<String>.from(data['favourites']),
+          id: id != null ? id : data['id'],
+          name: data.containsKey('name') ? data['name'] : null,
+          score: data.containsKey('score') ? data['score'] : null,
+          rank: data.containsKey('Rank') ? RankType.values[data['Rank']] : null,
+          favourites: data.containsKey('favourites') ?
+            new List<String>.from(data['favourites']) : null,
         );
 
   /// Print summary of user to console.

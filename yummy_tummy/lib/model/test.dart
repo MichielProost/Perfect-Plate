@@ -1,6 +1,7 @@
 import 'package:yummytummy/database/Firestore/recipeServiceFirestore.dart';
 import 'package:yummytummy/database/Firestore/reviewServiceFirestore.dart';
 import 'package:yummytummy/database/Firestore/userServiceFirestore.dart';
+import 'package:yummytummy/database/interfaces/recipeService.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/review.dart';
 import 'package:yummytummy/model/user.dart';
@@ -73,7 +74,6 @@ class Test {
     Recipe fetchedRecipe = await recipeService.getRecipeFromTitle("Panna cotta met tartaar van kiwi en kokoscrumble");
     // Print summary of fetched recipe.
     fetchedRecipe.printSummary();
-
   }
 
   /// TEST: Add a new review to Firestore.
