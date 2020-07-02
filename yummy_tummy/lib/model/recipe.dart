@@ -2,6 +2,7 @@ import 'package:yummytummy/model/user.dart';
 
 // Recipes are classified in one of many types.
 enum RecipeType {
+  unclassified,
   soups,
   salads,
   mains,
@@ -50,20 +51,25 @@ class Recipe {
   Recipe.fromMap(Map<String, dynamic> data, String id)
       : this(
           id: id,
-          title: data['title'],
-          description: data['description'],
-          type: RecipeType.values[data['type']],
-          isVegetarian: data['isVegetarian'],
-          isVegan: data['isVegan'],
-          ingredients: new List<String>.from(data['ingredients']),
-          stepDescriptions: new List<String>.from(data['stepDescriptions']),
-          stepImages: new List<String>.from(data['stepImages']),
-          rating: data['rating'],
-          duration: data['duration'],
-          image: data['image'],
-          numberOfReviews: data['numberOfReviews'],
-          userMap: Map<String, dynamic>.from( data['userMap'] ),
-          user: User.fromMap( Map<String, dynamic>.from(data['userMap']), null),
+          title: data.containsKey('title') ? data['title'] : '',
+          description: data.containsKey('description') ? data['description'] : '',
+          type: data.containsKey('type') ? RecipeType.values[data['type']] : RecipeType.unclassified,
+          isVegetarian: data.containsKey('isVegetarian') ? data['isVegetarian'] : false,
+          isVegan: data.containsKey('isVegan') ? data['isVegan'] : false,
+          ingredients: data.containsKey('ingredients') ?
+            new List<String>.from(data['ingredients']) : [],
+          stepDescriptions: data.containsKey('stepDescriptions') ?
+            new List<String>.from(data['stepDescriptions']) : [],
+          stepImages: data.containsKey('stepImages') ?
+            new List<String>.from(data['stepImages']) : [],
+          rating: data.containsKey('rating') ? data['rating'] : 0.0,
+          duration: data.containsKey('duration') ? data['duration']: 0,
+          image: data.containsKey('image') ? data['image'] : '',
+          numberOfReviews: data.containsKey('numberOfReviews') ? data['numberOfReviews'] : 0,
+          userMap: data.containsKey('userMap') ?
+            Map<String, dynamic>.from( data['userMap'] ) : {},
+          user: data.containsKey('userMap') ?
+            User.fromMap( Map<String, dynamic>.from(data['userMap']), null) : null,
         );
 
   /// Convert the RecipeType field to a readable format where the first letter is uppercase and return it

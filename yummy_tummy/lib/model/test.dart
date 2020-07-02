@@ -27,7 +27,7 @@ class Test {
 
     //testAddRecipes();
     //testAddUser();
-    //testGetRecipeFromTitle();
+    testGetRecipeFromTitle();
     //testAddReview();
     //testGetRecipesFromUser();
     //testGetVegetarianRecipes();
@@ -74,6 +74,7 @@ class Test {
     Recipe fetchedRecipe = await recipeService.getRecipeFromTitle("Panna cotta met tartaar van kiwi en kokoscrumble");
     // Print summary of fetched recipe.
     fetchedRecipe.printSummary();
+
   }
 
   /// TEST: Add a new review to Firestore.

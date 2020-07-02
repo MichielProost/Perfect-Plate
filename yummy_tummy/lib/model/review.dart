@@ -19,10 +19,11 @@ class Review{
   Review.fromMap(Map<String, dynamic> data, String id)
       : this(
           id: id,
-          userMap: new Map<String, dynamic>.from(data['userMap']),
-          recipeID: data['recipeID'],
-          rating: data['rating'],
-          description: data['description'],
+          userMap: data.containsKey('userMap') ?
+            new Map<String, dynamic>.from(data['userMap']) : {},
+          recipeID: data.containsKey('recipeID') ? data['recipeID'] : '',
+          rating: data.containsKey('rating') ? data['rating'] : 0,
+          description: data.containsKey('description') ? data['description'] : '',
       );
 
   /// Print summary of review to console.

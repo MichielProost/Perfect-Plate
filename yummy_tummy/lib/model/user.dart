@@ -14,9 +14,9 @@ enum RankType {
 
 extension Rank on RankType {
 
-  /// Get the corresponding rank of this index
-  /// Must be >= 0
-  /// An index that is too high will simply result in the highest rank
+  /// Get the corresponding rank of this index.
+  /// Must be >= 0.
+  /// An index that is too high will simply result in the highest rank.
   RankType getRank(int index)
   {
     return index < RankType.values.length ? RankType.values[index] : RankType.values[ RankType.values.length-1 ];
@@ -26,7 +26,7 @@ extension Rank on RankType {
   String getString()
   {
     //TODO implement better way to implement this with regards to languages
-    String lowercase = this.toString().toLowerCase().split('.')[1];
+    String lowercase = this.toString().toLowerCase().split('.').last;
     return '${lowercase[0].toUpperCase()}${lowercase.substring(1)}';
   }
 
@@ -53,11 +53,11 @@ class User{
   User.fromMap(Map<String, dynamic> data, String id)
       : this(
           id: id != null ? id : data['id'],
-          name: data.containsKey('name') ? data['name'] : null,
-          score: data.containsKey('score') ? data['score'] : null,
-          rank: data.containsKey('Rank') ? RankType.values[data['Rank']] : null,
+          name: data.containsKey('name') ? data['name'] : '',
+          score: data.containsKey('score') ? data['score'] : 0,
+          rank: data.containsKey('Rank') ? RankType.values[data['Rank']] : RankType.beginner,
           favourites: data.containsKey('favourites') ?
-            new List<String>.from(data['favourites']) : null,
+            new List<String>.from(data['favourites']) : [],
         );
 
   /// Print summary of user to console.
