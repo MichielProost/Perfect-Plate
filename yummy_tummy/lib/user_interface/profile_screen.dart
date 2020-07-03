@@ -8,6 +8,7 @@ import 'package:yummytummy/model/review.dart';
 import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/user_interface/components/rating_row.dart';
 import 'package:yummytummy/user_interface/components/recipe_card.dart';
+import 'package:yummytummy/user_interface/components/review_card.dart';
 
 import 'constants.dart';
 
@@ -36,18 +37,7 @@ class _Screen extends State<ProfileScreen> {
     for (Review review in DummyDatabase().getReviews())
     {
       _reviews.add( 
-        Card(
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Column(
-              children: <Widget>[
-                RatingRow(review.rating.toDouble(), 1),
-                Text( review.description ),
-              ],
-            ),
-          ),
-          color: Constants.gray,
-        ), 
+        ReviewCard( review )
       );
     }
 
@@ -135,11 +125,16 @@ class _Screen extends State<ProfileScreen> {
 
           /// Content display
           Expanded(
+            // TODO: add padding on bottom to not block content with add button
             child: ListView(
               shrinkWrap: true,
               children: <Widget>[
                 for (Widget widget in displayed)
                   widget,
+
+                SizedBox(
+                  height: 25.0,
+                ),
               ],
             ),
           ),

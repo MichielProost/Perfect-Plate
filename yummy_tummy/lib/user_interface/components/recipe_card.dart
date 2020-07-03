@@ -11,8 +11,12 @@ class RecipeCard extends StatefulWidget {
   
   final Recipe _recipe;
   final bool _showBookmark;
+  final bool _showNumReviews;
+  bool _value;
 
-  RecipeCard(this._recipe, {bool showBookmark: false}): _showBookmark = showBookmark;
+  RecipeCard(this._recipe, {bool showBookmark: false, bool showNumReviews: false}): 
+    _showBookmark = showBookmark,
+    _showNumReviews = showNumReviews;
 
   @override
   State<StatefulWidget> createState() => _RecipeCardState(_recipe, showBookmark: _showBookmark);
@@ -79,7 +83,9 @@ class _RecipeCardState extends State<RecipeCard> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    RatingRow(_recipe.rating, _recipe.numberOfReviews),
+                    widget._showNumReviews ?
+                      RatingRow(_recipe.rating, _recipe.numberOfReviews) :
+                      RatingRow(_recipe.rating),
                     Text( RankType.values[_recipe.userMap['Rank']].getString() ),
                     Text( _recipe.userMap['name'] ),
                   ],

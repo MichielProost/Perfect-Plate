@@ -222,6 +222,19 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
           'favourites': ['0', '1'],
         },
       ),
+      Review(
+        id: '2',
+        description: "Dit is het lekkerste gerecht dat ik ooit heb gegeten",
+        rating: 5,
+        recipeID: '2',
+        userMap: {
+          'id': '1',
+          'name': 'Dieter',
+          'score': 1501,
+          'rank': RankType.professional,
+          'favourites': ['0', '1'],
+        },
+      ),
     ];
   }
 

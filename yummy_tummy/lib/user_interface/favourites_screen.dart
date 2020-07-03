@@ -32,6 +32,10 @@ class FavouritesScreen extends StatelessWidget {
               ListView(
                 children: <Widget>[
                   for (Recipe recipe in snapshot.data) RecipeCard(recipe, showBookmark: true),
+
+                  SizedBox(
+                    height: 25.0,
+                  ),
               ],
             );
           } 

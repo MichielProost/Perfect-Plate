@@ -30,6 +30,10 @@ class FeedScreen extends StatelessWidget {
               ListView(
                 children: <Widget>[
                   for (Recipe recipe in snapshot.data) RecipeCard(recipe, showBookmark: false),
+
+                  SizedBox(
+                    height: 25.0,
+                  ),  
               ],
             );
           } 

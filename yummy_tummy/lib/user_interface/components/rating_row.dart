@@ -4,16 +4,21 @@ import '../constants.dart';
 
 class RatingRow extends StatelessWidget {
   
+  static const double DEFAULT_SIZE = 20.0;
 
   final double _rating;
   final int _numRatings;
-  static final double _rating_size = 20.0;
+  final double _rating_size;
 
 
   /// Creates a row of stars that accurately display the given rating
   /// The rating should be in the range [0, 5]
   /// A rating smaller than 0 will result in zero filled stars, and a rating bigger than five will result in five filled stars
-  RatingRow(this._rating, this._numRatings);
+  RatingRow(this._rating, [this._numRatings]) : _rating_size = DEFAULT_SIZE;
+  RatingRow.withSize(this._rating, {int numRatings, double size: DEFAULT_SIZE}) : 
+    _numRatings = numRatings,
+    _rating_size = size
+  ;
 
 
   /// Creates an icon that follows the star guidelines but displays the given icon
@@ -78,6 +83,8 @@ class RatingRow extends StatelessWidget {
         Row(
           children: _createStars(),
         ),
+
+        if (_numRatings != null)
         Padding(
           padding: const EdgeInsets.only(left: 5.0),
           child: Icon(
@@ -85,6 +92,8 @@ class RatingRow extends StatelessWidget {
             size: _rating_size,
           ),
         ),
+
+        if (_numRatings != null)
         Padding(
           padding: const EdgeInsets.only(left: 3.0),
           child: Text(
