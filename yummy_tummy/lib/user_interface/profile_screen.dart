@@ -73,7 +73,7 @@ class _Screen extends State<ProfileScreen> {
     );
   }
 
-
+  // TODO implement fancy scroller instead of basic listview
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -114,7 +114,6 @@ class _Screen extends State<ProfileScreen> {
           ),
 
           /// content selector
-          // TODO add indicator to show active page
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
@@ -130,7 +129,6 @@ class _Screen extends State<ProfileScreen> {
 
           /// Content display
           Expanded(
-            // TODO: add padding on bottom to not block content with add button
             child: ListView(
               shrinkWrap: true,
               children: <Widget>[

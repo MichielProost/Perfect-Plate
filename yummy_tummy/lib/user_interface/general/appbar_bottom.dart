@@ -56,12 +56,8 @@ class AppBarBottomState extends State<AppBarBottom> {
                 maxLines: 1,
                 style: TextStyle(
                   color: elementColor,
+                  fontWeight: _currentPage == page ? FontWeight.bold : FontWeight.normal,
                 ),
-              ),
-              Container(
-                height: 2.0,
-                width: 40.0,
-                color: _currentPage == page ? Constants.accent : Constants.main,
               ),
             ],
           ),
