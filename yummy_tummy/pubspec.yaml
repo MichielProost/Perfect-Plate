@@ -48,6 +48,7 @@ flutter:
 
   assets:
     - images/icon.png
+    - images/user_pic.png
     - icons/vegetarian.png
     - icons/vegan.png
 
