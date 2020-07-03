@@ -58,12 +58,17 @@ class _Screen extends State<ProfileScreen> {
           displayed = content;
         });
       },
-      child: Text(
-        name,
-        style: TextStyle(
-          fontSize: 20.0,
-          color: Constants.text_gray,
-        ),
+      child: Column(
+        children: <Widget>[
+          Text(
+            name,
+            style: TextStyle(
+              fontSize: 20.0,
+              color: displayed == content ? Constants.main : Constants.text_gray,
+              fontWeight: displayed == content ? FontWeight.bold : FontWeight.normal,
+            ),
+          ),
+        ],
       ),
     );
   }
