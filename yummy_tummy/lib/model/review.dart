@@ -1,6 +1,9 @@
+import 'package:yummytummy/model/user.dart';
+
 class Review{
 
   final String id;                      // Document ID.
+  final User user;                      // User object.
   final Map<String, dynamic> userMap;   // Duplicate data. Information of user.
   final String recipeID;                // Recipe ID.
   final int rating;                     // Rating from user.
@@ -8,6 +11,7 @@ class Review{
 
   const Review({
     this.id,
+    this.user,
     this.userMap,
     this.recipeID,
     this.rating,
@@ -19,6 +23,8 @@ class Review{
   Review.fromMap(Map<String, dynamic> data, String id)
       : this(
           id: id,
+          user: data.containsKey('userMap') ?
+            User.fromMap( Map<String, dynamic>.from(data['userMap']), null) : null,
           userMap: data.containsKey('userMap') ?
             new Map<String, dynamic>.from(data['userMap']) : {},
           recipeID: data.containsKey('recipeID') ? data['recipeID'] : '',

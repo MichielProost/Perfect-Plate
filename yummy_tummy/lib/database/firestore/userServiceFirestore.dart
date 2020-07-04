@@ -38,4 +38,21 @@ class UserServiceFirestore implements UserService {
 
   }
 
+  /// Returns user object from document ID.
+  Future<User> getUserFromID(String userID) async {
+
+    User user =
+    await this.db.collection("users")
+        .document(userID)
+        .get()
+        .then((DocumentSnapshot snapshot){
+      consoleWriter.FetchedDocument(CollectionType.User, snapshot.documentID);
+      return snapshot.exists ?
+          User.fromMap(snapshot.data, snapshot.documentID) : null;
+    });
+
+    return user;
+
+  }
+
 }

@@ -48,6 +48,17 @@ class RecipeServiceFirestore implements RecipeService {
 
   }
 
+  /// Delete a recipe from the database when given a document ID.
+  Future<void> deleteRecipe(String recipeID) async {
+
+    this.db.collection("recipes")
+        .document(recipeID)
+        .delete();
+
+    consoleWriter.DeletedDocument(CollectionType.Recipe, recipeID);
+
+  }
+
   /// Returns recipe object with a given title.
   Future<Recipe> getRecipeFromTitle(String title) async {
 

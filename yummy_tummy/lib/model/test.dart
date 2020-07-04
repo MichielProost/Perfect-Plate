@@ -33,6 +33,8 @@ class Test {
     //testGetVegetarianRecipes();
     //testGetReviewsFromUser();
     //testGetReviewsFromRecipe();
+    //testGetUserFromID();
+    //testDeleteRecipe();
 
   }
 
@@ -138,6 +140,23 @@ class Test {
       reviews[i].printSummary();
     }
 
+  }
+
+  /// TEST: Get a specific user from Firestore.
+  void testGetUserFromID() async {
+
+    // Get user object from ID.
+    User fetchedUser = await userService.getUserFromID("1w7FGM8kiBbk3iwJB7b2");
+    // Print summary of fetched user.
+    fetchedUser.printSummary();
+
+  }
+  
+  /// TEST: Delete a recipe from the database.
+  void testDeleteRecipe() async {
+
+    recipeService.deleteRecipe("89koX9rhGmeHlpD6ooz2");
+    
   }
 
 }

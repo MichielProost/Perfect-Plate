@@ -22,4 +22,11 @@ class ConsoleWriter{
 
   }
 
+  /// A document was deleted.
+  void DeletedDocument(CollectionType type, String documentID){
+
+    print("DELETED " + type.toString().split(".").last.toUpperCase() + " DOCUMENT: " + documentID);
+
+  }
+
 }

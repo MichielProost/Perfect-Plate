@@ -7,6 +7,9 @@ abstract class RecipeService {
   /// Add a new recipe to the database. Returns the document ID.
   Future<String> addRecipe(Recipe recipe);
 
+  /// Delete a recipe from the database when given a document ID.
+  Future<void> deleteRecipe(String recipeID);
+
   /// Returns recipe object with a given title.
   Future<Recipe> getRecipeFromTitle(String title);
 

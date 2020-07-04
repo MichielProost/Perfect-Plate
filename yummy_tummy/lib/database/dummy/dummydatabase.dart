@@ -27,6 +27,11 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
     return recipe.id;
   }
 
+  /// Delete a recipe from the database when given a document ID.
+  Future<void> deleteRecipe(String recipeID) {
+    //TODO: Implement for temporary database.
+  }
+
   /// Returns recipe object with a given title.
   /// NOT functional in dummy database!
   Future<Recipe> getRecipeFromTitle(String title) async {
@@ -80,6 +85,11 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
   Future<String> addUser(User user) async {
     await enforceDelay();
     return user.id;
+  }
+
+  /// Returns user object from document ID.
+  Future<User> getUserFromID(String userID){
+    //TODO: Implement for temporary database.
   }
 
   // ---
