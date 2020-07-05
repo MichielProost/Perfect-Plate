@@ -68,6 +68,13 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
     return getRecipes();
   }
 
+  /// Search recipes in the database by specifying fields.
+  /// DietField: Recipes must match with a certain diet.
+  /// SortField: Sort the acquired recipes.
+  Future<List<Recipe>> searchRecipes(DietField dietField, SortField sortField){
+    //TODO: Implement for temporary database.
+  }
+
   // ---
   // ReviewService
   // ---

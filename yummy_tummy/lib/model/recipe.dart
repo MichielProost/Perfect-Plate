@@ -6,6 +6,13 @@ enum SortField {
   numberOfReviews,
 }
 
+// Recipes can be filtered by a specific diet.
+enum DietField {
+  none,
+  vegan,
+  vegetarian,
+}
+
 // Recipes are classified in one of many types.
 enum RecipeType {
   unclassified,

@@ -154,4 +154,11 @@ class RecipeServiceFirestore implements RecipeService {
     return fetchedRecipes;
   }
 
+  /// Search recipes in the database by specifying fields.
+  /// DietField: Recipes must match with a certain diet.
+  /// SortField: Sort the acquired recipes.
+  Future<List<Recipe>> searchRecipes(DietField dietField, SortField sortField){
+    //TODO. Implement searchRecipes method.
+  }
+
 }
