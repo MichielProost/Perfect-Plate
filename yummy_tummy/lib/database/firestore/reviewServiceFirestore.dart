@@ -50,6 +50,37 @@ class ReviewServiceFirestore implements ReviewService {
 
   }
 
+  /// Returns review object from document ID.
+  Future<Review> getReviewFromID(String reviewID) async {
+
+    Review review =
+        await this.db.collection("reviews")
+        .document(reviewID)
+        .get()
+        .then((DocumentSnapshot snapshot){
+      consoleWriter.FetchedDocument(CollectionType.Review, snapshot.documentID);
+      return snapshot.exists ?
+          Review.fromMap(snapshot.data, snapshot.documentID) : null;
+    });
+
+    return review;
+
+  }
+
+  /// Modify an existing review with a given document ID.
+  Future<void> modifyReview(Review review, String reviewID) async {
+
+    await this.db.collection("reviews")
+        .document(reviewID)
+        .updateData({
+      "rating" : review.rating,
+      "description" : review.description,
+    });
+
+    consoleWriter.ModifiedDocument(CollectionType.Review, reviewID);
+
+  }
+
   /// Returns all reviews made by a specific user.
   /// Field: Specify user by name or id.
   /// Value: Value of the field.

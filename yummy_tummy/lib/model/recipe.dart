@@ -1,5 +1,11 @@
 import 'package:yummytummy/model/user.dart';
 
+// Recipes can be sorted by the following fields.
+enum SortField {
+  rating,
+  numberOfReviews,
+}
+
 // Recipes are classified in one of many types.
 enum RecipeType {
   unclassified,

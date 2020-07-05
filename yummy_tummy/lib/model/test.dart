@@ -38,6 +38,7 @@ class Test {
     //testDeleteReview();
     //testGetRecipeFromID();
     //testGetFavouriteRecipes();
+    //testModifyReview();
 
   }
 
@@ -188,6 +189,16 @@ class Test {
     for (int i = 0; i < recipes.length; i++) {
       recipes[i].printSummary();
     }
+
+  }
+
+  /// TEST: Modify an existing review.
+  testModifyReview() async {
+
+    Review fetchedReview = await reviewService.getReviewFromID("Z5TOKzt5wGYRNcfAvCCO");
+    fetchedReview.printSummary();
+
+    //TODO: Modify review using reviewService.modifyReview.
 
   }
 

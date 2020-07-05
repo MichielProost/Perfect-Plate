@@ -13,6 +13,9 @@ abstract class RecipeService {
   /// Returns recipe object from document ID.
   Future<Recipe> getRecipeFromID(String recipeID);
 
+  /// Modify an existing recipe with a given document ID.
+  Future<void> modifyRecipe(Recipe recipe, String recipeID);
+
   /// Returns recipe object with a given title.
   Future<Recipe> getRecipeFromTitle(String title);
 

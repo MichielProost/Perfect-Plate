@@ -29,4 +29,11 @@ class ConsoleWriter{
 
   }
 
+  /// A document was modified.
+  void ModifiedDocument(CollectionType type, String documentID){
+
+    print("MODIFIED " +  type.toString().split(".").last.toUpperCase() + " DOCUMENT: " + documentID);
+
+  }
+
 }
