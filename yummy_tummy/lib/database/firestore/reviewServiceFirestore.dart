@@ -39,6 +39,17 @@ class ReviewServiceFirestore implements ReviewService {
 
   }
 
+  /// Delete a review from the database when given a document ID.
+  Future<void> deleteReview(String reviewID) async {
+
+    this.db.collection("reviews")
+        .document(reviewID)
+        .delete();
+
+    consoleWriter.DeletedDocument(CollectionType.Review, reviewID);
+
+  }
+
   /// Returns all reviews made by a specific user.
   /// Field: Specify user by name or id.
   /// Value: Value of the field.

@@ -35,6 +35,7 @@ class Test {
     //testGetReviewsFromRecipe();
     //testGetUserFromID();
     //testDeleteRecipe();
+    testDeleteReview();
 
   }
 
@@ -157,6 +158,13 @@ class Test {
 
     recipeService.deleteRecipe("89koX9rhGmeHlpD6ooz2");
     
+  }
+
+  /// TEST: Delete a review from the database.
+  void testDeleteReview() async {
+
+    reviewService.deleteReview("er6J7r2Z0G92NxthHZy5");
+
   }
 
 }

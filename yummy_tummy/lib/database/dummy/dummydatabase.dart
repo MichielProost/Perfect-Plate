@@ -63,6 +63,11 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
     return review.id;
   }
 
+  /// Delete a review from the database when given a document ID.
+  Future<void> deleteReview(String reviewID) {
+    //TODO: Implement for temporary database.
+  }
+
   /// Returns all reviews made by a specific user.
   /// Field: Specify user by name or id.
   /// Value: Value of the field.
