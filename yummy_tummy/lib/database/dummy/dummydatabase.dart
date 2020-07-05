@@ -32,6 +32,11 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
     //TODO: Implement for temporary database.
   }
 
+  /// Returns recipe object from document ID.
+  Future<Recipe> getRecipeFromID(String recipeID){
+    //TODO: Implement for temporary database.
+  }
+
   /// Returns recipe object with a given title.
   /// NOT functional in dummy database!
   Future<Recipe> getRecipeFromTitle(String title) async {
@@ -45,6 +50,11 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
   Future<List<Recipe>> getRecipesFromUser(UserMapField field, String value) async {
     await enforceDelay();
     return getRecipes();
+  }
+
+  /// Returns all recipes in the user's favourite list.
+  Future<List<Recipe>> getFavouriteRecipes(User user) {
+    //TODO: Implement for temporary database.
   }
 
   /// Returns all vegetarian recipes.

@@ -10,6 +10,9 @@ abstract class RecipeService {
   /// Delete a recipe from the database when given a document ID.
   Future<void> deleteRecipe(String recipeID);
 
+  /// Returns recipe object from document ID.
+  Future<Recipe> getRecipeFromID(String recipeID);
+
   /// Returns recipe object with a given title.
   Future<Recipe> getRecipeFromTitle(String title);
 
@@ -17,6 +20,9 @@ abstract class RecipeService {
   /// Field: Specify user by name or id.
   /// Value: Value of the field.
   Future<List<Recipe>> getRecipesFromUser(UserMapField field, String value);
+
+  /// Returns all recipes in the user's favourite list.
+  Future<List<Recipe>> getFavouriteRecipes(User user);
 
   /// Returns all vegetarian recipes.
   Future<List<Recipe>> getVegetarianRecipes();

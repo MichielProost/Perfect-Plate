@@ -35,7 +35,9 @@ class Test {
     //testGetReviewsFromRecipe();
     //testGetUserFromID();
     //testDeleteRecipe();
-    testDeleteReview();
+    //testDeleteReview();
+    //testGetRecipeFromID();
+    //testGetFavouriteRecipes();
 
   }
 
@@ -164,6 +166,28 @@ class Test {
   void testDeleteReview() async {
 
     reviewService.deleteReview("er6J7r2Z0G92NxthHZy5");
+
+  }
+
+  /// TEST: Get a specific recipe from Firestore.
+  void testGetRecipeFromID() async {
+
+    // Get recipe object from ID.
+    Recipe fetchedRecipe = await recipeService.getRecipeFromID("1m9wVtvQSdw5KzArL0Rk");
+    // Print summary of fetched recipe.
+    fetchedRecipe.printSummary();
+
+  }
+
+  /// TEST: Get the user's favourite recipes.
+  testGetFavouriteRecipes() async {
+
+    User fetchedUser = await userService.getUserFromID("1w7FGM8kiBbk3iwJB7b2");
+    List<Recipe> recipes = await recipeService.getFavouriteRecipes(fetchedUser);
+    // Print summary of all recipes.
+    for (int i = 0; i < recipes.length; i++) {
+      recipes[i].printSummary();
+    }
 
   }
 

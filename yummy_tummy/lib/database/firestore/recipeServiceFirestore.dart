@@ -59,6 +59,23 @@ class RecipeServiceFirestore implements RecipeService {
 
   }
 
+  /// Returns recipe object from document ID.
+  Future<Recipe> getRecipeFromID(String recipeID) async {
+
+    Recipe recipe =
+    await this.db.collection("recipes")
+        .document(recipeID)
+        .get()
+        .then((DocumentSnapshot snapshot){
+      consoleWriter.FetchedDocument(CollectionType.Recipe, snapshot.documentID);
+      return snapshot.exists ?
+          Recipe.fromMap(snapshot.data, snapshot.documentID) : null;
+    });
+
+    return recipe;
+
+  }
+
   /// Returns recipe object with a given title.
   Future<Recipe> getRecipeFromTitle(String title) async {
 
@@ -96,6 +113,19 @@ class RecipeServiceFirestore implements RecipeService {
       return docs.documents.isNotEmpty ? recipes : null;
     });
     return fetchedRecipes;
+
+  }
+
+  /// Returns all recipes in the user's favourite list.
+  Future<List<Recipe>> getFavouriteRecipes(User user) async {
+
+    List<Recipe> recipes = new List(user.favourites.length);
+    Recipe recipe;
+    for( int i=0; i<user.favourites.length; i++){
+      recipe = await getRecipeFromID(user.favourites[i]);
+      recipes[i] = recipe;
+    }
+    return recipes;
 
   }
 
