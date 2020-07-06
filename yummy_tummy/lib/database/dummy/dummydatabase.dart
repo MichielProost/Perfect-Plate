@@ -28,18 +28,21 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
   }
 
   /// Delete a recipe from the database when given a document ID.
-  Future<void> deleteRecipe(String recipeID) {
-    //TODO: Implement for temporary database.
+  Future<void> deleteRecipe(String recipeID) async {
+    await enforceDelay();
+    return;
   }
 
   /// Returns recipe object from document ID.
-  Future<Recipe> getRecipeFromID(String recipeID){
-    //TODO: Implement for temporary database.
+  Future<Recipe> getRecipeFromID(String recipeID) async {
+    await enforceDelay();
+    return getRecipes()[0];
   }
 
   /// Modify an existing recipe with a given document ID.
-  Future<void> modifyRecipe(Recipe recipe, String recipeID){
-    //TODO: Implement for temporary database.
+  Future<void> modifyRecipe(Recipe recipe, String recipeID) async {
+    await enforceDelay();
+    return;
   }
 
   /// Returns recipe object with a given title.
@@ -58,8 +61,9 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
   }
 
   /// Returns all recipes in the user's favourite list.
-  Future<List<Recipe>> getFavouriteRecipes(User user) {
-    //TODO: Implement for temporary database.
+  Future<List<Recipe>> getFavouriteRecipes(User user) async {
+    await enforceDelay();
+    return getRecipes();
   }
 
   /// Returns all vegetarian recipes.
@@ -71,8 +75,9 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
   /// Search recipes in the database by specifying fields.
   /// DietField: Recipes must match with a certain diet.
   /// SortField: Sort the acquired recipes.
-  Future<List<Recipe>> searchRecipes(DietField dietField, SortField sortField){
-    //TODO: Implement for temporary database.
+  Future<List<Recipe>> searchRecipes(DietField dietField, SortField sortField) async {
+    await enforceDelay();
+    return getRecipes();
   }
 
   // ---
@@ -86,18 +91,21 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
   }
 
   /// Delete a review from the database when given a document ID.
-  Future<void> deleteReview(String reviewID) {
-    //TODO: Implement for temporary database.
+  Future<void> deleteReview(String reviewID) async {
+    await enforceDelay();
+    return;
   }
 
   /// Modify an existing review with a given document ID.
-  Future<void> modifyReview(Review review, String reviewID) {
-    //TODO: Implement for temporary database.
+  Future<void> modifyReview(Review review, String reviewID) async {
+    await enforceDelay();
+    return;
   }
 
   /// Returns review object from document ID.
-  Future<Review> getReviewFromID(String reviewID){
-    //TODO: Implement for temporary database.
+  Future<Review> getReviewFromID(String reviewID) async {
+    await enforceDelay();
+    return getReviews()[0];
   }
 
   /// Returns all reviews made by a specific user.
@@ -125,8 +133,9 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
   }
 
   /// Returns user object from document ID.
-  Future<User> getUserFromID(String userID){
-    //TODO: Implement for temporary database.
+  Future<User> getUserFromID(String userID) async {
+    await enforceDelay();
+    return getUsers()[0];
   }
 
   // ---
@@ -270,6 +279,45 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
         recipeID: '1',
       ),
       Review.userMap(
+        {
+          'id': '2',
+          'name': 'Michiel',
+          'score': 1500,
+          'rank': RankType.amateur,
+          'favourites': ['0', '1'],
+        },
+        id: '2',
+        description: "Dit is het lekkerste gerecht dat ik ooit heb gegeten",
+        rating: 5,
+        recipeID: '2',
+      ),
+            Review.userMap(
+        {
+          'id': '2',
+          'name': 'Michiel',
+          'score': 1500,
+          'rank': RankType.amateur,
+          'favourites': ['0', '1'],
+        },
+        id: '2',
+        description: "Dit is het lekkerste gerecht dat ik ooit heb gegeten",
+        rating: 5,
+        recipeID: '2',
+      ),
+            Review.userMap(
+        {
+          'id': '2',
+          'name': 'Michiel',
+          'score': 1500,
+          'rank': RankType.amateur,
+          'favourites': ['0', '1'],
+        },
+        id: '2',
+        description: "Dit is het lekkerste gerecht dat ik ooit heb gegeten",
+        rating: 5,
+        recipeID: '2',
+      ),
+            Review.userMap(
         {
           'id': '2',
           'name': 'Michiel',
