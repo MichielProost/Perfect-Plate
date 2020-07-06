@@ -64,7 +64,7 @@ class _Screen extends State<ProfileScreen> {
             name,
             style: TextStyle(
               fontSize: 20.0,
-              color: displayed == content ? Constants.accent : Colors.white,
+              color: displayed == content ? Constants.main : Constants.text_gray,
               fontWeight: displayed == content ? FontWeight.bold : FontWeight.normal,
             ),
           ),
@@ -153,14 +153,16 @@ class _Screen extends State<ProfileScreen> {
             automaticallyImplyLeading: false,
             pinned: true,
             title: buildNavigator(),
-            backgroundColor: Constants.main,
+            backgroundColor: Colors.grey.shade50,
           ),
 
+          // Recipes or review depending on the selected page
           for (Widget widget in displayed)
             SliverToBoxAdapter(
               child: widget,
             ),
 
+          // Extra padding to prevent overlap with the add recipe button
           SliverPadding(
             padding: EdgeInsets.only(bottom: 25.0),
           ),
