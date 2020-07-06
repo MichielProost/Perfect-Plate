@@ -64,7 +64,7 @@ class _Screen extends State<ProfileScreen> {
             name,
             style: TextStyle(
               fontSize: 20.0,
-              color: displayed == content ? Constants.main : Constants.text_gray,
+              color: displayed == content ? Constants.accent : Colors.white,
               fontWeight: displayed == content ? FontWeight.bold : FontWeight.normal,
             ),
           ),
@@ -73,14 +73,11 @@ class _Screen extends State<ProfileScreen> {
     );
   }
 
-  // TODO implement fancy scroller instead of basic listview
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: <Widget>[
-          
-          /// Profile picture
+  Widget buildHeader()
+  {
+    return Column(
+      children: <Widget>[
+        /// Profile picture
           // TODO implement profile picture
           // TODO implement profile picture changing
           Padding(
@@ -112,34 +109,60 @@ class _Screen extends State<ProfileScreen> {
               color: Constants.gray,
             ),
           ),
+      ],
+    );
+  }
 
-          /// content selector
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              buildContentLink("My recipes", _recipes),
-              buildContentLink("My reviews", _reviews),
-            ],
-          ),
-
-          /// Separator space
-          SizedBox(
-            height: 15.0,
-          ),
-
-          /// Content display
-          Expanded(
-            child: ListView(
-              shrinkWrap: true,
+  Widget buildNavigator()
+  {
+    return Padding(
+      padding: const EdgeInsets.only(top: 10.0),
+      child: Column(
+        children: <Widget>[
+            /// content selector
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                for (Widget widget in displayed)
-                  widget,
-
-                SizedBox(
-                  height: 25.0,
-                ),
+                buildContentLink("My recipes", _recipes),
+                buildContentLink("My reviews", _reviews),
               ],
             ),
+
+            /// Separator space
+            SizedBox(
+              height: 15.0,
+            ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: CustomScrollView(
+        slivers: <Widget>[
+
+          // Header
+          SliverToBoxAdapter(
+            child: buildHeader(),
+          ),
+
+          // Navigation bar
+          SliverAppBar(
+            automaticallyImplyLeading: false,
+            pinned: true,
+            title: buildNavigator(),
+            backgroundColor: Constants.main,
+          ),
+
+          for (Widget widget in displayed)
+            SliverToBoxAdapter(
+              child: widget,
+            ),
+
+          SliverPadding(
+            padding: EdgeInsets.only(bottom: 25.0),
           ),
         ],
       ),
