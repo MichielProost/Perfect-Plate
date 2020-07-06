@@ -10,13 +10,34 @@ class Review{
   final String description;             // Description from user.
 
   const Review({
-    this.id,
+    this.id = '',
     this.user,
     this.userMap,
-    this.recipeID,
-    this.rating,
-    this.description,
+    this.recipeID = '',
+    this.rating = 0,
+    this.description = '',
   });
+
+  Review.userMap(
+    this.userMap,
+    {
+      this.id = '',
+      this.recipeID = '',
+      this.rating = 0,
+      this.description = ''
+    }
+  ) : user = User.fromMap(userMap, null);
+
+  Review.user(
+    this.user,  
+    {
+      this.id = '',
+      this.recipeID = '',
+      this.rating = 0,
+      this.description = '',
+      // TODO retreive usermap from given user field
+    }
+  ) : userMap = Map<String, dynamic>();
 
   /// Deserialize received data from Firestore.
   /// Initialize a new review object.
@@ -24,7 +45,7 @@ class Review{
       : this(
           id: id,
           user: data.containsKey('userMap') ?
-            User.fromMap( Map<String, dynamic>.from(data['userMap']), null) : null,
+            User.fromMap( Map<String, dynamic>.from(data['userMap']), null) : User(id: '', name: '', rank: RankType.amateur, ),
           userMap: data.containsKey('userMap') ?
             new Map<String, dynamic>.from(data['userMap']) : {},
           recipeID: data.containsKey('recipeID') ? data['recipeID'] : '',

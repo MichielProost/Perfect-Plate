@@ -256,31 +256,31 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
 
   List<Review> getReviews() {
     return [
-      Review(
-        id: '1',
-        description: "Zeer tevreden van dit gerecht. Makkelijk te bereiden en écht super lekker!",
-        rating: 4,
-        recipeID: '1',
-        userMap: {
+      Review.userMap(
+        {
           'id': '2',
           'name': 'Michiel',
           'score': 1500,
           'rank': RankType.amateur,
           'favourites': ['0', '1'],
         },
+        id: '1',
+        description: "Zeer tevreden van dit gerecht. Makkelijk te bereiden en écht super lekker!",
+        rating: 4,
+        recipeID: '1',
       ),
-      Review(
+      Review.userMap(
+        {
+          'id': '2',
+          'name': 'Michiel',
+          'score': 1500,
+          'rank': RankType.amateur,
+          'favourites': ['0', '1'],
+        },
         id: '2',
         description: "Dit is het lekkerste gerecht dat ik ooit heb gegeten",
         rating: 5,
         recipeID: '2',
-        userMap: {
-          'id': '1',
-          'name': 'Dieter',
-          'score': 1501,
-          'rank': RankType.professional,
-          'favourites': ['0', '1'],
-        },
       ),
     ];
   }
