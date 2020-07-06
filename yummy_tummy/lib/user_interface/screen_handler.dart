@@ -21,10 +21,9 @@ enum AppPage {
 }
 
 
-class ScreenHandler extends StatelessWidget {
+class ScreenHandler extends StatefulWidget {
 
-  AppPage _currentPage;
-  AppBarBottom _appBarBottom;
+
   final Map<AppPage, Widget> _pages = {
     AppPage.feed:        FeedScreen(),
     AppPage.search:      SearchScreen(),
@@ -32,13 +31,23 @@ class ScreenHandler extends StatelessWidget {
     AppPage.profile:     ProfileScreen(), 
   };
 
-  
+  @override
+  State<StatefulWidget> createState() {
+    return _ScreenHandler();
+  }
+
+}
+
+class _ScreenHandler extends State<ScreenHandler> {
+
+  AppPage _currentPage;
+  AppBarBottom _appBarBottom;
+    
   final _controller = PageController(
     initialPage: 1,
   );
 
-
-  ScreenHandler()
+  _ScreenHandler()
   {
     _currentPage = AppPage.values[_controller.initialPage];
     _appBarBottom = AppBarBottom(_currentPage, _controller);
@@ -58,10 +67,10 @@ class ScreenHandler extends StatelessWidget {
             _appBarBottom.appBarBottomState.refresh(_currentPage),
           },
           children: <Widget>[
-            _pages[AppPage.feed],
-            _pages[AppPage.search],
-            _pages[AppPage.favourites],
-            _pages[AppPage.profile],
+            widget._pages[AppPage.feed],
+            widget._pages[AppPage.search],
+            widget._pages[AppPage.favourites],
+            widget._pages[AppPage.profile],
           ],
         ),
       ),
