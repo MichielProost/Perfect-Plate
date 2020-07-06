@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yummytummy/model/review.dart';
+import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/user_interface/components/rating_row.dart';
 
 import '../constants.dart';
@@ -27,7 +28,7 @@ class _Card extends State<ReviewCard> {
           child: Column(
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 5.0),
+                padding: const EdgeInsets.only(right: 10.0, bottom: 10.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
@@ -35,9 +36,12 @@ class _Card extends State<ReviewCard> {
                       widget._review.rating.toDouble(),
                       size: 22.0,
                     ),
-                    // TODO replace by actual user info 
+                    // TODO replace by actual user info
+                    Text(
+                      widget._review.user.rank.getString(),
+                    ), 
                     Text( 
-                      widget._review.userMap['name'],
+                      widget._review.user.name,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 15.0
@@ -46,7 +50,10 @@ class _Card extends State<ReviewCard> {
                   ],
                 ),
               ),
-              Text( widget._review.description ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 7.0),
+                child: Text( widget._review.description ),
+              ),
             ],
           ),
         ),
