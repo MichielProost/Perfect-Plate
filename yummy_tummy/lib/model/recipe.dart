@@ -24,7 +24,6 @@ enum RecipeType {
 }
 
 extension Type on RecipeType {
-
   // Get a user-ready String of the rank name
   String getString()
   {
@@ -32,7 +31,16 @@ extension Type on RecipeType {
     String lowercase = this.toString().toLowerCase().split('.').last;
     return '${lowercase[0].toUpperCase()}${lowercase.substring(1)}';
   }
+}
 
+extension Diet on DietField {
+  // Get a user-ready String of the rank name
+  String getString()
+  {
+    //TODO implement better way to implement this with regards to languages
+    String lowercase = this.toString().toLowerCase().split('.').last;
+    return '${lowercase[0].toUpperCase()}${lowercase.substring(1)}';
+  }
 }
 
 class Recipe {

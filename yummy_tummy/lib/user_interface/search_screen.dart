@@ -22,24 +22,40 @@ class _SearchScreen extends State<SearchScreen> {
   RecipeType _recipeType = RecipeType.mains;
   SortField _sortField = SortField.rating;
   List<String> _ingredients = List<String>();
-  
-  Widget buildDietPicker(String name, DietField field)
+
+  _SearchScreen()
   {
-    return RadioListTile<DietField>(
-      value: field, 
-      groupValue: _dietField, 
-      onChanged: (DietField value) => setState(() => _dietField = value),
-      title: Text(name),
-    );
+    _ingredients.add("Aardappels");
+    _ingredients.add("Wortels");
+    _ingredients.add("Steak");
   }
 
-  Widget buildRecipeTypePicker(String name, RecipeType recipeType)
+  Widget buildIngredientDisplay(int index)
   {
-    return RadioListTile(
-      value: recipeType, 
-      groupValue: _recipeType, 
-      onChanged: (RecipeType value) => setState(() => _recipeType = recipeType),
-      title: Text(name),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Card(
+        color: Constants.gray,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 60.0, right: 8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text(
+                _ingredients[index],
+              ),
+              IconButton(
+                icon: Icon(Icons.delete), 
+                onPressed: () {
+                  setState(() {
+                    _ingredients.removeAt( index );
+                  });
+                }
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
@@ -64,84 +80,126 @@ class _SearchScreen extends State<SearchScreen> {
 
           // Searchbox
           Card(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: <Widget>[
+            child: Column(
+              children: <Widget>[
+                GridView.count(
+                  shrinkWrap: true,
+                  childAspectRatio: 4.0 / 1.0,
+                  crossAxisCount: 2,
+                  children: <Widget>[
+                    
+                    Padding(
+                      padding: const EdgeInsets.only(left: 60.0),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text("Diet of choice")
+                      ),
+                    ),
 
-                  // Search criteria
+                    DropdownButton<DietField>(
+                      value: _dietField,
+                      icon: Icon(Icons.keyboard_arrow_down),
+                      isExpanded: true,
+                      iconSize: 24,
+                      elevation: 16,
+                      style: TextStyle(color: Colors.black),
+                      onChanged: (DietField newValue) {
+                        setState(() {
+                          _dietField = newValue;
+                        });
+                      },
+                      items: DietField.values
+                          .map<DropdownMenuItem<DietField>>((DietField value) {
+                        return DropdownMenuItem<DietField>(
+                          value: value,
+                          child: Text(value.getString()),
+                        );
+                      }).toList(),
+                    ),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    Padding(
+                      padding: const EdgeInsets.only(left: 60.0),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text("Type of dish")
+                      ),
+                    ),
+
+                    DropdownButton<RecipeType>(
+                      value: _recipeType,
+                      icon: Icon(Icons.keyboard_arrow_down),
+                      isExpanded: true,
+                      iconSize: 24,
+                      elevation: 16,
+                      style: TextStyle(color: Colors.black),
+                      onChanged: (RecipeType newValue) {
+                        setState(() {
+                          _recipeType = newValue;
+                        });
+                      },
+                      items: RecipeType.values
+                          .map<DropdownMenuItem<RecipeType>>((RecipeType value) {
+                        return DropdownMenuItem<RecipeType>(
+                          value: value,
+                          child: Text(value.getString()),
+                        );
+                      }).toList(),
+                    ),
+
+                  ],
+                ),
+                
+                SizedBox(
+                  height: 30.0,
+                ),
+                
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                  child: Column(
                     children: <Widget>[
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-
-                            // Choose diet: none/vegan/vegetarian
-                            Row(
-                              children: <Widget>[
-                                Text('Pick your diet'),
-                              ],
-                            ),
-                            buildDietPicker('Vegetarian', DietField.vegetarian),
-                            buildDietPicker('Vegan',      DietField.vegan),
-                            buildDietPicker('Neither',    DietField.none),
-                          ],
+                      Text("Add required ingredients below:"),
+                      TextFormField(
+                        enableSuggestions: true,
+                        maxLines: 1,
+                        onFieldSubmitted: (String text) {
+                          setState(() {
+                            if (text != "")
+                              _ingredients.add( text );
+                          });
+                        },
+                        decoration: InputDecoration(
+                          focusColor: Constants.main,
+                          prefix: Text("Add required ingredients here"),
                         ),
                       ),
-                      
-                      // Divide both sides
-                      Container(
-                        color: Colors.black,
-                        width: 1.0,
-                        height: 130.0,
-                      ),
-
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            // Choose diet: none/vegan/vegetarian
-                            Row(
-                              children: <Widget>[
-                                Text('Dish type'),
-                              ],
-                            ),
-                            for (RecipeType type in RecipeType.values)
-                              buildRecipeTypePicker(type.getString(), type),
-                          ],
-                        ),
-                      ),
-
                     ],
                   ),
+                ),
 
-                  
-                  // Choose type of dish: RecipeType
-                  // Choose ingredients
-
-                  // Search sorting
-                  // Select sortfield
-
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 0.0),
-                    child: RaisedButton(
-                      child: Text("Search"),
-                      onPressed: () {
-                        // TODO: implement search
-                      }
-                    ),
-                  ),
-
-                ],
-              ),
+                ListView(
+                  shrinkWrap: true,
+                  children: <Widget>[
+                    // Display selected recipes
+                    for (int i = 0; i < _ingredients.length; i++)
+                      buildIngredientDisplay(i)
+                  ],
+                ),
+              ],
             ),
           ),
-
         ],
       ),
     );
   }
 }
+
+
+                  // Padding(
+                  //   padding: const EdgeInsets.symmetric(horizontal: 0.0),
+                  //   child: RaisedButton(
+                  //     child: Text("Search"),
+                  //     onPressed: () {
+                  //       // TODO: implement search
+                  //     }
+                  //   ),
+                  // ),
