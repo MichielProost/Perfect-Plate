@@ -1,6 +1,7 @@
 import 'package:yummytummy/model/user.dart';
 
 // Recipes can be sorted by the following fields.
+// TODO add advanced sort system: formula that combines rating and numberofreviews (and normalizes the result)
 enum SortField {
   rating,
   numberOfReviews,
@@ -15,11 +16,23 @@ enum DietField {
 
 // Recipes are classified in one of many types.
 enum RecipeType {
-  unclassified,
+  other,
   soups,
   salads,
   mains,
   desserts
+}
+
+extension Type on RecipeType {
+
+  // Get a user-ready String of the rank name
+  String getString()
+  {
+    //TODO implement better way to implement this with regards to languages
+    String lowercase = this.toString().toLowerCase().split('.').last;
+    return '${lowercase[0].toUpperCase()}${lowercase.substring(1)}';
+  }
+
 }
 
 class Recipe {
@@ -66,7 +79,7 @@ class Recipe {
           id: id,
           title: data.containsKey('title') ? data['title'] : '',
           description: data.containsKey('description') ? data['description'] : '',
-          type: data.containsKey('type') ? RecipeType.values[data['type']] : RecipeType.unclassified,
+          type: data.containsKey('type') ? RecipeType.values[data['type']] : RecipeType.other,
           isVegetarian: data.containsKey('isVegetarian') ? data['isVegetarian'] : false,
           isVegan: data.containsKey('isVegan') ? data['isVegan'] : false,
           ingredients: data.containsKey('ingredients') ?
