@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:yummytummy/database/dummy/dummydatabase.dart';
+import 'package:yummytummy/database/interfaces/recipeService.dart';
+import 'package:yummytummy/database/interfaces/reviewService.dart';
 import 'package:yummytummy/database/interfaces/userService.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/review.dart';
@@ -9,6 +11,7 @@ import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/user_interface/components/rating_row.dart';
 import 'package:yummytummy/user_interface/components/recipe_card.dart';
 import 'package:yummytummy/user_interface/components/review_card.dart';
+import 'package:yummytummy/user_interface/popup/recipe_page.dart';
 
 import 'constants.dart';
 
@@ -26,6 +29,9 @@ class _Screen extends State<ProfileScreen> {
   List<Widget> _recipes = List<Widget>();
   List<Widget> _reviews = List<Widget>(); 
   
+  RecipeService _recipeService = DummyDatabase(delayInMilliseconds: 500);
+  ReviewService _reviewService = DummyDatabase(delayInMilliseconds: 100);
+
   _Screen()
   {
     // TODO Get actual data and remove code below + make this page Future proof
@@ -37,12 +43,23 @@ class _Screen extends State<ProfileScreen> {
     for (Review review in DummyDatabase().getReviews())
     {
       _reviews.add( 
-        ReviewCard( review )
+        InkWell(
+          onTap: () {
+            _openRecipeID( review.recipeID );
+          },
+          child: ReviewCard( review )
+        ),
       );
     }
 
     // Start by displaying recipes
     displayed = _recipes;
+  }
+
+  void _openRecipeID( String recipeID ) async
+  {
+    Recipe recipe = await _recipeService.getRecipeFromID( recipeID );
+    showDialog(context: context, child: RecipePage( recipe ));
   }
 
   // TODO add logic for when not logged in
