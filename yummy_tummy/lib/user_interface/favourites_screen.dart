@@ -5,6 +5,7 @@ import 'package:yummytummy/database/dummy/dummydatabase.dart';
 import 'package:yummytummy/database/interfaces/recipeService.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/user.dart';
+import 'package:yummytummy/user_interface/constants.dart';
 import 'package:yummytummy/user_interface/popup/snackbar_util.dart';
 
 import 'components/recipe_card.dart';
@@ -19,6 +20,7 @@ class FavouritesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Constants;
     return Scaffold(
       body: FutureBuilder(
         //TODO replace by feed algorithm
@@ -29,15 +31,18 @@ class FavouritesScreen extends StatelessWidget {
             return snapshot.hasError ?
               //TODO implement language
               SnackBarUtil.createTextSnackBar("An error occured while retrieving the recipes!") :
-              ListView(
-                children: <Widget>[
-                  for (Recipe recipe in snapshot.data) RecipeCard(recipe, showBookmark: true),
+              Theme(
+                data: Constants.themeData,
+                child: ListView(
+                  children: <Widget>[
+                    for (Recipe recipe in snapshot.data) RecipeCard(recipe, showBookmark: true),
 
-                  SizedBox(
-                    height: 30.0,
-                  ),
-              ],
-            );
+                    SizedBox(
+                      height: 30.0,
+                    ),
+                ],
+            ),
+              );
           } 
           else
           {

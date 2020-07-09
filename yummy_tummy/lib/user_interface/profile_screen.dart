@@ -140,33 +140,36 @@ class _Screen extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        slivers: <Widget>[
+      body: Theme(
+        data: Constants.themeData,
+        child: CustomScrollView(
+          slivers: <Widget>[
 
-          // Header
-          SliverToBoxAdapter(
-            child: buildHeader(),
-          ),
-
-          // Navigation bar
-          SliverAppBar(
-            automaticallyImplyLeading: false,
-            pinned: true,
-            title: buildNavigator(),
-            backgroundColor: Colors.grey.shade50,
-          ),
-
-          // Recipes or review depending on the selected page
-          for (Widget widget in displayed)
+            // Header
             SliverToBoxAdapter(
-              child: widget,
+              child: buildHeader(),
             ),
 
-          // Extra padding to prevent overlap with the add recipe button
-          SliverPadding(
-            padding: EdgeInsets.only(bottom: 30.0),
-          ),
-        ],
+            // Navigation bar
+            SliverAppBar(
+              automaticallyImplyLeading: false,
+              pinned: true,
+              title: buildNavigator(),
+              backgroundColor: Colors.grey.shade50,
+            ),
+
+            // Recipes or review depending on the selected page
+            for (Widget widget in displayed)
+              SliverToBoxAdapter(
+                child: widget,
+              ),
+
+            // Extra padding to prevent overlap with the add recipe button
+            SliverPadding(
+              padding: EdgeInsets.only(bottom: 30.0),
+            ),
+          ],
+        ),
       ),
     );
   }

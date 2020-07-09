@@ -27,15 +27,18 @@ class FeedScreen extends StatelessWidget {
             return snapshot.hasError ?
               //TODO implement language
               SnackBarUtil.createTextSnackBar("An error occured while retrieving the recipes!") :
-              ListView(
-                children: <Widget>[
-                  for (Recipe recipe in snapshot.data) RecipeCard(recipe, showBookmark: false),
+              Theme(
+                data: Constants.themeData,
+                child: ListView(
+                  children: <Widget>[
+                    for (Recipe recipe in snapshot.data) RecipeCard(recipe, showBookmark: false),
 
-                  SizedBox(
-                    height: 30.0,
-                  ),  
-              ],
-            );
+                    SizedBox(
+                      height: 30.0,
+                    ),  
+                ],
+            ),
+              );
           } 
           else
           {

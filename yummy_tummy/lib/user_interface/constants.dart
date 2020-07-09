@@ -6,4 +6,8 @@ class Constants {
   static final Color gray = Colors.grey.shade200;
   static final Color text_gray = Colors.grey.shade600;
   static final Color green = Colors.green;
+
+  static final ThemeData themeData = ThemeData(
+    accentColor: main,
+  );
 }
