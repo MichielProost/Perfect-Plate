@@ -123,7 +123,7 @@ class _Screen extends State<ProfileScreen> {
             child: Container(
               width: double.infinity,
               height: 2.0,
-              color: Constants.gray,
+              color: Colors.grey.shade400,
             ),
           ),
       ],
@@ -173,7 +173,7 @@ class _Screen extends State<ProfileScreen> {
               automaticallyImplyLeading: false,
               pinned: true,
               title: buildNavigator(),
-              backgroundColor: Colors.grey.shade50,
+              backgroundColor: Constants.background,
             ),
 
             // Recipes or review depending on the selected page
