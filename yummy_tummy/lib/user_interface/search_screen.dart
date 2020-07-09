@@ -5,7 +5,7 @@ import 'package:yummytummy/database/dummy/dummydatabase.dart';
 import 'package:yummytummy/database/interfaces/recipeService.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/user_interface/components/recipe_card.dart';
-import 'package:yummytummy/user_interface/widgets/custom_expansion_tile.dart';
+import 'package:yummytummy/user_interface/widgets/better_expansion_tile.dart';
 
 import 'constants.dart';
 
@@ -61,7 +61,7 @@ class _SearchScreen extends State<SearchScreen> {
   }
 
   var _controller = TextEditingController();
-  final GlobalKey<CustomExpansionTileState> _expansionTile = new GlobalKey();
+  final GlobalKey<BetterExpansionTileState> _expansionTile = new GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +76,7 @@ class _SearchScreen extends State<SearchScreen> {
               data: ThemeData(
                 accentColor: Constants.main,
               ),
-              child: CustomExpansionTile(
+              child: BetterExpansionTile(
                 key: _expansionTile,
                 title: Center(
                     child: Text(
@@ -320,7 +320,7 @@ class _SearchScreen extends State<SearchScreen> {
       _hasSearched = true;
       _foundRecipes = recipes;
       //_foundRecipes = List<Recipe>();
-      _expansionTile.currentState.collapse();
+      _expansionTile.currentState.closeExpansion();
     });
   }
 }
