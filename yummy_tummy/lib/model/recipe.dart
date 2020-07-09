@@ -46,23 +46,41 @@ extension Diet on DietField {
 class Recipe {
 
   final String id;                      // Document ID.
-  final String title;                   // Title of recipe.
-  final String description;             // Main description.
-  final RecipeType type;                // Type of recipe.
-  final bool isVegetarian;              // Vegetarian recipe?
-  final bool isVegan;                   // Vegan recipe?
+  String title;                         // Title of recipe.
+  String description;                   // Main description.
+  RecipeType type;                      // Type of recipe.
+  bool isVegetarian;                    // Vegetarian recipe?
+  bool isVegan;                         // Vegan recipe?
   final List<String> ingredients;       // Ingredients.
   final List<String> stepDescriptions;  // A list of descriptions. Each element represents a step.
   final List<String> stepImages;        // Image URL of each step.
   final double rating;                  // Rating of dish.
-  final int duration;                   // How long it takes to make the recipe.
-  final String image;                   // Image URL of result.
+  int duration;                         // How long it takes to make the recipe.
+  String image;                         // Image URL of result.
   final int numberOfReviews;            // Number of reviews.
   // TODO watch out!! User is mutable, and can be edited from anywhere!
   final User user;                      // User object.
   final Map<String, dynamic> userMap;   // Duplicate data. Information of user.
 
-  const Recipe({
+  Recipe.editable(
+    this.id, 
+    this.user, 
+    this.userMap,
+    {
+      this.title,
+      this.description,
+      this.type,
+      this.isVegetarian,
+      this.isVegan,
+    }
+  ): 
+    ingredients = List<String>(),
+    stepDescriptions = List<String>(),
+    stepImages = List<String>(),
+    rating = 0, 
+    numberOfReviews = 0;
+
+  Recipe({
     this.id,
     this.title,
     this.description,

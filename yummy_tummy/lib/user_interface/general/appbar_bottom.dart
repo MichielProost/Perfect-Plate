@@ -33,7 +33,8 @@ class AppBarBottomState extends State<AppBarBottom> {
 
   Widget createNavButton(IconData icon, String text, AppPage page)
   {
-    Color elementColor = _currentPage == page ? Constants.accent : Colors.white;
+    //Color elementColor = _currentPage == page ? Constants.accent : Colors.white;
+    Color elementColor = _currentPage == page ? Colors.white : Colors.grey.shade400;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: SizedBox(
