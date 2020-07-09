@@ -31,14 +31,6 @@ class _SearchScreen extends State<SearchScreen> {
   bool _hasSearched = false;
   List<Recipe> _foundRecipes = List<Recipe>();
 
-  _SearchScreen()
-  {
-    // TODO remove starting ingredients
-    _ingredients.add("Aardappels");
-    _ingredients.add("Wortels");
-    _ingredients.add("Steak");
-  }
-
   Widget buildIngredientDisplay(int index)
   {
     return Padding(
