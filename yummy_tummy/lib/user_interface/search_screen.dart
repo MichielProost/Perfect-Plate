@@ -67,6 +67,7 @@ class _SearchScreen extends State<SearchScreen> {
   Widget build(BuildContext context) {
     
     return Scaffold(
+      backgroundColor: Constants.background,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[

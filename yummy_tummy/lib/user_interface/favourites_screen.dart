@@ -22,6 +22,7 @@ class FavouritesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Constants;
     return Scaffold(
+      backgroundColor: Constants.background,
       body: FutureBuilder(
         //TODO replace by feed algorithm
         future: _recipeService.getRecipesFromUser(UserMapField.id, 'id'),

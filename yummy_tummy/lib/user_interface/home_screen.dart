@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'constants.dart';
 import 'general/appbar_top.dart';
 import 'general/side_menu.dart';
 
@@ -18,6 +19,7 @@ class HomeScreen extends StatelessWidget {
     Scaffold(
       appBar: AppBarTop(),
       drawer: SideMenu(),
+      backgroundColor: Constants.background,
       body: 
         Column(
           children: <Widget>[

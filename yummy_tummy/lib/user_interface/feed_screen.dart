@@ -18,6 +18,7 @@ class FeedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Constants.background,
       body: FutureBuilder(
         //TODO replace by feed algorithm
         future: _recipeService.getRecipesFromUser(UserMapField.id, 'id'),

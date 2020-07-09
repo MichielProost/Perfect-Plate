@@ -6,6 +6,7 @@ import 'package:yummytummy/user_interface/feed_screen.dart';
 import 'package:yummytummy/user_interface/profile_screen.dart';
 import 'package:yummytummy/user_interface/search_screen.dart';
 
+import 'constants.dart';
 import 'general/add_recipe_button.dart';
 import 'general/appbar_bottom.dart';
 import 'general/appbar_top.dart';
@@ -59,6 +60,7 @@ class _ScreenHandler extends State<ScreenHandler> {
     return Scaffold(
       appBar: AppBarTop(),
       drawer: SideMenu(),
+      backgroundColor: Constants.gray,
       body: Center(
         child: PageView (
           controller: _controller,
