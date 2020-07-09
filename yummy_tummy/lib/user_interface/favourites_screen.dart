@@ -34,7 +34,7 @@ class FavouritesScreen extends StatelessWidget {
                   for (Recipe recipe in snapshot.data) RecipeCard(recipe, showBookmark: true),
 
                   SizedBox(
-                    height: 25.0,
+                    height: 30.0,
                   ),
               ],
             );

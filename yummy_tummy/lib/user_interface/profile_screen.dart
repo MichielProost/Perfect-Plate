@@ -164,7 +164,7 @@ class _Screen extends State<ProfileScreen> {
 
           // Extra padding to prevent overlap with the add recipe button
           SliverPadding(
-            padding: EdgeInsets.only(bottom: 25.0),
+            padding: EdgeInsets.only(bottom: 30.0),
           ),
         ],
       ),

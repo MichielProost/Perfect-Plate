@@ -273,8 +273,37 @@ class _SearchScreen extends State<SearchScreen> {
     if (_foundRecipes.length == 0)
     {
       found.add(
-        Text(
-          "No recipes were found! Please adjust your search parameters."
+        SizedBox(
+          height: 30.0,
+        )
+      );
+      found.add(
+        Center(
+          child: Text(
+            "No recipes were found! Please adjust your search parameters.",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20.0
+            ),
+          ),
+        ),
+      );
+      found.add(
+        SizedBox(
+          height: 30.0,
+        )
+      );
+      found.add(
+        Center(
+          child: Text(
+            ":-(",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 30.0
+            ),
+          ),
         ),
       );
     }
@@ -298,6 +327,7 @@ class _SearchScreen extends State<SearchScreen> {
     setState(() {
       _hasSearched = true;
       _foundRecipes = recipes;
+      //_foundRecipes = List<Recipe>();
       _expansionTile.currentState.collapse();
     });
   }
