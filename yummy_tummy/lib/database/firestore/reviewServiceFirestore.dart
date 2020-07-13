@@ -19,17 +19,10 @@ class ReviewServiceFirestore implements ReviewService {
   /// Add a new review to the database. Returns the document ID.
   Future<String> addReview(Review review) async {
 
-    // Create map from specified review object.
-    Map reviewMap = new HashMap<String, Object>();
-    reviewMap.putIfAbsent("userMap", () => review.userMap);
-    reviewMap.putIfAbsent("recipeID", () => review.recipeID);
-    reviewMap.putIfAbsent("rating", () => review.rating);
-    reviewMap.putIfAbsent("description", () => review.description);
-
     // Create a new review document.
     String documentID =
     await this.db.collection("reviews")
-        .add(reviewMap)
+        .add(review.toMap())
         .then((value) {
       return value.documentID;
     });

@@ -18,17 +18,10 @@ class UserServiceFirestore implements UserService {
   /// Add a new user to the database. Returns the document ID.
   Future<String> addUser(User user) async {
 
-    // Create map from specified user object.
-    Map userMap = new HashMap<String, Object>();
-    userMap.putIfAbsent("name", () => user.name);
-    userMap.putIfAbsent("score", () => user.score);
-    userMap.putIfAbsent("rank", () => user.rank.index);
-    userMap.putIfAbsent("favourites", () => user.favourites);
-
     // Create a new user document.
     String documentID =
     await this.db.collection("users")
-        .add(userMap)
+        .add(user.toMap())
         .then((value) {
       return value.documentID;
     });

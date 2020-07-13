@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:yummytummy/model/user.dart';
 
 // Recipes can be sorted by the following fields.
@@ -127,20 +128,19 @@ class Recipe {
   /// Convert class object to data structure 'Map'.
   Map<String, dynamic> toMap() {
     return {
-      'id' : id,
-      'title' : title,
-      'description' : description,
-      'type' : type.index,
-      'isVegetarian' : isVegetarian,
-      'isVegan' : isVegan,
-      'ingredients' : ingredients,
-      'stepDescriptions' : stepDescriptions,
-      'stepImages' : stepImages,
-      'rating' : rating,
-      'duration' : duration,
-      'image' : image,
-      'numberOfReviews' : numberOfReviews,
-      'userMap' : userMap,
+      'title' : title ??= '',
+      'description' : description ??= '',
+      'type' : type.index != null ? type.index : RecipeType.other,
+      'isVegetarian' : isVegetarian ??= false,
+      'isVegan' : isVegan ??= false,
+      'ingredients' : ingredients != null ? ingredients : [],
+      'stepDescriptions' : stepDescriptions != null ? stepDescriptions : [],
+      'stepImages' : stepImages != null ? stepImages : [],
+      'rating' : rating != null ? rating : 0.0,
+      'duration' : duration ??= 0,
+      'image' : image ??= '',
+      'numberOfReviews' : numberOfReviews != null ? numberOfReviews : 0,
+      'userMap' : userMap != null ? userMap : {} ,
     };
   }
 

@@ -53,6 +53,16 @@ class Review{
           description: data.containsKey('description') ? data['description'] : '',
       );
 
+  /// Convert class object to data structure 'Map'.
+  Map<String, dynamic> toMap() {
+    return {
+      'userMap' : userMap != null ? userMap : {},
+      'recipeID' : recipeID != null ? recipeID : '',
+      'rating' : rating != null ? rating : 0.0,
+      'description' : description != null ? description : '',
+    };
+  }
+
   /// Print summary of review to console.
   void printSummary(){
     print("Document ID: " + this.id);

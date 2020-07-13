@@ -25,7 +25,7 @@ class Test {
   /// Define test methods here. Uncomment the functions you want to execute.
   void testMethods() async {
 
-    //testAddRecipes();
+    testAddRecipes();
     //testAddUser();
     //testGetRecipeFromTitle();
     //testAddReview();
@@ -90,10 +90,10 @@ class Test {
 
     // Create review object.
     Review review = new Review(
-      userMap: {'id' : '1w7FGM8kiBbk3iwJB7b2', 'name' : 'Jeroen Meus', 'Rank' : RankType.professional.index},
-      recipeID: 'DSPzAAQHbGm2PJibhDVi',
+      userMap: {'id' : 'v9KKgUEnDStdzlVWICR3', 'name' : 'Tony Proost', 'Rank' : RankType.amateur.index},
+      recipeID: 'dosiN0h6qjoidjSGRURS',
       rating: 4,
-      description: 'Amazing recipe Michiel! Keep it up!'
+      description: 'Loved the recipe, but the chef used a lot of ingredients.'
     );
 
     // Add review to Firestore.

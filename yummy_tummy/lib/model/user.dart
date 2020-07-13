@@ -60,6 +60,16 @@ class User{
             new List<String>.from(data['favourites']) : [],
         );
 
+  /// Convert class object to data structure 'Map'.
+  Map<String, dynamic> toMap() {
+    return  {
+      'name' : name != null ? name : '',
+      'score' : score != null ? score : '',
+      'rank' : rank.index != null ? rank.index : RankType.beginner,
+      'favourites' : favourites != null ? favourites : [],
+    };
+  }
+
   /// Print summary of user to console.
   void printSummary(){
     print("Document ID: " + this.id);
