@@ -45,7 +45,7 @@ class Review{
       : this(
           id: id,
           user: data.containsKey('userMap') ?
-            User.fromMap( Map<String, dynamic>.from(data['userMap']), null) : User(id: '', name: '', rank: RankType.amateur, ),
+            User.fromMap( Map<String, dynamic>.from(data['userMap']), null) : User(id: '', name: '', rank: RankType.amateur),
           userMap: data.containsKey('userMap') ?
             new Map<String, dynamic>.from(data['userMap']) : {},
           recipeID: data.containsKey('recipeID') ? data['recipeID'] : '',

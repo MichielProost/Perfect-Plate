@@ -77,7 +77,7 @@ class Recipe {
     ingredients = List<String>(),
     stepDescriptions = List<String>(),
     stepImages = List<String>(),
-    rating = 0, 
+    rating = 0.0,
     numberOfReviews = 0;
 
   Recipe({
@@ -121,7 +121,7 @@ class Recipe {
           userMap: data.containsKey('userMap') ?
             Map<String, dynamic>.from( data['userMap'] ) : {},
           user: data.containsKey('userMap') ?
-            User.fromMap( Map<String, dynamic>.from(data['userMap']), null) : null,
+            User.fromMap( Map<String, dynamic>.from(data['userMap']), null) : User(id: '', name: '', rank: RankType.amateur),
         );
 
   /// Convert the RecipeType field to a readable format where the first letter is uppercase and return it
