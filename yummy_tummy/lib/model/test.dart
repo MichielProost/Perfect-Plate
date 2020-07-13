@@ -25,7 +25,7 @@ class Test {
   /// Define test methods here. Uncomment the functions you want to execute.
   void testMethods() async {
 
-    testAddRecipes();
+    //testAddRecipes();
     //testAddUser();
     //testGetRecipeFromTitle();
     //testAddReview();
