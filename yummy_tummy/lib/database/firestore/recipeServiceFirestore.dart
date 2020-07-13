@@ -19,26 +19,10 @@ class RecipeServiceFirestore implements RecipeService {
   /// Add a new recipe to the database. Returns the document ID.
   Future<String> addRecipe(Recipe recipe) async {
 
-    // Create map from specified recipe object.
-    Map recipeMap = new HashMap<String, Object>();
-    recipeMap.putIfAbsent("title", () => recipe.title);
-    recipeMap.putIfAbsent("description", () => recipe.description);
-    recipeMap.putIfAbsent("type", () => recipe.type.index);
-    recipeMap.putIfAbsent("isVegetarian", () => recipe.isVegetarian);
-    recipeMap.putIfAbsent("isVegan", () => recipe.isVegan);
-    recipeMap.putIfAbsent("ingredients", () => recipe.ingredients);
-    recipeMap.putIfAbsent("stepDescriptions", () => recipe.stepDescriptions);
-    recipeMap.putIfAbsent("stepImages", () => recipe.stepImages);
-    recipeMap.putIfAbsent("rating", () => recipe.rating);
-    recipeMap.putIfAbsent("duration", () => recipe.duration);
-    recipeMap.putIfAbsent("image", () => recipe.image);
-    recipeMap.putIfAbsent("numberOfReviews", () => recipe.numberOfReviews);
-    recipeMap.putIfAbsent("userMap", () => recipe.userMap);
-
     // Create a new recipe document.
     String documentID =
     await this.db.collection("recipes")
-        .add(recipeMap)
+        .add(recipe.toMap())
         .then((value) {
       return value.documentID;
     });
