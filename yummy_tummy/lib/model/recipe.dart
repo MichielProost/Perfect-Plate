@@ -124,6 +124,26 @@ class Recipe {
             User.fromMap( Map<String, dynamic>.from(data['userMap']), null) : User(id: '', name: '', rank: RankType.amateur),
         );
 
+  /// Convert class object to data structure 'Map'.
+  Map<String, dynamic> toMap() {
+    return {
+      'id' : id,
+      'title' : title,
+      'description' : description,
+      'type' : type.index,
+      'isVegetarian' : isVegetarian,
+      'isVegan' : isVegan,
+      'ingredients' : ingredients,
+      'stepDescriptions' : stepDescriptions,
+      'stepImages' : stepImages,
+      'rating' : rating,
+      'duration' : duration,
+      'image' : image,
+      'numberOfReviews' : numberOfReviews,
+      'userMap' : userMap,
+    };
+  }
+
   /// Convert the RecipeType field to a readable format where the first letter is uppercase and return it
   String getReadableType() {
     //TODO Better way to retreive a display name of this type (multiple languages)

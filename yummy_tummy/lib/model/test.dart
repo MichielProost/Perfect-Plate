@@ -38,7 +38,7 @@ class Test {
     //testDeleteReview();
     //testGetRecipeFromID();
     //testGetFavouriteRecipes();
-    //testModifyReview();
+    testModifyRecipe();
 
   }
 
@@ -193,12 +193,11 @@ class Test {
   }
 
   /// TEST: Modify an existing review.
-  testModifyReview() async {
+  testModifyRecipe() async {
 
-    Review fetchedReview = await reviewService.getReviewFromID("Z5TOKzt5wGYRNcfAvCCO");
-    fetchedReview.printSummary();
-
-    //TODO: Modify review using reviewService.modifyReview.
+    Recipe recipe = await recipeService.getRecipeFromTitle("New title");
+    recipe.title = "Panna cotta met tartaar van kiwi en kokoscrumble";
+    await recipeService.modifyRecipe(recipe, recipe.id);
 
   }
 

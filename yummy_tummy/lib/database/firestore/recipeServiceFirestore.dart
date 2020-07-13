@@ -77,8 +77,16 @@ class RecipeServiceFirestore implements RecipeService {
   }
 
   /// Modify an existing recipe with a given document ID.
-  Future<void> modifyRecipe(Recipe recipe, String recipeID){
-    //TODO. Implement modifyRecipe method.
+  Future<void> modifyRecipe(Recipe recipe, String recipeID) async {
+
+    await this.db.collection("recipes")
+        .document(recipeID)
+        .updateData(
+      recipe.toMap()
+    );
+
+    consoleWriter.ModifiedDocument(CollectionType.Recipe, recipeID);
+
   }
 
   /// Returns recipe object with a given title.
