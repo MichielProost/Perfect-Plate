@@ -163,6 +163,7 @@ class RecipeServiceFirestore implements RecipeService {
       return info;
     }
 
+    // Expand query with possible fields.
     Query query = this.db.collection("recipes");
     if (dietField != DietField.none){
       query = query.where("is" + dietField.getString(), isEqualTo: true);
