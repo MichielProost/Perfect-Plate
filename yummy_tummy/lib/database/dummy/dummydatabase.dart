@@ -5,6 +5,8 @@ import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/model/review.dart';
 import 'package:yummytummy/model/recipe.dart';
 
+import '../queryInfo.dart';
+
 class DummyDatabase implements RecipeService, ReviewService, UserService {
   
   final int delayInMilliseconds;
@@ -72,10 +74,24 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
     return getRecipes();
   }
 
+  /// TEST METHOD
+  /// lastDocument: Last document from where next records need to be fetched.
+  Future<QueryInfo> queryTest(QueryInfo info, SortField sortField){
+    //Note: Don't know if this will work yet.
+  }
+
   /// Search recipes in the database by specifying fields.
   /// DietField: Recipes must match with a certain diet.
   /// SortField: Sort the acquired recipes.
-  Future<List<Recipe>> searchRecipes(DietField dietField, SortField sortField) async {
+  Future<QueryInfo> searchRecipes(QueryInfo info, SortField sortField) async {
+    await enforceDelay();
+    return new QueryInfo();
+    //TODO: Change implementation in UI.
+  }
+
+  /// TEMPORARY: UI will use this method instead.
+  /// Replace by searchRecipes when implementation is done.
+  Future<List<Recipe>> searchRecipesUI(QueryInfo info, SortField sortField) async {
     await enforceDelay();
     return getRecipes();
   }

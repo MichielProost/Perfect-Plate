@@ -1,6 +1,8 @@
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/user.dart';
 
+import '../queryInfo.dart';
+
 /// INTERFACE: Required methods when changing database.
 abstract class RecipeService {
 
@@ -31,7 +33,11 @@ abstract class RecipeService {
   Future<List<Recipe>> getVegetarianRecipes(SortField sortField);
 
   /// Search recipes in the database by specifying fields.
-  /// DietField: Recipes must match with a certain diet.
+  /// QueryInfo: Info of a particular query.
   /// SortField: Sort the acquired recipes.
-  Future<List<Recipe>> searchRecipes(DietField dietField, SortField sortField);
+  Future<QueryInfo> searchRecipes(QueryInfo info, SortField sortField);
+
+  /// TEMPORARY: UI will use this method instead.
+  /// Replace by searchRecipes when implementation is done.
+  Future<List<Recipe>> searchRecipesUI(QueryInfo info, SortField sortField);
 }

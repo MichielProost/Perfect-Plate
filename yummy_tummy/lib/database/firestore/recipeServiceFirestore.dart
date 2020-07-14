@@ -1,11 +1,12 @@
 import 'dart:collection';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:yummytummy/database/interfaces/recipeService.dart';
+import 'package:yummytummy/database/queryInfo.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/utils/consoleWriter.dart';
 
-const MAX_LIMIT = 20;
+const documentLimit = 10;
 
 /// Firestore specific recipe services.
 class RecipeServiceFirestore implements RecipeService {
@@ -135,7 +136,7 @@ class RecipeServiceFirestore implements RecipeService {
     await this.db.collection("recipes")
         .where("isVegetarian", isEqualTo: false)
         .orderBy(sortField.toString().split(".").last, descending: true)
-        .limit(MAX_LIMIT)
+        .limit(documentLimit)
         .getDocuments()
         .then((QuerySnapshot docs){
       Recipe recipe;
@@ -152,10 +153,52 @@ class RecipeServiceFirestore implements RecipeService {
   }
 
   /// Search recipes in the database by specifying fields.
-  /// DietField: Recipes must match with a certain diet.
+  /// QueryInfo: Info of a particular query.
   /// SortField: Sort the acquired recipes.
-  Future<List<Recipe>> searchRecipes(DietField dietField, SortField sortField){
-    //TODO. Implement searchRecipes method.
+  Future<QueryInfo> searchRecipes(QueryInfo info, SortField sortField) async {
+
+    // Retrieve the appropriate documents from Firestore.
+    QuerySnapshot docs;
+    if (info.lastDocument == null){
+      docs =
+          await this.db.collection("recipes")
+          .orderBy(sortField.toString().split(".").last, descending: true)
+          .limit(documentLimit)
+          .getDocuments();
+    } else {
+      docs =
+          await this.db.collection("recipes")
+          .orderBy(sortField.toString().split(".").last, descending: true)
+          .startAfterDocument(info.lastDocument)
+          .limit(documentLimit)
+          .getDocuments();
+    }
+
+    // Add recipes to QueryInfo object.
+    Recipe recipe;
+    for (int i = 0; i < docs.documents.length; i++){
+      recipe = Recipe.fromMap(docs.documents[i].data, docs.documents[i].documentID);
+      info.objects.add(recipe);
+      consoleWriter.FetchedDocument(CollectionType.Recipe, recipe.id);
+    }
+
+    // Update hasMore propriety.
+    if (docs.documents.length < documentLimit) {
+      info.hasMore = false;
+    }
+
+    // Update lastDocument property.
+    info.lastDocument = docs.documents[docs.documents.length - 1];
+
+    // Return QueryInfo object.
+    return info;
+
+  }
+
+  /// TEMPORARY: UI will use this method instead.
+  /// Replace by searchRecipes when implementation is done.
+  Future<List<Recipe>> searchRecipesUI(QueryInfo info, SortField sortField){
+    //Made to avoid errors.
   }
 
 }

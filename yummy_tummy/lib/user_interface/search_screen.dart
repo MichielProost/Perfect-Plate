@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:yummytummy/database/dummy/dummydatabase.dart';
 import 'package:yummytummy/database/interfaces/recipeService.dart';
+import 'package:yummytummy/database/queryInfo.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/user_interface/components/recipe_card.dart';
 import 'package:yummytummy/user_interface/widgets/better_expansion_tile.dart';
@@ -316,7 +317,8 @@ class _SearchScreen extends State<SearchScreen> {
   }
 
   void handleSearch() async {
-    List<Recipe> recipes = await _recipeService.searchRecipes(_dietField, SortField.rating);
+    QueryInfo info = new QueryInfo();
+    List<Recipe> recipes = await _recipeService.searchRecipesUI(info, SortField.rating);
     setState(() {
       _hasSearched = true;
       _foundRecipes = recipes;

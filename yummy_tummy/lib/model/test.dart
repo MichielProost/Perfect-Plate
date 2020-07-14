@@ -3,6 +3,7 @@ import 'package:yummytummy/database/Firestore/reviewServiceFirestore.dart';
 import 'package:yummytummy/database/Firestore/userServiceFirestore.dart';
 import 'package:yummytummy/database/dummy/dummydatabase.dart';
 import 'package:yummytummy/database/interfaces/recipeService.dart';
+import 'package:yummytummy/database/queryInfo.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/review.dart';
 import 'package:yummytummy/model/user.dart';
@@ -39,6 +40,7 @@ class Test {
     //testGetRecipeFromID();
     //testGetFavouriteRecipes();
     //testModifyRecipe();
+    tempTest();
 
   }
 
@@ -198,6 +200,23 @@ class Test {
     Recipe recipe = await recipeService.getRecipeFromTitle("New title");
     recipe.title = "Panna cotta met tartaar van kiwi en kokoscrumble";
     await recipeService.modifyRecipe(recipe, recipe.id);
+
+  }
+
+  /// TEST: Temporary.
+  tempTest() async {
+
+    // Initialize new query.
+    QueryInfo info = new QueryInfo();
+
+    // Update info after first query.
+    info = await recipeService.searchRecipes(info, SortField.rating);
+
+    // Print fetched recipe objects.
+    for(int i=0; i<info.objects.length; i++){
+      Recipe recipe = info.objects[i];
+      recipe.printSummary();
+    }
 
   }
 
