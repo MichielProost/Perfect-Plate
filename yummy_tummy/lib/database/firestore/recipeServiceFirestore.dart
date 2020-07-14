@@ -5,6 +5,8 @@ import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/utils/consoleWriter.dart';
 
+const MAX_LIMIT = 20;
+
 /// Firestore specific recipe services.
 class RecipeServiceFirestore implements RecipeService {
 
@@ -127,11 +129,13 @@ class RecipeServiceFirestore implements RecipeService {
   }
 
   /// Returns all vegetarian recipes.
-  Future<List<Recipe>> getVegetarianRecipes() async {
+  Future<List<Recipe>> getVegetarianRecipes(SortField sortField) async {
 
     List<Recipe> fetchedRecipes=
     await this.db.collection("recipes")
-        .where("isVegetarian", isEqualTo: true)
+        .where("isVegetarian", isEqualTo: false)
+        .orderBy(sortField.toString().split(".").last, descending: true)
+        .limit(MAX_LIMIT)
         .getDocuments()
         .then((QuerySnapshot docs){
       Recipe recipe;
@@ -144,6 +148,7 @@ class RecipeServiceFirestore implements RecipeService {
       return docs.documents.isNotEmpty ? recipes : null;
     });
     return fetchedRecipes;
+
   }
 
   /// Search recipes in the database by specifying fields.

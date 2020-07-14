@@ -67,7 +67,7 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
   }
 
   /// Returns all vegetarian recipes.
-  Future<List<Recipe>> getVegetarianRecipes() async {
+  Future<List<Recipe>> getVegetarianRecipes(SortField sortField) async {
     await enforceDelay();
     return getRecipes();
   }

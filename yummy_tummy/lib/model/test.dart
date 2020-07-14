@@ -117,7 +117,7 @@ class Test {
   /// TEST: Get all vegetarian recipes in Firestore.
   void testGetVegetarianRecipes() async {
 
-    List<Recipe> recipes = await recipeService.getVegetarianRecipes();
+    List<Recipe> recipes = await recipeService.getVegetarianRecipes(SortField.rating);
     // Print summary of all recipes.
     for (int i = 0; i < recipes.length; i++) {
       recipes[i].printSummary();

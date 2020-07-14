@@ -28,7 +28,7 @@ abstract class RecipeService {
   Future<List<Recipe>> getFavouriteRecipes(User user);
 
   /// Returns all vegetarian recipes.
-  Future<List<Recipe>> getVegetarianRecipes();
+  Future<List<Recipe>> getVegetarianRecipes(SortField sortField);
 
   /// Search recipes in the database by specifying fields.
   /// DietField: Recipes must match with a certain diet.
