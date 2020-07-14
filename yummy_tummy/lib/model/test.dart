@@ -197,13 +197,13 @@ class Test {
   /// TEST: Modify an existing review.
   testModifyRecipe() async {
 
-    Recipe recipe = await recipeService.getRecipeFromTitle("New title");
-    recipe.title = "Panna cotta met tartaar van kiwi en kokoscrumble";
+    Recipe recipe = await recipeService.getRecipeFromTitle("Panna cotta met tartaar van kiwi en kokoscrumble");
+    recipe.title = "Other title";
     await recipeService.modifyRecipe(recipe, recipe.id);
 
   }
 
-  /// TEST: Temporary.
+  /// TEST: Search recipes based on a number of criteria.
   testSearchRecipes() async {
 
     // Initialize new query.
@@ -212,7 +212,7 @@ class Test {
     // Stop when there are no more recipes to fetch.
     while(info.hasMore){
       // Fetch recipes. Update RecipeQuery object.
-      info = await recipeService.searchRecipes(info, SortField.rating);
+      info = await recipeService.searchRecipes(info, SortField.rating, DietField.vegetarian, RecipeType.none);
 
       // Print query information
       print(info.hasMore);

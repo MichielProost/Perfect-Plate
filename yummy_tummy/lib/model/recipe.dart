@@ -17,7 +17,7 @@ enum DietField {
 
 // Recipes are classified in one of many types.
 enum RecipeType {
-  other,
+  none,
   soups,
   salads,
   mains,
@@ -106,7 +106,7 @@ class Recipe {
           id: id,
           title: data.containsKey('title') ? data['title'] : '',
           description: data.containsKey('description') ? data['description'] : '',
-          type: data.containsKey('type') ? RecipeType.values[data['type']] : RecipeType.other,
+          type: data.containsKey('type') ? RecipeType.values[data['type']] : RecipeType.none,
           isVegetarian: data.containsKey('isVegetarian') ? data['isVegetarian'] : false,
           isVegan: data.containsKey('isVegan') ? data['isVegan'] : false,
           ingredients: data.containsKey('ingredients') ?
@@ -130,7 +130,7 @@ class Recipe {
     return {
       'title' : title ??= '',
       'description' : description ??= '',
-      'type' : type.index != null ? type.index : RecipeType.other,
+      'type' : type.index != null ? type.index : RecipeType.none,
       'isVegetarian' : isVegetarian ??= false,
       'isVegan' : isVegan ??= false,
       'ingredients' : ingredients != null ? ingredients : [],

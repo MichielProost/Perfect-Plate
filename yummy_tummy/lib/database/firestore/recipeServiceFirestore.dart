@@ -6,7 +6,7 @@ import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/utils/consoleWriter.dart';
 
-const documentLimit = 3;
+const documentLimit = 15;
 
 /// Firestore specific recipe services.
 class RecipeServiceFirestore implements RecipeService {
@@ -155,7 +155,7 @@ class RecipeServiceFirestore implements RecipeService {
   /// Search recipes in the database by specifying fields.
   /// RecipeQuery: Info of a particular query.
   /// SortField: Sort the acquired recipes.
-  Future<RecipeQuery> searchRecipes(RecipeQuery info, SortField sortField) async {
+  Future<RecipeQuery> searchRecipes(RecipeQuery info, SortField sortField, DietField dietField, RecipeType typeField) async {
 
     // Check if we can fetch documents.
     if(!info.hasMore) {
@@ -163,17 +163,25 @@ class RecipeServiceFirestore implements RecipeService {
       return info;
     }
 
+    Query query = this.db.collection("recipes");
+    if (dietField != DietField.none){
+      query = query.where("is" + dietField.getString(), isEqualTo: true);
+    }
+    if (typeField != RecipeType.none){
+      query = query.where("type", isEqualTo: typeField.index);
+    }
+
     // Retrieve the appropriate documents from Firestore.
     QuerySnapshot docs;
     if (info.lastDocument == null){
       docs =
-          await this.db.collection("recipes")
+          await query
           .orderBy(sortField.toString().split(".").last, descending: true)
           .limit(documentLimit)
           .getDocuments();
     } else {
       docs =
-          await this.db.collection("recipes")
+          await query
           .orderBy(sortField.toString().split(".").last, descending: true)
           .startAfterDocument(info.lastDocument)
           .limit(documentLimit)
