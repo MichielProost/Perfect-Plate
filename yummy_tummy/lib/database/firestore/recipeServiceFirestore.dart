@@ -6,7 +6,7 @@ import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/utils/consoleWriter.dart';
 
-const documentLimit = 10;
+const documentLimit = 2;
 
 /// Firestore specific recipe services.
 class RecipeServiceFirestore implements RecipeService {
