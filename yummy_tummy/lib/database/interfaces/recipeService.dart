@@ -35,9 +35,9 @@ abstract class RecipeService {
   /// Search recipes in the database by specifying fields.
   /// QueryInfo: Info of a particular query.
   /// SortField: Sort the acquired recipes.
-  Future<QueryInfo> searchRecipes(QueryInfo info, SortField sortField);
+  Future<RecipeQuery> searchRecipes(RecipeQuery info, SortField sortField);
 
   /// TEMPORARY: UI will use this method instead.
   /// Replace by searchRecipes when implementation is done.
-  Future<List<Recipe>> searchRecipesUI(QueryInfo info, SortField sortField);
+  Future<List<Recipe>> searchRecipesUI(RecipeQuery info, SortField sortField);
 }

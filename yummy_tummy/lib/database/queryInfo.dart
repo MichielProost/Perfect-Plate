@@ -4,15 +4,23 @@ import 'package:yummytummy/model/recipe.dart';
 /// Store query information.
 class QueryInfo {
 
-  List<Object> objects; // Stores fetched objects.
   DocumentSnapshot lastDocument; // Last document from where next records need to be fetched.
   bool hasMore; // Flag for more documents available or not.
 
   /// Constructor.
   QueryInfo(){
-    objects = [];
     lastDocument = null;
     hasMore = true;
+  }
+
+}
+
+class RecipeQuery extends QueryInfo{
+
+  List<Recipe> recipes; // Stores fetched recipes.
+
+  RecipeQuery(){
+    recipes = [];
   }
 
 }

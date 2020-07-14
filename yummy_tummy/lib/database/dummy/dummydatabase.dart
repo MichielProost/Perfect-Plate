@@ -83,15 +83,15 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
   /// Search recipes in the database by specifying fields.
   /// DietField: Recipes must match with a certain diet.
   /// SortField: Sort the acquired recipes.
-  Future<QueryInfo> searchRecipes(QueryInfo info, SortField sortField) async {
+  Future<RecipeQuery> searchRecipes(RecipeQuery info, SortField sortField) async {
     await enforceDelay();
-    return new QueryInfo();
+    return new RecipeQuery();
     //TODO: Change implementation in UI.
   }
 
   /// TEMPORARY: UI will use this method instead.
   /// Replace by searchRecipes when implementation is done.
-  Future<List<Recipe>> searchRecipesUI(QueryInfo info, SortField sortField) async {
+  Future<List<Recipe>> searchRecipesUI(RecipeQuery info, SortField sortField) async {
     await enforceDelay();
     return getRecipes();
   }

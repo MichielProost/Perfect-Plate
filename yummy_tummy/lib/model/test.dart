@@ -40,7 +40,7 @@ class Test {
     //testGetRecipeFromID();
     //testGetFavouriteRecipes();
     //testModifyRecipe();
-    //testSearchRecipes();
+    testSearchRecipes();
 
   }
 
@@ -207,20 +207,20 @@ class Test {
   testSearchRecipes() async {
 
     // Initialize new query.
-    QueryInfo info = new QueryInfo();
+    RecipeQuery info = new RecipeQuery();
 
     // Stop when there are no more recipes to fetch.
     while(info.hasMore){
-      // Fetch recipes. Update QueryInfo object.
+      // Fetch recipes. Update RecipeQuery object.
       info = await recipeService.searchRecipes(info, SortField.rating);
 
       // Print query information
       print(info.hasMore);
 
-      // Print all recipes in QueryInfo object.
-      for(int i=0; i<info.objects.length; i++){
-        Recipe recipe = info.objects[i];
-        recipe.printSummary();
+      // Print all recipes in RecipeQuery object
+      List<Recipe> recipes = info.recipes;
+      for(int i=0; i<recipes.length; i++){
+        recipes[i].printSummary();
       }
     }
 

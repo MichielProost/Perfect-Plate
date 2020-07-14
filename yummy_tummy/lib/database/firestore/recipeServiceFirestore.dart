@@ -153,9 +153,9 @@ class RecipeServiceFirestore implements RecipeService {
   }
 
   /// Search recipes in the database by specifying fields.
-  /// QueryInfo: Info of a particular query.
+  /// RecipeQuery: Info of a particular query.
   /// SortField: Sort the acquired recipes.
-  Future<QueryInfo> searchRecipes(QueryInfo info, SortField sortField) async {
+  Future<RecipeQuery> searchRecipes(RecipeQuery info, SortField sortField) async {
 
     // Check if we can fetch documents.
     if(!info.hasMore) {
@@ -180,11 +180,11 @@ class RecipeServiceFirestore implements RecipeService {
           .getDocuments();
     }
 
-    // Add recipes to QueryInfo object.
+    // Add recipes to RecipeQuery object.
     Recipe recipe;
     for (int i = 0; i < docs.documents.length; i++){
       recipe = Recipe.fromMap(docs.documents[i].data, docs.documents[i].documentID);
-      info.objects.add(recipe);
+      info.recipes.add(recipe);
       consoleWriter.FetchedDocument(CollectionType.Recipe, recipe.id);
     }
 
@@ -196,14 +196,14 @@ class RecipeServiceFirestore implements RecipeService {
       info.lastDocument = docs.documents[docs.documents.length - 1];
     }
 
-    // Return QueryInfo object.
+    // Return RecipeQuery object.
     return info;
 
   }
 
   /// TEMPORARY: UI will use this method instead.
   /// Replace by searchRecipes when implementation is done.
-  Future<List<Recipe>> searchRecipesUI(QueryInfo info, SortField sortField){
+  Future<List<Recipe>> searchRecipesUI(RecipeQuery info, SortField sortField){
     //Made to avoid errors.
   }
 

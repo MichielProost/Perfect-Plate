@@ -317,7 +317,7 @@ class _SearchScreen extends State<SearchScreen> {
   }
 
   void handleSearch() async {
-    QueryInfo info = new QueryInfo();
+    RecipeQuery info = new RecipeQuery();
     List<Recipe> recipes = await _recipeService.searchRecipesUI(info, SortField.rating);
     setState(() {
       _hasSearched = true;
