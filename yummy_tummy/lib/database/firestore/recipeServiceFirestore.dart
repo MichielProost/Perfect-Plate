@@ -6,7 +6,7 @@ import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/utils/consoleWriter.dart';
 
-const documentLimit = 2;
+const documentLimit = 3;
 
 /// Firestore specific recipe services.
 class RecipeServiceFirestore implements RecipeService {
@@ -157,6 +157,12 @@ class RecipeServiceFirestore implements RecipeService {
   /// SortField: Sort the acquired recipes.
   Future<QueryInfo> searchRecipes(QueryInfo info, SortField sortField) async {
 
+    // Check if we can fetch documents.
+    if(!info.hasMore) {
+      print("ERROR: No More Documents");
+      return info;
+    }
+
     // Retrieve the appropriate documents from Firestore.
     QuerySnapshot docs;
     if (info.lastDocument == null){
@@ -185,10 +191,10 @@ class RecipeServiceFirestore implements RecipeService {
     // Update hasMore propriety.
     if (docs.documents.length < documentLimit) {
       info.hasMore = false;
+    } else {
+      // Update lastDocument property.
+      info.lastDocument = docs.documents[docs.documents.length - 1];
     }
-
-    // Update lastDocument property.
-    info.lastDocument = docs.documents[docs.documents.length - 1];
 
     // Return QueryInfo object.
     return info;

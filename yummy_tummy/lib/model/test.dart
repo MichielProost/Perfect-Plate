@@ -40,7 +40,7 @@ class Test {
     //testGetRecipeFromID();
     //testGetFavouriteRecipes();
     //testModifyRecipe();
-    tempTest();
+    //testSearchRecipes();
 
   }
 
@@ -204,37 +204,24 @@ class Test {
   }
 
   /// TEST: Temporary.
-  tempTest() async {
+  testSearchRecipes() async {
 
     // Initialize new query.
     QueryInfo info = new QueryInfo();
 
-    // Update info after first query.
-    info = await recipeService.searchRecipes(info, SortField.rating);
+    // Stop when there are no more recipes to fetch.
+    while(info.hasMore){
+      // Fetch recipes. Update QueryInfo object.
+      info = await recipeService.searchRecipes(info, SortField.rating);
 
-    // Print information on query.
-    print(info.hasMore);
-    print(info.lastDocument);
-    print(info.objects);
+      // Print query information
+      print(info.hasMore);
 
-    // Print recipe objects after first query.
-    for(int i=0; i<info.objects.length; i++){
-      Recipe recipe = info.objects[i];
-      recipe.printSummary();
-    }
-
-    // Update info after second query.
-    info = await recipeService.searchRecipes(info, SortField.rating);
-
-    // Print information after second query.
-    print(info.hasMore);
-    print(info.lastDocument);
-    print(info.objects);
-
-    // Print recipe objects after second query.
-    for(int i=0; i<info.objects.length; i++){
-      Recipe recipe = info.objects[i];
-      recipe.printSummary();
+      // Print all recipes in QueryInfo object.
+      for(int i=0; i<info.objects.length; i++){
+        Recipe recipe = info.objects[i];
+        recipe.printSummary();
+      }
     }
 
   }
