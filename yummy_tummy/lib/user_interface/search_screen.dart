@@ -24,7 +24,7 @@ class _SearchScreen extends State<SearchScreen> {
   RecipeService _recipeService = DummyDatabase(delayInMilliseconds: 500);
 
   // TODO grab preferences for diet from the user
-  DietField _dietField = DietField.none;
+  DietField _dietField = DietField.any;
   RecipeType _recipeType = RecipeType.mains;
   SortField _sortField = SortField.rating;
   List<String> _ingredients = List<String>();

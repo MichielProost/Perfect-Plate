@@ -28,7 +28,7 @@ class Test {
 
     //testAddRecipes();
     //testAddUser();
-    //testGetRecipeFromTitle();
+    testGetRecipeFromTitle();
     //testAddReview();
     //testGetRecipesFromUser();
     //testGetVegetarianRecipes();
@@ -40,7 +40,7 @@ class Test {
     //testGetRecipeFromID();
     //testGetFavouriteRecipes();
     //testModifyRecipe();
-    testSearchRecipes();
+    //testSearchRecipes();
 
   }
 
@@ -212,7 +212,7 @@ class Test {
     // Stop when there are no more recipes to fetch.
     while(info.hasMore){
       // Fetch recipes. Update RecipeQuery object.
-      info = await recipeService.searchRecipes(info, SortField.rating, DietField.vegetarian, RecipeType.none);
+      info = await recipeService.searchRecipes(info, SortField.rating, DietField.vegetarian, RecipeType.any);
 
       // Print query information
       print(info.hasMore);

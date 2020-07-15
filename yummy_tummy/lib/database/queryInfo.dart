@@ -19,6 +19,7 @@ class RecipeQuery extends QueryInfo{
 
   List<Recipe> recipes; // Stores fetched recipes.
 
+  /// Constructor.
   RecipeQuery(){
     recipes = [];
   }

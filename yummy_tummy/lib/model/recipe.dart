@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:yummytummy/model/user.dart';
 
@@ -6,18 +7,19 @@ import 'package:yummytummy/model/user.dart';
 enum SortField {
   rating,
   numberOfReviews,
+  timestamp,
 }
 
 // Recipes can be filtered by a specific diet.
 enum DietField {
-  none,
+  any,
   vegan,
   vegetarian,
 }
 
 // Recipes are classified in one of many types.
 enum RecipeType {
-  none,
+  any,
   soups,
   salads,
   mains,
@@ -47,6 +49,7 @@ extension Diet on DietField {
 class Recipe {
 
   final String id;                      // Document ID.
+  final Timestamp timestamp;            // Timestamp.
   String title;                         // Title of recipe.
   String description;                   // Main description.
   RecipeType type;                      // Type of recipe.
@@ -64,7 +67,8 @@ class Recipe {
   final Map<String, dynamic> userMap;   // Duplicate data. Information of user.
 
   Recipe.editable(
-    this.id, 
+    this.id,
+    this.timestamp,
     this.user, 
     this.userMap,
     {
@@ -83,6 +87,7 @@ class Recipe {
 
   Recipe({
     this.id,
+    this.timestamp,
     this.title,
     this.description,
     this.type,
@@ -104,9 +109,10 @@ class Recipe {
   Recipe.fromMap(Map<String, dynamic> data, String id)
       : this(
           id: id,
+          timestamp: data.containsKey('timestamp') ? data['timestamp'] : new Timestamp.now(),
           title: data.containsKey('title') ? data['title'] : '',
           description: data.containsKey('description') ? data['description'] : '',
-          type: data.containsKey('type') ? RecipeType.values[data['type']] : RecipeType.none,
+          type: data.containsKey('type') ? RecipeType.values[data['type']] : RecipeType.any,
           isVegetarian: data.containsKey('isVegetarian') ? data['isVegetarian'] : false,
           isVegan: data.containsKey('isVegan') ? data['isVegan'] : false,
           ingredients: data.containsKey('ingredients') ?
@@ -128,9 +134,10 @@ class Recipe {
   /// Convert class object to data structure 'Map'.
   Map<String, dynamic> toMap() {
     return {
+      'timestamp' : timestamp != null ? timestamp : new Timestamp.now(),
       'title' : title ??= '',
       'description' : description ??= '',
-      'type' : type.index != null ? type.index : RecipeType.none,
+      'type' : type.index != null ? type.index : RecipeType.any,
       'isVegetarian' : isVegetarian ??= false,
       'isVegan' : isVegan ??= false,
       'ingredients' : ingredients != null ? ingredients : [],
@@ -154,8 +161,8 @@ class Recipe {
   /// Print summary of recipe to console.
   void printSummary(){
     print("Document ID: " + this.id);
+    print("Date: " + this.timestamp.toDate().toString());
     print("Title: " + this.title);
-    print("Description: " + this.description);
   }
 
 }
