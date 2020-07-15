@@ -32,7 +32,7 @@ class Test {
     //testAddReview();
     //testGetRecipesFromUser();
     //testGetVegetarianRecipes();
-    testGetReviewsFromUser();
+    //testGetReviewsFromUser();
     //testGetReviewsFromRecipe();
     //testGetUserFromID();
     //testDeleteRecipe();
