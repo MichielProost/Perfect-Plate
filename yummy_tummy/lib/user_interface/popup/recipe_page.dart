@@ -9,7 +9,9 @@ import 'package:yummytummy/user_interface/general/icon_builder.dart';
 import '../constants.dart';
 
 class RecipePage extends StatefulWidget {
+  
   final Recipe _recipe;
+  static const double BANNER_HEIGTH= 140.0;
 
   RecipePage(this._recipe);
 
@@ -52,18 +54,51 @@ class _RecipePageState extends State<RecipePage> {
 
               // Scrollable recipe
               Expanded(
-                child: ListView(shrinkWrap: true, children: <Widget>[
-                  // Recipe title banner
-                  buildBanner(),
-                  buildIntroText(),
-                  buildInfoPanel(),
-                  buildIngredients(),
-                  // Show all steps
-                  for (int stepNumber = 0; stepNumber < _recipe.stepDescriptions.length; stepNumber++) 
-                    buildExpansionTile(stepNumber),
+                child: CustomScrollView(
+                  shrinkWrap: true, 
+                  slivers: <Widget>[
 
-                  ReviewForm(),
-                ]),
+                    // Banner with image and title
+                    SliverAppBar(
+                      backgroundColor: Constants.main,
+                      pinned: false,
+                      floating: false,
+                      leading: Container(),
+                      expandedHeight: RecipePage.BANNER_HEIGTH,
+                      flexibleSpace: FlexibleSpaceBar(
+                        title: buildTitle(),
+                        background: buildBackground(),
+                      ),
+                    ),
+
+
+                    // Summary text
+                    SliverToBoxAdapter(
+                      child: buildIntroText(),
+                    ),
+
+                    // Info panel with recipe type, prep time, diet, ...
+                    SliverToBoxAdapter(
+                      child: buildInfoPanel(),
+                    ),
+
+                    // Ingredient list
+                    SliverToBoxAdapter(
+                      child: buildIngredients(),
+                    ),
+
+                    // Show all steps
+                    SliverList(
+                      delegate: SliverChildListDelegate(
+                        <Widget>[
+                          for (int stepNumber = 0; stepNumber < _recipe.stepDescriptions.length; stepNumber++) 
+                            buildExpansionTile(stepNumber)
+                        ]
+                      ),
+                    ),
+                    
+                  ],
+                ),
               ),
 
               // Recipe info: ingrediënts and steps
@@ -87,6 +122,40 @@ class _RecipePageState extends State<RecipePage> {
   }
 
 
+  Widget buildTitle()
+  {
+    return Text(
+      _recipe.title,
+      textAlign: TextAlign.start,
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 16.0,
+        //backgroundColor: Colors.white,
+        fontWeight: FontWeight.bold,
+        shadows: <Shadow>[
+          Shadow(blurRadius: 10.0),
+        ],
+      ),
+    );
+  }
+
+
+  Widget buildBackground()
+  {
+    return Container(
+      color: Colors.white,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        height: RecipePage.BANNER_HEIGTH,
+        width: double.infinity,
+        child: Image(image: NetworkImage(_recipe.image), fit: BoxFit.fitWidth),
+      ),
+    );
+  }
+
+
   /// Generate the banner for this recipe
   Widget buildBanner() {
     return Stack(
@@ -96,7 +165,7 @@ class _RecipePageState extends State<RecipePage> {
         ClipRRect(
           borderRadius: BorderRadius.circular(8.0),
           child: Container(
-            height: 140.0,
+            height: RecipePage.BANNER_HEIGTH,
             width: double.infinity,
             child: Image(image: NetworkImage(_recipe.image), fit: BoxFit.fitWidth),
           ),
