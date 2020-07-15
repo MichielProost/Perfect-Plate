@@ -129,7 +129,7 @@ class Test {
   /// TEST: Get all reviews made by a specific user.
   void testGetReviewsFromUser() async {
 
-    List<Review> reviews = await reviewService.getReviewsFromUser(UserMapField.name, "Jeroen Meus");
+    List<Review> reviews = await reviewService.getReviewsFromUser(UserMapField.id, "1w7FGM8kiBbk3iwJB7b2");
     // Print summary of fetched reviews.
     for (int i = 0; i < reviews.length; i++) {
       reviews[i].printSummary();
@@ -140,7 +140,7 @@ class Test {
   /// TEST: Get all reviews made for a specific recipe.
   void testGetReviewsFromRecipe() async {
 
-    List<Review> reviews = await reviewService.getReviewsFromRecipe("r1oe9s9Jc9Ntq3vaf5Ji");
+    List<Review> reviews = await reviewService.getReviewsFromRecipe("DSPzAAQHbGm2PJibhDVi");
     // Print summary of fetched reviews.
     for (int i = 0; i < reviews.length; i++) {
       reviews[i].printSummary();

@@ -82,6 +82,7 @@ class ReviewServiceFirestore implements ReviewService {
     List<Review> fetchedReviews=
     await this.db.collection("reviews")
         .where("userMap." + field.toString().split(".").last, isEqualTo: value)
+        .orderBy("timestamp", descending: true)
         .getDocuments()
         .then((QuerySnapshot docs){
       Review review;
@@ -103,6 +104,7 @@ class ReviewServiceFirestore implements ReviewService {
     List<Review> fetchedReviews=
         await this.db.collection("reviews")
         .where("recipeID", isEqualTo: recipeID)
+        .orderBy("timestamp", descending: true)
         .getDocuments()
         .then((QuerySnapshot docs){
       Review review;
