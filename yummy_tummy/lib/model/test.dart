@@ -40,7 +40,7 @@ class Test {
     //testGetRecipeFromID();
     //testGetFavouriteRecipes();
     //testModifyRecipe();
-    //testSearchRecipes();
+    testSearchRecipes();
 
   }
 
@@ -208,11 +208,12 @@ class Test {
 
     // Initialize new query.
     RecipeQuery info = new RecipeQuery();
+    List<String> ingredients = ["asperge", "radijs", "zout"];
 
     // Stop when there are no more recipes to fetch.
     while(info.hasMore){
       // Fetch recipes. Update RecipeQuery object.
-      info = await recipeService.searchRecipes(info, SortField.timestamp, DietField.any, RecipeType.mains);
+      info = await recipeService.searchRecipes(info, SortField.timestamp, DietField.any, RecipeType.any, ingredients);
 
       // Print query information
       print(info.hasMore);
