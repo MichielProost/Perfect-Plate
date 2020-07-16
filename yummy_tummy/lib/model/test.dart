@@ -40,7 +40,7 @@ class Test {
     //testGetRecipeFromID();
     //testGetFavouriteRecipes();
     //testModifyRecipe();
-    testSearchRecipes();
+    //testSearchRecipes();
 
   }
 
@@ -129,7 +129,7 @@ class Test {
   /// TEST: Get all reviews made by a specific user.
   void testGetReviewsFromUser() async {
 
-    List<Review> reviews = await reviewService.getReviewsFromUser(UserMapField.id, "1w7FGM8kiBbk3iwJB7b2");
+    List<Review> reviews = await reviewService.getReviewsFromUser(UserMapField.name, "Jeroen Meus");
     // Print summary of fetched reviews.
     for (int i = 0; i < reviews.length; i++) {
       reviews[i].printSummary();
@@ -208,12 +208,12 @@ class Test {
 
     // Initialize new query.
     RecipeQuery info = new RecipeQuery();
-    List<String> ingredients = ["asperge", "radijs", "zout"];
+    List<String> ingredients = ["melk"];
 
     // Stop when there are no more recipes to fetch.
     while(info.hasMore){
       // Fetch recipes. Update RecipeQuery object.
-      info = await recipeService.searchRecipes(info, SortField.timestamp, DietField.any, RecipeType.any, ingredients);
+      info = await recipeService.searchRecipes(info, SortField.numberOfReviews, DietField.vegetarian, RecipeType.any, ingredients);
 
       // Print query information
       print(info.hasMore);
