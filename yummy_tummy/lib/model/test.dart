@@ -43,7 +43,7 @@ class Test {
     //testGetFavouriteRecipes();
     //testModifyRecipe();
     //testSearchRecipes();
-    //testGoogleSignIn();
+    testGoogleSignIn();
 
   }
 
