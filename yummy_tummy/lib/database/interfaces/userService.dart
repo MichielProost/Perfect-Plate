@@ -4,8 +4,12 @@ import 'package:yummytummy/model/user.dart';
 abstract class UserService{
 
   /// Add a new user to the database. Returns the document ID.
-  Future<String> addUser(User user);
+  Future<String> addUser(User user, String userID);
 
   /// Returns user object from document ID.
   Future<User> getUserFromID(String userID);
+
+  /// Returns true if user exists.
+  Future<bool> userExists(String userID);
+
 }

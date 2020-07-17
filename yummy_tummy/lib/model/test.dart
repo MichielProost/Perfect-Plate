@@ -1,9 +1,11 @@
 import 'package:yummytummy/database/Firestore/recipeServiceFirestore.dart';
 import 'package:yummytummy/database/Firestore/reviewServiceFirestore.dart';
 import 'package:yummytummy/database/Firestore/userServiceFirestore.dart';
+import 'package:yummytummy/database/authentication/google.dart';
 import 'package:yummytummy/database/dummy/dummydatabase.dart';
 import 'package:yummytummy/database/interfaces/recipeService.dart';
 import 'package:yummytummy/database/queryInfo.dart';
+import 'package:yummytummy/model/app_user.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/review.dart';
 import 'package:yummytummy/model/user.dart';
@@ -41,6 +43,7 @@ class Test {
     //testGetFavouriteRecipes();
     //testModifyRecipe();
     //testSearchRecipes();
+    //testGoogleSignIn();
 
   }
 
@@ -71,7 +74,8 @@ class Test {
     );
 
     // Add user to Firestore.
-    String documentID = await userService.addUser(user);
+    String userID = "TestID";
+    String documentID = await userService.addUser(user, userID);
     print("Document ID: " + documentID);
     print("Creating new user...");
 
@@ -224,6 +228,15 @@ class Test {
         recipes[i].printSummary();
       }
     }
+
+  }
+
+  /// TEST: Sign in with Google.
+  testGoogleSignIn() async {
+
+    GoogleAuthHandler handler = new GoogleAuthHandler();
+    AppUser user = await handler.handleSignIn();
+    user.printSummary();
 
   }
 

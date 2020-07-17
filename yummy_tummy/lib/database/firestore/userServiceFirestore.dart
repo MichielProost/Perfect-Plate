@@ -16,12 +16,13 @@ class UserServiceFirestore implements UserService {
         this.consoleWriter = new ConsoleWriter();
 
   /// Add a new user to the database. Returns the document ID.
-  Future<String> addUser(User user) async {
+  Future<String> addUser(User user, String userID) async {
 
     // Create a new user document.
     String documentID =
     await this.db.collection("users")
-        .add(user.toMap())
+        .doc(userID)
+        .set(user.toMap())
         .then((value) {
       return value.documentID;
     });
@@ -45,6 +46,28 @@ class UserServiceFirestore implements UserService {
     });
 
     return user;
+
+  }
+
+  /// Returns true if user exists.
+  Future<bool> userExists(String userID) async{
+
+    bool exists = false;
+    try {
+      await this.db.collection("users")
+          .document(userID)
+          .get()
+          .then((doc) {
+        if (doc.exists){
+          exists = true;
+        } else {
+          exists = false;
+        }
+      });
+      return exists;
+    } catch (e) {
+      return false;
+    }
 
   }
 

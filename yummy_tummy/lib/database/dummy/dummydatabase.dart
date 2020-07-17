@@ -143,7 +143,7 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
   // ---
 
   /// Add a new user to the database. Returns the document ID.
-  Future<String> addUser(User user) async {
+  Future<String> addUser(User user, String userID) async {
     await enforceDelay();
     return user.id;
   }
@@ -152,6 +152,12 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
   Future<User> getUserFromID(String userID) async {
     await enforceDelay();
     return getUsers()[0];
+  }
+
+  /// Returns true if user exists.
+  Future<bool> userExists(String userID) async {
+    await enforceDelay();
+    return true;
   }
 
   // ---

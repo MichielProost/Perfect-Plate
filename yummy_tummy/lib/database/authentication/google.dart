@@ -3,6 +3,7 @@ import 'package:firebase_ui/flutter_firebase_ui.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:yummytummy/database/firestore/userServiceFirestore.dart';
 import 'package:yummytummy/model/app_user.dart';
+import 'package:yummytummy/model/user.dart';
 
 class GoogleAuthHandler{
 
@@ -25,8 +26,27 @@ class GoogleAuthHandler{
 
     FirebaseUser googleUser = result.user;
 
-    // Temporary.
-    Map<String, dynamic> userData = {};
+    Map<String, dynamic> userData;
+
+    // Get user data from database.
+    bool userExists = await userService.userExists(googleUser.uid);
+    if (userExists){
+      // Get existing user.
+      User user = await userService.getUserFromID(googleUser.uid);
+      userData = user.toMap();
+    } else {
+      // Create a new user.
+      User user = new User(
+        id: googleUser.uid,
+        name: googleUser.displayName,
+        score: 0,
+        rank: RankType.beginner,
+        favourites: [],
+      );
+      userData = user.toMap();
+      // Create new user document.
+      await userService.addUser(user, googleUser.uid);
+    }
 
     return new AppUser(googleUser.uid, userData);
   }
