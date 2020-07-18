@@ -5,7 +5,7 @@ import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/model/review.dart';
 import 'package:yummytummy/model/recipe.dart';
 
-import '../queryInfo.dart';
+import '../query/queryInfo.dart';
 
 class DummyDatabase implements RecipeService, ReviewService, UserService {
   

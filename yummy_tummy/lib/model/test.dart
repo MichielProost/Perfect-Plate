@@ -4,7 +4,7 @@ import 'package:yummytummy/database/Firestore/userServiceFirestore.dart';
 import 'package:yummytummy/database/authentication/google.dart';
 import 'package:yummytummy/database/dummy/dummydatabase.dart';
 import 'package:yummytummy/database/interfaces/recipeService.dart';
-import 'package:yummytummy/database/queryInfo.dart';
+import 'package:yummytummy/database/query/queryInfo.dart';
 import 'package:yummytummy/model/app_user.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/review.dart';

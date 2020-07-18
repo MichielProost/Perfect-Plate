@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:yummytummy/database/dummy/dummydatabase.dart';
 import 'package:yummytummy/database/interfaces/recipeService.dart';
-import 'package:yummytummy/database/queryInfo.dart';
+import 'package:yummytummy/database/query/queryInfo.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/user_interface/components/recipe_card.dart';
 import 'package:yummytummy/user_interface/widgets/better_expansion_tile.dart';

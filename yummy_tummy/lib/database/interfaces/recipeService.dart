@@ -1,7 +1,7 @@
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/user.dart';
 
-import '../queryInfo.dart';
+import '../query/queryInfo.dart';
 
 /// INTERFACE: Required methods when changing database.
 abstract class RecipeService {

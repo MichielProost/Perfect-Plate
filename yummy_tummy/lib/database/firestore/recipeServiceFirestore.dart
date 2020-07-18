@@ -1,7 +1,7 @@
 import 'dart:collection';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:yummytummy/database/interfaces/recipeService.dart';
-import 'package:yummytummy/database/queryInfo.dart';
+import 'package:yummytummy/database/query/queryInfo.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/utils/consoleWriter.dart';
