@@ -7,6 +7,7 @@ import 'package:yummytummy/user_interface/components/selectable_stars.dart';
 import 'package:yummytummy/user_interface/general/icon_builder.dart';
 import 'package:yummytummy/user_interface/popup/create_review.dart';
 import 'package:yummytummy/user_interface/popup/recipe_ratings.dart';
+import 'package:yummytummy/user_interface/widgets/better_expansion_tile.dart';
 
 import '../constants.dart';
 
@@ -441,12 +442,11 @@ class _RecipePageState extends State<RecipePage> {
       data: ThemeData(
         accentColor: Constants.main,
       ),
-      child: ExpansionTile(
+      child: BetterExpansionTile(
         title: Text(
           "Step " + (index + 1).toString(),
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: Constants.main,
           ),
         ),
         initiallyExpanded: true,
