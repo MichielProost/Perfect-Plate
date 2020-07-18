@@ -48,5 +48,17 @@ class GoogleAuthHandler{
     }
 
     return new AppUser(googleUser.uid, userData);
+
   }
+
+  /// Sign out from Google.
+  Future<void> handleSignOut() async {
+
+    await _auth.signOut().then((value){
+      _googleSignIn.signOut();
+    });
+
+  }
+
+
 }

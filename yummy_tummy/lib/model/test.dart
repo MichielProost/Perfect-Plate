@@ -43,7 +43,7 @@ class Test {
     //testGetFavouriteRecipes();
     //testModifyRecipe();
     //testSearchRecipes();
-    //testGoogleSignIn();
+    testGoogle();
 
   }
 
@@ -231,12 +231,17 @@ class Test {
 
   }
 
-  /// TEST: Sign in with Google.
-  testGoogleSignIn() async {
+  /// TEST: Sign in and out with Google.
+  testGoogle() async {
 
+    // Create Google handler.
     GoogleAuthHandler handler = new GoogleAuthHandler();
+    // Sign in Google user.
     AppUser user = await handler.handleSignIn();
+    // Print summary of user object.
     user.printSummary();
+    // Sign out Google user.
+    await handler.handleSignOut();
 
   }
 
