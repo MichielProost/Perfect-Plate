@@ -34,7 +34,7 @@ class RecipeRatings extends StatelessWidget {
                 future: _reviewService.getReviewsFromRecipe( _recipeID ),
                 builder: (context, snapshot) {
 
-                  if (snapshot.connectionState == ConnectionState.none && snapshot.hasData == null) {
+                  if (snapshot.connectionState == ConnectionState.none && snapshot.hasData == null || snapshot.data == null) {
                     return Container();
                   }
 
