@@ -5,9 +5,10 @@ import '../constants.dart';
 class SelectableStars extends StatefulWidget {
   
   final double _size;
-  int rating = 0;
+  final void Function(int rating) onTap;
+  int rating;
 
-  SelectableStars(this._size);
+  SelectableStars(this._size, {this.onTap, int startRating: 0}) : rating = startRating;
 
   @override
   State<StatefulWidget> createState() {
@@ -28,9 +29,15 @@ class _Stars extends State<SelectableStars> {
         color: Constants.accent,
       ), 
       onPressed: () => {
+
+        // Change the look of the stars
         setState( () => {
           widget.rating != index ? widget.rating = index : widget.rating = 0
         }),
+
+        // Perform callback
+        if (widget.onTap != null)
+          widget.onTap( widget.rating )
       }
     );
   }

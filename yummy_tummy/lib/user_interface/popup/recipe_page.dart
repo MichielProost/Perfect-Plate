@@ -5,6 +5,7 @@ import 'package:yummytummy/user_interface/components/rating_row.dart';
 import 'package:yummytummy/user_interface/components/review_form.dart';
 import 'package:yummytummy/user_interface/components/selectable_stars.dart';
 import 'package:yummytummy/user_interface/general/icon_builder.dart';
+import 'package:yummytummy/user_interface/popup/create_review.dart';
 import 'package:yummytummy/user_interface/popup/recipe_ratings.dart';
 
 import '../constants.dart';
@@ -21,14 +22,16 @@ class RecipePage extends StatefulWidget {
 }
 
 class _RecipePageState extends State<RecipePage> {
-  final Recipe _recipe;
+  
   //TODO properly implement favourite
+  final Recipe _recipe;
   bool _isFavorite = false;
+  
 
   _RecipePageState(this._recipe);
 
 
-    @override
+  @override
   Widget build(BuildContext context) {
     // TODO add reviews page 
 
@@ -105,6 +108,21 @@ class _RecipePageState extends State<RecipePage> {
                           for (int stepNumber = 0; stepNumber < _recipe.stepDescriptions.length; stepNumber++) 
                             buildExpansionTile(stepNumber)
                         ]
+                      ),
+                    ),
+
+                    SliverToBoxAdapter(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 20.0),
+                        child: Column(
+                          children: <Widget>[
+                            Text("Leave a review for this recipe!"),
+                            SelectableStars(
+                              35.0,
+                              onTap: ( rating ) => showDialog(context: context, child: CreateReviewScreen(_recipe.id,)),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     
