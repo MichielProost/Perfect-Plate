@@ -8,6 +8,12 @@ class Constants {
   static final Color green = Colors.green;
   static final Color background = Colors.grey.shade200;
 
+  static final TextStyle buttonStyle = TextStyle(
+    fontSize: 17.0,
+    fontWeight: FontWeight.bold,
+    color: main,
+  );
+
   static final ThemeData themeData = ThemeData(
     accentColor: main,
   );

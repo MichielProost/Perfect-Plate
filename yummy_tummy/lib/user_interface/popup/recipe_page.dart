@@ -69,15 +69,15 @@ class _RecipePageState extends State<RecipePage> {
               // Scrollable recipe
               Expanded(
                 child: CustomScrollView(
-                  shrinkWrap: true, 
                   slivers: <Widget>[
 
                     // Banner with image and title
                     SliverAppBar(
                       backgroundColor: Constants.main,
                       pinned: false,
-                      floating: false,
+                      floating: true,
                       leading: Container(),
+                      forceElevated: true,
                       expandedHeight: RecipePage.BANNER_HEIGTH,
                       flexibleSpace: FlexibleSpaceBar(
                         title: buildTitle(),
@@ -105,6 +105,7 @@ class _RecipePageState extends State<RecipePage> {
                     SliverList(
                       delegate: SliverChildListDelegate(
                         <Widget>[
+                          // for (int x = 0; x < 20; x++) 
                           for (int stepNumber = 0; stepNumber < _recipe.stepDescriptions.length; stepNumber++) 
                             buildExpansionTile(stepNumber)
                         ]
@@ -119,7 +120,7 @@ class _RecipePageState extends State<RecipePage> {
                             Text("Leave a review for this recipe!"),
                             SelectableStars(
                               35.0,
-                              onTap: ( rating ) => showDialog(context: context, child: CreateReviewScreen(_recipe.id,)),
+                              onTap: ( rating ) => showDialog(context: context, child: CreateReviewScreen(_recipe.id, startingStars: rating,)),
                             ),
                           ],
                         ),

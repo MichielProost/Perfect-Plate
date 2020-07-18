@@ -31,13 +31,14 @@ class _Stars extends State<SelectableStars> {
       onPressed: () => {
 
         // Change the look of the stars
-        setState( () => {
-          widget.rating != index ? widget.rating = index : widget.rating = 0
+        setState( () {
+          // Update rating
+          widget.rating != index ? widget.rating = index : widget.rating = 0;
+          
+          // Perform callback
+          if (widget.onTap != null)
+            widget.onTap( widget.rating );
         }),
-
-        // Perform callback
-        if (widget.onTap != null)
-          widget.onTap( widget.rating )
       }
     );
   }

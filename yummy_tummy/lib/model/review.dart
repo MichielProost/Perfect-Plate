@@ -8,10 +8,10 @@ class Review{
   final User user;                      // User object.
   final Map<String, dynamic> userMap;   // Duplicate data. Information of user.
   final String recipeID;                // Recipe ID.
-  final int rating;                     // Rating from user.
-  final String description;             // Description from user.
+  int rating;                           // Rating from user.
+  String description;                   // Description from user.
 
-  const Review({
+  Review({
     this.id = '',
     this.timestamp,
     this.user,
