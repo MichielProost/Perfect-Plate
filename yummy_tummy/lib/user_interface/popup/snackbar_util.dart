@@ -10,4 +10,10 @@ class SnackBarUtil {
     );
   }
 
+  static void showTextSnackBar(BuildContext context, String message)
+  {
+    Scaffold.of(context).removeCurrentSnackBar();
+    Scaffold.of(context).showSnackBar( createTextSnackBar(message) );
+  }
+
 }

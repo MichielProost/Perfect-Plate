@@ -3,6 +3,7 @@ import 'package:yummytummy/database/dummy/dummydatabase.dart';
 import 'package:yummytummy/database/interfaces/reviewService.dart';
 import 'package:yummytummy/model/review.dart';
 import 'package:yummytummy/user_interface/components/selectable_stars.dart';
+import 'package:yummytummy/user_interface/popup/snackbar_util.dart';
 
 import '../constants.dart';
 
@@ -129,6 +130,8 @@ class _CreateScreen extends State<CreateReviewScreen> {
 
                       // Save review
                       widget._reviewService.addReview( _review );
+
+                      Navigator.pop(context, null);
                     }, 
                     child: Text("Submit", style: Constants.buttonStyle,),
                   ),
