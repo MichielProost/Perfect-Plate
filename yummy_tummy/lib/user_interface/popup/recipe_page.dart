@@ -5,6 +5,7 @@ import 'package:yummytummy/user_interface/components/rating_row.dart';
 import 'package:yummytummy/user_interface/components/review_form.dart';
 import 'package:yummytummy/user_interface/components/selectable_stars.dart';
 import 'package:yummytummy/user_interface/general/icon_builder.dart';
+import 'package:yummytummy/user_interface/popup/recipe_ratings.dart';
 
 import '../constants.dart';
 
@@ -30,6 +31,9 @@ class _RecipePageState extends State<RecipePage> {
     @override
   Widget build(BuildContext context) {
     // TODO add reviews page 
+
+    RatingRow ratingView = RatingRow(_recipe.rating, _recipe.numberOfReviews);
+
     return Padding(
       padding: const EdgeInsets.only(left: 5.0, right: 5.0, top: 5.0, bottom: 5.0),
       child: Card(
@@ -46,7 +50,14 @@ class _RecipePageState extends State<RecipePage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    RatingRow(_recipe.rating, _recipe.numberOfReviews),
+                    InkWell(
+                      borderRadius: BorderRadius.circular(10.0),
+                      onTap: () => showDialog(context: context, child: RecipeRatings( _recipe.id, ratingView )),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 3.0, vertical: 2.0),
+                        child: ratingView,
+                      ),
+                    ),
                     Text(_recipe.userMap['name']),
                   ],
                 ),
@@ -302,12 +313,7 @@ class _RecipePageState extends State<RecipePage> {
         ),
 
         // Close recipe button
-        IconButton(
-          icon: Icon(Icons.close, size: 35.0),
-          onPressed: () {
-            Navigator.pop(context, null);
-          },
-        ),
+        CloseButton(),
       ],
     );
   }

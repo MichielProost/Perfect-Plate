@@ -193,7 +193,7 @@ class _SearchScreen extends State<SearchScreen> {
                                 },
                                 decoration: InputDecoration(
                                   focusColor: Constants.main,
-                                  hintText: "Add required ingredients here",
+                                  hintText: "Add required ingredients here (optional)",
                                 ),
                               ),
                             ],
