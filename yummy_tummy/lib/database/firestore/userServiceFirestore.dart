@@ -18,13 +18,15 @@ class UserServiceFirestore implements UserService {
   /// Add a new user to the database. Returns the document ID.
   Future<String> addUser(User user, String userID) async {
 
+    DocumentReference docReference =
+      this.db.collection("users").document(userID);
+
     // Create a new user document.
     String documentID =
-    await this.db.collection("users")
-        .doc(userID)
-        .set(user.toMap())
+    await docReference
+        .setData(user.toMap())
         .then((value) {
-      return value.documentID;
+      return docReference.documentID;
     });
 
     consoleWriter.CreatedDocument(CollectionType.User, documentID);
