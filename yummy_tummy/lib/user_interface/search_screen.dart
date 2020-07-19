@@ -277,10 +277,7 @@ class _SearchScreen extends State<SearchScreen> {
           child: Text(
             "No recipes were found! Please adjust your search parameters.",
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 20.0
-            ),
+            style: Constants.emptyScreenStyle,
           ),
         ),
       );

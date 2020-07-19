@@ -1,7 +1,7 @@
 /// Functions as a template for new screens. Should not actually be used
 
 import 'package:flutter/material.dart';
-import 'package:yummytummy/database/dummy/dummydatabase.dart';
+import 'package:yummytummy/database/firestore/recipeServiceFirestore.dart';
 import 'package:yummytummy/database/interfaces/recipeService.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/user.dart';
@@ -13,19 +13,15 @@ import 'components/waiting_indicator.dart';
 
 class FavouritesScreen extends StatelessWidget {
 
-  RecipeService _recipeService = DummyDatabase();
-
-  // TODO implement getting bookmarked recipes
-  final List<Recipe> _recipes = DummyDatabase().getRecipes();
+  RecipeService _recipeService = RecipeServiceFirestore();
 
   @override
   Widget build(BuildContext context) {
     Constants;
     return Scaffold(
       backgroundColor: Constants.background,
-      body: FutureBuilder(
-        //TODO replace by feed algorithm
-        future: _recipeService.getRecipesFromUser(UserMapField.id, 'id'),
+      body: FutureBuilder<List<Recipe>>(
+        future: _recipeService.getFavouriteRecipes( Constants.appUser ),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) 
           {
@@ -36,7 +32,29 @@ class FavouritesScreen extends StatelessWidget {
                 data: Constants.themeData,
                 child: ListView(
                   children: <Widget>[
-                    for (Recipe recipe in snapshot.data) RecipeCard(recipe, showBookmark: true),
+                    
+                    if ( ! Constants.appUser.isLoggedIn() ) 
+                      Padding(
+                        padding: const EdgeInsets.only( top: 8.0 ),
+                        child: Text(
+                          'Log in to see your saved recipes!',
+                          textAlign: TextAlign.center,
+                          style: Constants.emptyScreenStyle,
+                        ),
+                      ),
+                    
+                    if (snapshot.data.length == 0 && Constants.appUser.isLoggedIn())
+                      Padding(
+                        padding: const EdgeInsets.only( top: 8.0 ),
+                        child: Text(
+                          'You have no favourites yet.\nBookmark a recipe to save it to this screen.',
+                          textAlign: TextAlign.center,
+                          style: Constants.emptyScreenStyle,
+                        ),
+                      ),
+
+                    for (Recipe recipe in snapshot.data) 
+                      RecipeCard(recipe, showBookmark: true),
 
                     SizedBox(
                       height: 30.0,

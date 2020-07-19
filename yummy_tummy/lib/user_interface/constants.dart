@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:yummytummy/database/authentication/google.dart';
+import 'package:yummytummy/model/app_user.dart';
 
 class Constants {
+
+  static AppUser appUser = AppUser.offline(); 
+
   static final Color main = Color(0xFFFF0000);
   static final Color accent = Color(0xFFFBC02D);
   static final Color gray = Colors.grey.shade50;
@@ -12,6 +17,11 @@ class Constants {
     fontSize: 17.0,
     fontWeight: FontWeight.bold,
     color: main,
+  );
+
+  static final TextStyle emptyScreenStyle = TextStyle(
+    fontSize: 20.0,
+    fontWeight: FontWeight.bold
   );
 
   static final ThemeData themeData = ThemeData(
