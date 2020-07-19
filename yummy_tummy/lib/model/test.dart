@@ -3,7 +3,6 @@ import 'package:yummytummy/database/Firestore/reviewServiceFirestore.dart';
 import 'package:yummytummy/database/Firestore/userServiceFirestore.dart';
 import 'package:yummytummy/database/authentication/google.dart';
 import 'package:yummytummy/database/dummy/dummydatabase.dart';
-import 'package:yummytummy/database/interfaces/recipeService.dart';
 import 'package:yummytummy/database/query/queryInfo.dart';
 import 'package:yummytummy/model/app_user.dart';
 import 'package:yummytummy/model/recipe.dart';
@@ -44,6 +43,7 @@ class Test {
     //testModifyRecipe();
     //testSearchRecipes();
     //testGoogle();
+    testUpdateRatings();
 
   }
 
@@ -242,6 +242,19 @@ class Test {
     user.printSummary();
     // Sign out Google user.
     await handler.handleSignOut();
+
+  }
+
+  /// TEST: Update recipe ratings based on new review.
+  testUpdateRatings() async {
+
+    // Create review object.
+    Review review = new Review(
+        recipeID: '7jrZah08KuNUMz4ATAR4',
+        rating: 1,
+    );
+
+    await recipeService.updateRatings(review);
 
   }
 

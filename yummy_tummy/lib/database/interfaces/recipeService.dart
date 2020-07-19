@@ -1,4 +1,5 @@
 import 'package:yummytummy/model/recipe.dart';
+import 'package:yummytummy/model/review.dart';
 import 'package:yummytummy/model/user.dart';
 
 import '../query/queryInfo.dart';
@@ -40,4 +41,7 @@ abstract class RecipeService {
   /// TEMPORARY: UI will use this method instead.
   /// Replace by searchRecipes when implementation is done.
   Future<List<Recipe>> searchRecipesUI(RecipeQuery info, SortField sortField);
+
+  /// Update average and weighted rating in recipe document.
+  Future<void> updateRatings(Review review);
 }

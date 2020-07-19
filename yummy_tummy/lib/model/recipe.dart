@@ -58,10 +58,11 @@ class Recipe {
   final List<String> ingredients;       // Ingredients.
   final List<String> stepDescriptions;  // A list of descriptions. Each element represents a step.
   final List<String> stepImages;        // Image URL of each step.
-  final double rating;                  // Rating of dish.
+  double rating;                        // Rating of dish.
+  double weightedRating;                // Weighted rating.
   int duration;                         // How long it takes to make the recipe.
   String image;                         // Image URL of result.
-  final int numberOfReviews;            // Number of reviews.
+  int numberOfReviews;            // Number of reviews.
   // TODO watch out!! User is mutable, and can be edited from anywhere!
   final User user;                      // User object.
   final Map<String, dynamic> userMap;   // Duplicate data. Information of user.
@@ -77,13 +78,14 @@ class Recipe {
       this.type,
       this.isVegetarian,
       this.isVegan,
+      this.rating,
+      this.weightedRating,
+      this.numberOfReviews,
     }
   ): 
     ingredients = List<String>(),
     stepDescriptions = List<String>(),
-    stepImages = List<String>(),
-    rating = 0.0,
-    numberOfReviews = 0;
+    stepImages = List<String>();
 
   Recipe({
     this.id,
@@ -97,6 +99,7 @@ class Recipe {
     this.stepDescriptions,
     this.stepImages,
     this.rating,
+    this.weightedRating,
     this.duration,
     this.image,
     this.numberOfReviews,
@@ -122,6 +125,7 @@ class Recipe {
           stepImages: data.containsKey('stepImages') ?
             new List<String>.from(data['stepImages']) : [],
           rating: data.containsKey('rating') ? data['rating'] : 0.0,
+          weightedRating : data.containsKey('weightedRating') ? data['weightedRating'] : 0.0,
           duration: data.containsKey('duration') ? data['duration']: 0,
           image: data.containsKey('image') ? data['image'] : '',
           numberOfReviews: data.containsKey('numberOfReviews') ? data['numberOfReviews'] : 0,
@@ -144,6 +148,7 @@ class Recipe {
       'stepDescriptions' : stepDescriptions != null ? stepDescriptions : [],
       'stepImages' : stepImages != null ? stepImages : [],
       'rating' : rating != null ? rating : 0.0,
+      'weightedRating' : weightedRating != null ? weightedRating : 0.0,
       'duration' : duration ??= 0,
       'image' : image ??= '',
       'numberOfReviews' : numberOfReviews != null ? numberOfReviews : 0,

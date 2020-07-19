@@ -96,6 +96,11 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
     return getRecipes();
   }
 
+  /// Update average and weighted rating in recipe document.
+  Future<void> updateRatings(Review review) async {
+    await enforceDelay();
+  }
+
   // ---
   // ReviewService
   // ---

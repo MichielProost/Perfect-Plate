@@ -3,7 +3,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:yummytummy/database/interfaces/recipeService.dart';
 import 'package:yummytummy/database/query/queryInfo.dart';
 import 'package:yummytummy/model/recipe.dart';
+import 'package:yummytummy/model/review.dart';
 import 'package:yummytummy/model/user.dart';
+import 'package:yummytummy/utils/calculateRatings.dart';
 import 'package:yummytummy/utils/consoleWriter.dart';
 
 const documentLimit = 15;
@@ -219,6 +221,30 @@ class RecipeServiceFirestore implements RecipeService {
   /// Replace by searchRecipes when implementation is done.
   Future<List<Recipe>> searchRecipesUI(RecipeQuery info, SortField sortField){
     //Made to avoid errors.
+  }
+
+  /// Update average and weighted rating in recipe document.
+  Future<void> updateRatings(Review review) async {
+
+    // Get recipe object from ID.
+    Recipe recipe = await getRecipeFromID(review.recipeID);
+
+    recipe.printSummary();
+
+    // Update average rating.
+    recipe.rating =
+        calculateAverageRating(recipe.rating, review.rating, recipe.numberOfReviews);
+
+    // Update weighted rating.
+    recipe.weightedRating =
+        calculateWeightedRating(recipe.rating, recipe.numberOfReviews);
+
+    // Update number of reviews after updating ratings.
+    recipe.numberOfReviews++;
+
+    // Modify recipe document with new fields.
+    await modifyRecipe(recipe, review.recipeID);
+
   }
 
 }
