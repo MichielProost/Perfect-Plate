@@ -3,10 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:yummytummy/model/user.dart';
 
 // Recipes can be sorted by the following fields.
-// TODO add advanced sort system: formula that combines rating and numberofreviews (and normalizes the result)
 enum SortField {
+  weightedRating,
   rating,
-  numberOfReviews,
   timestamp,
 }
 

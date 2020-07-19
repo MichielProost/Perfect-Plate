@@ -41,9 +41,9 @@ class Test {
     //testGetRecipeFromID();
     //testGetFavouriteRecipes();
     //testModifyRecipe();
-    //testSearchRecipes();
+    testSearchRecipes();
     //testGoogle();
-    testUpdateRatings();
+    //testUpdateRatings();
 
   }
 
@@ -212,12 +212,12 @@ class Test {
 
     // Initialize new query.
     RecipeQuery info = new RecipeQuery();
-    List<String> ingredients = ["melk"];
+    List<String> ingredients = [];
 
     // Stop when there are no more recipes to fetch.
     while(info.hasMore){
       // Fetch recipes. Update RecipeQuery object.
-      info = await recipeService.searchRecipes(info, SortField.numberOfReviews, DietField.vegetarian, RecipeType.any, ingredients);
+      info = await recipeService.searchRecipes(info, SortField.weightedRating, DietField.any, RecipeType.any, ingredients);
 
       // Print query information
       print(info.hasMore);
