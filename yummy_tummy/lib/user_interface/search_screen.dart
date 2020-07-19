@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:yummytummy/database/dummy/dummydatabase.dart';
+import 'package:yummytummy/database/firestore/recipeServiceFirestore.dart';
 import 'package:yummytummy/database/interfaces/recipeService.dart';
 import 'package:yummytummy/database/query/queryInfo.dart';
 import 'package:yummytummy/model/recipe.dart';
@@ -21,13 +22,13 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreen extends State<SearchScreen> {
   
-  RecipeService _recipeService = DummyDatabase(delayInMilliseconds: 500);
+  RecipeService _recipeService = RecipeServiceFirestore();
 
   // TODO grab preferences for diet from the user
   DietField _dietField = DietField.any;
   RecipeType _recipeType = RecipeType.mains;
-  SortField _sortField = SortField.rating;
-  List<String> _ingredients = List<String>();
+  SortField _sortField = SortField.weightedRating;
+  final List<String> _ingredients = List<String>();
   
   bool _hasSearched = false;
   List<Recipe> _foundRecipes = List<Recipe>();
@@ -318,10 +319,10 @@ class _SearchScreen extends State<SearchScreen> {
 
   void handleSearch() async {
     RecipeQuery info = new RecipeQuery();
-    List<Recipe> recipes = await _recipeService.searchRecipesUI(info, SortField.rating);
+    RecipeQuery result = await _recipeService.searchRecipes(info, _sortField, _dietField, _recipeType, _ingredients);
     setState(() {
       _hasSearched = true;
-      _foundRecipes = recipes;
+      _foundRecipes = result.recipes;
       //_foundRecipes = List<Recipe>();
       _expansionTile.currentState.closeExpansion();
     });
