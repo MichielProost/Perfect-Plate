@@ -30,20 +30,18 @@ class FavouritesScreen extends StatelessWidget {
               SnackBarUtil.createTextSnackBar("An error occured while retrieving the recipes!") :
               Theme(
                 data: Constants.themeData,
-                child: ListView(
+                child: ! Constants.appUser.isLoggedIn() ?
+                Center(
+                      child: Text(
+                        'Please log in to see your saved recipes!',
+                        textAlign: TextAlign.center,
+                        style: Constants.emptyScreenStyle,
+                      ),
+                    ) : 
+                ListView(
                   children: <Widget>[
                     
-                    if ( ! Constants.appUser.isLoggedIn() ) 
-                      Padding(
-                        padding: const EdgeInsets.only( top: 8.0 ),
-                        child: Text(
-                          'Log in to see your saved recipes!',
-                          textAlign: TextAlign.center,
-                          style: Constants.emptyScreenStyle,
-                        ),
-                      ),
-                    
-                    if (snapshot.data.length == 0 && Constants.appUser.isLoggedIn())
+                    if (snapshot.data.length == 0)
                       Padding(
                         padding: const EdgeInsets.only( top: 8.0 ),
                         child: Text(

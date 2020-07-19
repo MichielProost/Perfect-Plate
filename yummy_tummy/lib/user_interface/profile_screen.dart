@@ -1,18 +1,18 @@
 /// Functions as a template for new screens. Should not actually be used
 
 import 'package:flutter/material.dart';
-import 'package:yummytummy/database/dummy/dummydatabase.dart';
+import 'package:yummytummy/database/firestore/recipeServiceFirestore.dart';
+import 'package:yummytummy/database/firestore/reviewServiceFirestore.dart';
 import 'package:yummytummy/database/interfaces/recipeService.dart';
 import 'package:yummytummy/database/interfaces/reviewService.dart';
-import 'package:yummytummy/database/interfaces/userService.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/review.dart';
 import 'package:yummytummy/model/user.dart';
-import 'package:yummytummy/user_interface/components/rating_row.dart';
 import 'package:yummytummy/user_interface/components/recipe_card.dart';
-import 'package:yummytummy/user_interface/components/review_card.dart';
 import 'package:yummytummy/user_interface/popup/recipe_page.dart';
 
+import 'components/review_card.dart';
+import 'components/waiting_indicator.dart';
 import 'constants.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -24,37 +24,38 @@ class ProfileScreen extends StatefulWidget {
 
 }
 
+enum UserPage {
+  recipes,
+  reviews
+}
+
+extension UserPageUtil on UserPage {
+  
+  String getString()
+  {
+    String lowercase = this.toString().toLowerCase().split('.').last;
+    return '${lowercase[0].toUpperCase()}${lowercase.substring(1)}';
+  }
+
+}
+
 class _Screen extends State<ProfileScreen> {
 
-  List<Widget> _recipes = List<Widget>();
-  List<Widget> _reviews = List<Widget>(); 
-  
-  RecipeService _recipeService = DummyDatabase(delayInMilliseconds: 500);
-  ReviewService _reviewService = DummyDatabase(delayInMilliseconds: 100);
+  Map<UserPage, List<Widget>> _pageWidgetMap = Map<UserPage, List<Widget>>();
 
   _Screen()
   {
-    // TODO Get actual data and remove code below + make this page Future proof
-    for (Recipe recipe in DummyDatabase().getRecipes() )
-    {
-      _recipes.add( RecipeCard(recipe) );
-    }
-
-    for (Review review in DummyDatabase().getReviews())
-    {
-      _reviews.add( 
-        InkWell(
-          onTap: () {
-            _openRecipeID( review.recipeID );
-          },
-          child: ReviewCard( review )
-        ),
-      );
-    }
-
-    // Start by displaying recipes
-    displayed = _recipes;
+    _pageWidgetMap = {
+      UserPage.recipes: List<Widget>(),
+      UserPage.reviews : List<Widget>(),
+    };
   }
+
+  RecipeService _recipeService = RecipeServiceFirestore();
+  ReviewService _reviewService = ReviewServiceFirestore();
+
+  // Initialize starting page
+  UserPage _activePage = UserPage.recipes;
 
   void _openRecipeID( String recipeID ) async
   {
@@ -62,17 +63,12 @@ class _Screen extends State<ProfileScreen> {
     showDialog(context: context, child: RecipePage( recipe ));
   }
 
-  // TODO add logic for when not logged in
-  // TODO get actual logged in User object
-  User _user = DummyDatabase().getUsers()[1];  
-  List<Widget> displayed = List<Widget>();
-
-  Widget buildContentLink(String name, List<Widget> content)
+  Widget buildContentLink(String name, UserPage userPage)
   {
     return InkWell(
       onTap: () {
         setState(() {
-          displayed = content;
+          _activePage = userPage;
         });
       },
       child: Column(
@@ -81,8 +77,8 @@ class _Screen extends State<ProfileScreen> {
             name,
             style: TextStyle(
               fontSize: 20.0,
-              color: displayed == content ? Constants.main : Constants.text_gray,
-              fontWeight: displayed == content ? FontWeight.bold : FontWeight.normal,
+              color: _activePage == userPage ? Constants.main : Constants.text_gray,
+              fontWeight: _activePage == userPage ? FontWeight.bold : FontWeight.normal,
             ),
           ),
         ],
@@ -110,7 +106,7 @@ class _Screen extends State<ProfileScreen> {
 
           /// User name display
           Text(
-            _user.name,
+            Constants.appUser.name,
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 25.0,
@@ -140,8 +136,8 @@ class _Screen extends State<ProfileScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                buildContentLink("My recipes", _recipes),
-                buildContentLink("My reviews", _reviews),
+                buildContentLink("My recipes", UserPage.recipes),
+                buildContentLink("My reviews", UserPage.reviews),
               ],
             ),
 
@@ -154,13 +150,49 @@ class _Screen extends State<ProfileScreen> {
     );
   }
 
+  Future<List<Widget>> _getDisplayedWidgets() async
+  {
+    if ( _pageWidgetMap[ _activePage ].length == 0 )
+    {
+      if ( _activePage == UserPage.recipes )
+      {
+        List<Recipe> recipes = await _recipeService.getRecipesFromUser(UserMapField.id, Constants.appUser.id);
+        _pageWidgetMap[ _activePage ] = List<Widget>();
+        for (Recipe recipe in recipes)
+          _pageWidgetMap[ _activePage ].add( RecipeCard( recipe ) );
+      }
+      else if ( _activePage == UserPage.reviews )
+      {
+        List<Review> reviews = await _reviewService.getReviewsFromUser(UserMapField.id, Constants.appUser.id);
+        _pageWidgetMap[ _activePage ] = List<Widget>();
+        for (Review review in reviews)
+          _pageWidgetMap[ _activePage ].add( ReviewCard( review ) );
+      }
+
+      return _pageWidgetMap[ _activePage ];
+    } 
+    else
+    {
+      return _pageWidgetMap[ _activePage ];
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Constants.background,
       body: Theme(
         data: Constants.themeData,
-        child: CustomScrollView(
+        child: 
+        // ! Constants.appUser.isLoggedIn() ?  
+        // Center(
+        //   child: Text(
+        //     "Please log in to see your profile page.",
+        //     textAlign: TextAlign.center,
+        //     style: Constants.emptyScreenStyle,
+        //   ),
+        // ) :
+        CustomScrollView(
           slivers: <Widget>[
 
             // Header
@@ -177,10 +209,43 @@ class _Screen extends State<ProfileScreen> {
             ),
 
             // Recipes or review depending on the selected page
-            for (Widget widget in displayed)
-              SliverToBoxAdapter(
-                child: widget,
+            // for (Widget widget in displayed)
+            //   SliverToBoxAdapter(
+            //     child: widget,
+            //   ),
+
+            // Recipes or review depending on the selected page
+            SliverToBoxAdapter(
+              child: FutureBuilder<List<Widget>>(
+                future: _getDisplayedWidgets(),
+                builder: (context, snapshot)
+                {
+                  if (snapshot.connectionState == ConnectionState.none && snapshot.hasData == null)
+                    return Container();
+
+                  if (snapshot.data == null)
+                    return WaitingIndicator();
+                  else if (snapshot.data.length != 0)
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: snapshot.data.length,
+                      itemBuilder: (context, index) {
+                        return snapshot.data[index];
+                      },
+                    );
+                  else
+                    return Center(
+                      child: Text(
+                        "You haven't published " + _activePage.getString().toLowerCase() + " yet!",
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    );
+                }
               ),
+            ),
 
             // Extra padding to prevent overlap with the add recipe button
             SliverPadding(

@@ -112,7 +112,7 @@ class RecipeServiceFirestore implements RecipeService {
             recipes[i] = recipe;
             consoleWriter.FetchedDocument(CollectionType.Recipe, recipe.id);
           }
-      return docs.documents.isNotEmpty ? recipes : null;
+      return docs.documents.isNotEmpty ? recipes : List<Recipe>();
     });
     return fetchedRecipes;
 
