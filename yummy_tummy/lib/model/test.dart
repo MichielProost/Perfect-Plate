@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:image_picker/image_picker.dart';
 import 'package:yummytummy/database/Firestore/recipeServiceFirestore.dart';
 import 'package:yummytummy/database/Firestore/reviewServiceFirestore.dart';
 import 'package:yummytummy/database/Firestore/userServiceFirestore.dart';
@@ -8,6 +11,7 @@ import 'package:yummytummy/model/app_user.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/review.dart';
 import 'package:yummytummy/model/user.dart';
+import 'package:yummytummy/storage/storageHandler.dart';
 import 'package:yummytummy/user_interface/constants.dart';
 import 'package:yummytummy/utils/consoleWriter.dart';
 
@@ -45,6 +49,7 @@ class Test {
     //testSearchRecipes();
     //testGoogle();
     //testUpdateRatings();
+    //testUploadPicture();
 
   }
 
@@ -261,4 +266,22 @@ class Test {
 
   }
 
-}
+  testUploadPicture() async {
+
+    // Create Google handler.
+    GoogleAuthHandler handler = new GoogleAuthHandler();
+    // Sign in Google user.
+    await handler.handleSignIn();
+
+    // Create storage handler.
+    StorageHandler storageHandler = new StorageHandler();
+    // Take image with phone camera.
+    File image = await storageHandler.getPicture(ImageSource.camera);
+    // Upload image to Cloud storage.
+    String url = await storageHandler.uploadPicture(image, ImageType.profile, null);
+    // Print the download URL.
+    print(url);
+
+  }
+
+ }
