@@ -8,6 +8,7 @@ import 'package:yummytummy/model/app_user.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/review.dart';
 import 'package:yummytummy/model/user.dart';
+import 'package:yummytummy/user_interface/constants.dart';
 import 'package:yummytummy/utils/consoleWriter.dart';
 
 class Test {
@@ -41,7 +42,7 @@ class Test {
     //testGetRecipeFromID();
     //testGetFavouriteRecipes();
     //testModifyRecipe();
-    testSearchRecipes();
+    //testSearchRecipes();
     //testGoogle();
     //testUpdateRatings();
 
@@ -237,11 +238,13 @@ class Test {
     // Create Google handler.
     GoogleAuthHandler handler = new GoogleAuthHandler();
     // Sign in Google user.
-    AppUser user = await handler.handleSignIn();
-    // Print summary of user object.
-    user.printSummary();
+    await handler.handleSignIn();
+    // Print summary of logged in user object.
+    Constants.appUser.printSummary();
     // Sign out Google user.
     await handler.handleSignOut();
+    // Is logged in?
+    print(Constants.appUser.isLoggedIn());
 
   }
 

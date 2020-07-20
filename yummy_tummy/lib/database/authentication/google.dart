@@ -3,6 +3,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:yummytummy/database/firestore/userServiceFirestore.dart';
 import 'package:yummytummy/model/app_user.dart';
 import 'package:yummytummy/model/user.dart';
+import 'package:yummytummy/user_interface/constants.dart';
 
 class GoogleAuthHandler{
 
@@ -11,7 +12,7 @@ class GoogleAuthHandler{
   UserServiceFirestore userService = new UserServiceFirestore();
 
   /// Sign in with Google.
-  Future<AppUser> handleSignIn() async {
+  Future<void> handleSignIn() async {
 
     GoogleSignInAccount googleAccount = await _googleSignIn.signIn();
     GoogleSignInAuthentication googleAuth = await googleAccount.authentication;
@@ -47,7 +48,7 @@ class GoogleAuthHandler{
       await userService.addUser(user, googleUser.uid);
     }
 
-    return new AppUser(googleUser.uid, userData);
+    Constants.appUser = new AppUser(googleUser.uid, userData);
 
   }
 
@@ -57,6 +58,8 @@ class GoogleAuthHandler{
     await _auth.signOut().then((value){
       _googleSignIn.signOut();
     });
+
+    Constants.appUser = AppUser.offline();
 
   }
 
