@@ -17,6 +17,11 @@ class CreateRecipeCard extends StatefulWidget {
 
 }
 
+enum ImageInput {
+  camera,
+  gallery,
+}
+
 class _CreateRecipePage extends State<CreateRecipeCard> {
 
   // Create recipe util
@@ -118,14 +123,45 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                ChooseImageIcon(
-                  heigth: 100.0,
-                  width: 200.0,
-                  size: 50.0,
-                  infoText: "Set banner image",
-                  callback: () {
-
-                  },
+                Column(
+                  children: <Widget>[
+                    ChooseImageIcon(
+                      heigth: 100.0,
+                      width: 200.0,
+                      size: 50.0,
+                      callback: (tapLocation) {
+                        
+                        double left;
+                        double top;
+                        if (tapLocation != null)
+                        {
+                          left = tapLocation.dx;
+                          top = tapLocation.dy;
+                          print(tapLocation.dx.toString() + " " + tapLocation.dy.toString());
+                        }
+                        else
+                        {
+                          left = MediaQuery.of(context).size.width / 3;
+                          top = MediaQuery.of(context).size.height / 3;
+                          print("Fixed " + left.toString() + " " + top.toString());
+                        }
+                        showMenu(
+                          context: context,
+                          position: RelativeRect.fromLTRB(left, top, MediaQuery.of(context).size.width - left, MediaQuery.of(context).size.height - top),
+                          items: <PopupMenuEntry>[
+                            PopupMenuItem(
+                              value: ImageInput.camera,
+                              child: Text("Camera"),
+                            ),
+                            PopupMenuItem(
+                              value: ImageInput.gallery,
+                              child: Text("Gallery"),
+                            ),
+                          ]
+                        );
+                      },
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -186,7 +222,7 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                       child: Text("Diet of this recipe")
                     ),
                   ),
-
+                  
                   // Diet chooser: vegetarian, vegan, ...
                   Padding(
                     padding: const EdgeInsets.only(right: 50.0),
@@ -429,10 +465,14 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                         index == _steps.length ? "Add step" : "Update step",
                         onClick: () {
                           setState(() {
-                            if (index >= _steps.length)
+                            if (index >= _steps.length) {
                               _steps.add( key.currentState.getCurrentText() );
+                              _images.add( File("") );
+                            } 
                             else
+                            {
                               _steps[ index ] = key.currentState.getCurrentText();
+                            }
                           });
                         },
                       ),

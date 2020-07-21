@@ -4,57 +4,49 @@ import 'package:flutter/material.dart';
 
 import '../constants.dart';
 
-class ChooseImageIcon extends StatelessWidget {
+class ChooseImageIcon extends StatefulWidget {
 
-  final VoidCallback callback;
-  final String infoText;
+  final Function(Offset tapPosition) callback;
   final double size;
   final double width;
   final double heigth;
 
-  ChooseImageIcon({this.callback, this.infoText, this.width, this.heigth, this.size});
+  ChooseImageIcon({this.callback, this.width, this.heigth, this.size});
+
+  @override
+  State<StatefulWidget> createState() {
+    return _ChooseImageIconState();
+  }
+
+}
+
+class _ChooseImageIconState extends State<ChooseImageIcon> {
+  
+  Offset _tapPosition;
+
+  void _handleTapDown(TapDownDetails details) {
+    _tapPosition = details.globalPosition;
+    if ( widget.callback != null )
+      widget.callback( _tapPosition );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: heigth ?? 50.0,
-      width: width ?? 50.0,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10.0),
-        color: Constants.bg_gray,
-      ),
-      child: infoText == null ? 
-        buildIconButton() :
-        Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            buildIconButton(),
-            Text(
-              infoText,
-              maxLines: 1,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 14.0,
-              ),
-            ),
-          ],
-      ),
+    return GestureDetector(
+      onTapDown: _handleTapDown,
+      child: Container(
+        height: widget.heigth ?? 50.0,
+        width: widget.width ?? 50.0,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.0),
+          color: Constants.bg_gray,
+        ),
+        child: Icon(
+          Icons.image,
+          color: Constants.main,
+          size: widget.size,
+        ), 
+      )
     );
   }
-
-  Widget buildIconButton()
-  {
-    return IconButton(
-      icon: Icon(
-        Icons.image,
-        color: Constants.main,
-        size: size,
-      ), 
-      onPressed: () {
-        if ( callback != null )
-          callback();
-      }
-    );
-  }
-
 }
