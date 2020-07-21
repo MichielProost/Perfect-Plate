@@ -104,7 +104,7 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                     onClick: () {
                       setState(() {
                         _title = _titleKey.currentState.getCurrentText();
-                        _titleKey.currentState.clearTextField();
+                        // _titleKey.currentState.clearTextField();
                       });
                       FocusScope.of(context).unfocus();
                     },
@@ -140,7 +140,7 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                     padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5.0),
                     child: CustomTextField(
                       key: _descriptionkey,
-                      hint: "Set the recipe's description here",
+                      hint: _description == null ? "Set the recipe's description here" : '[Description] ' + _description,
                       maxLines: 10,
                       callback: (content) {
                         setState(() {
@@ -158,7 +158,7 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                     onClick: () {
                       setState(() {
                         _description = _descriptionkey.currentState.getCurrentText();
-                        _descriptionkey.currentState.clearTextField();
+                        // _descriptionkey.currentState.clearTextField();
                       });
                       FocusScope.of(context).unfocus();
                     },
@@ -283,6 +283,17 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
               ),
             ),
 
+            Padding(
+              padding: const EdgeInsets.symmetric( vertical: 8.0 ),
+              child: Text(
+                "Ingredients",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
 
             // Ingredients adder
             Row(
@@ -332,22 +343,104 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                 ],
               ),
             ),
+
+            Padding(
+              padding: const EdgeInsets.symmetric( vertical: 8.0 ),
+              child: Text(
+                "Step descriptions",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+
+            // Step adder with image option
+            for (int step = 0; step < _steps.length + 1; step++)
+              buildStepDisplay( step ),
+
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildStepDisplay(int index)
+  {
+    final GlobalKey<CustomTextFieldState> key = GlobalKey();
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Card(
+        color: Constants.gray,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ChooseImageIcon(
-                    heigth: 50.0,
-                    width: 50.0,
-                    size: 25.0,
+                Flexible(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CustomTextField(
+                      maxLines: 3,
+                      hint: _steps.length > index ? _steps[index] : "Add step info here",
+                      key: key,
+                      callback: (value) {
+                        // if (index >= _steps.length)
+                        //   _steps.add( value );
+                        // else
+                        //   _steps[ index ] = value;
+                      },
+                    ),
                   ),
+                ),
+                if (index < _steps.length)
+                IconButton(
+                  icon: Icon(Icons.delete), 
+                  onPressed: () {
+                    setState(() {
+                      if ( _steps.length > index )
+                        _steps.removeAt( index );
+                      if ( _images.length > index )
+                        _images.removeAt( index );
+                    });
+                  }
                 ),
               ],
             ),
 
-            // Step adder with image option
-            // for (int step = 0; step < steps)
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  
+                  ChooseImageIcon(
+                    heigth: 100.0,
+                    width: 100.0,
+                    size: 25.0,
+                  ),
 
+                  Flexible(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: ActionButton(
+                        index == _steps.length ? "Add step" : "Update step",
+                        onClick: () {
+                          setState(() {
+                            if (index >= _steps.length)
+                              _steps.add( key.currentState.getCurrentText() );
+                            else
+                              _steps[ index ] = key.currentState.getCurrentText();
+                          });
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
