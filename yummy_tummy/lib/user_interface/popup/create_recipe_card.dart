@@ -1,14 +1,19 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:yummytummy/database/firestore/recipeServiceFirestore.dart';
+import 'package:yummytummy/database/interfaces/recipeService.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/storage/storageHandler.dart';
 import 'package:yummytummy/user_interface/components/action_button.dart';
 import 'package:yummytummy/user_interface/components/choose_image_icon.dart';
 import 'package:yummytummy/user_interface/components/custom_textfield.dart';
+import 'package:yummytummy/user_interface/components/error_card.dart';
 
 import '../constants.dart';
+import 'info_popup.dart';
 
 class CreateRecipeCard extends StatefulWidget {
   
@@ -40,6 +45,8 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
   static final List<GlobalKey<CustomTextFieldState>> stepKeys = List<GlobalKey<CustomTextFieldState>>();
 
   final StorageHandler imageHandler = StorageHandler();
+
+  List<String> _errors = List<String>();
 
   // Data holders
   String _title;
@@ -263,7 +270,7 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                           .map<DropdownMenuItem<DietField>>((DietField value) {
                         return DropdownMenuItem<DietField>(
                           value: value,
-                          child: Text( value == DietField.any ? "Set the diet" : value.getString() ),
+                          child: Text( value == DietField.any ? "None" : value.getString() ),
                         );
                       }).toList(),
                     ),
@@ -413,10 +420,66 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
               ),
             ),
 
+
             // Step adder with image option
             for (int step = 0; step < _steps.length + 1; step++)
               buildStepDisplay( step ),
 
+            for (String error in _errors)
+              ErrorCard( error ),
+
+            // Submit button
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 10.0),
+              child: ActionButton(
+                "Submit recipe!",
+                onClick: () {
+                  _errors = List<String>();
+
+                  if (_title == null || _title == "")
+                    _errors.add("Please provide a recipe title");
+
+                  if (_banner == null)
+                    _errors.add("Please provide a recipe banner");
+
+                  if (_description != null && _description.length < 15)
+                    _errors.add("Please provide a longer description");
+
+                  if (_recipeType == RecipeType.any)
+                    _errors.add("Please select a recipe type");
+
+                  if (_ingredients.length == 0)
+                    _errors.add("Please add at least one ingredient");
+
+                  if (_steps.length == 0)
+                    _errors.add("Please incude at least one step");
+
+                  if (_errors.length == 0)
+                  {
+
+                    // TODO upload File _banner and give link to recipe constructor
+                    // TODO upload List<File> _images and give links to recipe constructor
+                    // TODO pass user AND usermap
+
+                    Recipe recipe = Recipe( id: "", timestamp: Timestamp.now(), 
+                                            duration: _preptime, ingredients: _ingredients,
+                                            stepDescriptions: _steps,
+                                            title: _title, description: _description, type: _recipeType,
+                                            isVegetarian: _dietField != DietField.any, isVegan: _dietField == DietField.vegan,
+                                            rating: 0.0, weightedRating: 0.0, numberOfReviews: 0);
+                    RecipeService recipeService = RecipeServiceFirestore();
+                    recipeService.addRecipe( recipe );
+                    Navigator.pop(context);
+                    showDialog(context: context, child: InfoPopup("Created a recipe!", "Thank you for adding a new recipe."));
+                  }
+                  else
+                  {
+                    setState(() {});
+                  }
+
+                },
+              ),
+            ),
           ],
         ),
       ),
@@ -425,7 +488,7 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
 
   Widget buildStepDisplay(int index)
   {
-    
+
     if (stepKeys.length <= index)
       stepKeys.add( GlobalKey() );
 
