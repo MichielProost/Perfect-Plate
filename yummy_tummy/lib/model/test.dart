@@ -277,7 +277,7 @@ class Test {
     // Take image with phone camera.
     File image = await storageHandler.getPicture(ImageSource.camera);
     // Upload image to Cloud storage.
-    String url = await storageHandler.uploadPicture(image, ImageType.profile, null);
+    String url = await storageHandler.uploadPicture(image, ImageType.profile, null, 0);
     // Print the download URL.
     print(url);
 

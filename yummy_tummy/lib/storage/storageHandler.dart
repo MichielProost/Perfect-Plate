@@ -34,10 +34,12 @@ class StorageHandler{
   }
 
   /// Upload a picture to Firestore.
-  /// Only if ImageType starts with "recipe", recipe object should be given.
-  /// In all other cases, recipe object should be null.
+  /// Only if ImageType starts with "recipe", title should be given.
+  /// In all other cases, title should be an empty string.
+  /// Only if ImageType is equal to ImageType.recipe_step, stepCount should be given.
+  /// Otherwise, stepCount should be 0.
   /// Returns an empty string if user isn't logged in.
-  Future<String> uploadPicture(File image, ImageType type, Recipe recipe) async {
+  Future<String> uploadPicture(File image, ImageType type, String title, int stepCount) async {
 
     // User must be logged in.
     if(Constants.appUser.isLoggedIn())
@@ -49,10 +51,10 @@ class StorageHandler{
           path = path + Constants.appUser.name + "/profilePicture.jpg";
         break;
         case ImageType.recipe_result:
-          path = path + recipe.id + "/result.jpg";
+          path = path + Constants.appUser.name + "/recipes/" + title + "/result.jpg";
         break;
         case ImageType.recipe_step:
-          // Don't know yet.
+          path = path + Constants.appUser.name + "/recipes/" + title + "/step$stepCount.jpg";
       }
 
       StorageReference ref = _storageReference.child(path);
