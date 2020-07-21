@@ -38,9 +38,18 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
   String _description;
   DietField _dietField = DietField.any;
   RecipeType _recipeType = RecipeType.any;
+  int _preptime = 15;
   List<String> _ingredients = List<String>();
   List<String> _steps = List<String>();
   List<File> _images = List<File>();
+
+  final List<int> _times = List<int>();
+
+  _CreateRecipePage()
+  {
+    for (int i = 15; i <= 180; i += 15)
+      _times.add( i );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -160,75 +169,118 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
 
 
             // Info selection: recipe type, diet type, duration
-            GridView.count(
-              shrinkWrap: true,
-              childAspectRatio: 4.0 / 1.0,
-              crossAxisCount: 2,
-              children: <Widget>[
-                
-                // Text label
-                Padding(
-                  padding: const EdgeInsets.only(left: 60.0),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text("Diet of this recipe")
+            Align(
+              alignment: Alignment.centerLeft,
+              child: GridView.count(
+                shrinkWrap: true,
+                physics: ClampingScrollPhysics(),
+                childAspectRatio: 4.0 / 1.0,
+                crossAxisCount: 2,
+                children: <Widget>[
+                  
+                  // Text label
+                  Padding(
+                    padding: const EdgeInsets.only(left: 30.0),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text("Diet of this recipe")
+                    ),
                   ),
-                ),
 
-                // Diet chooser: vegetarian, vegan, ...
-                DropdownButton<DietField>(
-                  value: _dietField,
-                  icon: Icon(Icons.keyboard_arrow_down),
-                  isExpanded: true,
-                  iconSize: 24,
-                  elevation: 16,
-                  style: TextStyle(color: Colors.black),
-                  onChanged: (DietField newValue) {
-                    setState(() {
-                      _dietField = newValue;
-                    });
-                  },
-                  items: DietField.values
-                      .map<DropdownMenuItem<DietField>>((DietField value) {
-                    return DropdownMenuItem<DietField>(
-                      value: value,
-                      child: Text( value == DietField.any ? "Choose the diet" : value.getString() ),
-                    );
-                  }).toList(),
-                ),
-
-                // Text label
-                Padding(
-                  padding: const EdgeInsets.only(left: 60.0),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text("Type of dish")
+                  // Diet chooser: vegetarian, vegan, ...
+                  Padding(
+                    padding: const EdgeInsets.only(right: 50.0),
+                    child: DropdownButton<DietField>(
+                      value: _dietField,
+                      icon: Icon(Icons.keyboard_arrow_down),
+                      isExpanded: true,
+                      iconSize: 24,
+                      elevation: 16,
+                      style: TextStyle(color: Colors.black),
+                      onChanged: (DietField newValue) {
+                        setState(() {
+                          _dietField = newValue;
+                        });
+                      },
+                      items: DietField.values
+                          .map<DropdownMenuItem<DietField>>((DietField value) {
+                        return DropdownMenuItem<DietField>(
+                          value: value,
+                          child: Text( value == DietField.any ? "Set the diet" : value.getString() ),
+                        );
+                      }).toList(),
+                    ),
                   ),
-                ),
 
-                // Recipe type: main, salad, dessert, ...
-                DropdownButton<RecipeType>(
-                  value: _recipeType,
-                  icon: Icon(Icons.keyboard_arrow_down),
-                  isExpanded: true,
-                  iconSize: 24,
-                  elevation: 16,
-                  style: TextStyle(color: Colors.black),
-                  onChanged: (RecipeType newValue) {
-                    setState(() {
-                      _recipeType = newValue;
-                    });
-                  },
-                  items: RecipeType.values
-                      .map<DropdownMenuItem<RecipeType>>((RecipeType value) {
-                    return DropdownMenuItem<RecipeType>(
-                      value: value,
-                      child: Text(value == RecipeType.any ? "Choose the recipe type" : value.getString()),
-                    );
-                  }).toList(),
-                ),
+                  // Text label
+                  Padding(
+                    padding: const EdgeInsets.only(left: 30.0),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text("Type of dish")
+                    ),
+                  ),
 
-              ],
+                  // Recipe type: main, salad, dessert, ...
+                  Padding(
+                    padding: const EdgeInsets.only( right: 50.0 ),
+                    child: DropdownButton<RecipeType>(
+                      value: _recipeType,
+                      icon: Icon(Icons.keyboard_arrow_down),
+                      isExpanded: true,
+                      iconSize: 24,
+                      elevation: 16,
+                      style: TextStyle(color: Colors.black),
+                      onChanged: (RecipeType newValue) {
+                        setState(() {
+                          _recipeType = newValue;
+                        });
+                      },
+                      items: RecipeType.values
+                          .map<DropdownMenuItem<RecipeType>>((RecipeType value) {
+                        return DropdownMenuItem<RecipeType>(
+                          value: value,
+                          child: Text(value == RecipeType.any ? "Set recipe type" : value.getString()),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+
+                  // Text label
+                  Padding(
+                    padding: const EdgeInsets.only(left: 30.0),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text("Preparation time (minutes)")
+                    ),
+                  ),
+
+                  // Recipe type: main, salad, dessert, ...
+                  Padding(
+                    padding: const EdgeInsets.only( right: 50.0 ),
+                    child: DropdownButton<String>(
+                      value: _preptime.toString(),
+                      icon: Icon(Icons.keyboard_arrow_down),
+                      isExpanded: true,
+                      iconSize: 24,
+                      elevation: 16,
+                      style: TextStyle(color: Colors.black),
+                      onChanged: (String newValue) {
+                        setState(() {
+                          _preptime = int.parse( newValue );
+                        });
+                      },
+                      items: _times.map<DropdownMenuItem<String>>((int value) {
+                        return DropdownMenuItem<String>(
+                          value: value.toString(),
+                          child: Text(value.toString()),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+
+                ],
+              ),
             ),
 
 
