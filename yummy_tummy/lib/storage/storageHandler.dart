@@ -43,7 +43,8 @@ class StorageHandler{
     if(Constants.appUser.isLoggedIn())
     {
       String path = "images/";
-      switch (type){
+      switch (type)
+      {
         case ImageType.profile:
           path = path + Constants.appUser.name + "/profilePicture.jpg";
         break;
