@@ -433,7 +433,7 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
               padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 10.0),
               child: ActionButton(
                 "Submit recipe!",
-                onClick: () {
+                onClick: () async {
                   _errors = List<String>();
 
                   if (_title == null || _title == "")
