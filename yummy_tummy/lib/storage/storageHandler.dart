@@ -29,7 +29,7 @@ class StorageHandler{
 
     PickedFile pickedFile = await _picker.getImage(source: source);
 
-    return File(pickedFile.path);
+    return pickedFile == null ? null : File(pickedFile.path);
 
   }
 

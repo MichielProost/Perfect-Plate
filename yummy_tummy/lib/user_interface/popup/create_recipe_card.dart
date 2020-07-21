@@ -37,6 +37,7 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
   final GlobalKey<CustomTextFieldState> _titleKey = new GlobalKey();
   final GlobalKey<CustomTextFieldState> _descriptionkey = new GlobalKey();
   final GlobalKey<CustomTextFieldState> _addIngredientKey = new GlobalKey();
+  static final List<GlobalKey<CustomTextFieldState>> stepKeys = List<GlobalKey<CustomTextFieldState>>();
 
   final StorageHandler imageHandler = StorageHandler();
 
@@ -424,7 +425,10 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
 
   Widget buildStepDisplay(int index)
   {
-    final GlobalKey<CustomTextFieldState> key = GlobalKey();
+    
+    if (stepKeys.length <= index)
+      stepKeys.add( GlobalKey() );
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Card(
@@ -441,13 +445,7 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                     child: CustomTextField(
                       maxLines: 3,
                       hint: _steps.length > index ? _steps[index] : "Add step info here",
-                      key: key,
-                      callback: (value) {
-                        // if (index >= _steps.length)
-                        //   _steps.add( value );
-                        // else
-                        //   _steps[ index ] = value;
-                      },
+                      key: stepKeys[index],
                     ),
                   ),
                 ),
@@ -472,11 +470,7 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   
-                  ChooseImageIcon(
-                    heigth: 100.0,
-                    width: 100.0,
-                    size: 25.0,
-                  ),
+                  buildStepImagePicker(index),
 
                   Flexible(
                     child: Padding(
@@ -486,12 +480,12 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                         onClick: () {
                           setState(() {
                             if (index >= _steps.length) {
-                              _steps.add( key.currentState.getCurrentText() );
-                              _images.add( File("") );
+                              _steps.add( stepKeys[index].currentState.getCurrentText() );
+                              _images.add( null );
                             } 
                             else
                             {
-                              _steps[ index ] = key.currentState.getCurrentText();
+                              _steps[ index ] = stepKeys[index].currentState.getCurrentText();
                             }
                           });
                         },
@@ -537,4 +531,72 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
     );
   }
 
+  Widget buildStepImagePicker(int index)
+  {
+    return ChooseImageIcon(
+      heigth: 100.0,
+      width: 100.0,
+      image: index < _images.length ? _images[index] : null,
+      size: 25.0,
+      callback: (tapLocation) {
+        
+        double left;
+        double top;
+        if (tapLocation != null)
+        {
+          left = tapLocation.dx;
+          top = tapLocation.dy;
+        }
+        else
+        {
+          left = MediaQuery.of(context).size.width / 3;
+          top = MediaQuery.of(context).size.height / 3;
+        }
+        showMenu(
+          context: context,
+          position: RelativeRect.fromLTRB(left, top, MediaQuery.of(context).size.width - left, MediaQuery.of(context).size.height - top),
+          items: <PopupMenuEntry>[
+            PopupMenuItem(
+              value: ImageInput.camera,
+              child: InkWell(
+                child: Text("Camera"),
+                onTap: () async {
+                  File selected = await imageHandler.getPicture( ImageSource.camera );
+                  setState(() {
+                    if (selected != null)
+                      if (index >= _steps.length) {
+                        _images.add( selected );
+                      } 
+                      else
+                      {
+                        _images[ index ] = selected;
+                      }
+                  });
+                },
+              ),
+            ),
+            PopupMenuItem(
+              value: ImageInput.gallery,
+              child: InkWell(
+                child: Text("Gallery"),
+                onTap: () async {
+                  File selected = await imageHandler.getPicture( ImageSource.gallery );
+                  setState(() {
+                    if (selected != null)
+                      if (index >= _steps.length) {
+                        _images.add( selected );
+                      } 
+                      else
+                      {
+                        _images[ index ] = selected;
+                      }
+                  });
+                },
+              ),
+            ),
+          ]
+        );
+      },
+    );
+  }
 }
