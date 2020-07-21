@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:yummytummy/model/recipe.dart';
+import 'package:yummytummy/storage/storageHandler.dart';
 import 'package:yummytummy/user_interface/components/action_button.dart';
 import 'package:yummytummy/user_interface/components/choose_image_icon.dart';
 import 'package:yummytummy/user_interface/components/custom_textfield.dart';
@@ -35,7 +37,8 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
   final GlobalKey<CustomTextFieldState> _titleKey = new GlobalKey();
   final GlobalKey<CustomTextFieldState> _descriptionkey = new GlobalKey();
   final GlobalKey<CustomTextFieldState> _addIngredientKey = new GlobalKey();
-  final List<GlobalKey<CustomTextFieldState>> _stepKeys = [];
+
+  final StorageHandler imageHandler = StorageHandler();
 
   // Data holders
   String _title;
@@ -137,13 +140,11 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                         {
                           left = tapLocation.dx;
                           top = tapLocation.dy;
-                          print(tapLocation.dx.toString() + " " + tapLocation.dy.toString());
                         }
                         else
                         {
                           left = MediaQuery.of(context).size.width / 3;
                           top = MediaQuery.of(context).size.height / 3;
-                          print("Fixed " + left.toString() + " " + top.toString());
                         }
                         showMenu(
                           context: context,
@@ -151,11 +152,29 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                           items: <PopupMenuEntry>[
                             PopupMenuItem(
                               value: ImageInput.camera,
-                              child: Text("Camera"),
+                              child: InkWell(
+                                child: Text("Camera"),
+                                onTap: () async {
+                                  File selected = await imageHandler.getPicture( ImageSource.camera );
+                                  setState(() {
+                                    if (selected != null)
+                                      _banner = selected;
+                                  });
+                                },
+                              ),
                             ),
                             PopupMenuItem(
                               value: ImageInput.gallery,
-                              child: Text("Gallery"),
+                              child: InkWell(
+                                child: Text("Gallery"),
+                                onTap: () async {
+                                  File selected = await imageHandler.getPicture( ImageSource.gallery );
+                                  setState(() {
+                                    if (selected != null)
+                                      _banner = selected;
+                                  });
+                                },
+                              ),
                             ),
                           ]
                         );
