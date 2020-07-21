@@ -131,6 +131,7 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                     ChooseImageIcon(
                       heigth: 100.0,
                       width: 200.0,
+                      image: _banner,
                       size: 50.0,
                       callback: (tapLocation) {
                         
