@@ -56,7 +56,7 @@ class Recipe {
   bool isVegan;                         // Vegan recipe?
   final List<String> ingredients;       // Ingredients.
   final List<String> stepDescriptions;  // A list of descriptions. Each element represents a step.
-  final List<String> stepImages;        // Image URL of each step.
+  List<String> stepImages;        // Image URL of each step.
   double rating;                        // Rating of dish.
   double weightedRating;                // Weighted rating.
   int duration;                         // How long it takes to make the recipe.

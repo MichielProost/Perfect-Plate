@@ -51,7 +51,7 @@ class Test {
     //testUploadPicture();
 
   }
-
+  
   /// TEST: Add recipes from the StoreData Class to Firestore.
   void testAddRecipes() async {
 
@@ -276,8 +276,10 @@ class Test {
     StorageHandler storageHandler = new StorageHandler();
     // Take image with phone camera.
     File image = await storageHandler.getPicture(ImageSource.camera);
+    // Create an image path.
+    String path = storageHandler.createImagePath(ImageType.profile, null, null);
     // Upload image to Cloud storage.
-    String url = await storageHandler.uploadPicture(image, ImageType.profile, null, 0);
+    String url = await storageHandler.uploadFile(image, path);
     // Print the download URL.
     print(url);
 
