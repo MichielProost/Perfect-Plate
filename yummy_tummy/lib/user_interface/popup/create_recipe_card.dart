@@ -465,8 +465,17 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                                             isVegetarian: _dietField != DietField.any,
                                             isVegan: _dietField == DietField.vegan,
                                             userMap: Constants.appUser.toCompactMap());
+
                     RecipeService recipeService = RecipeServiceFirestore();
-                    recipeService.addRecipe( recipe );
+                    String recipeID = await recipeService.addRecipe( recipe );
+
+                    List<File> recipeImages = List<File>();
+                    recipeImages.add(_banner);
+                    for(int i=0; i<_images.length - 1; i++){
+                      recipeImages.add(_images[i]);
+                    }
+                    imageHandler.uploadAndSetRecipeImages(recipeImages, recipeID);
+
                     Navigator.pop(context);
                     showDialog(context: context, child: InfoPopup("Created a recipe!", "Thank you for adding a new recipe."));
                   }

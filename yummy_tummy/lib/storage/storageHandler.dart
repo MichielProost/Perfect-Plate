@@ -56,7 +56,7 @@ class StorageHandler{
   Future<void> uploadAndSetRecipeImages(List<File> images, String recipeID) async {
 
     String path;
-    List<String> locations;
+    List<String> locations = List<String>();
     RecipeServiceFirestore recipeService = new RecipeServiceFirestore();
 
     path = createImagePath(ImageType.recipe_result, recipeID, null);
@@ -81,9 +81,16 @@ class StorageHandler{
   /// Set the appropriate image URL in user document.
   Future<void> uploadAndSetProfileImage(File image) async {
 
-    UserServiceFirestore userService = new UserServiceFirestore();
+    if (Constants.appUser.isLoggedIn()){
 
-    String path = createImagePath(ImageType.profile, null, null);
+      UserServiceFirestore userService = new UserServiceFirestore();
+      String path = createImagePath(ImageType.profile, null, null);
+      Constants.appUser.image = await uploadFile(image, path);
+      await userService.modifyUser(Constants.appUser, Constants.appUser.id);
+
+    } else {
+      print("ERROR: User isn't logged in.");
+    }
 
   }
 

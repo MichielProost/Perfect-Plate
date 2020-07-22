@@ -9,6 +9,9 @@ abstract class UserService{
   /// Returns user object from document ID.
   Future<User> getUserFromID(String userID);
 
+  /// Modify an existing user with a given document ID.
+  Future<void> modifyUser(User user, String userID);
+
   /// Returns true if user exists.
   Future<bool> userExists(String userID);
 

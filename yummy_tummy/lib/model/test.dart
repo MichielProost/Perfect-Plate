@@ -48,7 +48,7 @@ class Test {
     //testSearchRecipes();
     //testGoogle();
     //testUpdateRatings();
-    //testUploadPicture();
+    testUploadPicture();
 
   }
   
@@ -276,12 +276,9 @@ class Test {
     StorageHandler storageHandler = new StorageHandler();
     // Take image with phone camera.
     File image = await storageHandler.getPicture(ImageSource.camera);
-    // Create an image path.
-    String path = storageHandler.createImagePath(ImageType.profile, null, null);
-    // Upload image to Cloud storage.
-    String url = await storageHandler.uploadFile(image, path);
-    // Print the download URL.
-    print(url);
+    // Upload image to Firebase.
+    // Set appropriate fields in user document.
+    await storageHandler.uploadAndSetProfileImage(image);
 
   }
 

@@ -39,13 +39,15 @@ class User{
   final int score;                // User's total score.
   final RankType rank;            // User's rank.
   final List<String> favourites;  // Document IDs of user's favourite recipes.
+  String image;
 
-  const User({
+  User({
     this.id,
     this.name,
     this.score,
     this.rank,
     this.favourites,
+    this.image,
   });
 
   /// Deserialize received data from Firestore.
@@ -58,6 +60,7 @@ class User{
           rank: data.containsKey('Rank') ? RankType.values[data['Rank']] : RankType.beginner,
           favourites: data.containsKey('favourites') ?
             new List<String>.from(data['favourites']) : [],
+          image: data.containsKey('image') ? data['image'] : '',
         );
 
   /// Convert class object to data structure 'Map'.
@@ -67,6 +70,7 @@ class User{
       'score' : score != null ? score : '',
       'rank' : rank != null ? rank.index : RankType.beginner.index,
       'favourites' : favourites != null ? favourites : [],
+      'image' : image??= '',
     };
   }
 

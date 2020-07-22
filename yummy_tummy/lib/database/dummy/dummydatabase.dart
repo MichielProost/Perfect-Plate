@@ -159,6 +159,11 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
     return getUsers()[0];
   }
 
+  /// Modify an existing user with a given document ID.
+  Future<void> modifyUser(User user, String userID) async {
+    await enforceDelay();
+  }
+
   /// Returns true if user exists.
   Future<bool> userExists(String userID) async {
     await enforceDelay();

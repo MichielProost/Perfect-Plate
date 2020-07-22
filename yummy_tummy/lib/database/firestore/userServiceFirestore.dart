@@ -51,6 +51,19 @@ class UserServiceFirestore implements UserService {
 
   }
 
+  /// Modify an existing user with a given document ID.
+  Future<void> modifyUser(User user, String userID) async {
+
+    await this.db.collection("users")
+        .document(userID)
+        .updateData({
+      "image" : user.image,
+    });
+
+    consoleWriter.ModifiedDocument(CollectionType.User, userID);
+
+  }
+
   /// Returns true if user exists.
   Future<bool> userExists(String userID) async{
 
