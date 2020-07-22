@@ -1,7 +1,9 @@
 import 'dart:collection';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:yummytummy/database/interfaces/userService.dart';
+import 'package:yummytummy/model/app_user.dart';
 import 'package:yummytummy/model/user.dart';
+import 'package:yummytummy/user_interface/constants.dart';
 import 'package:yummytummy/utils/consoleWriter.dart';
 
 /// Firestore specific user services.
@@ -57,6 +59,7 @@ class UserServiceFirestore implements UserService {
     await this.db.collection("users")
         .document(userID)
         .updateData({
+      "rank" : user.rank.index,
       "image" : user.image,
     });
 
@@ -83,6 +86,30 @@ class UserServiceFirestore implements UserService {
     } catch (e) {
       return false;
     }
+
+  }
+
+  /// Listens to the app user's document for changes.
+  void scoreListener(){
+
+    // Get document reference of logged-in user.
+    DocumentReference reference =
+      this.db.collection('users').document(Constants.appUser.id);
+
+    // Listen for changes.
+    reference.snapshots().listen((DocumentSnapshot documentSnapshot) {
+      print("Something changed");
+      User user = User.fromMap(documentSnapshot.data, Constants.appUser.id);
+      // If user's rank needs an upgrade.
+      if (user.checkRankUpgrade()){
+        print("Rank needs to be upgraded!");
+        print("Previous rank" + user.rank.toString());
+        // Upgrade rank.
+        user.upgradeRank();
+        print("New rank" + user.rank.toString());
+        modifyUser(user, Constants.appUser.id);
+      }
+    });
 
   }
 

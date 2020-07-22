@@ -1,7 +1,14 @@
-// The Recipe and Review Class contain a UserMap.
-// This map contains the most important information of the user.
+import 'package:yummytummy/user_interface/constants.dart';
 import 'package:yummytummy/utils/stringFunctions.dart';
 
+const JUNIOR_LIM = 2000;
+const STATION_LIM = 4000;
+const SOUS_LIM = 6000;
+const HEAD_LIM = 8000;
+const EXECUTIVE_LIM = 10000;
+
+// The Recipe and Review Class contain a UserMap.
+// This map contains the most important information of the user.
 enum UserMapField{
   id,
   name
@@ -66,7 +73,7 @@ class User{
           id: id != null ? id : data['id'],
           name: data.containsKey('name') ? data['name'] : '',
           score: data.containsKey('score') ? data['score'] : 0,
-          rank: data.containsKey('Rank') ? RankType.values[data['Rank']] : RankType.dishwasher,
+          rank: data.containsKey('rank') ? RankType.values[data['rank']] : RankType.dishwasher,
           favourites: data.containsKey('favourites') ?
             new List<String>.from(data['favourites']) : [],
           image: data.containsKey('image') ? data['image'] : '',
@@ -91,9 +98,48 @@ class User{
     };
   }
 
+  RankType getNextRank(RankType type) {
+    return type.getRank(type.index + 1);
+  }
+
   /// Upgrade user to the next rank.
   void upgradeRank(){
-    this.rank = this.rank.getRank(this.rank.index + 1);
+    this.rank = getNextRank(this.rank);
+  }
+
+  /// Checks if the user's rank can be upgraded.
+  bool checkRankUpgrade(){
+
+    print('Checking rank upgrade...');
+    if (this.score >=
+        this.getRankLimit(getNextRank(this.rank))){
+      return true;
+    }
+    return false;
+
+  }
+
+  /// Get the medal's score based on its type.
+  int getRankLimit(RankType type) {
+
+    switch (type) {
+      case RankType.junior_chef:
+        return JUNIOR_LIM;
+        break;
+      case RankType.station_chef:
+        return STATION_LIM;
+        break;
+      case RankType.sous_chef:
+        return SOUS_LIM;
+        break;
+      case RankType.head_chef:
+        return HEAD_LIM;
+        break;
+      case RankType.executive_chef:
+        return EXECUTIVE_LIM;
+        break;
+    }
+
   }
 
   /// Print summary of user to console.

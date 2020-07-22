@@ -170,6 +170,11 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
     return true;
   }
 
+  /// Listens to the app user's document for changes.
+  void scoreListener(){
+    print('listening..');
+  }
+
   // ---
   // Dummy utility
   // ---

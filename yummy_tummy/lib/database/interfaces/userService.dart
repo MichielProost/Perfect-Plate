@@ -15,4 +15,7 @@ abstract class UserService{
   /// Returns true if user exists.
   Future<bool> userExists(String userID);
 
+  /// Listens to the app user's document for changes.
+  void scoreListener();
+
 }

@@ -42,6 +42,7 @@ class GoogleAuthHandler{
         score: 0,
         rank: RankType.dishwasher,
         favourites: [],
+        image: '',
       );
       userData = user.toMap();
       // Create new user document.
@@ -49,6 +50,8 @@ class GoogleAuthHandler{
     }
 
     Constants.appUser = new AppUser(googleUser.uid, userData);
+
+    userService.scoreListener();
 
   }
 

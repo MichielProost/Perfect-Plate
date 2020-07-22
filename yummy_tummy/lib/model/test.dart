@@ -50,23 +50,8 @@ class Test {
     //testGoogle();
     //testUpdateRatings();
     //testUploadPicture();
-    //testMethod();
+    //testScoreListener();
 
-  }
-
-  testMethod() async {
-    // Create Google handler.
-    GoogleAuthHandler handler = new GoogleAuthHandler();
-    // Sign in Google user.
-    await handler.handleSignIn();
-
-    DocumentReference reference = Firestore.instance.collection('users').document(Constants.appUser.id);
-    reference.snapshots().listen((DocumentSnapshot documentSnapshot) {
-      User user = User.fromMap(documentSnapshot.data, documentSnapshot.documentID);
-      if (user.score > 1000){
-        print('yes! We did it!');
-      }
-    });
   }
 
   /// TEST: Add recipes from the StoreData Class to Firestore.
@@ -296,6 +281,18 @@ class Test {
     // Upload image to Firebase.
     // Set appropriate fields in user document.
     await storageHandler.uploadAndSetProfileImage(image);
+
+  }
+
+  testScoreListener() async {
+
+    // Create Google handler.
+    GoogleAuthHandler handler = new GoogleAuthHandler();
+    // Sign in Google user.
+    await handler.handleSignIn();
+
+    // Dynamically update user's rank when necessary.
+    userService.scoreListener();
 
   }
 
