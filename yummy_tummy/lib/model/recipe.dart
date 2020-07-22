@@ -140,7 +140,7 @@ class Recipe {
       'timestamp' : timestamp != null ? timestamp : new Timestamp.now(),
       'title' : title ??= '',
       'description' : description ??= '',
-      'type' : type != null ? type.index : RecipeType.any,
+      'type' : type != null ? type.index : RecipeType.any.index,
       'isVegetarian' : isVegetarian ??= false,
       'isVegan' : isVegan ??= false,
       'ingredients' : ingredients != null ? ingredients : [],

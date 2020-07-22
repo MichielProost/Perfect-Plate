@@ -65,8 +65,16 @@ class User{
     return  {
       'name' : name != null ? name : '',
       'score' : score != null ? score : '',
-      'rank' : rank.index != null ? rank.index : RankType.beginner,
+      'rank' : rank != null ? rank.index : RankType.beginner.index,
       'favourites' : favourites != null ? favourites : [],
+    };
+  }
+
+  Map<String, dynamic> toCompactMap(){
+    return {
+      'id' : id != null ? id : '',
+      'name' : name != null ? name : '',
+      'rank' : rank != null ? rank.index : RankType.beginner.index,
     };
   }
 

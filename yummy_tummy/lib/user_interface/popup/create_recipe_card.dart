@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -459,14 +458,13 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
 
                     // TODO upload File _banner and give link to recipe constructor
                     // TODO upload List<File> _images and give links to recipe constructor
-                    // TODO pass user AND usermap
 
-                    Recipe recipe = Recipe( id: "", timestamp: Timestamp.now(), 
-                                            duration: _preptime, ingredients: _ingredients,
-                                            stepDescriptions: _steps,
-                                            title: _title, description: _description, type: _recipeType,
-                                            isVegetarian: _dietField != DietField.any, isVegan: _dietField == DietField.vegan,
-                                            rating: 0.0, weightedRating: 0.0, numberOfReviews: 0);
+                    Recipe recipe = Recipe( duration: _preptime, ingredients: _ingredients,
+                                            stepDescriptions: _steps, title: _title,
+                                            description: _description, type: _recipeType,
+                                            isVegetarian: _dietField != DietField.any,
+                                            isVegan: _dietField == DietField.vegan,
+                                            userMap: Constants.appUser.toCompactMap());
                     RecipeService recipeService = RecipeServiceFirestore();
                     recipeService.addRecipe( recipe );
                     Navigator.pop(context);
