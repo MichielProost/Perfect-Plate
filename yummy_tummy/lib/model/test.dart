@@ -50,15 +50,23 @@ class Test {
     //testGoogle();
     //testUpdateRatings();
     //testUploadPicture();
-    testMethod();
+    //testMethod();
 
   }
 
   testMethod() async {
-    User user = await userService.getUserFromID("kjWYqki1s1Y9HwXiDuFhD47vgoE2");
-    print(user.rank.toString());
-    user.upgradeRank();
-    print(user.rank.toString());
+    // Create Google handler.
+    GoogleAuthHandler handler = new GoogleAuthHandler();
+    // Sign in Google user.
+    await handler.handleSignIn();
+
+    DocumentReference reference = Firestore.instance.collection('users').document(Constants.appUser.id);
+    reference.snapshots().listen((DocumentSnapshot documentSnapshot) {
+      User user = User.fromMap(documentSnapshot.data, documentSnapshot.documentID);
+      if (user.score > 1000){
+        print('yes! We did it!');
+      }
+    });
   }
 
   /// TEST: Add recipes from the StoreData Class to Firestore.
