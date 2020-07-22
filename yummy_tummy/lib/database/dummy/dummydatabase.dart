@@ -205,7 +205,7 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
         image:
         'https://images.vrt.be/dako2017_1600s_j75/2018/04/26/edac70a0-492c-11e8-abcc-02b7b76bf47f.png',
         numberOfReviews: 0,
-        userMap: {'id' : 'id', 'name' : 'Jeroen Meus', 'Rank' : RankType.amateur.index},
+        userMap: {'id' : 'id', 'name' : 'Jeroen Meus', 'Rank' : RankType.head_chef.index},
       ),
       Recipe(
         id: '1',
@@ -234,7 +234,7 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
         image:
         'https://images.vrt.be/dako2017_1600s_j75/2019/03/01/4289ca34-3bfa-11e9-abcc-02b7b76bf47f.jpg',
         numberOfReviews: 0,
-        userMap: {'id' : 'id', 'name' : 'Jeroen Meus', 'Rank' : RankType.amateur.index},
+        userMap: {'id' : 'id', 'name' : 'Jeroen Meus', 'Rank' : RankType.head_chef.index},
       ),
       Recipe(
         id: '2',
@@ -262,7 +262,7 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
         image:
         'https://images.vrt.be/dako2017_1600s_j75/2020/06/04/b108f8fd-a66e-11ea-aae0-02b7b76bf47f.jpg',
         numberOfReviews: 0,
-        userMap: {'id' : 'id', 'name' : 'Jeroen Meus', 'Rank' : RankType.amateur.index},
+        userMap: {'id' : 'id', 'name' : 'Jeroen Meus', 'Rank' : RankType.head_chef.index},
       ),
       Recipe(
         id: '3',
@@ -290,7 +290,7 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
         image:
         'https://images.vrt.be/dako2017_1600s_j75/2018/07/26/a551d429-90df-11e8-abcc-02b7b76bf47f.jpg',
         numberOfReviews: 5,
-        userMap: {'id' : 'id', 'name' : 'Michiel Proost', 'Rank' : RankType.beginner.index},
+        userMap: {'id' : 'id', 'name' : 'Michiel Proost', 'Rank' : RankType.head_chef.index},
       ),
     ];
   }
@@ -302,7 +302,7 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
           'id': '2',
           'name': 'Michiel',
           'score': 1500,
-          'rank': RankType.amateur,
+          'rank': RankType.junior_chef,
           'favourites': ['0', '1'],
         },
         id: '1',
@@ -315,7 +315,7 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
           'id': '2',
           'name': 'Michiel',
           'score': 1500,
-          'rank': RankType.amateur,
+          'rank': RankType.junior_chef,
           'favourites': ['0', '1'],
         },
         id: '2',
@@ -328,7 +328,7 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
           'id': '2',
           'name': 'Michiel',
           'score': 1500,
-          'rank': RankType.amateur,
+          'rank': RankType.junior_chef,
           'favourites': ['0', '1'],
         },
         id: '2',
@@ -341,7 +341,7 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
           'id': '2',
           'name': 'Michiel',
           'score': 1500,
-          'rank': RankType.amateur,
+          'rank': RankType.junior_chef,
           'favourites': ['0', '1'],
         },
         id: '2',
@@ -354,7 +354,7 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
           'id': '2',
           'name': 'Michiel',
           'score': 1500,
-          'rank': RankType.amateur,
+          'rank': RankType.junior_chef,
           'favourites': ['0', '1'],
         },
         id: '2',
@@ -372,14 +372,14 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
         id: '2',
         name: 'Michiel',
         score: 1500,
-        rank: RankType.amateur,
+        rank: RankType.junior_chef,
         favourites: ['0', '1'],
       ),
       User(
         id: '3',
         name: 'Dieter',
         score: 500,
-        rank: RankType.beginner,
+        rank: RankType.sous_chef,
         favourites: ['2'],
       ),
     ];

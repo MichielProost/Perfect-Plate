@@ -1,5 +1,7 @@
 // The Recipe and Review Class contain a UserMap.
 // This map contains the most important information of the user.
+import 'package:yummytummy/utils/stringFunctions.dart';
+
 enum UserMapField{
   id,
   name
@@ -7,9 +9,12 @@ enum UserMapField{
 
 // The rank a specific user can have.
 enum RankType {
-  beginner,
-  amateur,
-  professional
+  dishwasher,
+  junior_chef,
+  station_chef,
+  sous_chef,
+  head_chef,
+  executive_chef,
 }
 
 extension Rank on RankType {
@@ -27,6 +32,10 @@ extension Rank on RankType {
   {
     //TODO implement better way to implement this with regards to languages
     String lowercase = this.toString().toLowerCase().split('.').last;
+    if (lowercase.contains("_")){
+      int index = lowercase.indexOf("_");
+      lowercase = replaceCharAt(lowercase, index, " ");
+    }
     return '${lowercase[0].toUpperCase()}${lowercase.substring(1)}';
   }
 
@@ -37,7 +46,7 @@ class User{
   final String id;                // Document ID.
   final String name;              // Name of user.
   final int score;                // User's total score.
-  final RankType rank;            // User's rank.
+  RankType rank;                  // User's rank.
   final List<String> favourites;  // Document IDs of user's favourite recipes.
   String image;
 
@@ -57,7 +66,7 @@ class User{
           id: id != null ? id : data['id'],
           name: data.containsKey('name') ? data['name'] : '',
           score: data.containsKey('score') ? data['score'] : 0,
-          rank: data.containsKey('Rank') ? RankType.values[data['Rank']] : RankType.beginner,
+          rank: data.containsKey('Rank') ? RankType.values[data['Rank']] : RankType.dishwasher,
           favourites: data.containsKey('favourites') ?
             new List<String>.from(data['favourites']) : [],
           image: data.containsKey('image') ? data['image'] : '',
@@ -68,7 +77,7 @@ class User{
     return  {
       'name' : name != null ? name : '',
       'score' : score != null ? score : '',
-      'rank' : rank != null ? rank.index : RankType.beginner.index,
+      'rank' : rank != null ? rank.index : RankType.dishwasher.index,
       'favourites' : favourites != null ? favourites : [],
       'image' : image??= '',
     };
@@ -78,8 +87,13 @@ class User{
     return {
       'id' : id != null ? id : '',
       'name' : name != null ? name : '',
-      'rank' : rank != null ? rank.index : RankType.beginner.index,
+      'rank' : rank != null ? rank.index : RankType.dishwasher.index,
     };
+  }
+
+  /// Upgrade user to the next rank.
+  void upgradeRank(){
+    this.rank = this.rank.getRank(this.rank.index + 1);
   }
 
   /// Print summary of user to console.

@@ -51,7 +51,7 @@ class Review{
           id: id,
           timestamp: data.containsKey('timestamp') ? data['timestamp'] : new Timestamp.now(),
           user: data.containsKey('userMap') ?
-            User.fromMap( Map<String, dynamic>.from(data['userMap']), null) : User(id: '', name: '', rank: RankType.amateur),
+            User.fromMap( Map<String, dynamic>.from(data['userMap']), null) : User(id: '', name: '', rank: RankType.dishwasher),
           userMap: data.containsKey('userMap') ?
             new Map<String, dynamic>.from(data['userMap']) : {},
           recipeID: data.containsKey('recipeID') ? data['recipeID'] : '',

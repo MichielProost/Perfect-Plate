@@ -131,7 +131,7 @@ class Recipe {
           userMap: data.containsKey('userMap') ?
             Map<String, dynamic>.from( data['userMap'] ) : {},
           user: data.containsKey('userMap') ?
-            User.fromMap( Map<String, dynamic>.from(data['userMap']), null) : User(id: '', name: '', rank: RankType.amateur),
+            User.fromMap( Map<String, dynamic>.from(data['userMap']), null) : User(id: '', name: '', rank: RankType.dishwasher),
         );
 
   /// Convert class object to data structure 'Map'.

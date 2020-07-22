@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:yummytummy/database/Firestore/recipeServiceFirestore.dart';
 import 'package:yummytummy/database/Firestore/reviewServiceFirestore.dart';
@@ -48,10 +49,18 @@ class Test {
     //testSearchRecipes();
     //testGoogle();
     //testUpdateRatings();
-    testUploadPicture();
+    //testUploadPicture();
+    testMethod();
 
   }
-  
+
+  testMethod() async {
+    User user = await userService.getUserFromID("kjWYqki1s1Y9HwXiDuFhD47vgoE2");
+    print(user.rank.toString());
+    user.upgradeRank();
+    print(user.rank.toString());
+  }
+
   /// TEST: Add recipes from the StoreData Class to Firestore.
   void testAddRecipes() async {
 
@@ -74,7 +83,7 @@ class Test {
     User user = new User(
         name: 'Ann Van Geystelen',
         score: 1500,
-        rank: RankType.amateur,
+        rank: RankType.dishwasher,
         favourites: []
     );
 
@@ -101,7 +110,7 @@ class Test {
 
     // Create review object.
     Review review = new Review(
-      userMap: {'id' : 'v9KKgUEnDStdzlVWICR3', 'name' : 'Tony Proost', 'Rank' : RankType.amateur.index},
+      userMap: {'id' : 'v9KKgUEnDStdzlVWICR3', 'name' : 'Tony Proost', 'Rank' : RankType.head_chef.index},
       recipeID: 'dosiN0h6qjoidjSGRURS',
       rating: 4,
       description: 'Loved the recipe, but the chef used a lot of ingredients.'

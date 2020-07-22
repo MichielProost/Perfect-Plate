@@ -40,7 +40,7 @@ class GoogleAuthHandler{
         id: googleUser.uid,
         name: googleUser.displayName,
         score: 0,
-        rank: RankType.beginner,
+        rank: RankType.dishwasher,
         favourites: [],
       );
       userData = user.toMap();
