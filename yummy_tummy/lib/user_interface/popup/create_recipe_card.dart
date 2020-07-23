@@ -456,9 +456,6 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                   if (_errors.length == 0)
                   {
 
-                    // TODO upload File _banner and give link to recipe constructor
-                    // TODO upload List<File> _images and give links to recipe constructor
-
                     Recipe recipe = Recipe( duration: _preptime, ingredients: _ingredients,
                                             stepDescriptions: _steps, title: _title,
                                             description: _description, type: _recipeType,

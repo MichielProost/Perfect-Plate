@@ -15,6 +15,8 @@ import 'package:yummytummy/storage/storageHandler.dart';
 import 'package:yummytummy/user_interface/constants.dart';
 import 'package:yummytummy/utils/consoleWriter.dart';
 
+import 'medal.dart';
+
 class Test {
 
   final RecipeServiceFirestore recipeService;
@@ -51,6 +53,16 @@ class Test {
     //testUpdateRatings();
     //testUploadPicture();
     //testScoreListener();
+    testMethod();
+
+  }
+
+  testMethod() async {
+
+    // Create Google handler.
+    GoogleAuthHandler handler = new GoogleAuthHandler();
+    // Sign in Google user.
+    await handler.handleSignIn();
 
   }
 

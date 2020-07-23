@@ -2,6 +2,7 @@ import 'dart:collection';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:yummytummy/database/interfaces/userService.dart';
 import 'package:yummytummy/model/app_user.dart';
+import 'package:yummytummy/model/medal.dart';
 import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/user_interface/constants.dart';
 import 'package:yummytummy/utils/consoleWriter.dart';
@@ -59,8 +60,12 @@ class UserServiceFirestore implements UserService {
     await this.db.collection("users")
         .document(userID)
         .updateData({
-      "rank" : user.rank.index,
-      "image" : user.image,
+      'name' : user.name,
+      'score' : user.score,
+      'rank' : user.rank.index,
+      'favourites' : user.favourites,
+      'image' : user.image,
+      'medals' : getAchievedList(user.medals),
     });
 
     consoleWriter.ModifiedDocument(CollectionType.User, userID);
