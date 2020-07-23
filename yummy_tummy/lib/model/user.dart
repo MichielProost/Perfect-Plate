@@ -51,10 +51,10 @@ extension Rank on RankType {
 class User{
 
   final String id;                // Document ID.
-  final String name;              // Name of user.
-  final int score;                // User's total score.
+  String name;                    // Name of user.
+  int score;                      // User's total score.
   RankType rank;                  // User's rank.
-  final List<String> favourites;  // Document IDs of user's favourite recipes.
+  List<String> favourites;        // Document IDs of user's favourite recipes.
   String image;
 
   User({
@@ -78,6 +78,15 @@ class User{
             new List<String>.from(data['favourites']) : [],
           image: data.containsKey('image') ? data['image'] : '',
         );
+
+  /// Modify non-final fields of user.
+  void setUser(User user){
+    this.name = name;
+    this.score = score;
+    this.rank = rank;
+    this.favourites = favourites;
+    this.image = image;
+  }
 
   /// Convert class object to data structure 'Map'.
   Map<String, dynamic> toMap() {
@@ -110,7 +119,6 @@ class User{
   /// Checks if the user's rank can be upgraded.
   bool checkRankUpgrade(){
 
-    print('Checking rank upgrade...');
     if (this.score >=
         this.getRankLimit(getNextRank(this.rank))){
       return true;

@@ -98,17 +98,20 @@ class UserServiceFirestore implements UserService {
 
     // Listen for changes.
     reference.snapshots().listen((DocumentSnapshot documentSnapshot) {
-      print("Something changed");
+
+      // Get user object from received map.
       User user = User.fromMap(documentSnapshot.data, Constants.appUser.id);
+
       // If user's rank needs an upgrade.
       if (user.checkRankUpgrade()){
-        print("Rank needs to be upgraded!");
-        print("Previous rank" + user.rank.toString());
         // Upgrade rank.
         user.upgradeRank();
-        print("New rank" + user.rank.toString());
         modifyUser(user, Constants.appUser.id);
       }
+
+      // Update global App User object.
+      Constants.appUser.setUser(user);
+
     });
 
   }
