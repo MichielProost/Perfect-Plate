@@ -1,3 +1,6 @@
+import 'package:yummytummy/database/firestore/userServiceFirestore.dart';
+import 'package:yummytummy/model/recipe.dart';
+import 'package:yummytummy/model/review.dart';
 import 'package:yummytummy/user_interface/constants.dart';
 import 'package:yummytummy/utils/stringFunctions.dart';
 
@@ -50,9 +53,16 @@ class Medal{
     this.achieved,
   });
 
+  /// When the user's medal is achieved..
   isAchieved(){
+
     this.achieved = true;
+    // Update user's score.
     Constants.appUser.score += getMedalScore();
+    // Update App User with new information.
+    UserServiceFirestore userService = new UserServiceFirestore();
+    userService.modifyUser(Constants.appUser, Constants.appUser.id);
+
   }
 
   /// Get the medal's score based on its type.
@@ -74,11 +84,87 @@ class Medal{
 
   }
 
+  /// Get the medal's function based on its types.
+  /// Returns null when something goes wrong.
+  Function getMedalFunction(MedalType medalType, SeriesType seriesType){
+
+    switch (seriesType){
+      case SeriesType.create_recipes: return checkAmountOfOwnRecipes;
+      break;
+      case SeriesType.write_reviews: return checkAmountOfOwnReviews;
+      break;
+      case SeriesType.receive_reviews: return checkAmountOfReceivedReviews;
+      break;
+      case SeriesType.variety: return fillerFunction();
+    }
+    return null;
+
+  }
+
   /// Print summary of medal to console.
   void printSummary(){
     print("Medal type: " + this.medalType.toString().split('.').last);
     print("Series type: " + this.seriesType.getString());
     print("Achieved: " + this.achieved.toString());
+  }
+
+  /// For create_recipe series.
+  /// recipes: List of own recipes.
+  checkAmountOfOwnRecipes(List<Recipe> recipes){
+    int amount;
+    switch(this.medalType){
+      case MedalType.bronze: amount = 1;
+      break;
+      case MedalType.silver: amount = 3;
+      break;
+      case MedalType.gold: amount = 10;
+      break;
+    }
+    if( recipes.length >= amount ){
+      this.isAchieved();
+    }
+  }
+
+  /// For write_reviews series.
+  /// reviews: List of own reviews.
+  checkAmountOfOwnReviews(List<Review> reviews){
+    int amount;
+    switch(this.medalType){
+      case MedalType.bronze: amount = 1;
+      break;
+      case MedalType.silver: amount = 5;
+      break;
+      case MedalType.gold: amount = 15;
+      break;
+    }
+    if( reviews.length >= amount ){
+      this.isAchieved();
+    }
+  }
+
+  /// For receive_reviews series.
+  /// recipes: List of own recipes.
+  checkAmountOfReceivedReviews(List<Recipe> recipes){
+    int amount;
+    switch(this.medalType){
+      case MedalType.bronze: amount = 1;
+      break;
+      case MedalType.silver: amount = 5;
+      break;
+      case MedalType.gold: amount = 15;
+      break;
+    }
+    int numberOfReviews = 0;
+    for(int i = 0; i < recipes.length; i++){
+      numberOfReviews += recipes[i].numberOfReviews;
+    }
+    if(numberOfReviews >= amount){
+      this.isAchieved();
+    }
+  }
+
+  fillerFunction(){
+    // Nothing.
   }
 
 }

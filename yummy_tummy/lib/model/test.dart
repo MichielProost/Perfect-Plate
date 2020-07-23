@@ -53,16 +53,6 @@ class Test {
     //testUpdateRatings();
     //testUploadPicture();
     //testScoreListener();
-    testMethod();
-
-  }
-
-  testMethod() async {
-
-    // Create Google handler.
-    GoogleAuthHandler handler = new GoogleAuthHandler();
-    // Sign in Google user.
-    await handler.handleSignIn();
 
   }
 
