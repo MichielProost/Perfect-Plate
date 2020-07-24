@@ -2,7 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:yummytummy/database/firestore/userServiceFirestore.dart';
 import 'package:yummytummy/model/app_user.dart';
-import 'package:yummytummy/model/medal.dart';
+import 'package:yummytummy/model/board/board_functions.dart';
+import 'package:yummytummy/model/board/medal.dart';
+import 'package:yummytummy/model/board/medal_board.dart';
 import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/user_interface/constants.dart';
 
@@ -44,7 +46,9 @@ class GoogleAuthHandler{
         rank: RankType.dishwasher,
         favourites: [],
         image: '',
-        medals: getMedals(new List.filled(12, false)),
+        board: new MedalBoard(
+            seriesMap: dataToSeriesMap(getDefaultDataMap()),
+            medalMap: dataToMedalMap(getDefaultDataMap()))
       );
       userData = user.toMap();
       // Create new user document.

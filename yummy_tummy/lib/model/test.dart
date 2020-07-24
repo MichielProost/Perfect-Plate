@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:yummytummy/database/Firestore/recipeServiceFirestore.dart';
 import 'package:yummytummy/database/Firestore/reviewServiceFirestore.dart';
@@ -7,15 +6,17 @@ import 'package:yummytummy/database/Firestore/userServiceFirestore.dart';
 import 'package:yummytummy/database/authentication/google.dart';
 import 'package:yummytummy/database/dummy/dummydatabase.dart';
 import 'package:yummytummy/database/query/queryInfo.dart';
-import 'package:yummytummy/model/app_user.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/review.dart';
+import 'package:yummytummy/model/board/series.dart';
 import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/storage/storageHandler.dart';
 import 'package:yummytummy/user_interface/constants.dart';
 import 'package:yummytummy/utils/consoleWriter.dart';
+import 'package:yummytummy/model/board/medal.dart';
 
-import 'medal.dart';
+import 'board/board_functions.dart';
+import 'board/medal_board.dart';
 
 class Test {
 

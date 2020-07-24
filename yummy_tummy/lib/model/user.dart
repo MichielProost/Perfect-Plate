@@ -1,4 +1,5 @@
-import 'package:yummytummy/model/medal.dart';
+import 'package:yummytummy/model/board/medal.dart';
+import 'package:yummytummy/model/board/medal_board.dart';
 import 'package:yummytummy/user_interface/constants.dart';
 import 'package:yummytummy/utils/stringFunctions.dart';
 
@@ -51,7 +52,7 @@ class User{
   RankType rank;                  // User's rank.
   List<String> favourites;        // Document IDs of user's favourite recipes.
   String image;                   // User's profile picture.
-  List<Medal> medals;             // User's medals.
+  MedalBoard board;               // User's medal board.
 
   User({
     this.id,
@@ -60,7 +61,7 @@ class User{
     this.rank,
     this.favourites,
     this.image,
-    this.medals,
+    this.board,
   });
 
   /// Deserialize received data from Firestore.
@@ -74,8 +75,8 @@ class User{
           favourites: data.containsKey('favourites') ?
             new List<String>.from(data['favourites']) : [],
           image: data.containsKey('image') ? data['image'] : '',
-          medals: data.containsKey('medals') ?
-            getMedals(new List<bool>.from(data['medals'])) : [],
+          board: data.containsKey('board') ?
+            MedalBoard.fromMap(Map<String, dynamic>.from(data['board'])) : null,
         );
 
   /// Modify non-final fields of user.
@@ -85,7 +86,7 @@ class User{
     this.rank = rank;
     this.favourites = favourites;
     this.image = image;
-    this.medals = medals;
+    this.board = board;
   }
 
   /// Convert class object to data structure 'Map'.
@@ -96,7 +97,7 @@ class User{
       'rank' : rank != null ? rank.index : RankType.dishwasher.index,
       'favourites' : favourites != null ? favourites : [],
       'image' : image??= '',
-      'medals' : medals != null ? getAchievedList(medals) : [],
+      'board' : board != null ? board.toMap() : {},
     };
   }
 

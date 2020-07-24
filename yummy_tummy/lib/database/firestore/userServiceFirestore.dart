@@ -2,7 +2,7 @@ import 'dart:collection';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:yummytummy/database/interfaces/userService.dart';
 import 'package:yummytummy/model/app_user.dart';
-import 'package:yummytummy/model/medal.dart';
+import 'package:yummytummy/model/board/medal.dart';
 import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/user_interface/constants.dart';
 import 'package:yummytummy/utils/consoleWriter.dart';
@@ -65,7 +65,7 @@ class UserServiceFirestore implements UserService {
       'rank' : user.rank.index,
       'favourites' : user.favourites,
       'image' : user.image,
-      'medals' : getAchievedList(user.medals),
+      'board' : user.board.toMap(),
     });
 
     consoleWriter.ModifiedDocument(CollectionType.User, userID);
