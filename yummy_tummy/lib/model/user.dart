@@ -149,7 +149,7 @@ class User{
         return EXECUTIVE_LIM;
         break;
       case RankType.dishwasher:
-        // TODO: Handle this case.
+        return 0;
         break;
     }
 
