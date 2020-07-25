@@ -26,26 +26,27 @@ class _SigninButton extends State<GoogleSigninButtonWrapper> {
       darkMode: false,
       onPressed: () {
         handleAuthChange();
-        if (widget.onPressed != null)
-          widget.onPressed();
       },
       text: Constants.appUser.isLoggedIn() ? "Sign out of Google" : "Log in with Google",
     );
   }
 
-  void handleAuthChange() async
+  Future<void> handleAuthChange() async
   {
     if( Constants.appUser.isLoggedIn() ) {
-      GoogleAuthHandler().handleSignOut();
+      await GoogleAuthHandler().handleSignOut();
       setState(() {
         isLoggedIn = true;
       });
     } else {
-      GoogleAuthHandler().handleSignIn();
+      await GoogleAuthHandler().handleSignIn();
       setState(() {
         isLoggedIn = false;
       });
     }
+
+    if (widget.onPressed != null)
+      widget.onPressed();
   }
 
 }
