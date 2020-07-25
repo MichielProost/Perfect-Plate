@@ -164,30 +164,47 @@ class _Screen extends State<ProfileScreen> {
   {
     if ( _activePage == UserPage.recipes )
     {
+      // Get all recipes and reset widget list
       List<Recipe> recipes = await _contentBuffer.getUserRecipes( Constants.appUser );
       _pageWidgetMap[ _activePage ] = List<Widget>();
+
+      // Add a RecipeCard for each recipe
       for (Recipe recipe in recipes)
         _pageWidgetMap[ _activePage ].add( RecipeCard( recipe ) );
+
     }
     else if ( _activePage == UserPage.reviews )
     {
+      // Get all reviews and reset widget list
       List<Review> reviews = await _contentBuffer.getUserReviews( Constants.appUser );
       _pageWidgetMap[ _activePage ] = List<Widget>();
+
+      // Add a ReviewCard for each review
       for (Review review in reviews)
         _pageWidgetMap[ _activePage ].add( ReviewCard( review ) );
+
     }
     else if ( _activePage == UserPage.medals )
     {
+      // Reset widget list
       _pageWidgetMap[ _activePage ] = List<Widget>();
       
+      // Update medals
       // TODO Michiel: update medals op basis van _contenBuffer.getUserRecipes( Constants.appUser ) en _contentBuffer.getUserReviews( Constants.appUser )
       
+      // Get all medals and convert them to MedalWidgets
       MedalBoard board = Constants.appUser.board;
       List<Widget> series = List<Widget>();
       board.seriesMap.forEach((key, value) {
         series.add( MedalWidget.series(value, key.replaceAll('_', ' ')) );
       });
 
+      series.add(MedalWidget("Testy", MedalType.gold, false, true, 12, 30));
+      series.add(MedalWidget("Testy", MedalType.bronze, true, true, 12, 30));
+      series.add(MedalWidget("Testy", MedalType.silver, true, true, 12, 30));
+      series.add(MedalWidget("Testy", MedalType.gold, true, false, 12, 30));
+
+      // Add the widgets to the listview as rows (per two)
       for (int i = 0; i < series.length; i++)
       {
         Widget left = series[i];
@@ -199,12 +216,16 @@ class _Screen extends State<ProfileScreen> {
           right = series[i];
 
         _pageWidgetMap[ _activePage ].add(
-          Row(
-            children: <Widget>[
-              left,
-              if (right != null)
-                right,
-            ],
+          Padding(
+            padding: const EdgeInsets.symmetric( vertical: 15.0 ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                left,
+                if (right != null)
+                  right,
+              ],
+            ),
           )
         );
       }

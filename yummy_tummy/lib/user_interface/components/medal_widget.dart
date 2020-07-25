@@ -34,13 +34,13 @@ class MedalWidget extends StatelessWidget {
     switch( type )
     {
       case MedalType.bronze:
-        return Colors.orange[600];
+        return Color(0xFFCD7F32);
         break;
       case MedalType.silver:
-        return Colors.grey[300];
+        return Color(0xFFC0C0C0);
         break;
       case MedalType.gold:
-        return Colors.yellowAccent[400];
+        return Color(0xFFFFD700);
         break;
     }
 
@@ -70,10 +70,13 @@ class MedalWidget extends StatelessWidget {
           ),
 
           // Show progress to next
+          // hasNext ?
           if (hasNext)
             Text(
               'Next at: $current/$goal'
-            ),
+            ) 
+            // :
+            // Text(''),
         ],
       ),
     );
