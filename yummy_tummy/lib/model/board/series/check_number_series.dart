@@ -17,6 +17,8 @@ abstract class CheckNumberSeries extends Series {
 /// Checks the number of own recipes to determine whether the current medal has been achieved.
 class CheckNumberOfOwnRecipes extends CheckNumberSeries {
 
+  int amountOfOwnRecipes = 0;
+
   /// Constructor.
   CheckNumberOfOwnRecipes(List<int> goals, List<Medal> medals)
       : super(goals, medals);
@@ -25,16 +27,33 @@ class CheckNumberOfOwnRecipes extends CheckNumberSeries {
     List<Recipe> ownRecipes = new List<Recipe>();
     // The input is a list of the user's own recipes.
     ownRecipes.addAll(objects);
+    this.amountOfOwnRecipes = ownRecipes.length;
     // If the amount of recipes is larger than the current goal...
-    if (ownRecipes.length >= goals[super.getMedalsAchieved() - 1]){
+    if (ownRecipes.length >= goals[super.getMedalsAchieved()]){
       super.isAchieved();
     }
+  }
+
+  double getProgress(){
+    int medalsAchieved = super.getMedalsAchieved();
+    int previousGoal = 0;
+    if (medalsAchieved > 0 ){
+      previousGoal = goals[medalsAchieved - 1];
+    }
+    int goal = goals[medalsAchieved];
+    if(medalsAchieved == super.getMedalAmount()){
+      return 1.0;
+    }
+    return
+      (amountOfOwnRecipes - previousGoal) / (goal - previousGoal);
   }
 
 }
 
 /// Checks the number of own reviews to determine whether the current medal has been achieved.
 class CheckNumberOfOwnReviews extends CheckNumberSeries {
+
+  int amountOfOwnReviews = 0;
 
   /// Constructor.
   CheckNumberOfOwnReviews(List<int> goals, List<Medal> medals)
@@ -44,16 +63,33 @@ class CheckNumberOfOwnReviews extends CheckNumberSeries {
     List<Review> ownReviews = new List<Review>();
     // The input is a list of the user's own reviews.
     ownReviews.addAll(objects);
+    this.amountOfOwnReviews = ownReviews.length;
     // If the amount of recipes is larger than the current goal...
     if (ownReviews.length >= goals[super.getMedalsAchieved() - 1]){
       super.isAchieved();
     }
   }
 
+  double getProgress(){
+    int medalsAchieved = super.getMedalsAchieved();
+    int previousGoal = 0;
+    if (medalsAchieved > 0 ){
+      previousGoal = goals[medalsAchieved - 1];
+    }
+    int goal = goals[medalsAchieved];
+    if(medalsAchieved == super.getMedalAmount()){
+      return 1.0;
+    }
+    return
+      (amountOfOwnReviews - previousGoal) / (goal - previousGoal);
+  }
+
 }
 
 /// Checks the number of received reviews to determine whether the current medal has been achieved.
 class CheckNumberOfReceivedReviews extends CheckNumberSeries {
+
+  int amountOfReceivedReviews = 0;
 
   /// Constructor.
   CheckNumberOfReceivedReviews(List<int> goals, List<Medal> medals)
@@ -70,9 +106,26 @@ class CheckNumberOfReceivedReviews extends CheckNumberSeries {
       receivedReviews += ownRecipes[i].numberOfReviews;
     }
 
+    amountOfReceivedReviews = receivedReviews;
+
     // If the amount of recipes is larger than the current goal...
     if (receivedReviews >= goals[super.getMedalsAchieved() - 1]){
       super.isAchieved();
     }
   }
+
+  double getProgress(){
+    int medalsAchieved = super.getMedalsAchieved();
+    int previousGoal = 0;
+    if (medalsAchieved > 0 ){
+      previousGoal = goals[medalsAchieved - 1];
+    }
+    int goal = goals[medalsAchieved];
+    if(medalsAchieved == super.getMedalAmount()){
+      return 1.0;
+    }
+    return
+      (amountOfReceivedReviews - previousGoal) / (goal - previousGoal);
+  }
+
 }
