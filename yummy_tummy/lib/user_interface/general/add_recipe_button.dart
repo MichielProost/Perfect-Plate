@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:yummytummy/user_interface/popup/create_recipe_card.dart';
 import 'package:yummytummy/user_interface/popup/recipe_page.dart';
+import 'package:yummytummy/user_interface/popup/snackbar_util.dart';
 
 import '../constants.dart';
 
@@ -14,7 +15,9 @@ class AddRecipeButton extends StatelessWidget {
       width: 65,
       child: FloatingActionButton(
         onPressed: () => {
-          showDialog(context: context, child: CreateRecipeCard())
+          Constants.appUser.isLoggedIn() ?
+          showDialog(context: context, child: CreateRecipeCard()) :
+          SnackBarUtil.createTextSnackBar("You have to be logged in to do that!")
         },
         child: Icon(
           Icons.add,

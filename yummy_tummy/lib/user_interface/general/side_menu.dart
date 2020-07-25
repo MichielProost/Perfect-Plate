@@ -2,8 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:yummytummy/user_interface/components/buttons/google_signin_button_wrapper.dart';
 import 'package:yummytummy/user_interface/constants.dart';
 
-class SideMenu extends StatelessWidget{
-  
+class SideMenu extends StatefulWidget{
+
+  @override
+  State<StatefulWidget> createState() {
+    return _Menu();
+  }
+}
+
+class _Menu extends State<SideMenu> {
   
   @override
   Widget build(BuildContext context) {
@@ -15,7 +22,11 @@ class SideMenu extends StatelessWidget{
             if ( ! Constants.appUser.isLoggedIn())
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: GoogleSigninButtonWrapper(),
+                child: GoogleSigninButtonWrapper(
+                  onPressed: () {
+                    setState(() {});
+                  },
+                ),
               ),
 
             // Add
@@ -25,7 +36,11 @@ class SideMenu extends StatelessWidget{
             if ( Constants.appUser.isLoggedIn())
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: GoogleSigninButtonWrapper(),
+                child: GoogleSigninButtonWrapper(
+                  onPressed: () {
+                    setState(() {});
+                  },
+                ),
               ),
           ],
         ),

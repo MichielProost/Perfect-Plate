@@ -12,7 +12,15 @@ import 'package:yummytummy/user_interface/popup/snackbar_util.dart';
 import 'components/recipe_card.dart';
 import 'components/waiting_indicator.dart';
 
-class FavouritesScreen extends StatelessWidget {
+class FavouritesScreen extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _FavouritesScreenState();
+  }
+
+}
+
+class _FavouritesScreenState extends State<FavouritesScreen> {
 
   RecipeService _recipeService = RecipeServiceFirestore();
 
@@ -42,7 +50,11 @@ class FavouritesScreen extends StatelessWidget {
                           textAlign: TextAlign.center,
                           style: Constants.emptyScreenStyle,
                         ),
-                        GoogleSigninButtonWrapper(),
+                        GoogleSigninButtonWrapper(
+                          onPressed: () {
+                            setState(() {});
+                          },
+                        ),
                       ],
                     ),
                   ) : 
