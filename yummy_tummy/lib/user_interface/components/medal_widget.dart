@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yummytummy/model/board/medal.dart';
-import 'package:yummytummy/model/board/series.dart';
+import 'package:yummytummy/model/board/series/series.dart';
 
 class MedalWidget extends StatelessWidget {
   

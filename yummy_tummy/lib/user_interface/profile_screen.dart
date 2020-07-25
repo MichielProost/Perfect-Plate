@@ -2,13 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:yummytummy/database/buffer/User_content_buffer.dart';
-import 'package:yummytummy/database/dummy/dummydatabase.dart';
-import 'package:yummytummy/model/board/medal.dart';
 import 'package:yummytummy/model/board/medal_board.dart';
-import 'package:yummytummy/model/board/series.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/review.dart';
-import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/user_interface/components/buttons/google_signin_button_wrapper.dart';
 import 'package:yummytummy/user_interface/components/medal_widget.dart';
 import 'package:yummytummy/user_interface/components/recipe_card.dart';

@@ -8,7 +8,6 @@ import 'package:yummytummy/database/dummy/dummydatabase.dart';
 import 'package:yummytummy/database/query/queryInfo.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/review.dart';
-import 'package:yummytummy/model/board/series.dart';
 import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/storage/storageHandler.dart';
 import 'package:yummytummy/user_interface/constants.dart';
