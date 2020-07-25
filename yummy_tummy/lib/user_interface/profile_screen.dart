@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:yummytummy/database/buffer/User_content_buffer.dart';
+import 'package:yummytummy/database/dummy/dummydatabase.dart';
 import 'package:yummytummy/model/board/medal.dart';
 import 'package:yummytummy/model/board/medal_board.dart';
 import 'package:yummytummy/model/board/series.dart';
@@ -144,9 +145,9 @@ class _Screen extends State<ProfileScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                buildContentLink("My medals" , UserPage.medals ),
-                buildContentLink("My recipes", UserPage.recipes),
-                buildContentLink("My reviews", UserPage.reviews),
+                buildContentLink("Medals" , UserPage.medals ),
+                buildContentLink("Recipes", UserPage.recipes),
+                buildContentLink("Reviews", UserPage.reviews),
               ],
             ),
 
@@ -184,18 +185,29 @@ class _Screen extends State<ProfileScreen> {
       MedalBoard board = Constants.appUser.board;
       List<Widget> series = List<Widget>();
       board.seriesMap.forEach((key, value) {
-        // series.add( value );
-        // series.add( MedalWidget.series(value, key) );
-        series.add(MedalWidget("title", MedalType.bronze, true, true, 20, 80));
+        series.add( MedalWidget.series(value, key.replaceAll('_', ' ')) );
       });
 
-      _pageWidgetMap[ _activePage ].add(
-        GridView.count(
-          crossAxisCount: 3,
-          shrinkWrap: true,
-          children: series,
-        )
-      );
+      for (int i = 0; i < series.length; i++)
+      {
+        Widget left = series[i];
+        Widget right;
+
+        i++;
+
+        if (series.length > i)
+          right = series[i];
+
+        _pageWidgetMap[ _activePage ].add(
+          Row(
+            children: <Widget>[
+              left,
+              if (right != null)
+                right,
+            ],
+          )
+        );
+      }
     }
 
     return _pageWidgetMap[ _activePage ];
@@ -252,6 +264,7 @@ class _Screen extends State<ProfileScreen> {
                   else if (snapshot.data.length != 0)
                     return ListView.builder(
                       shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
                       itemCount: snapshot.data.length,
                       itemBuilder: (context, index) {
                         return snapshot.data[index];

@@ -20,15 +20,16 @@ class MedalWidget extends StatelessWidget {
   MedalWidget.series(Series series, String seriesTitle) : 
     title       = series.getEarnedMedal() != null ? series.getEarnedMedal().title : seriesTitle,
     type        = series.getEarnedMedal() != null ? series.getEarnedMedal().medalType : MedalType.bronze,
-    isAchieved  = series.getCurrentMedal() != null,
-    hasNext     = series.getMedalsAchieved() == series.getMedalAmount(),
+    isAchieved  = series.getEarnedMedal() != null,
+    hasNext     = series.getMedalsAchieved() != series.getMedalAmount(),
+    // TODO replace score by actual progress
     current     = series.currentScore,
-    goal        = series.getCurrentMedal() != null ? series.getCurrentMedal() : 0;
+    goal        = series.getCurrentMedal() != null ? series.getCurrentMedal().score : 0;
 
   Color getMedalColor()
   {
     if (! isAchieved)
-      return Colors.black;
+      return Colors.grey[800];
 
     switch( type )
     {
@@ -48,31 +49,33 @@ class MedalWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        
-        // Medal name
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: 20.0,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-
-        // Show the achieved medal
-        Image.asset(
-          'icons/medal.png',
-          height: 100.0,
-          color: getMedalColor(),
-        ),
-
-        // Show progress to next
-        if (hasNext)
+    return Expanded(
+      child: Column(
+        children: <Widget>[
+          
+          // Medal name
           Text(
-            'Next at: $current/$goal'
+            title,
+            style: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-      ],
+
+          // Show the achieved medal
+          Image.asset(
+            'icons/medal.png',
+            height: 100.0,
+            color: getMedalColor(),
+          ),
+
+          // Show progress to next
+          if (hasNext)
+            Text(
+              'Next at: $current/$goal'
+            ),
+        ],
+      ),
     );
   }
 
