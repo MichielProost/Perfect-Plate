@@ -313,11 +313,11 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                     padding: const EdgeInsets.only(left: 30.0),
                     child: Align(
                       alignment: Alignment.centerLeft,
-                      child: Text("Preparation time (minutes)")
+                      child: Text("Preparation time")
                     ),
                   ),
 
-                  // Recipe type: main, salad, dessert, ...
+                  // Duration selection
                   Padding(
                     padding: const EdgeInsets.only( right: 50.0 ),
                     child: DropdownButton<String>(
@@ -335,7 +335,9 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                       items: _times.map<DropdownMenuItem<String>>((int value) {
                         return DropdownMenuItem<String>(
                           value: value.toString(),
-                          child: Text(value.toString()),
+                          child: Text(
+                            (value / 60).floor().toString() + "h" + (value%60).toString() + "m"
+                          ),
                         );
                       }).toList(),
                     ),
