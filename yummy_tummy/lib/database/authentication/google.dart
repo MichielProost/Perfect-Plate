@@ -17,6 +17,7 @@ class GoogleAuthHandler{
   /// Sign in with Google.
   Future<void> handleSignIn() async {
 
+    // TODO Michiel: handle log in cancel (PlatformException!!)
     GoogleSignInAccount googleAccount = await _googleSignIn.signIn();
     GoogleSignInAuthentication googleAuth = await googleAccount.authentication;
 

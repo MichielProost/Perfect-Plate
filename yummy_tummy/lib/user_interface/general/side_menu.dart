@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yummytummy/user_interface/components/buttons/google_signin_button_wrapper.dart';
 
 class SideMenu extends StatelessWidget{
   
@@ -7,7 +8,14 @@ class SideMenu extends StatelessWidget{
   Widget build(BuildContext context) {
     return Drawer(
       child: SafeArea(
-        child: Text("WIP: hang in there!"),
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GoogleSigninButtonWrapper(),
+            ),
+          ],
+        ),
       ),
     );
   }

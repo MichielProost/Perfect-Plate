@@ -5,6 +5,7 @@ import 'package:yummytummy/database/firestore/recipeServiceFirestore.dart';
 import 'package:yummytummy/database/interfaces/recipeService.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/user.dart';
+import 'package:yummytummy/user_interface/components/buttons/google_signin_button_wrapper.dart';
 import 'package:yummytummy/user_interface/constants.dart';
 import 'package:yummytummy/user_interface/popup/snackbar_util.dart';
 
@@ -32,12 +33,19 @@ class FavouritesScreen extends StatelessWidget {
                 data: Constants.themeData,
                 child: ! Constants.appUser.isLoggedIn() ?
                 Center(
-                      child: Text(
-                        'Please log in to see your saved recipes!',
-                        textAlign: TextAlign.center,
-                        style: Constants.emptyScreenStyle,
-                      ),
-                    ) : 
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'Please log in to see your saved recipes!',
+                          textAlign: TextAlign.center,
+                          style: Constants.emptyScreenStyle,
+                        ),
+                        GoogleSigninButtonWrapper(),
+                      ],
+                    ),
+                  ) : 
                 ListView(
                   children: <Widget>[
                     

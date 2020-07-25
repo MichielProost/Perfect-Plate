@@ -9,6 +9,7 @@ import 'package:yummytummy/model/board/series.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/review.dart';
 import 'package:yummytummy/model/user.dart';
+import 'package:yummytummy/user_interface/components/buttons/google_signin_button_wrapper.dart';
 import 'package:yummytummy/user_interface/components/medal_widget.dart';
 import 'package:yummytummy/user_interface/components/recipe_card.dart';
 import 'package:yummytummy/user_interface/popup/recipe_page.dart';
@@ -199,11 +200,6 @@ class _Screen extends State<ProfileScreen> {
         series.add( MedalWidget.series(value, key.replaceAll('_', ' ')) );
       });
 
-      series.add(MedalWidget("Testy", MedalType.gold, false, true, 12, 30));
-      series.add(MedalWidget("Testy", MedalType.bronze, true, true, 12, 30));
-      series.add(MedalWidget("Testy", MedalType.silver, true, true, 12, 30));
-      series.add(MedalWidget("Testy", MedalType.gold, true, false, 12, 30));
-
       // Add the widgets to the listview as rows (per two)
       for (int i = 0; i < series.length; i++)
       {
@@ -242,12 +238,17 @@ class _Screen extends State<ProfileScreen> {
         data: Constants.themeData,
         child: 
         ! Constants.appUser.isLoggedIn() ?  
-        Center(
-          child: Text(
-            "Please log in to see your profile page.",
-            textAlign: TextAlign.center,
-            style: Constants.emptyScreenStyle,
-          ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              "Please log in to see your profile page.",
+              textAlign: TextAlign.center,
+              style: Constants.emptyScreenStyle,
+            ),
+            Center(child: GoogleSigninButtonWrapper()),
+          ],
         ) :
         CustomScrollView(
           slivers: <Widget>[

@@ -23,13 +23,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cloud_firestore: ^0.13.7  # Dart firestore package, basic database functionality
-  share: ^0.6.4+3           # Allows recipe sharing through social media and alike
+  cloud_firestore: ^0.13.7  # Dart firestore package, basic database functionality.
+  share: ^0.6.4+3           # Allows recipe sharing through social media and alike.
   firebase_auth: 0.16.0
   google_sign_in: 4.0.4
   firebase_storage: ^3.1.6
   image_picker: ^0.6.7+4
-  cloud_functions: ^0.5.0
+  flutter_auth_buttons: ^0.8.0  # Contains standard login-buttons for auth providers (Google, Facebook, ...).
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -39,7 +39,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_launcher_icons: "^0.7.3" # Handles the app icon (in phone OS)
+  flutter_launcher_icons: "^0.7.3" # Handles the app icon (in phone OS).
 
 # Used to select app icon
 flutter_icons:
