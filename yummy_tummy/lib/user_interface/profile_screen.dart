@@ -13,8 +13,6 @@ import 'components/waiting_indicator.dart';
 import 'constants.dart';
 
 class ProfileScreen extends StatefulWidget {
-
-  static final UserContentBuffer contentBuffer = UserContentBuffer();
   
   @override
   State<StatefulWidget> createState() {
@@ -41,6 +39,7 @@ extension UserPageUtil on UserPage {
 
 class _Screen extends State<ProfileScreen> {
 
+  final UserContentBuffer _contentBuffer = UserContentBuffer();
   Map<UserPage, List<Widget>> _pageWidgetMap = Map<UserPage, List<Widget>>();
 
   _Screen()
@@ -59,7 +58,7 @@ class _Screen extends State<ProfileScreen> {
   void _openRecipeID( String recipeID ) async
   {
     Recipe recipe;
-    List<Recipe> recipes = await ProfileScreen.contentBuffer.getUserRecipes( Constants.appUser );
+    List<Recipe> recipes = await _contentBuffer.getUserRecipes( Constants.appUser );
     for (Recipe element in recipes)
       if (element.id == recipeID)
         recipe = element;
@@ -160,14 +159,14 @@ class _Screen extends State<ProfileScreen> {
   {
     if ( _activePage == UserPage.recipes )
     {
-      List<Recipe> recipes = await ProfileScreen.contentBuffer.getUserRecipes( Constants.appUser );
+      List<Recipe> recipes = await _contentBuffer.getUserRecipes( Constants.appUser );
       _pageWidgetMap[ _activePage ] = List<Widget>();
       for (Recipe recipe in recipes)
         _pageWidgetMap[ _activePage ].add( RecipeCard( recipe ) );
     }
     else if ( _activePage == UserPage.reviews )
     {
-      List<Review> reviews = await ProfileScreen.contentBuffer.getUserReviews( Constants.appUser );
+      List<Review> reviews = await _contentBuffer.getUserReviews( Constants.appUser );
       _pageWidgetMap[ _activePage ] = List<Widget>();
       for (Review review in reviews)
         _pageWidgetMap[ _activePage ].add( ReviewCard( review ) );
