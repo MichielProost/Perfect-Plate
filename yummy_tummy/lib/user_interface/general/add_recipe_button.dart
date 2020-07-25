@@ -17,7 +17,7 @@ class AddRecipeButton extends StatelessWidget {
         onPressed: () => {
           Constants.appUser.isLoggedIn() ?
           showDialog(context: context, child: CreateRecipeCard()) :
-          SnackBarUtil.createTextSnackBar("You have to be logged in to do that!")
+          SnackBarUtil.showTextSnackBar(context, "You have to be logged in to create a recipe!")
         },
         child: Icon(
           Icons.add,
