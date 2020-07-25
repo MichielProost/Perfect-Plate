@@ -1,5 +1,6 @@
 import 'package:yummytummy/model/board/medal.dart';
-import 'package:yummytummy/model/board/series.dart';
+import 'package:yummytummy/model/board/series/check_number_series.dart';
+import 'package:yummytummy/model/board/series/series.dart';
 
 Map<String, Series> dataToSeriesMap(Map<String, dynamic> data){
 
@@ -7,30 +8,33 @@ Map<String, Series> dataToSeriesMap(Map<String, dynamic> data){
 
   if (data.containsKey('create_recipes')) {
     // Create new series.
-    Series create_recipes = new Series(
-      medals: [ new Medal(MedalType.bronze, "Create your first recipe"),
-                new Medal(MedalType.silver, "Create 3 recipes"),
-                new Medal(MedalType.gold, "Create 5 recipes")],
+    Series create_recipes = new CheckNumberOfOwnRecipes(
+      [1, 3, 5],
+      [ new Medal(MedalType.bronze, "Create your first recipe"),
+        new Medal(MedalType.silver, "Create 3 recipes"),
+        new Medal(MedalType.gold, "Create 5 recipes")]
     );
     create_recipes.setCurrentScore(data['create_recipes']);
     seriesMap['create_recipes'] = create_recipes;
   }
 
   if (data.containsKey('write_reviews')) {
-    Series write_reviews = new Series(
-      medals: [ new Medal(MedalType.bronze, "Write your first review"),
-                new Medal(MedalType.silver, "Write 5 reviews"),
-                new Medal(MedalType.gold, "Write 15 reviews")],
+    Series write_reviews = new CheckNumberOfOwnReviews(
+        [1, 5, 15],
+        [ new Medal(MedalType.bronze, "Write your first review"),
+          new Medal(MedalType.silver, "Write 5 reviews"),
+          new Medal(MedalType.gold, "Write 15 reviews")]
     );
     write_reviews.setCurrentScore(data['write_reviews']);
     seriesMap['write_reviews'] = write_reviews;
   }
 
   if (data.containsKey('receive_reviews')) {
-    Series receive_reviews = new Series(
-      medals: [ new Medal(MedalType.bronze, "Receive your first review"),
-                new Medal(MedalType.silver, "Receive 5 reviews"),
-                new Medal(MedalType.gold, "Receive 15 reviews")],
+    Series receive_reviews = new CheckNumberOfOwnReviews(
+        [1, 5, 15],
+        [ new Medal(MedalType.bronze, "Receive your first review"),
+          new Medal(MedalType.silver, "Receive 5 reviews"),
+          new Medal(MedalType.gold, "Receive 15 reviews")]
     );
     receive_reviews.setCurrentScore(data['receive_reviews']);
     seriesMap['receive_reviews'] = receive_reviews;

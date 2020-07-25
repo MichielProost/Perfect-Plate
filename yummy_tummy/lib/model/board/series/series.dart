@@ -1,14 +1,14 @@
 import 'package:yummytummy/model/board/medal.dart';
 
-class Series {
+abstract class Series {
 
   List<Medal> medals;
   int currentScore = 0;
 
   /// Constructor.
-  Series({
-    this.medals,
-  });
+  Series(List<Medal> medals){
+    this.medals = medals;
+  }
 
   /// Return the next medal to be earned in this series.
   /// Returns null when there is no new medal to earn
@@ -75,5 +75,9 @@ class Series {
       medals[i].printSummary();
     }
   }
+
+  /// Checks if the current medal has been achieved by the user.
+  /// If so, it will take the appropriate actions.
+  void checkCurrentMedalAchieved(dynamic goals, dynamic objects);
 
 }
