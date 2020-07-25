@@ -1,10 +1,7 @@
 /// Functions as a template for new screens. Should not actually be used
 
 import 'package:flutter/material.dart';
-import 'package:yummytummy/database/firestore/recipeServiceFirestore.dart';
-import 'package:yummytummy/database/firestore/reviewServiceFirestore.dart';
-import 'package:yummytummy/database/interfaces/recipeService.dart';
-import 'package:yummytummy/database/interfaces/reviewService.dart';
+import 'package:yummytummy/database/buffer/User_content_buffer.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/review.dart';
 import 'package:yummytummy/model/user.dart';
@@ -16,6 +13,8 @@ import 'components/waiting_indicator.dart';
 import 'constants.dart';
 
 class ProfileScreen extends StatefulWidget {
+
+  static final UserContentBuffer contentBuffer = UserContentBuffer();
   
   @override
   State<StatefulWidget> createState() {
@@ -25,6 +24,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 enum UserPage {
+  medals,
   recipes,
   reviews
 }
@@ -46,21 +46,26 @@ class _Screen extends State<ProfileScreen> {
   _Screen()
   {
     _pageWidgetMap = {
-      UserPage.recipes: List<Widget>(),
+      UserPage.recipes : List<Widget>(),
       UserPage.reviews : List<Widget>(),
+      UserPage.medals  : List<Widget>(),
     };
   }
 
-  RecipeService _recipeService = RecipeServiceFirestore();
-  ReviewService _reviewService = ReviewServiceFirestore();
 
   // Initialize starting page
-  UserPage _activePage = UserPage.recipes;
+  UserPage _activePage = UserPage.medals;
 
   void _openRecipeID( String recipeID ) async
   {
-    Recipe recipe = await _recipeService.getRecipeFromID( recipeID );
-    showDialog(context: context, child: RecipePage( recipe ));
+    Recipe recipe;
+    List<Recipe> recipes = await ProfileScreen.contentBuffer.getUserRecipes( Constants.appUser );
+    for (Recipe element in recipes)
+      if (element.id == recipeID)
+        recipe = element;
+    
+    if (recipe != null)
+      showDialog(context: context, child: RecipePage( recipe ));
   }
 
   Widget buildContentLink(String name, UserPage userPage)
@@ -136,6 +141,7 @@ class _Screen extends State<ProfileScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
+                buildContentLink("My medals" , UserPage.medals ),
                 buildContentLink("My recipes", UserPage.recipes),
                 buildContentLink("My reviews", UserPage.reviews),
               ],
@@ -152,29 +158,27 @@ class _Screen extends State<ProfileScreen> {
 
   Future<List<Widget>> _getDisplayedWidgets() async
   {
-    if ( _pageWidgetMap[ _activePage ].length == 0 )
+    if ( _activePage == UserPage.recipes )
     {
-      if ( _activePage == UserPage.recipes )
-      {
-        List<Recipe> recipes = await _recipeService.getRecipesFromUser(UserMapField.id, Constants.appUser.id);
-        _pageWidgetMap[ _activePage ] = List<Widget>();
-        for (Recipe recipe in recipes)
-          _pageWidgetMap[ _activePage ].add( RecipeCard( recipe ) );
-      }
-      else if ( _activePage == UserPage.reviews )
-      {
-        List<Review> reviews = await _reviewService.getReviewsFromUser(UserMapField.id, Constants.appUser.id);
-        _pageWidgetMap[ _activePage ] = List<Widget>();
-        for (Review review in reviews)
-          _pageWidgetMap[ _activePage ].add( ReviewCard( review ) );
-      }
-
-      return _pageWidgetMap[ _activePage ];
-    } 
-    else
-    {
-      return _pageWidgetMap[ _activePage ];
+      List<Recipe> recipes = await ProfileScreen.contentBuffer.getUserRecipes( Constants.appUser );
+      _pageWidgetMap[ _activePage ] = List<Widget>();
+      for (Recipe recipe in recipes)
+        _pageWidgetMap[ _activePage ].add( RecipeCard( recipe ) );
     }
+    else if ( _activePage == UserPage.reviews )
+    {
+      List<Review> reviews = await ProfileScreen.contentBuffer.getUserReviews( Constants.appUser );
+      _pageWidgetMap[ _activePage ] = List<Widget>();
+      for (Review review in reviews)
+        _pageWidgetMap[ _activePage ].add( ReviewCard( review ) );
+    }
+    else if ( _activePage == UserPage.medals )
+    {
+      _pageWidgetMap[ _activePage ] = <Widget>[Container()];
+      // TODO Michiel: fix List<Medal> of iets gelijkaardig. Ik zal er widgets van maken
+    }
+
+    return _pageWidgetMap[ _activePage ];
   }
 
   @override
