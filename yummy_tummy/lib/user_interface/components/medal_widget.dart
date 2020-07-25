@@ -1,0 +1,79 @@
+import 'package:flutter/material.dart';
+import 'package:yummytummy/model/board/medal.dart';
+import 'package:yummytummy/model/board/series.dart';
+
+class MedalWidget extends StatelessWidget {
+  
+  // Title display
+  final String title;
+  
+  // Medal display
+  final MedalType type;
+  final bool isAchieved;
+  
+  // Next display
+  final bool hasNext;
+  final int current;
+  final int goal;
+  
+  MedalWidget(this.title, this.type, this.isAchieved, this.hasNext, this.current, this.goal);
+  MedalWidget.series(Series series, String seriesTitle) : 
+    title       = series.getEarnedMedal() != null ? series.getEarnedMedal().title : seriesTitle,
+    type        = series.getEarnedMedal() != null ? series.getEarnedMedal().medalType : MedalType.bronze,
+    isAchieved  = series.getCurrentMedal() != null,
+    hasNext     = series.getMedalsAchieved() == series.getMedalAmount(),
+    current     = series.currentScore,
+    goal        = series.getCurrentMedal() != null ? series.getCurrentMedal() : 0;
+
+  Color getMedalColor()
+  {
+    if (! isAchieved)
+      return Colors.black;
+
+    switch( type )
+    {
+      case MedalType.bronze:
+        return Colors.orange[600];
+        break;
+      case MedalType.silver:
+        return Colors.grey[300];
+        break;
+      case MedalType.gold:
+        return Colors.yellowAccent[400];
+        break;
+    }
+
+    return Colors.black;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        
+        // Medal name
+        Text(
+          title,
+          style: TextStyle(
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+
+        // Show the achieved medal
+        Image.asset(
+          'icons/medal.png',
+          height: 100.0,
+          color: getMedalColor(),
+        ),
+
+        // Show progress to next
+        if (hasNext)
+          Text(
+            'Next at: $current/$goal'
+          ),
+      ],
+    );
+  }
+
+}

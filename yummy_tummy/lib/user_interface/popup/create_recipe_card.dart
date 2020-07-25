@@ -468,9 +468,7 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
 
                     List<File> recipeImages = List<File>();
                     recipeImages.add(_banner);
-                    for(int i=0; i<_images.length - 1; i++){
-                      recipeImages.add(_images[i]);
-                    }
+                    recipeImages.addAll( _images );
                     imageHandler.uploadAndSetRecipeImages(recipeImages, recipeID);
 
                     Navigator.pop(context);

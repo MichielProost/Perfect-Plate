@@ -2,9 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:yummytummy/database/buffer/User_content_buffer.dart';
+import 'package:yummytummy/model/board/medal.dart';
+import 'package:yummytummy/model/board/medal_board.dart';
+import 'package:yummytummy/model/board/series.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/review.dart';
 import 'package:yummytummy/model/user.dart';
+import 'package:yummytummy/user_interface/components/medal_widget.dart';
 import 'package:yummytummy/user_interface/components/recipe_card.dart';
 import 'package:yummytummy/user_interface/popup/recipe_page.dart';
 
@@ -173,8 +177,25 @@ class _Screen extends State<ProfileScreen> {
     }
     else if ( _activePage == UserPage.medals )
     {
-      _pageWidgetMap[ _activePage ] = <Widget>[Container()];
-      // TODO Michiel: fix List<Medal> of iets gelijkaardig. Ik zal er widgets van maken
+      _pageWidgetMap[ _activePage ] = List<Widget>();
+      
+      // TODO Michiel: update medals op basis van _contenBuffer.getUserRecipes( Constants.appUser ) en _contentBuffer.getUserReviews( Constants.appUser )
+      
+      MedalBoard board = Constants.appUser.board;
+      List<Widget> series = List<Widget>();
+      board.seriesMap.forEach((key, value) {
+        // series.add( value );
+        // series.add( MedalWidget.series(value, key) );
+        series.add(MedalWidget("title", MedalType.bronze, true, true, 20, 80));
+      });
+
+      _pageWidgetMap[ _activePage ].add(
+        GridView.count(
+          crossAxisCount: 3,
+          shrinkWrap: true,
+          children: series,
+        )
+      );
     }
 
     return _pageWidgetMap[ _activePage ];

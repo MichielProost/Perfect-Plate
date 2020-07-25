@@ -5,8 +5,8 @@ import 'board_functions.dart';
 
 class MedalBoard {
 
-  Map seriesMap = new Map<String, Series>();
-  Map medalMap = new Map<String, Medal>();
+  Map<String, Series> seriesMap = new Map<String, Series>();
+  Map<String, Medal> medalMap = new Map<String, Medal>();
 
   MedalBoard({
     this.seriesMap,

@@ -10,8 +10,8 @@ class Series {
     this.medals,
   });
 
-  /// Return the highest received medal in this series.
-  /// Returns null when something goes wrong.
+  /// Return the next medal to be earned in this series.
+  /// Returns null when there is no new medal to earn
   Medal getCurrentMedal() {
     int requiredScore = 0;
     for (int i = 0; i < this.medals.length; i++) {
@@ -23,8 +23,26 @@ class Series {
     return null;
   }
 
+  /// Return the highest received medal in this series.
+  /// Returns null when no medal has been earned yet
+  Medal getEarnedMedal() {
+    int requiredScore = 0;
+    Medal lastMedal;
+
+    for (Medal medal in this.medals)
+    {
+      requiredScore += medal.score;
+      if (currentScore >= requiredScore)
+        lastMedal = medal;
+      else
+        return lastMedal;
+    }
+
+    return lastMedal;
+  }
+
   /// When the collection's current medal is achieved..
-  isAchieved(){
+  void isAchieved(){
     // Get current medal.
     Medal currentMedal = getCurrentMedal();
     // Update the series score.
@@ -34,19 +52,25 @@ class Series {
   }
 
   /// Sets the series current score based on the amount of medals achieved.
-  setCurrentScore(int medalsAchieved){
+  void setCurrentScore(int medalsAchieved){
     for( int i = 1; i <= medalsAchieved; i++){
       this.currentScore += medals[i].score;
     }
   }
 
+  /// Returns the total amount of medals in this series
+  int getMedalAmount()
+  {
+    return medals.length;
+  }
+
   /// Get the amount of medals this series has received.
-  getMedalsAchieved(){
+  int getMedalsAchieved(){
     return this.getCurrentMedal().medalType.index;
   }
 
   /// Print summary of series to console.
-  printSummary(){
+  void printSummary(){
     for (int i = 0; i < medals.length; i++){
       medals[i].printSummary();
     }
