@@ -30,7 +30,7 @@ Map<String, Series> dataToSeriesMap(Map<String, dynamic> data){
   }
 
   if (data.containsKey('receive_reviews')) {
-    Series receive_reviews = new CheckNumberOfOwnReviews(
+    Series receive_reviews = new CheckNumberOfReceivedReviews(
         [1, 5, 15],
         [ new Medal(MedalType.bronze, "Receive your first review"),
           new Medal(MedalType.silver, "Receive 5 reviews"),

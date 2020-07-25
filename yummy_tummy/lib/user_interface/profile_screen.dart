@@ -187,8 +187,13 @@ class _Screen extends State<ProfileScreen> {
       _pageWidgetMap[ _activePage ] = List<Widget>();
       
       // Update medals
-      // TODO Michiel: update medals op basis van _contenBuffer.getUserRecipes( Constants.appUser ) en _contentBuffer.getUserReviews( Constants.appUser )
-      
+      Constants.appUser.board.seriesMap['create_recipes']
+          .checkCurrentMedalAchieved(await _contentBuffer.getUserRecipes(Constants.appUser));
+      Constants.appUser.board.seriesMap['write_reviews']
+          .checkCurrentMedalAchieved(await _contentBuffer.getUserReviews(Constants.appUser));
+      Constants.appUser.board.seriesMap['receive_reviews']
+          .checkCurrentMedalAchieved(await _contentBuffer.getUserRecipes(Constants.appUser));
+
       // Get all medals and convert them to MedalWidgets
       MedalBoard board = Constants.appUser.board;
       List<Widget> series = List<Widget>();

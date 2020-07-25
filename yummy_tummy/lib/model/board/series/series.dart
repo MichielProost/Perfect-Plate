@@ -78,7 +78,7 @@ abstract class Series {
 
   /// Checks if the current medal has been achieved by the user.
   /// If so, it will take the appropriate actions.
-  void checkCurrentMedalAchieved(dynamic goals, dynamic objects);
+  void checkCurrentMedalAchieved(List<dynamic> objects);
 
   /// Returns the series progress in the range [0-1].
   /// Returns 1.0 if all medals of the series are achieved.

@@ -23,13 +23,12 @@ class CheckNumberOfOwnRecipes extends CheckNumberSeries {
   CheckNumberOfOwnRecipes(List<int> goals, List<Medal> medals)
       : super(goals, medals);
 
-  void checkCurrentMedalAchieved(goals, objects) {
-    List<Recipe> ownRecipes = new List<Recipe>();
+  void checkCurrentMedalAchieved(List<dynamic> objects) {
     // The input is a list of the user's own recipes.
-    ownRecipes.addAll(objects);
+    List<Recipe> ownRecipes = objects;
     this.amountOfOwnRecipes = ownRecipes.length;
     // If the amount of recipes is larger than the current goal...
-    if (ownRecipes.length >= goals[super.getMedalsAchieved()]){
+    if (ownRecipes.length >= this.goals[super.getMedalsAchieved()]){
       super.isAchieved();
     }
   }
@@ -38,14 +37,14 @@ class CheckNumberOfOwnRecipes extends CheckNumberSeries {
     int medalsAchieved = super.getMedalsAchieved();
     int previousGoal = 0;
     if (medalsAchieved > 0 ){
-      previousGoal = goals[medalsAchieved - 1];
+      previousGoal = this.goals[medalsAchieved - 1];
     }
-    int goal = goals[medalsAchieved];
+    int goal = this.goals[medalsAchieved];
     if(medalsAchieved == super.getMedalAmount()){
       return 1.0;
     }
     return
-      (amountOfOwnRecipes - previousGoal) / (goal - previousGoal);
+      (this.amountOfOwnRecipes - previousGoal) / (goal - previousGoal);
   }
 
 }
@@ -59,13 +58,12 @@ class CheckNumberOfOwnReviews extends CheckNumberSeries {
   CheckNumberOfOwnReviews(List<int> goals, List<Medal> medals)
       : super(goals, medals);
 
-  void checkCurrentMedalAchieved(goals, objects) {
-    List<Review> ownReviews = new List<Review>();
+  void checkCurrentMedalAchieved(List<dynamic> objects) {
     // The input is a list of the user's own reviews.
-    ownReviews.addAll(objects);
+    List<Review> ownReviews = objects;
     this.amountOfOwnReviews = ownReviews.length;
     // If the amount of recipes is larger than the current goal...
-    if (ownReviews.length >= goals[super.getMedalsAchieved() - 1]){
+    if (ownReviews.length >= this.goals[super.getMedalsAchieved()]){
       super.isAchieved();
     }
   }
@@ -74,14 +72,14 @@ class CheckNumberOfOwnReviews extends CheckNumberSeries {
     int medalsAchieved = super.getMedalsAchieved();
     int previousGoal = 0;
     if (medalsAchieved > 0 ){
-      previousGoal = goals[medalsAchieved - 1];
+      previousGoal = this.goals[medalsAchieved - 1];
     }
-    int goal = goals[medalsAchieved];
+    int goal = this.goals[medalsAchieved];
     if(medalsAchieved == super.getMedalAmount()){
       return 1.0;
     }
     return
-      (amountOfOwnReviews - previousGoal) / (goal - previousGoal);
+      (this.amountOfOwnReviews - previousGoal) / (goal - previousGoal);
   }
 
 }
@@ -95,10 +93,9 @@ class CheckNumberOfReceivedReviews extends CheckNumberSeries {
   CheckNumberOfReceivedReviews(List<int> goals, List<Medal> medals)
       : super(goals, medals);
 
-  void checkCurrentMedalAchieved(goals, objects) {
-    List<Recipe> ownRecipes = new List<Recipe>();
+  void checkCurrentMedalAchieved(List<dynamic> objects) {
     // The input is a list of the user's own recipes.
-    ownRecipes.addAll(objects);
+    List<Recipe> ownRecipes = objects;
 
     // Count the amount of received reviews.
     int receivedReviews = 0;
@@ -106,10 +103,10 @@ class CheckNumberOfReceivedReviews extends CheckNumberSeries {
       receivedReviews += ownRecipes[i].numberOfReviews;
     }
 
-    amountOfReceivedReviews = receivedReviews;
+    this.amountOfReceivedReviews = receivedReviews;
 
     // If the amount of recipes is larger than the current goal...
-    if (receivedReviews >= goals[super.getMedalsAchieved() - 1]){
+    if (receivedReviews >= this.goals[super.getMedalsAchieved()]){
       super.isAchieved();
     }
   }
@@ -118,14 +115,14 @@ class CheckNumberOfReceivedReviews extends CheckNumberSeries {
     int medalsAchieved = super.getMedalsAchieved();
     int previousGoal = 0;
     if (medalsAchieved > 0 ){
-      previousGoal = goals[medalsAchieved - 1];
+      previousGoal = this.goals[medalsAchieved - 1];
     }
-    int goal = goals[medalsAchieved];
+    int goal = this.goals[medalsAchieved];
     if(medalsAchieved == super.getMedalAmount()){
       return 1.0;
     }
     return
-      (amountOfReceivedReviews - previousGoal) / (goal - previousGoal);
+      (this.amountOfReceivedReviews - previousGoal) / (goal - previousGoal);
   }
 
 }
