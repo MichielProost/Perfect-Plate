@@ -148,6 +148,9 @@ class User{
       case RankType.executive_chef:
         return EXECUTIVE_LIM;
         break;
+      case RankType.dishwasher:
+        // TODO: Handle this case.
+        break;
     }
 
   }
