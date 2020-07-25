@@ -243,7 +243,11 @@ class _Screen extends State<ProfileScreen> {
               textAlign: TextAlign.center,
               style: Constants.emptyScreenStyle,
             ),
-            Center(child: GoogleSigninButtonWrapper()),
+            Center(child: GoogleSigninButtonWrapper(
+              onPressed: () {
+                setState(() {});
+              },
+            )),
           ],
         ) :
         CustomScrollView(
