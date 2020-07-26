@@ -30,18 +30,14 @@ enum ImageInput {
 
 class _CreateRecipePage extends State<CreateRecipeCard> {
 
-  // Create recipe util
-  List<TextEditingController> _controllers = [
-    TextEditingController(),
-    TextEditingController(),
-    TextEditingController(),
-    TextEditingController(),
-  ];
+  // State info
+  bool scrollToTop = true;
 
-  final GlobalKey<CustomTextFieldState> _titleKey = new GlobalKey();
-  final GlobalKey<CustomTextFieldState> _descriptionkey = new GlobalKey();
-  final GlobalKey<CustomTextFieldState> _addIngredientKey = new GlobalKey();
-  static final List<GlobalKey<CustomTextFieldState>> stepKeys = List<GlobalKey<CustomTextFieldState>>();
+  // Create recipe util
+  GlobalKey<CustomTextFieldState> _titleKey = new GlobalKey();
+  GlobalKey<CustomTextFieldState> _descriptionkey = new GlobalKey();
+  GlobalKey<CustomTextFieldState> _addIngredientKey = new GlobalKey();
+  static List<GlobalKey<CustomTextFieldState>> stepKeys = List<GlobalKey<CustomTextFieldState>>();
 
   final ScrollController _controller = ScrollController();
   final StorageHandler imageHandler = StorageHandler();
@@ -76,7 +72,10 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
   @override
   Widget build(BuildContext context) {
 
-    SchedulerBinding.instance.addPostFrameCallback((_){ _scrollToBottom(); });
+    if (scrollToTop)
+      SchedulerBinding.instance.addPostFrameCallback((_){ _scrollToBottom(); });
+
+    scrollToTop = false;
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -403,7 +402,7 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                             width: 50.0,
                             onClick: () {
                               setState(() {
-                                _ingredients.add(_addIngredientKey.currentState.getCurrentText());
+                                _ingredients.add( _addIngredientKey.currentState.getCurrentText() );
                                 _addIngredientKey.currentState.clearTextField();
                               });
                               FocusScope.of(context).unfocus();
