@@ -64,7 +64,7 @@ class Recipe {
   int numberOfReviews;            // Number of reviews.
   // TODO watch out!! User is mutable, and can be edited from anywhere!
   final User user;                      // User object.
-  final Map<String, dynamic> userMap;   // Duplicate data. Information of user.
+  Map<String, dynamic> userMap;   // Duplicate data. Information of user.
 
   Recipe.editable(
     this.id,

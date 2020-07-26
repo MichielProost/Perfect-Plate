@@ -1,8 +1,10 @@
 import 'dart:collection';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:yummytummy/database/firestore/recipeServiceFirestore.dart';
+import 'package:yummytummy/database/firestore/reviewServiceFirestore.dart';
 import 'package:yummytummy/database/interfaces/userService.dart';
-import 'package:yummytummy/model/app_user.dart';
-import 'package:yummytummy/model/board/medal.dart';
+import 'package:yummytummy/model/recipe.dart';
+import 'package:yummytummy/model/review.dart';
 import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/user_interface/constants.dart';
 import 'package:yummytummy/utils/consoleWriter.dart';
@@ -95,23 +97,45 @@ class UserServiceFirestore implements UserService {
   }
 
   /// Listens to the app user's document for changes.
-  void scoreListener(){
+  void scoreListener() async {
+
+    RecipeServiceFirestore recipeService = new RecipeServiceFirestore();
+    ReviewServiceFirestore reviewService = new ReviewServiceFirestore();
 
     // Get document reference of logged-in user.
     DocumentReference reference =
       this.db.collection('users').document(Constants.appUser.id);
 
     // Listen for changes.
-    reference.snapshots().listen((DocumentSnapshot documentSnapshot) {
+    reference.snapshots().listen((DocumentSnapshot documentSnapshot) async {
 
       // Get user object from received map.
       User user = User.fromMap(documentSnapshot.data, Constants.appUser.id);
 
       // If user's rank needs an upgrade.
-      if (user.checkRankUpgrade()){
-        // Upgrade rank.
-        user.upgradeRank();
-        modifyUser(user, Constants.appUser.id);
+      if (user.hasNextRank()){
+        if (user.checkRankUpgrade()){
+          // Upgrade rank.
+          user.upgradeRank();
+          modifyUser(user, Constants.appUser.id);
+
+          // Modify userMap in user's recipes.
+          Map<String, dynamic> userMap = user.toCompactMap();
+
+          List<Recipe> recipes =
+            await recipeService.getRecipesFromUser(UserMapField.id, Constants.appUser.id);
+          for(int i = 0; i < recipes.length; i++){
+            recipes[i].userMap = userMap;
+            recipeService.modifyRecipe(recipes[i], recipes[i].id);
+          }
+
+          List<Review> reviews =
+            await reviewService.getReviewsFromUser(UserMapField.id, Constants.appUser.id);
+          for(int i = 0; i < reviews.length; i++){
+            reviews[i].userMap = userMap;
+            reviewService.modifyReview(reviews[i], reviews[i].id);
+          }
+        }
       }
 
       // Update global App User object.

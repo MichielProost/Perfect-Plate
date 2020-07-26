@@ -6,7 +6,7 @@ class Review{
   final String id;                      // Document ID.
   final Timestamp timestamp;            // Timestamp.
   final User user;                      // User object.
-  final Map<String, dynamic> userMap;   // Duplicate data. Information of user.
+  Map<String, dynamic> userMap;         // Duplicate data. Information of user.
   final String recipeID;                // Recipe ID.
   int rating;                           // Rating from user.
   String description;                   // Description from user.
