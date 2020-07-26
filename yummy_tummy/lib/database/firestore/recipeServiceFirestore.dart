@@ -229,8 +229,6 @@ class RecipeServiceFirestore implements RecipeService {
     // Get recipe object from ID.
     Recipe recipe = await getRecipeFromID(review.recipeID);
 
-    recipe.printSummary();
-
     // Update average rating.
     recipe.rating =
         calculateAverageRating(recipe.rating, review.rating, recipe.numberOfReviews);

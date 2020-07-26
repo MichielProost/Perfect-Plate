@@ -12,10 +12,6 @@ import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/storage/storageHandler.dart';
 import 'package:yummytummy/user_interface/constants.dart';
 import 'package:yummytummy/utils/consoleWriter.dart';
-import 'package:yummytummy/model/board/medal.dart';
-
-import 'board/board_functions.dart';
-import 'board/medal_board.dart';
 
 class Test {
 
@@ -50,7 +46,7 @@ class Test {
     //testModifyRecipe();
     //testSearchRecipes();
     //testGoogle();
-    //testUpdateRatings();
+    testUpdateRatings();
     //testUploadPicture();
     //testScoreListener();
 
@@ -261,11 +257,13 @@ class Test {
 
     // Create review object.
     Review review = new Review(
+        userMap: {'id' : 'kjWYqki1s1Y9HwXiDuFhD47vgoE2', 'name' : 'Michiel Proost', 'Rank' : RankType.head_chef.index},
         recipeID: '7jrZah08KuNUMz4ATAR4',
         rating: 1,
+        description: 'Loved the recipe, but the chef used a lot of ingredients.'
     );
 
-    await recipeService.updateRatings(review);
+    await reviewService.addReview(review);
 
   }
 

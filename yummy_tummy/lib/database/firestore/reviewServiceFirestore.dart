@@ -1,5 +1,6 @@
 import 'dart:collection';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:yummytummy/database/firestore/recipeServiceFirestore.dart';
 import 'package:yummytummy/database/interfaces/reviewService.dart';
 import 'package:yummytummy/model/review.dart';
 import 'package:yummytummy/model/user.dart';
@@ -9,11 +10,13 @@ import 'package:yummytummy/utils/consoleWriter.dart';
 class ReviewServiceFirestore implements ReviewService {
 
   final db;
+  final RecipeServiceFirestore recipeService;
   final ConsoleWriter consoleWriter;
 
   /// Constructor.
   ReviewServiceFirestore() :
         this.db = Firestore.instance,
+        this.recipeService = new RecipeServiceFirestore(),
         this.consoleWriter = new ConsoleWriter();
 
   /// Add a new review to the database. Returns the document ID.
@@ -26,6 +29,9 @@ class ReviewServiceFirestore implements ReviewService {
         .then((value) {
       return value.documentID;
     });
+
+    // Update ratings of reviewed recipe.
+    recipeService.updateRatings(review);
 
     consoleWriter.CreatedDocument(CollectionType.Review, documentID);
     return documentID;
