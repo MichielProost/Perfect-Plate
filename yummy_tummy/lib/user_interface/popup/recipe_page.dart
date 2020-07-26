@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
+import 'package:yummytummy/database/firestore/userServiceFirestore.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/user_interface/components/rating_row.dart';
 import 'package:yummytummy/user_interface/components/review_form.dart';
@@ -25,6 +26,7 @@ class RecipePage extends StatefulWidget {
 class _RecipePageState extends State<RecipePage> {
   
   //TODO properly implement favourite
+  final UserServiceFirestore userService = new UserServiceFirestore();
   final Recipe _recipe;
   bool _isFavorite = false;
   
@@ -326,7 +328,16 @@ class _RecipePageState extends State<RecipePage> {
               setState(() {
                 _isFavorite = !_isFavorite;
               });
-              //TODO add favourite/unfavourite logic
+              
+              // Modify app user.
+              if(_isFavorite){
+                Constants.appUser.favourites.add(_recipe.id);
+              } else {
+                Constants.appUser.favourites.remove(_recipe.id);
+              }
+              // Modify user document.
+              userService.modifyUser(Constants.appUser, Constants.appUser.id);
+
             }),
 
         // Provide space between icons
