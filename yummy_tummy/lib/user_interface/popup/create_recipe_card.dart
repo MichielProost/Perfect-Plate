@@ -72,6 +72,8 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
   @override
   Widget build(BuildContext context) {
 
+    print("Length: " + _steps.length.toString());
+
     if (scrollToTop)
       SchedulerBinding.instance.addPostFrameCallback((_){ _scrollToBottom(); });
 
@@ -117,12 +119,15 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                             padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5.0),
                             child: CustomTextField(
                               key: _titleKey,
+                              startValue: _title ?? "",
                               hint: this._title == null ? "Set the recipe's title here" : '[Title] ' + this._title,
                               maxLines: 1,
-                              callback: (content) {
+                              onChanged: (String text) {
+                                _title = text;
+                              },
+                              callback: (String content) {
                                 setState(() {
                                   _title = content;
-                                  print(content);
                                 });
                               },
                             ),
@@ -220,9 +225,13 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                             padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5.0),
                             child: CustomTextField(
                               key: _descriptionkey,
+                              startValue: _description ?? "",
                               hint: _description == null ? "Set the recipe's description here" : '[Description] ' + _description,
                               maxLines: 10,
-                              callback: (content) {
+                              onChanged: (String text) {
+                                _description = text;
+                              },
+                              callback: (String content) {
                                 setState(() {
                                   _description = content;
                                 });
@@ -537,6 +546,9 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                     padding: const EdgeInsets.all(8.0),
                     child: CustomTextField(
                       maxLines: 3,
+                      onChanged: (content) {
+                        _steps[index] = content;
+                      },
                       hint: _steps.length > index ? _steps[index] : "Add step info here",
                       key: stepKeys[index],
                     ),
