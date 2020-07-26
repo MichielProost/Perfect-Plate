@@ -5,14 +5,13 @@ import 'package:yummytummy/model/board/series/specific_series.dart';
 
 Map<String, Series> dataToSeriesMap(Map<String, dynamic> data){
 
-  print(data);
   Map<String, Series> seriesMap = new Map<String, Series>();
 
   if (data.containsKey('create_recipes')) {
     // Create new series.
     Series create_recipes = new CheckNumberOfOwnRecipes(
       [1, 3, 5],
-      [ new Medal(MedalType.bronze, "Create your first recipe"),
+      [ new Medal(MedalType.bronze, "Create 1 recipe"),
         new Medal(MedalType.silver, "Create 3 recipes"),
         new Medal(MedalType.gold, "Create 5 recipes")]
     );
@@ -23,7 +22,7 @@ Map<String, Series> dataToSeriesMap(Map<String, dynamic> data){
   if (data.containsKey('write_reviews')) {
     Series write_reviews = new CheckNumberOfOwnReviews(
         [1, 5, 15],
-        [ new Medal(MedalType.bronze, "Write your first review"),
+        [ new Medal(MedalType.bronze, "Write 1 review"),
           new Medal(MedalType.silver, "Write 5 reviews"),
           new Medal(MedalType.gold, "Write 15 reviews")]
     );
@@ -34,7 +33,7 @@ Map<String, Series> dataToSeriesMap(Map<String, dynamic> data){
   if (data.containsKey('receive_reviews')) {
     Series receive_reviews = new CheckNumberOfReceivedReviews(
         [1, 5, 15],
-        [ new Medal(MedalType.bronze, "Receive your first review"),
+        [ new Medal(MedalType.bronze, "Receive 1 review"),
           new Medal(MedalType.silver, "Receive 5 reviews"),
           new Medal(MedalType.gold, "Receive 15 reviews")]
     );
@@ -53,7 +52,7 @@ Map<String, Series> dataToSeriesMap(Map<String, dynamic> data){
   if (data.containsKey('add_favourite')) {
     Series login = new CheckNumberOfFavourites(
         [3],
-        [ new Medal(MedalType.silver, "Add 3 recipes to your favourites list") ]
+        [ new Medal(MedalType.silver, "Favourite 3 recipes") ]
     );
     login.setCurrentScore(data['add_favourite']);
     seriesMap['add_favourite'] = login;
@@ -61,7 +60,7 @@ Map<String, Series> dataToSeriesMap(Map<String, dynamic> data){
 
   if (data.containsKey('share')) {
     Series share = new CheckShareSeries(
-        [ new Medal(MedalType.gold, "Share a recipe with friends or family") ]
+        [ new Medal(MedalType.gold, "Share a recipe") ]
     );
     share.setCurrentScore(data['share']);
     seriesMap['share'] = share;
