@@ -5,6 +5,7 @@ import 'package:yummytummy/database/buffer/User_content_buffer.dart';
 import 'package:yummytummy/model/board/medal_board.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/review.dart';
+import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/user_interface/components/buttons/google_signin_button_wrapper.dart';
 import 'package:yummytummy/user_interface/components/medal_widget.dart';
 import 'package:yummytummy/user_interface/components/recipe_card.dart';
@@ -118,6 +119,27 @@ class _Screen extends State<ProfileScreen> {
               fontSize: 25.0,
             ),
           ),
+
+          /// User rank display
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10.0),
+            child: Text(
+              Constants.appUser.rank.getString(),
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 15.0,
+              ),
+            ),
+          ),
+
+          if (Constants.appUser.hasNextRank())
+            Padding(
+              padding: const EdgeInsets.symmetric( horizontal: 120.0),
+              child: LinearProgressIndicator(
+                backgroundColor: Constants.bg_gray,
+                value: 0.25,  //TODO get percentage to get to next rank
+              ),
+            ),
 
           /// Seperator line
           Padding(
@@ -252,23 +274,23 @@ class _Screen extends State<ProfileScreen> {
       body: Theme(
         data: Constants.themeData,
         child: 
-        ! Constants.appUser.isLoggedIn() ?  
-        Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              "Please log in to see your profile page.",
-              textAlign: TextAlign.center,
-              style: Constants.emptyScreenStyle,
-            ),
-            Center(child: GoogleSigninButtonWrapper(
-              onPressed: () {
-                setState(() {});
-              },
-            )),
-          ],
-        ) :
+        // ! Constants.appUser.isLoggedIn() ?  
+        // Column(
+        //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        //   crossAxisAlignment: CrossAxisAlignment.center,
+        //   children: <Widget>[
+        //     Text(
+        //       "Please log in to see your profile page.",
+        //       textAlign: TextAlign.center,
+        //       style: Constants.emptyScreenStyle,
+        //     ),
+        //     Center(child: GoogleSigninButtonWrapper(
+        //       onPressed: () {
+        //         setState(() {});
+        //       },
+        //     )),
+        //   ],
+        // ) :
         CustomScrollView(
           slivers: <Widget>[
 
@@ -301,7 +323,10 @@ class _Screen extends State<ProfileScreen> {
                     return Container();
 
                   if (snapshot.data == null)
-                    return WaitingIndicator();
+                    return Padding(
+                      padding: const EdgeInsets.only( top: 20.0 ),
+                      child: WaitingIndicator(),
+                    );
                   else if (snapshot.data.length != 0)
                     return ListView.builder(
                       shrinkWrap: true,

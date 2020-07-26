@@ -113,6 +113,12 @@ class User{
     return type.getRank(type.index + 1);
   }
 
+  /// Check if this user has the possibility of gaining another rank
+  bool hasNextRank()
+  {
+    return rank.index < RankType.values.length-1;
+  }
+
   /// Upgrade user to the next rank.
   void upgradeRank(){
     this.rank = getNextRank(this.rank);
