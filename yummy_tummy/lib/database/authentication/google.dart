@@ -48,8 +48,7 @@ class GoogleAuthHandler{
         favourites: [],
         image: '',
         board: new MedalBoard(
-            seriesMap: dataToSeriesMap(getDefaultDataMap()),
-            medalMap: dataToMedalMap(getDefaultDataMap()))
+            seriesMap: dataToSeriesMap(getDefaultDataMap()))
       );
       userData = user.toMap();
       // Create new user document.

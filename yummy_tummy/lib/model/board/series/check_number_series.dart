@@ -126,3 +126,37 @@ class CheckNumberOfReceivedReviews extends CheckNumberSeries {
   }
 
 }
+
+/// Checks the number of recipes in the user's favourite list.
+class CheckNumberOfFavourites extends CheckNumberSeries {
+
+  int amountOfFavourites = 0;
+
+  /// Constructor.
+  CheckNumberOfFavourites(List<int> goals, List<Medal> medals)
+      : super(goals, medals);
+
+  void checkCurrentMedalAchieved(List<dynamic> objects) {
+    // The input is a list of the user's favourite recipes.
+    List<String> favourites = objects;
+    this.amountOfFavourites = favourites.length;
+    // If the amount of recipes is larger than the current goal...
+    if (favourites.length >= this.goals[super.getMedalsAchieved()]){
+      super.isAchieved();
+    }
+  }
+
+  double getProgress(){
+    int medalsAchieved = super.getMedalsAchieved();
+    int previousGoal = 0;
+    if (medalsAchieved > 0 ){
+      previousGoal = this.goals[medalsAchieved - 1];
+    }
+    int goal = this.goals[medalsAchieved];
+    if(medalsAchieved == super.getMedalAmount()){
+      return 1.0;
+    }
+    return
+      (this.amountOfFavourites - previousGoal) / (goal - previousGoal);
+  }
+}

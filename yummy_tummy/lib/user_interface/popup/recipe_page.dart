@@ -308,6 +308,11 @@ class _RecipePageState extends State<RecipePage> {
           onPressed: () {
             // TODO implement actual share logic
             //Share.share( _recipe.getId() );
+            // Update medal.
+            if ( !Constants.appUser.board.seriesMap['share'].isFinished() ){
+              Constants.appUser.board.seriesMap['share']
+                  .checkCurrentMedalAchieved([]);
+            }
           },
         ),
 

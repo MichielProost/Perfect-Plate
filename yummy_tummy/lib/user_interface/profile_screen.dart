@@ -187,12 +187,26 @@ class _Screen extends State<ProfileScreen> {
       _pageWidgetMap[ _activePage ] = List<Widget>();
       
       // Update medals
-      Constants.appUser.board.seriesMap['create_recipes']
-          .checkCurrentMedalAchieved(await _contentBuffer.getUserRecipes(Constants.appUser));
-      Constants.appUser.board.seriesMap['write_reviews']
-          .checkCurrentMedalAchieved(await _contentBuffer.getUserReviews(Constants.appUser));
-      Constants.appUser.board.seriesMap['receive_reviews']
-          .checkCurrentMedalAchieved(await _contentBuffer.getUserRecipes(Constants.appUser));
+      if ( !Constants.appUser.board.seriesMap['create_recipes'].isFinished() ){
+        Constants.appUser.board.seriesMap['create_recipes']
+            .checkCurrentMedalAchieved(await _contentBuffer.getUserRecipes(Constants.appUser));
+      }
+      if ( !Constants.appUser.board.seriesMap['write_reviews'].isFinished() ){
+        Constants.appUser.board.seriesMap['write_reviews']
+            .checkCurrentMedalAchieved(await _contentBuffer.getUserReviews(Constants.appUser));
+      }
+      if ( !Constants.appUser.board.seriesMap['receive_reviews'].isFinished() ){
+        Constants.appUser.board.seriesMap['receive_reviews']
+            .checkCurrentMedalAchieved(await _contentBuffer.getUserRecipes(Constants.appUser));
+      }
+      if ( !Constants.appUser.board.seriesMap['login'].isFinished() ){
+        Constants.appUser.board.seriesMap['login']
+            .checkCurrentMedalAchieved([]);
+      }
+      if ( !Constants.appUser.board.seriesMap['add_favourite'].isFinished() ){
+        Constants.appUser.board.seriesMap['add_favourite']
+            .checkCurrentMedalAchieved(Constants.appUser.favourites);
+      }
 
       // Get all medals and convert them to MedalWidgets
       MedalBoard board = Constants.appUser.board;

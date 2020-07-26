@@ -54,7 +54,7 @@ abstract class Series {
   /// Sets the series current score based on the amount of medals achieved.
   void setCurrentScore(int medalsAchieved){
     for( int i = 1; i <= medalsAchieved; i++){
-      this.currentScore += medals[i].score;
+      this.currentScore += medals[i-1].score;
     }
   }
 
@@ -66,7 +66,10 @@ abstract class Series {
 
   /// Get the amount of medals this series has received.
   int getMedalsAchieved(){
-    return this.getCurrentMedal().medalType.index;
+    int medalsAchieved =
+    this.getCurrentMedal() != null ?
+        medals.indexOf(this.getCurrentMedal()) : getMedalAmount();
+    return medalsAchieved;
   }
 
   /// Print summary of series to console.
@@ -74,6 +77,11 @@ abstract class Series {
     for (int i = 0; i < medals.length; i++){
       medals[i].printSummary();
     }
+  }
+
+  /// Returns true if all the medals in this series have been achieved.
+  bool isFinished(){
+    return getMedalsAchieved() == getMedalAmount();
   }
 
   /// Checks if the current medal has been achieved by the user.

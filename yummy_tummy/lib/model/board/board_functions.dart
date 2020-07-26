@@ -1,9 +1,11 @@
 import 'package:yummytummy/model/board/medal.dart';
 import 'package:yummytummy/model/board/series/check_number_series.dart';
 import 'package:yummytummy/model/board/series/series.dart';
+import 'package:yummytummy/model/board/series/specific_series.dart';
 
 Map<String, Series> dataToSeriesMap(Map<String, dynamic> data){
 
+  print(data);
   Map<String, Series> seriesMap = new Map<String, Series>();
 
   if (data.containsKey('create_recipes')) {
@@ -40,33 +42,32 @@ Map<String, Series> dataToSeriesMap(Map<String, dynamic> data){
     seriesMap['receive_reviews'] = receive_reviews;
   }
 
+  if (data.containsKey('login')) {
+    Series login = new CheckLoginSeries(
+        [ new Medal(MedalType.bronze, "Log in") ]
+    );
+    login.setCurrentScore(data['login']);
+    seriesMap['login'] = login;
+  }
+
+  if (data.containsKey('add_favourite')) {
+    Series login = new CheckNumberOfFavourites(
+        [3],
+        [ new Medal(MedalType.silver, "Add 3 recipes to your favourites list") ]
+    );
+    login.setCurrentScore(data['add_favourite']);
+    seriesMap['add_favourite'] = login;
+  }
+
+  if (data.containsKey('share')) {
+    Series share = new CheckShareSeries(
+        [ new Medal(MedalType.gold, "Share a recipe with friends or family") ]
+    );
+    share.setCurrentScore(data['share']);
+    seriesMap['share'] = share;
+  }
+
   return seriesMap;
-
-}
-
-Map<String, Medal> dataToMedalMap(Map<String, dynamic> data){
-
-  Map<String, Medal> medalsMap = new Map<String, Medal>();
-  
-  if(data.containsKey('login')) {
-    Medal medal = new Medal(MedalType.bronze, "Log in");
-    medal.achieved = data['login'];
-    medalsMap['login'] = medal;
-  }
-
-  if(data.containsKey('add_favourite')) {
-    Medal medal = new Medal(MedalType.silver, "Add 3 recipes to your favourites list");
-    medal.achieved = data['add_favourite'];
-    medalsMap['add_favourite'] = medal;
-  }
-
-  if(data.containsKey('share')) {
-    Medal medal = new Medal(MedalType.gold, "Share a recipe with friends or family");
-    medal.achieved = data['share'];
-    medalsMap['share'] = medal;
-  }
-
-  return medalsMap;
 
 }
 
@@ -77,18 +78,13 @@ Map<String, dynamic> seriesToDataMap(Map<String, Series> seriesMap){
     'write_reviews' : seriesMap.containsKey('write_reviews') ?
         seriesMap['write_reviews'].getMedalsAchieved() : 0,
     'receive_reviews' : seriesMap.containsKey('receive_reviews') ?
-    seriesMap['receive_reviews'].getMedalsAchieved() : 0,
-  };
-}
-
-Map<String, dynamic> medalToDataMap(Map<String, Medal> medalMap){
-  return {
-    'login' : medalMap.containsKey('login') ?
-    medalMap['login'].achieved : false,
-    'add_favourite' : medalMap.containsKey('add_favourite') ?
-    medalMap['add_favourite'].achieved : false,
-    'share' : medalMap.containsKey('share') ?
-    medalMap['share'].achieved : false,
+        seriesMap['receive_reviews'].getMedalsAchieved() : 0,
+    'login' : seriesMap.containsKey('login') ?
+        seriesMap['login'].getMedalsAchieved() : 0,
+    'add_favourite' : seriesMap.containsKey('add_favourite') ?
+        seriesMap['add_favourite'].getMedalsAchieved() : 0,
+    'share' : seriesMap.containsKey('share') ?
+        seriesMap['share'].getMedalsAchieved() : 0,
   };
 }
 
@@ -98,9 +94,9 @@ Map<String, dynamic> getDefaultDataMap(){
   data['create_recipes'] = 0;
   data['write_reviews'] = 0;
   data['receive_reviews'] = 0;
-  data['login'] = false;
-  data['add_favourite'] = false;
-  data['share'] = false;
+  data['login'] = 0;
+  data['add_favourite'] = 0;
+  data['share'] = 0;
   return data;
 
 }
