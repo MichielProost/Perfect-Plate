@@ -64,7 +64,7 @@ class Recipe {
   int numberOfReviews;            // Number of reviews.
   // TODO watch out!! User is mutable, and can be edited from anywhere!
   final User user;                      // User object.
-  final Map<String, dynamic> userMap;   // Duplicate data. Information of user.
+  Map<String, dynamic> userMap;   // Duplicate data. Information of user.
 
   Recipe.editable(
     this.id,
@@ -123,8 +123,8 @@ class Recipe {
             new List<String>.from(data['stepDescriptions']) : [],
           stepImages: data.containsKey('stepImages') ?
             new List<String>.from(data['stepImages']) : [],
-          rating: data.containsKey('rating') ? data['rating'] : 0.0,
-          weightedRating : data.containsKey('weightedRating') ? data['weightedRating'] : 0.0,
+          rating: data.containsKey('rating') ? data['rating'].toDouble() : 0.0,
+          weightedRating : data.containsKey('weightedRating') ? data['weightedRating'].toDouble() : 0.0,
           duration: data.containsKey('duration') ? data['duration']: 0,
           image: data.containsKey('image') ? data['image'] : '',
           numberOfReviews: data.containsKey('numberOfReviews') ? data['numberOfReviews'] : 0,
