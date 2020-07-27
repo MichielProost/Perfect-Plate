@@ -137,7 +137,7 @@ class _Screen extends State<ProfileScreen> {
               padding: const EdgeInsets.symmetric( horizontal: 120.0),
               child: LinearProgressIndicator(
                 backgroundColor: Constants.bg_gray,
-                value: 0.25,  //TODO get percentage to get to next rank
+                value: Constants.appUser.score / Constants.appUser.rank.getNextRank().getRequiredScore(),
               ),
             ),
 

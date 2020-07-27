@@ -3,11 +3,20 @@ import 'package:yummytummy/model/board/medal_board.dart';
 import 'package:yummytummy/user_interface/constants.dart';
 import 'package:yummytummy/utils/stringFunctions.dart';
 
-const JUNIOR_LIM = 2000;
-const STATION_LIM = 4000;
-const SOUS_LIM = 6000;
-const HEAD_LIM = 8000;
-const EXECUTIVE_LIM = 10000;
+// const JUNIOR_LIM = 2000;
+// const STATION_LIM = 4000;
+// const SOUS_LIM = 6000;
+// const HEAD_LIM = 8000;
+// const EXECUTIVE_LIM = 10000;
+
+const Map<RankType, int> rankupMap = {
+  RankType.dishwasher: 0,
+  RankType.junior_chef: 2000,
+  RankType.station_chef: 4000,
+  RankType.sous_chef: 6000,
+  RankType.head_chef: 8000,
+  RankType.executive_chef: 10000,
+};
 
 // The Recipe and Review Class contain a UserMap.
 // This map contains the most important information of the user.
@@ -34,6 +43,20 @@ extension Rank on RankType {
   RankType getRank(int index)
   {
     return index < RankType.values.length ? RankType.values[index] : RankType.values[ RankType.values.length-1 ];
+  }
+
+  /// Get the next rank in line
+  /// Will be null if there is no next rank available
+  RankType getNextRank()
+  {
+    return RankType.values.length-1 > this.index ? RankType.values[ this.index + 1 ] : null;
+  }
+
+  /// Get the required score to achieve this rank
+  /// Will be 0 if the rank doesn't have a mapped score
+  int getRequiredScore()
+  {
+    return rankupMap.containsKey( this ) ? rankupMap[ this ] : 0;
   }
 
   // Get a user-ready String of the rank name
@@ -137,28 +160,7 @@ class User{
 
   /// Get the medal's score based on its type.
   int getRankLimit(RankType type) {
-
-    switch (type) {
-      case RankType.junior_chef:
-        return JUNIOR_LIM;
-        break;
-      case RankType.station_chef:
-        return STATION_LIM;
-        break;
-      case RankType.sous_chef:
-        return SOUS_LIM;
-        break;
-      case RankType.head_chef:
-        return HEAD_LIM;
-        break;
-      case RankType.executive_chef:
-        return EXECUTIVE_LIM;
-        break;
-      case RankType.dishwasher:
-        return 0;
-        break;
-    }
-
+    return type.getRequiredScore();
   }
 
   /// Print summary of user to console.
