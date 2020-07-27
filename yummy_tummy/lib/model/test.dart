@@ -46,7 +46,7 @@ class Test {
     //testModifyRecipe();
     //testSearchRecipes();
     //testGoogle();
-    testUpdateRatings();
+    //testUpdateRatings();
     //testUploadPicture();
     //testScoreListener();
 
