@@ -39,10 +39,10 @@ class CheckNumberOfOwnRecipes extends CheckNumberSeries {
     if (medalsAchieved > 0 ){
       previousGoal = this.goals[medalsAchieved - 1];
     }
-    int goal = this.goals[medalsAchieved];
     if(medalsAchieved == super.getMedalAmount()){
       return 1.0;
     }
+    int goal = this.goals[medalsAchieved];
     return
       (this.amountOfOwnRecipes - previousGoal) / (goal - previousGoal);
   }
@@ -74,10 +74,10 @@ class CheckNumberOfOwnReviews extends CheckNumberSeries {
     if (medalsAchieved > 0 ){
       previousGoal = this.goals[medalsAchieved - 1];
     }
-    int goal = this.goals[medalsAchieved];
     if(medalsAchieved == super.getMedalAmount()){
       return 1.0;
     }
+    int goal = this.goals[medalsAchieved];
     return
       (this.amountOfOwnReviews - previousGoal) / (goal - previousGoal);
   }
@@ -117,10 +117,10 @@ class CheckNumberOfReceivedReviews extends CheckNumberSeries {
     if (medalsAchieved > 0 ){
       previousGoal = this.goals[medalsAchieved - 1];
     }
-    int goal = this.goals[medalsAchieved];
     if(medalsAchieved == super.getMedalAmount()){
       return 1.0;
     }
+    int goal = this.goals[medalsAchieved];
     return
       (this.amountOfReceivedReviews - previousGoal) / (goal - previousGoal);
   }
@@ -152,10 +152,10 @@ class CheckNumberOfFavourites extends CheckNumberSeries {
     if (medalsAchieved > 0 ){
       previousGoal = this.goals[medalsAchieved - 1];
     }
-    int goal = this.goals[medalsAchieved];
     if(medalsAchieved == super.getMedalAmount()){
       return 1.0;
     }
+    int goal = this.goals[medalsAchieved];
     return
       (this.amountOfFavourites - previousGoal) / (goal - previousGoal);
   }
