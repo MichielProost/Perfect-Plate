@@ -52,7 +52,7 @@ class FeedScreen extends StatelessWidget {
                       ),
 
                     for (Recipe recipe in snapshot.data.recipes) 
-                      RecipeCard(recipe, showBookmark: false),
+                      RecipeCard(recipe, showBookmark: false, showNumReviews: true,),
 
                     SizedBox(
                       height: 30.0,
