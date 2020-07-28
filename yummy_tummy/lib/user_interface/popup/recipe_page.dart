@@ -26,10 +26,12 @@ class _RecipePageState extends State<RecipePage> {
   //TODO properly implement favourite
   final UserServiceFirestore userService = new UserServiceFirestore();
   final Recipe _recipe;
-  bool _isFavorite = false;
+  bool _isFavorite;
   
 
-  _RecipePageState(this._recipe);
+  _RecipePageState(this._recipe) {
+    _isFavorite = Constants.appUser.favourites.contains( _recipe.id );
+  }
 
 
   @override
@@ -299,22 +301,23 @@ class _RecipePageState extends State<RecipePage> {
         //   },
         // ),
 
+        // TODO implement sharing
         // Share button
-        IconButton(
-          icon: Icon(
-            Icons.share,
-            size: 35.0,
-          ),
-          onPressed: () {
-            // TODO implement actual share logic
-            //Share.share( _recipe.getId() );
-            // Update medal.
-            if ( !Constants.appUser.board.seriesMap['share'].isFinished() ){
-              Constants.appUser.board.seriesMap['share']
-                  .checkCurrentMedalAchieved([]);
-            }
-          },
-        ),
+        // IconButton(
+        //   icon: Icon(
+        //     Icons.share,
+        //     size: 35.0,
+        //   ),
+        //   onPressed: () {
+        //     // TODO implement actual share logic
+        //     //Share.share( _recipe.getId() );
+        //     // Update medal.
+        //     if ( !Constants.appUser.board.seriesMap['share'].isFinished() ){
+        //       Constants.appUser.board.seriesMap['share']
+        //           .checkCurrentMedalAchieved([]);
+        //     }
+        //   },
+        // ),
 
         // Bookmark button
         IconButton(

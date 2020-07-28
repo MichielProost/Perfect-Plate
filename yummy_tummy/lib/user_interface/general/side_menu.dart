@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:yummytummy/user_interface/components/buttons/google_signin_button_wrapper.dart';
 import 'package:yummytummy/user_interface/constants.dart';
+import 'package:yummytummy/user_interface/popup/rank_information.dart';
 import 'package:yummytummy/user_interface/popup/search_by_user.dart';
 
 class SideMenu extends StatefulWidget{
@@ -62,22 +63,8 @@ class _Menu extends State<SideMenu> {
               
 
               // Clickable elements
-              ListTile(
-                title: Text(
-                  "Look up recipes by author",
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
-                leading: Icon(
-                  Icons.search,
-                  color: Colors.white,
-                ),
-                onTap: () {
-                  Navigator.pop(context);
-                  showDialog(context: context, child: SearchByName());
-                },
-              ),
+              _SideListItem("Look up recipes by author", Icons.search, SearchByName()),
+              _SideListItem("Rank information", Icons.info, RankInformation()),
 
               // Maximise space and logout button for logged in users
               Spacer(),
@@ -96,4 +83,34 @@ class _Menu extends State<SideMenu> {
       ),
     );
   }
+}
+
+class _SideListItem extends StatelessWidget {
+  
+  final String text;
+  final IconData icon;
+  final Widget popupAction;
+
+  _SideListItem(this.text, this.icon, this.popupAction);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(
+        text,
+        style: TextStyle(
+          color: Colors.white,
+        ),
+      ),
+      leading: Icon(
+        icon,
+        color: Colors.white,
+      ),
+      onTap: () {
+        Navigator.pop(context);
+        showDialog(context: context, child: popupAction);
+      },
+    );
+  }
+
 }
