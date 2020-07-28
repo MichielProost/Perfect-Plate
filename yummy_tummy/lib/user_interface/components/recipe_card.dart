@@ -69,9 +69,9 @@ class _RecipeCardState extends State<RecipeCard> {
 
                           // Modify app user.
                           if(_isBookMarked){
-                            Constants.appUser.favourites.add(_recipe.id);
-                          } else {
                             Constants.appUser.favourites.remove(_recipe.id);
+                          } else {
+                            Constants.appUser.favourites.add(_recipe.id);
                           }
 
                           // Modify user document.
