@@ -22,7 +22,6 @@ class MedalWidget extends StatelessWidget {
     type        = series.getEarnedMedal() != null ? series.getEarnedMedal().medalType : MedalType.bronze,
     isAchieved  = series.getEarnedMedal() != null,
     hasNext     = series.getMedalsAchieved() != series.getMedalAmount(),
-    // TODO replace score by actual progress
     progress    = series.getProgress();
 
   Color getMedalColor()
@@ -56,7 +55,7 @@ class MedalWidget extends StatelessWidget {
           Text(
             title,
             style: TextStyle(
-              fontSize: 20.0,
+              fontSize: 17.0,
               fontWeight: FontWeight.bold,
             ),
           ),
