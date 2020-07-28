@@ -16,70 +16,82 @@ class _Menu extends State<SideMenu> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: SafeArea(
-        child: Column(
-          children: <Widget>[
-            
-            Center(
-              child: Column(
-                children: <Widget>[
-                  Image.asset( 
-                    "images/icon.png" ,
-                    height: 75.0,
-                  ),
-                  Text(
-                    "Yummy Tummy",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20.0
+      child: Container(
+        color: Constants.main,
+        child: SafeArea(
+          child: Column(
+            children: <Widget>[
+              
+              Center(
+                child: Column(
+                  children: <Widget>[
+                    Image.asset( 
+                      "images/icon.png" ,
+                      height: 75.0,
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
-                    child: Container(
-                      height: 2.0,
-                      color: Constants.bg_gray,
+                    Text(
+                      "Yummy Tummy",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20.0
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-
-            // Log in button for logged out users
-            if (!Constants.appUser.isLoggedIn())
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: GoogleSigninButtonWrapper(
-                  onPressed: () {
-                    setState(() {});
-                  },
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
+                      child: Container(
+                        height: 1.0,
+                        color: Constants.bg_gray,
+                      ),
+                    ),
+                  ],
                 ),
               ),
 
-            
-
-            // Add
-            ListTile(
-              title: Text("Look up recipes by author"),
-              leading: Icon(Icons.search),
-              onTap: () {
-                Navigator.pop(context);
-                showDialog(context: context, child: SearchByName());
-              },
-            ),
-
-            // Maximise space and logout button for logged in users
-            Spacer(),
-            if ( Constants.appUser.isLoggedIn())
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: GoogleSigninButtonWrapper(
-                  onPressed: () {
-                    setState(() {});
-                  },
+              // Log in button for logged out users
+              if (!Constants.appUser.isLoggedIn())
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: GoogleSigninButtonWrapper(
+                    onPressed: () {
+                      setState(() {});
+                    },
+                  ),
                 ),
+
+              
+
+              // Clickable elements
+              ListTile(
+                title: Text(
+                  "Look up recipes by author",
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+                leading: Icon(
+                  Icons.search,
+                  color: Colors.white,
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                  showDialog(context: context, child: SearchByName());
+                },
               ),
-          ],
+
+              // Maximise space and logout button for logged in users
+              Spacer(),
+              if ( Constants.appUser.isLoggedIn())
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: GoogleSigninButtonWrapper(
+                    onPressed: () {
+                      setState(() {});
+                    },
+                  ),
+                ),
+            ],
+          ),
         ),
       ),
     );
