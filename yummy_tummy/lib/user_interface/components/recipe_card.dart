@@ -45,6 +45,13 @@ class _RecipeCardState extends State<RecipeCard> {
         onTap: () => showDialog(context: context, child: RecipePage(_recipe)),
         child: Card(
           color: Constants.gray,
+          shape: _recipe.userMap.containsKey('id') && _recipe.userMap['id'] == Constants.magnetarID
+          ? new RoundedRectangleBorder(
+              side: new BorderSide(color: Constants.main, width: 2.0),
+              borderRadius: BorderRadius.circular(8.0))
+          : new RoundedRectangleBorder(
+              side: new BorderSide(color: Colors.white, width: 2.0),
+              borderRadius: BorderRadius.circular(8.0)),
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(

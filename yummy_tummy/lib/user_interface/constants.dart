@@ -4,7 +4,9 @@ import 'package:yummytummy/model/app_user.dart';
 
 class Constants {
 
-  static AppUser appUser = AppUser.offline(); 
+  static AppUser appUser = AppUser.offline();
+  
+  static final String magnetarID = 'sHwl9iXDmFYItA6swCpK';
 
   static final Color main = Color(0xFFFF0000);
   static final Color accent = Color(0xFFFBC02D);
