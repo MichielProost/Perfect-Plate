@@ -63,11 +63,11 @@ class StorageHandler{
     String bannerURL = await uploadFile(images[0], path);
 
     for (int i=1; i<images.length; i++){
-
-      path = createImagePath(ImageType.recipe_step, recipeID, i);
-      String downloadURL = await uploadFile(images[i], path);
-      locations.add(downloadURL);
-
+      if (images[i] != null ){
+        path = createImagePath(ImageType.recipe_step, recipeID, i);
+        String downloadURL = await uploadFile(images[i], path);
+        locations.add(downloadURL);
+      }
     }
 
     Recipe recipe = await recipeService.getRecipeFromID(recipeID);
