@@ -465,11 +465,17 @@ class _RecipePageState extends State<RecipePage> {
         ),
         initiallyExpanded: true,
         children: <Widget>[
-          Text(
-            _recipe.stepDescriptions[index],
-            textAlign: TextAlign.justify,
-            style: TextStyle(
-              color: Colors.black,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                _recipe.stepDescriptions[index],
+                textAlign: TextAlign.justify,
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+              ),
             ),
           ),
           SizedBox(
