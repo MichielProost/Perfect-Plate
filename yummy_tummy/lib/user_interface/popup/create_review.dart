@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:yummytummy/database/dummy/dummydatabase.dart';
+import 'package:yummytummy/database/firestore/reviewServiceFirestore.dart';
 import 'package:yummytummy/database/interfaces/reviewService.dart';
 import 'package:yummytummy/model/review.dart';
 import 'package:yummytummy/user_interface/components/selectable_stars.dart';
-import 'package:yummytummy/user_interface/popup/snackbar_util.dart';
-
 import '../constants.dart';
 
 class CreateReviewScreen extends StatefulWidget {
   
   final String _recipeID;
   final int startingStars;
-  final ReviewService _reviewService = DummyDatabase();
+  final ReviewService _reviewService = ReviewServiceFirestore();
 
   CreateReviewScreen(this._recipeID, {this.startingStars: 0});
 

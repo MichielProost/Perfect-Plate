@@ -36,7 +36,6 @@ class _Card extends State<ReviewCard> {
                       widget._review.rating.toDouble(),
                       size: 22.0,
                     ),
-                    // TODO replace by actual user info
                     Text(
                       widget._review.user.rank.getString(),
                     ), 

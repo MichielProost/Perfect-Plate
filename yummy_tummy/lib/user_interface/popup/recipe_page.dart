@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:share/share.dart';
 import 'package:yummytummy/database/firestore/userServiceFirestore.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/user_interface/components/rating_row.dart';
-import 'package:yummytummy/user_interface/components/review_form.dart';
 import 'package:yummytummy/user_interface/components/selectable_stars.dart';
 import 'package:yummytummy/user_interface/general/icon_builder.dart';
 import 'package:yummytummy/user_interface/popup/create_review.dart';

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:yummytummy/database/firestore/userServiceFirestore.dart';
+import 'package:yummytummy/database/interfaces/userService.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/user_interface/popup/recipe_page.dart';
@@ -27,12 +29,13 @@ class _RecipeCardState extends State<RecipeCard> {
   
   final Recipe _recipe;
   final bool _showBookmark;
-  // TODO Get whether or not this recipe is bookmarked
   bool _isBookMarked = true;
 
   /// Create a recipe Card that contains all info of the provided recipe
   /// Showbookmark will decide whether or not to display the bookmark icon
-  _RecipeCardState(this._recipe, {bool showBookmark: false}): _showBookmark = showBookmark;
+  _RecipeCardState(this._recipe, {bool showBookmark: false}): _showBookmark = showBookmark {
+    _isBookMarked = Constants.appUser.favourites.contains( _recipe.id );
+  }
   
   @override
   Widget build(BuildContext context) {
@@ -61,6 +64,19 @@ class _RecipeCardState extends State<RecipeCard> {
                     if (_showBookmark)
                       InkWell(
                         onTap: () {
+
+                          UserService database = UserServiceFirestore();
+
+                          // Modify app user.
+                          if(_isBookMarked){
+                            Constants.appUser.favourites.add(_recipe.id);
+                          } else {
+                            Constants.appUser.favourites.remove(_recipe.id);
+                          }
+
+                          // Modify user document.
+                          database.modifyUser(Constants.appUser, Constants.appUser.id);
+
                           setState(() {
                             _isBookMarked = !_isBookMarked;
                           });
