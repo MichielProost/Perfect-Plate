@@ -72,7 +72,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                       ),
 
                     for (Recipe recipe in snapshot.data) 
-                      RecipeCard(recipe, showBookmark: true),
+                      RecipeCard(recipe, showBookmark: true, showNumReviews: true,),
 
                     SizedBox(
                       height: 30.0,
