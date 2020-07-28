@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:yummytummy/model/board/medal.dart';
 import 'package:yummytummy/model/board/series/series.dart';
+import 'package:yummytummy/user_interface/constants.dart';
 
 class MedalWidget extends StatelessWidget {
   
@@ -13,18 +14,16 @@ class MedalWidget extends StatelessWidget {
   
   // Next display
   final bool hasNext;
-  final int current;
-  final int goal;
+  final double progress;
   
-  MedalWidget(this.title, this.type, this.isAchieved, this.hasNext, this.current, this.goal);
+  MedalWidget(this.title, this.type, this.isAchieved, this.hasNext, this.progress);
   MedalWidget.series(Series series, String seriesTitle) : 
     title       = series.getEarnedMedal() != null ? series.getEarnedMedal().title : seriesTitle,
     type        = series.getEarnedMedal() != null ? series.getEarnedMedal().medalType : MedalType.bronze,
     isAchieved  = series.getEarnedMedal() != null,
     hasNext     = series.getMedalsAchieved() != series.getMedalAmount(),
     // TODO replace score by actual progress
-    current     = series.currentScore,
-    goal        = series.getCurrentMedal() != null ? series.getCurrentMedal().score : 0;
+    progress    = series.getProgress();
 
   Color getMedalColor()
   {
@@ -72,9 +71,13 @@ class MedalWidget extends StatelessWidget {
           // Show progress to next
           // hasNext ?
           if (hasNext)
-            Text(
-              'Next at: $current/$goal'
-            ) 
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 40.0),
+              child: LinearProgressIndicator(
+                backgroundColor: Constants.bg_gray,
+                value: progress,
+              ),
+            ),
             // :
             // Text(''),
         ],
