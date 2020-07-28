@@ -42,6 +42,8 @@ extension Rank on RankType {
   /// An index that is too high will simply result in the highest rank.
   RankType getRank(int index)
   {
+    if (index == null)
+      return RankType.values[0];
     return index < RankType.values.length ? RankType.values[index] : RankType.values[ RankType.values.length-1 ];
   }
 

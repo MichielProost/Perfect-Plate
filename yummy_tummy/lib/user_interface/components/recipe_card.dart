@@ -34,7 +34,6 @@ class _RecipeCardState extends State<RecipeCard> {
   /// Showbookmark will decide whether or not to display the bookmark icon
   _RecipeCardState(this._recipe, {bool showBookmark: false}): _showBookmark = showBookmark;
   
-  // TODO add dish type perhaps?
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -60,21 +59,21 @@ class _RecipeCardState extends State<RecipeCard> {
                       ),
                     ),
                     if (_showBookmark)
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          _isBookMarked = !_isBookMarked;
-                        });
-                        // TODO implement language system
-                        String text = _isBookMarked ? "This recipe will not be deleted" : "This recipe will be deleted soon. Press the save button again to undo this action.";
-                        Scaffold.of(context).removeCurrentSnackBar();
-                        Scaffold.of(context).showSnackBar(SnackBarUtil.createTextSnackBar(text));
-                      },
-                      child: Icon(
-                        _isBookMarked ? Icons.bookmark : Icons.bookmark_border,
-                        size: 40.0,
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            _isBookMarked = !_isBookMarked;
+                          });
+                          // TODO implement language system
+                          String text = _isBookMarked ? 'This recipe will not be deleted' : 'This recipe will be deleted soon. Press the save button again to undo this action.';
+                          Scaffold.of(context).removeCurrentSnackBar();
+                          Scaffold.of(context).showSnackBar(SnackBarUtil.createTextSnackBar(text));
+                        },
+                        child: Icon(
+                          _isBookMarked ? Icons.bookmark : Icons.bookmark_border,
+                          size: 40.0,
+                        ),
                       ),
-                    ),
                   ],
                 ),
                 SizedBox(
@@ -86,7 +85,7 @@ class _RecipeCardState extends State<RecipeCard> {
                     widget._showNumReviews ?
                       RatingRow(_recipe.rating, _recipe.numberOfReviews) :
                       RatingRow(_recipe.rating),
-                    Text( RankType.values[_recipe.userMap['Rank']].getString() ),
+                    Text( RankType.dishwasher.getRank( _recipe.userMap['rank'] ).getString() ),
                     Text( _recipe.userMap['name'] ),
                   ],
                 ),

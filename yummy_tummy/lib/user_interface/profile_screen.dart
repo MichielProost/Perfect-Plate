@@ -339,7 +339,9 @@ class _Screen extends State<ProfileScreen> {
                   else
                     return Center(
                       child: Text(
-                        "You haven't published " + _activePage.getString().toLowerCase() + " yet!",
+                        _activePage != UserPage.medals ? 
+                        "You haven't published " + _activePage.getString().toLowerCase() + " yet!" : 
+                        "Your medals are being loaded...",
                         style: TextStyle(
                           fontSize: 18.0,
                           fontWeight: FontWeight.bold,
