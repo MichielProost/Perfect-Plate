@@ -1,6 +1,7 @@
 /// Functions as a template for new screens. Should not actually be used
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:yummytummy/database/dummy/dummydatabase.dart';
 import 'package:yummytummy/database/firestore/recipeServiceFirestore.dart';
 import 'package:yummytummy/database/interfaces/recipeService.dart';
@@ -28,6 +29,8 @@ class _FeedScreenState extends State<FeedScreen> {
   ScrollController controller;
   RecipeQuery query = RecipeQuery();
 
+  int lastTimeLoaded = DateTime.now().millisecondsSinceEpoch;
+
   void fetchNextRecipes() async
   {
     query = await _recipeService.searchRecipes(query, SortField.weightedRating, DietField.any, RecipeType.any, List<String>());
@@ -53,11 +56,23 @@ class _FeedScreenState extends State<FeedScreen> {
   {
     // If end nearly reached
     double position = controller.position.extentAfter;
-    if (position==0)
+    double currentPos = controller.position.extentBefore;
+    if (position < 500)
     {
-      print('Reaching end!');
-      query = await _recipeService.searchRecipes(query, SortField.weightedRating, DietField.any, RecipeType.any, List<String>());
-      setState(() {});
+      // Check load cooldown
+      int now = DateTime.now().millisecondsSinceEpoch;
+      if (now - lastTimeLoaded < 500)
+        return;
+      
+      lastTimeLoaded = now;
+
+      // Update query
+      if (query.hasMore)
+      {
+        query = await _recipeService.searchRecipes(query, SortField.weightedRating, DietField.any, RecipeType.any, List<String>());
+        controller = new ScrollController( initialScrollOffset: currentPos )..addListener( _scrollListener );
+        setState(() {});
+      }
     }
   }
 
@@ -67,7 +82,6 @@ class _FeedScreenState extends State<FeedScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Constants.background,
       body: FutureBuilder<RecipeQuery> (
