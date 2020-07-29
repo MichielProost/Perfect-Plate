@@ -22,16 +22,37 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreen extends State<SearchScreen> {
   
+  // Database util
   RecipeService _recipeService = RecipeServiceFirestore();
+  RecipeQuery info = new RecipeQuery();
 
-  // TODO grab preferences for diet from the user
-  DietField _dietField = DietField.any;
-  RecipeType _recipeType = RecipeType.mains;
+  ScrollController _scrollController;
+
+
+  // User set parameters
+  DietField _dietField = Constants.appUser.dietFieldPreference;
+  RecipeType _recipeType = Constants.appUser.recipeTypePreference;
   SortField _sortField = SortField.weightedRating;
   final List<String> _ingredients = List<String>();
   
+  // State information
   bool _hasSearched = false;
+  int lastTimeLoaded = DateTime.now().millisecondsSinceEpoch;
   List<Recipe> _foundRecipes = List<Recipe>();
+
+  @override
+  void initState()
+  {
+    super.initState();
+    _scrollController = new ScrollController()..addListener( _scrollHandler );
+  }
+
+  @override
+  void dispose()
+  {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   Widget buildIngredientDisplay(int index)
   {
@@ -250,6 +271,7 @@ class _SearchScreen extends State<SearchScreen> {
           Expanded(
             child: ListView(
               shrinkWrap: true,
+              controller: _scrollController,
               children: buildSearchResult(),
             ),
           ),
@@ -315,7 +337,7 @@ class _SearchScreen extends State<SearchScreen> {
   }
 
   void handleSearch() async {
-    RecipeQuery info = new RecipeQuery();
+    info = new RecipeQuery();
     RecipeQuery result = await _recipeService.searchRecipes(info, _sortField, _dietField, _recipeType, _ingredients);
     setState(() {
       _hasSearched = true;
@@ -323,5 +345,35 @@ class _SearchScreen extends State<SearchScreen> {
       //_foundRecipes = List<Recipe>();
       _expansionTile.currentState.closeExpansion();
     });
+  }
+
+  void _scrollHandler() async
+  {
+    // If end nearly reached
+    double position = _scrollController.position.extentAfter;
+    double currentPos = _scrollController.position.extentBefore;
+    if (position < 500)
+    {
+      // Check load cooldown
+      int now = DateTime.now().millisecondsSinceEpoch;
+      if (now - lastTimeLoaded < 500)
+        return;
+      
+      lastTimeLoaded = now;
+
+      // Update query
+      if (info.hasMore)
+      {
+        info = await _recipeService.searchRecipes(info, SortField.weightedRating, DietField.any, RecipeType.any, List<String>());
+        _scrollController = new ScrollController( initialScrollOffset: currentPos )..addListener( _scrollHandler );
+        setState(() {
+          _foundRecipes = info.recipes;
+          if (_foundRecipes.length > 0)
+          {
+            _hasSearched = true;
+          }
+        });
+      }
+    }
   }
 }
