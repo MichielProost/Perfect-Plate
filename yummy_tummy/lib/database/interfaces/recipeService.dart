@@ -38,10 +38,6 @@ abstract class RecipeService {
   /// SortField: Sort the acquired recipes.
   Future<RecipeQuery> searchRecipes(RecipeQuery info, SortField sortField, DietField dietField, RecipeType typeField, List<String> ingredients);
 
-  /// TEMPORARY: UI will use this method instead.
-  /// Replace by searchRecipes when implementation is done.
-  Future<List<Recipe>> searchRecipesUI(RecipeQuery info, SortField sortField);
-
   /// Update average and weighted rating in recipe document.
   Future<void> updateRatings(Review review);
 }

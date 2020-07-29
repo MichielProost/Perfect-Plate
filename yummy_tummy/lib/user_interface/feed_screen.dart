@@ -13,20 +13,65 @@ import 'package:yummytummy/user_interface/popup/snackbar_util.dart';
 import 'components/recipe_card.dart';
 import 'constants.dart';
 
-class FeedScreen extends StatelessWidget {
+class FeedScreen extends StatefulWidget {
+  
+  @override
+  State<StatefulWidget> createState() {
+    return _FeedScreenState();
+  }
+
+}
+
+class _FeedScreenState extends State<FeedScreen> {
 
   final RecipeService _recipeService = RecipeServiceFirestore();
+  ScrollController controller;
+  RecipeQuery query = RecipeQuery();
+
+  void fetchNextRecipes() async
+  {
+    query = await _recipeService.searchRecipes(query, SortField.weightedRating, DietField.any, RecipeType.any, List<String>());
+    setState(() {});
+  }
+
+  @override
+  void initState()
+  {
+    super.initState();
+    fetchNextRecipes();
+    controller = new ScrollController()..addListener(_scrollListener);
+  }
+
+  @override
+  void dispose()
+  {
+    controller.removeListener(_scrollListener);
+    super.dispose();
+  }
+
+  void _scrollListener() async
+  {
+    // If end nearly reached
+    double position = controller.position.extentAfter;
+    if (position==0)
+    {
+      print('Reaching end!');
+      query = await _recipeService.searchRecipes(query, SortField.weightedRating, DietField.any, RecipeType.any, List<String>());
+      setState(() {});
+    }
+  }
+
+  Future<RecipeQuery> _getQuery() async {
+    return query;
+  }
 
   @override
   Widget build(BuildContext context) {
 
-    RecipeQuery queryInfo = RecipeQuery();
-
     return Scaffold(
       backgroundColor: Constants.background,
       body: FutureBuilder<RecipeQuery> (
-        //TODO replace by feed algorithm
-        future: _recipeService.searchRecipes(queryInfo, SortField.weightedRating, DietField.any, RecipeType.any, List<String>()),
+        future: _getQuery(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) 
           {
@@ -36,13 +81,14 @@ class FeedScreen extends StatelessWidget {
               Theme(
                 data: Constants.themeData,
                 child: ListView(
+                  controller: controller,
                   children: <Widget>[
                     
-                    if (snapshot.data.recipes.length == 0)
+                    if (snapshot.data == null || snapshot.data.recipes.length == 0)
                       Padding(
                         padding: const EdgeInsets.only( top: 20.0 ),
                         child: Text(
-                          "Woops, no recipes found! :-(",
+                          "Woops, no recipes found!\n \n:-(",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 20.0,
@@ -51,8 +97,9 @@ class FeedScreen extends StatelessWidget {
                         ),
                       ),
 
-                    for (Recipe recipe in snapshot.data.recipes) 
-                      RecipeCard(recipe, showBookmark: false, showNumReviews: true,),
+                      if (snapshot.data != null && snapshot.data.recipes.length != 0)
+                        for (Recipe recipe in snapshot.data.recipes) 
+                          RecipeCard(recipe, showBookmark: false, showNumReviews: true),
 
                     SizedBox(
                       height: 30.0,

@@ -1,4 +1,3 @@
-import 'dart:collection';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:yummytummy/database/interfaces/recipeService.dart';
 import 'package:yummytummy/database/query/queryInfo.dart';
@@ -8,7 +7,7 @@ import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/utils/calculateRatings.dart';
 import 'package:yummytummy/utils/consoleWriter.dart';
 
-const documentLimit = 15;
+const documentLimit = 5;
 
 /// Firestore specific recipe services.
 class RecipeServiceFirestore implements RecipeService {
@@ -215,12 +214,6 @@ class RecipeServiceFirestore implements RecipeService {
     // Return RecipeQuery object.
     return info;
 
-  }
-
-  /// TEMPORARY: UI will use this method instead.
-  /// Replace by searchRecipes when implementation is done.
-  Future<List<Recipe>> searchRecipesUI(RecipeQuery info, SortField sortField){
-    //Made to avoid errors.
   }
 
   /// Update average and weighted rating in recipe document.
