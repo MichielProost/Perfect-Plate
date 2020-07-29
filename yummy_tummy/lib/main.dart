@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:yummytummy/database/authentication/google.dart';
 import 'package:yummytummy/user_interface/screen_handler.dart';
 import 'model/test.dart';
@@ -6,8 +7,8 @@ import 'model/test.dart';
 /// Main function just runs the app.
 void main() {
   runApp(YummyTummy());
-  Test test = new Test();
-  test.testMethods();
+  // Test test = new Test();
+  // test.testMethods();
 }
 
 class YummyTummy extends StatelessWidget {
@@ -15,6 +16,12 @@ class YummyTummy extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     
+    WidgetsFlutterBinding.ensureInitialized();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown
+    ]);
+
     GoogleAuthHandler().handleSignIn();
     
     return MaterialApp(
