@@ -53,7 +53,8 @@ class _SearchByNameState extends State<SearchByName> {
                   _foundRecipes :
                   <Widget>[
                     Text(
-                      "Use the form above to search for recipes from a specific author",
+                      '',
+                      // '\nUse the form above to search for recipes from a specific author\n \nNote that this name is case sensitive!',
                       textAlign: TextAlign.center,
                       style: Constants.emptyScreenStyle,
                     ),
@@ -70,6 +71,9 @@ class _SearchByNameState extends State<SearchByName> {
 
   void handleSearch() async
   {
+    if (_searchedAuthor == null || _searchedAuthor == '')
+      return;
+
     _foundRecipes = List<Widget>();
     List<Recipe> found = await widget.recipeService.getRecipesFromUser(UserMapField.name, _searchedAuthor);
     setState(() {
@@ -80,12 +84,14 @@ class _SearchByNameState extends State<SearchByName> {
 
       if (_foundRecipes.length == 0) {
         _foundRecipes.add( Text(
-          "This author does not exist or has no recipes\n:-(",
+          "\nThis author does not exist or has no recipes\n \n:-(",
           textAlign: TextAlign.center,
           style: Constants.emptyScreenStyle,
         ));
 
         _expansionTileKey.currentState.openExpansion();
+      } else{
+        _expansionTileKey.currentState.closeExpansion();
       }
     });
   }
@@ -137,6 +143,10 @@ class _SearchByNameState extends State<SearchByName> {
                   child: CustomTextField(
                     hint: "User name here (exact match)",
                     onChanged: (content) => _searchedAuthor = content,
+                    callback: (content) {
+                      _searchedAuthor = content;
+                      handleSearch();
+                    },
                   ),
                 ),
 
@@ -145,7 +155,6 @@ class _SearchByNameState extends State<SearchByName> {
                   child: ActionButton(
                     "Search",
                     onClick: () {
-                      _expansionTileKey.currentState.closeExpansion();
                       handleSearch();
                     },
                   ),
