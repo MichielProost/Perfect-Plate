@@ -49,9 +49,21 @@ class HomeScreen extends StatelessWidget {
       body: 
         Column(
           children: <Widget>[
-            Image(
-              image: AssetImage('images/icon.png'),
-              height: 170.0,
+            Spacer(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 40.0),
+              child: Container(
+                height: 150.0,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Constants.main,
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                child:Image(
+                  image: AssetImage('images/icon.png'),
+                  height: 170.0,
+                ),
+              ),
             ),
             Spacer(),
             Row(
@@ -69,7 +81,9 @@ class HomeScreen extends StatelessWidget {
                 buildIconLink(Icons.person, AppPage.profile, "Profile", context),
               ],
             ),
-            Spacer(),
+            Spacer(
+              flex: 4,
+            ),
             // buildIconLink(Icons.home, AppPage.feed, "Feed", context),
             // Spacer(),
           ],
