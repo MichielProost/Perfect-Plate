@@ -274,23 +274,23 @@ class _Screen extends State<ProfileScreen> {
       body: Theme(
         data: Constants.themeData,
         child: 
-        // ! Constants.appUser.isLoggedIn() ?  
-        // Column(
-        //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        //   crossAxisAlignment: CrossAxisAlignment.center,
-        //   children: <Widget>[
-        //     Text(
-        //       "Please log in to see your profile page.",
-        //       textAlign: TextAlign.center,
-        //       style: Constants.emptyScreenStyle,
-        //     ),
-        //     Center(child: GoogleSigninButtonWrapper(
-        //       onPressed: () {
-        //         setState(() {});
-        //       },
-        //     )),
-        //   ],
-        // ) :
+        ! Constants.appUser.isLoggedIn() ?  
+        Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              "Please log in to see your profile page.",
+              textAlign: TextAlign.center,
+              style: Constants.emptyScreenStyle,
+            ),
+            Center(child: GoogleSigninButtonWrapper(
+              onPressed: () {
+                setState(() {});
+              },
+            )),
+          ],
+        ) :
         CustomScrollView(
           slivers: <Widget>[
 
