@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:yummytummy/database/authentication/google.dart';
+import 'package:yummytummy/database/firestore_dummydata/dummydata_handler.dart';
 import 'package:yummytummy/user_interface/screen_handler.dart';
 import 'model/test.dart';
 
@@ -24,6 +25,9 @@ class YummyTummy extends StatelessWidget {
 
     GoogleAuthHandler().handleSignIn();
     
+    // DummyDataHandler().createDummyRecipes(20);
+    // DummyDataHandler().deleteDummyRecipes();
+
     return MaterialApp(
       title: "Yummy Tummy",
       // TODO implement home screen
