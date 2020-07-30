@@ -365,10 +365,11 @@ class _RecipePageState extends State<RecipePage> {
           child: Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Column(
                 mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   buildIconInfo(Icons.fastfood, _recipe.getReadableType(), true),
@@ -380,7 +381,7 @@ class _RecipePageState extends State<RecipePage> {
               ),
               Column(
                 mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   buildIconInfo(Icons.timer, _recipe.duration.toString() + "''", true),
@@ -402,6 +403,7 @@ class _RecipePageState extends State<RecipePage> {
       padding: const EdgeInsets.all(4.0),
       child: Text(
         _recipe.ingredients[index],
+        overflow: TextOverflow.ellipsis,
       ),
     );
   }
