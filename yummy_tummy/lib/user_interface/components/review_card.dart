@@ -26,32 +26,47 @@ class _Card extends State<ReviewCard> {
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(right: 10.0, bottom: 10.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    RatingRow.withSize(
-                      widget._review.rating.toDouble(),
-                      size: 22.0,
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+
+                  // Recipe rating
+                  RatingRow.withSize(
+                    widget._review.rating.toDouble(),
+                    size: 25.0,
+                  ),
+
+                  // User name
+                  Text( 
+                    widget._review.user.name,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15.0
                     ),
-                    Text(
-                      widget._review.user.rank.getString(),
-                    ), 
-                    Text( 
-                      widget._review.user.name,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15.0
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+
+
+                  // User rank
+                  Text(
+                    widget._review.user.rank.getString(),
+                  ),
+                ],
+              ),
+
+              // Description
               Padding(
                 padding: const EdgeInsets.only(bottom: 7.0),
-                child: Text( widget._review.description ),
+                child: Text( 
+                  widget._review.description 
+                ),
               ),
             ],
           ),
