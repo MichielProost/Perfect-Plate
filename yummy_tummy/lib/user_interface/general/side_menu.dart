@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:yummytummy/user_interface/components/buttons/google_signin_button_wrapper.dart';
 import 'package:yummytummy/user_interface/constants.dart';
+import 'package:yummytummy/user_interface/popup/profile_settings.dart';
 import 'package:yummytummy/user_interface/popup/rank_information.dart';
 import 'package:yummytummy/user_interface/popup/search_by_user.dart';
 
@@ -64,7 +65,8 @@ class _Menu extends State<SideMenu> {
 
               // Clickable elements
               _SideListItem("Look up recipes by author", Icons.search, SearchByName()),
-              _SideListItem("Rank information", Icons.info, RankInformation()),
+              _SideListItem("Rank information", Icons.info, RankInformation(), mustBeLoggedInToView: true,),
+              _SideListItem("Personal preferences", Icons.settings, ProfileSettings(), mustBeLoggedInToView: true,),
 
               // Maximise space and logout button for logged in users
               Spacer(),
@@ -90,12 +92,14 @@ class _SideListItem extends StatelessWidget {
   final String text;
   final IconData icon;
   final Widget popupAction;
+  final bool logInToView;
 
-  _SideListItem(this.text, this.icon, this.popupAction);
+  _SideListItem(this.text, this.icon, this.popupAction, {bool mustBeLoggedInToView: false}) : logInToView = mustBeLoggedInToView;
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
+    return !logInToView || Constants.appUser.isLoggedIn() ?
+    ListTile(
       title: Text(
         text,
         style: TextStyle(
@@ -110,7 +114,7 @@ class _SideListItem extends StatelessWidget {
         Navigator.pop(context);
         showDialog(context: context, child: popupAction);
       },
-    );
+    ) : SizedBox();
   }
 
 }

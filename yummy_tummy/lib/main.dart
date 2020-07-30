@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:yummytummy/database/authentication/google.dart';
 import 'package:yummytummy/database/firestore_dummydata/dummydata_handler.dart';
 import 'package:yummytummy/user_interface/home_screen.dart';
+import 'package:yummytummy/user_interface/popup/profile_settings.dart';
 import 'package:yummytummy/user_interface/screen_handler.dart';
 import 'model/test.dart';
 

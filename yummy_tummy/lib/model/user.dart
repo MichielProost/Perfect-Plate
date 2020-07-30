@@ -1,6 +1,5 @@
-import 'package:yummytummy/model/board/medal.dart';
 import 'package:yummytummy/model/board/medal_board.dart';
-import 'package:yummytummy/user_interface/constants.dart';
+import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/utils/stringFunctions.dart';
 
 // const JUNIOR_LIM = 2000;
@@ -79,6 +78,10 @@ class User{
   String image;                   // User's profile picture.
   MedalBoard board;               // User's medal board.
 
+  // Preferences
+  DietField dietFieldPreference = DietField.any;
+  RecipeType recipeTypePreference = RecipeType.any;
+
   User({
     this.id,
     this.name,
@@ -87,6 +90,8 @@ class User{
     this.favourites,
     this.image,
     this.board,
+    this.dietFieldPreference,
+    this.recipeTypePreference,
   });
 
   /// Deserialize received data from Firestore.
@@ -95,6 +100,8 @@ class User{
       : this(
           id: id != null ? id : data['id'],
           name: data.containsKey('name') ? data['name'] : '',
+          dietFieldPreference: data.containsKey('dietFieldPreference') ? DietField.values[ data['dietFieldPreference']] : DietField.any,
+          recipeTypePreference: data.containsKey('recipeTypePreference') ? RecipeType.values[data['recipeTypePreference']] : RecipeType.any,
           score: data.containsKey('score') ? data['score'] : 0,
           rank: data.containsKey('rank') ? RankType.values[data['rank']] : RankType.dishwasher,
           favourites: data.containsKey('favourites') ?
@@ -106,12 +113,14 @@ class User{
 
   /// Modify non-final fields of user.
   void setUser(User user){
-    this.name = name;
-    this.score = score;
-    this.rank = rank;
-    this.favourites = favourites;
-    this.image = image;
-    this.board = board;
+    this.name                 = user.name;
+    this.score                = user.score;
+    this.rank                 = user.rank;
+    this.favourites           = user.favourites;
+    this.image                = user.image;
+    this.board                = user.board;
+    this.dietFieldPreference  = user.dietFieldPreference;
+    this.recipeTypePreference = user.recipeTypePreference;
   }
 
   /// Convert class object to data structure 'Map'.
@@ -121,6 +130,8 @@ class User{
       'score' : score != null ? score : '',
       'rank' : rank != null ? rank.index : RankType.dishwasher.index,
       'favourites' : favourites != null ? favourites : [],
+      'dietFieldPreference' : dietFieldPreference.index,
+      'recipeTypePreference' : recipeTypePreference.index,
       'image' : image??= '',
       'board' : board != null ? board.toMap() : {},
     };

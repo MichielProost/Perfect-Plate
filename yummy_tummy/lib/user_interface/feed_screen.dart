@@ -1,13 +1,10 @@
 /// Functions as a template for new screens. Should not actually be used
 
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:yummytummy/database/dummy/dummydatabase.dart';
 import 'package:yummytummy/database/firestore/recipeServiceFirestore.dart';
 import 'package:yummytummy/database/interfaces/recipeService.dart';
 import 'package:yummytummy/database/query/queryInfo.dart';
 import 'package:yummytummy/model/recipe.dart';
-import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/user_interface/components/waiting_indicator.dart';
 import 'package:yummytummy/user_interface/popup/snackbar_util.dart';
 
@@ -33,7 +30,7 @@ class _FeedScreenState extends State<FeedScreen> {
 
   void fetchNextRecipes() async
   {
-    query = await _recipeService.searchRecipes(query, SortField.weightedRating, DietField.any, RecipeType.any, List<String>());
+    query = await _recipeService.searchRecipes(query, SortField.weightedRating, Constants.appUser.dietFieldPreference, Constants.appUser.recipeTypePreference, List<String>());
     setState(() {});
   }
 
@@ -69,7 +66,7 @@ class _FeedScreenState extends State<FeedScreen> {
       // Update query
       if (query.hasMore)
       {
-        query = await _recipeService.searchRecipes(query, SortField.weightedRating, DietField.any, RecipeType.any, List<String>());
+        query = await _recipeService.searchRecipes(query, SortField.weightedRating, Constants.appUser.dietFieldPreference, Constants.appUser.recipeTypePreference, List<String>());
         controller = new ScrollController( initialScrollOffset: currentPos )..addListener( _scrollListener );
         setState(() {});
       }
@@ -102,7 +99,7 @@ class _FeedScreenState extends State<FeedScreen> {
                       Padding(
                         padding: const EdgeInsets.only( top: 20.0 ),
                         child: Text(
-                          "Woops, no recipes found!\n \n:-(",
+                          "Woops, no recipes found!\n \n Please edit your preferences.\n \n:-(",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 20.0,

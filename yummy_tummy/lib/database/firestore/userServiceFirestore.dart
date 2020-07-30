@@ -66,6 +66,8 @@ class UserServiceFirestore implements UserService {
       'score' : user.score,
       'rank' : user.rank.index,
       'favourites' : user.favourites,
+      'dietFieldPreference' : user.dietFieldPreference.index,
+      'recipeTypePreference' : user.recipeTypePreference.index,
       'image' : user.image,
       'board' : user.board.toMap(),
     });
