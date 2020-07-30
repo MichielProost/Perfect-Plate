@@ -200,7 +200,7 @@ class _Screen extends State<ProfileScreen> {
 
       // Add a ReviewCard for each review
       for (Review review in reviews)
-        _pageWidgetMap[ _activePage ].add( ReviewCard( review ) );
+        _pageWidgetMap[ _activePage ].add( ReviewCard( review, allowRecipeLink: true, ) );
 
     }
     else if ( _activePage == UserPage.medals )
