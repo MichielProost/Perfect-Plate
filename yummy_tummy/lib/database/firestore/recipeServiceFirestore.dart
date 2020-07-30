@@ -6,6 +6,7 @@ import 'package:yummytummy/database/query/queryInfo.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/review.dart';
 import 'package:yummytummy/model/user.dart';
+import 'package:yummytummy/user_interface/constants.dart';
 import 'package:yummytummy/utils/calculateRatings.dart';
 import 'package:yummytummy/utils/consoleWriter.dart';
 
@@ -124,19 +125,27 @@ class RecipeServiceFirestore implements RecipeService {
   /// Returns all recipes in the user's favourite list.
   Future<List<Recipe>> getFavouriteRecipes(User user) async {
 
-    List<Recipe> recipes = new List(user.favourites.length);
+    List<String> toDeleteFav = new List<String>();
+
+    List<Recipe> recipes = new List<Recipe>();
     Recipe recipe;
     for( int i=0; i<user.favourites.length; i++){
       recipe = await getRecipeFromID(user.favourites[i]);
       if (recipe != null){
-        recipes[i] = recipe;
+        recipes.add(recipe);
       } else {
-        // Remove favourites from user.
-        // Modify user document.
+        toDeleteFav.add(user.favourites[i]);
       }
     }
-    return recipes;
 
+    if (toDeleteFav.length > 0){
+      for (int i=0; i<toDeleteFav.length; i++){
+        user.favourites.remove(toDeleteFav[i]);
+      }
+      await userService.modifyUser(user, user.id);
+    }
+
+    return recipes;
   }
 
   /// Returns all vegetarian recipes.
