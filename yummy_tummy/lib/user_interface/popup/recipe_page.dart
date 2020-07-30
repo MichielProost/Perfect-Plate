@@ -23,7 +23,6 @@ class RecipePage extends StatefulWidget {
 
 class _RecipePageState extends State<RecipePage> {
   
-  //TODO properly implement favourite
   final UserServiceFirestore userService = new UserServiceFirestore();
   final Recipe _recipe;
   bool _isFavorite;
@@ -36,7 +35,6 @@ class _RecipePageState extends State<RecipePage> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO add reviews page 
 
     RatingRow ratingView = RatingRow(_recipe.rating, _recipe.numberOfReviews);
 
@@ -48,6 +46,7 @@ class _RecipePageState extends State<RecipePage> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
+              
               // Button bar for user
               buildButtonBar(),
 
@@ -453,8 +452,8 @@ class _RecipePageState extends State<RecipePage> {
 
   /// Create an ExpansionTile for the step with given index
   Widget buildExpansionTile(int index) {
+    print(_recipe.stepImages);
     // TODO add language support
-    // TODO add step image support
     return Theme(
       data: ThemeData(
         accentColor: Constants.main,
@@ -484,7 +483,11 @@ class _RecipePageState extends State<RecipePage> {
           SizedBox(
             height: 15.0,
           ),
-          //Image(),
+          if(_recipe.stepImages.containsKey( index.toString() ))
+            Image.network( 
+              _recipe.stepImages[index.toString()],
+              fit: BoxFit.fitWidth,
+            ),
           SizedBox(
             height: 15.0,
           ),
