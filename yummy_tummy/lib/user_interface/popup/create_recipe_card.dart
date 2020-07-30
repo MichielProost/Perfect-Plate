@@ -53,6 +53,7 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
   int _preptime = 15;
   List<String> _ingredients = List<String>();
   List<String> _steps = List<String>();
+  // TODO Refactor _images to new Map system
   List<File> _images = List<File>();
 
   final List<int> _times = List<int>();
@@ -494,6 +495,7 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                             RecipeService recipeService = RecipeServiceFirestore();
                             String recipeID = await recipeService.addRecipe( recipe );
 
+                            // TODO handle recipe images new Map system
                             List<File> recipeImages = List<File>();
                             recipeImages.add(_banner);
                             recipeImages.addAll( _images );
@@ -559,6 +561,7 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                   icon: Icon(Icons.delete), 
                   onPressed: () {
                     setState(() {
+                      // TODO handle _images removal (Map system)
                       if ( _steps.length > index )
                         _steps.removeAt( index );
                       if ( _images.length > index )
@@ -586,6 +589,7 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                           setState(() {
                             if (index >= _steps.length) {
                               _steps.add( stepKeys[index].currentState.getCurrentText() );
+                              // TODO remove the line below for _images with Map implementation
                               _images.add( null );
                             } 
                             else
@@ -641,6 +645,7 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
     return ChooseImageIcon(
       heigth: 100.0,
       width: 100.0,
+      // TODO This line may keep working with the map implementation, please double check
       image: index < _images.length ? _images[index] : null,
       size: 25.0,
       callback: (tapLocation) {
@@ -668,6 +673,7 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                 onTap: () async {
                   File selected = await imageHandler.getPicture( ImageSource.camera );
                   setState(() {
+                    // TODO Put image in the map at with key 'index.toString()'
                     if (selected != null)
                       if (index >= _steps.length) {
                         _images.add( selected );
