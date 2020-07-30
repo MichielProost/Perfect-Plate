@@ -132,4 +132,22 @@ class StorageHandler{
 
   }
 
+  /// Delete all images (banner + steps) of a specific recipe object.
+  Future<void> deleteRecipeImages(Recipe recipe) async{
+    await deleteImage(recipe.image);
+    var seriesList = recipe.stepImages.entries.toList();
+    for (int i=0; i<recipe.stepImages.length; i++){
+      await deleteImage(seriesList[i].value);
+    }
+  }
+
+  /// Delete an image in Firebase storage.
+  Future<void> deleteImage(String downloadURL) async {
+    StorageReference imageRef = await _storage.getReferenceFromUrl(downloadURL);
+    await imageRef.delete().then((value){
+    }).catchError((error) {
+      print("ERROR: Could not delete file with URL: " + downloadURL);
+    });
+  }
+
 }
