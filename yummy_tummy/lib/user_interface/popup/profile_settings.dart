@@ -40,7 +40,7 @@ class _ProfileSettingsState extends State<ProfileSettings>{
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                CloseButton(onPressed: () => _saveChanges(),),
+                CloseButton(onPressed: () {_saveChanges(); Navigator.pop(context); }),
               ],
             ),
 
