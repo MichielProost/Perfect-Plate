@@ -201,10 +201,10 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
           'Verwarm de oven voor tot 200 °C.',
           'Snijd de ciabatta in zo dun mogelijke plakjes met een gekarteld mes.'
         ],
-        stepImages: [
-          'https://images.vrt.be/dako2017_1600s_j75/2018/04/26/edac70a0-492c-11e8-abcc-02b7b76bf47f.png',
-          'https://images.vrt.be/dako2017_1600s_j75/2018/04/26/edac70a0-492c-11e8-abcc-02b7b76bf47f.png',
-        ],
+        stepImages: {
+          "1" : 'https://images.vrt.be/dako2017_1600s_j75/2018/04/26/edac70a0-492c-11e8-abcc-02b7b76bf47f.png',
+          "2" : 'https://images.vrt.be/dako2017_1600s_j75/2018/04/26/edac70a0-492c-11e8-abcc-02b7b76bf47f.png',
+        },
         rating: 4.6,
         duration: 40,
         image:
@@ -230,10 +230,10 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
           'Leg de gelatineblaadjes in een beker met koud water en laat ze weken.',
           'Bereid het ‘infuus’ van melk en room. Melk absorbeert zeer gemakkelijk smaken en aroma’s. Meet de juiste hoeveelheden melk en room en doe ze samen in een pot of pan op een matig vuur.'
         ],
-        stepImages: [
-          'https://images.vrt.be/dako2017_1600s_j75/2019/03/01/4289ca34-3bfa-11e9-abcc-02b7b76bf47f.jpg',
-          'https://images.vrt.be/dako2017_1600s_j75/2019/03/01/4289ca34-3bfa-11e9-abcc-02b7b76bf47f.jpg',
-        ],
+        stepImages: {
+          "1" : 'https://images.vrt.be/dako2017_1600s_j75/2019/03/01/4289ca34-3bfa-11e9-abcc-02b7b76bf47f.jpg',
+          "2" : 'https://images.vrt.be/dako2017_1600s_j75/2019/03/01/4289ca34-3bfa-11e9-abcc-02b7b76bf47f.jpg',
+        },
         rating: 3.5,
         duration: 55,
         image:
@@ -258,10 +258,10 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
           'Verwarm de oven voor op 180°C.',
           'Zet een pot gezouten water op het vuur en doe er meteen de asperges in. Breng de asperges aan de kook.'
         ],
-        stepImages: [
-          'https://images.vrt.be/dako2017_1600s_j75/2020/06/04/b108f8fd-a66e-11ea-aae0-02b7b76bf47f.jpg',
-          'https://images.vrt.be/dako2017_1600s_j75/2020/06/04/b108f8fd-a66e-11ea-aae0-02b7b76bf47f.jpg',
-        ],
+        stepImages: {
+          "1" : 'https://images.vrt.be/dako2017_1600s_j75/2020/06/04/b108f8fd-a66e-11ea-aae0-02b7b76bf47f.jpg',
+          "2" : 'https://images.vrt.be/dako2017_1600s_j75/2020/06/04/b108f8fd-a66e-11ea-aae0-02b7b76bf47f.jpg',
+        },
         rating: 4.9,
         duration: 125,
         image:
@@ -286,10 +286,10 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
           'Verwarm de barbecue.',
           'Kook de aardappelen in de pel gaar in een pot gezouten water.'
         ],
-        stepImages: [
-          'https://images.vrt.be/dako2017_1600s_j75/2018/07/26/a551d429-90df-11e8-abcc-02b7b76bf47f.jpg',
-          'https://images.vrt.be/dako2017_1600s_j75/2018/07/26/a551d429-90df-11e8-abcc-02b7b76bf47f.jpg',
-        ],
+        stepImages: {
+          "1" : 'https://images.vrt.be/dako2017_1600s_j75/2018/07/26/a551d429-90df-11e8-abcc-02b7b76bf47f.jpg',
+          "2" : 'https://images.vrt.be/dako2017_1600s_j75/2018/07/26/a551d429-90df-11e8-abcc-02b7b76bf47f.jpg',
+        },
         rating: 2.5,
         duration: 25,
         image:

@@ -58,10 +58,10 @@ class DummyDataHandler {
         'Verwarm de oven voor tot 200 °C.',
         'Snijd de ciabatta in zo dun mogelijke plakjes met een gekarteld mes.'
       ],
-      stepImages: [
-        'https://images.vrt.be/dako2017_1600s_j75/2018/04/26/edac70a0-492c-11e8-abcc-02b7b76bf47f.png',
-        'https://images.vrt.be/dako2017_1600s_j75/2018/04/26/edac70a0-492c-11e8-abcc-02b7b76bf47f.png',
-      ],
+      stepImages: {
+        "1" : 'https://images.vrt.be/dako2017_1600s_j75/2018/04/26/edac70a0-492c-11e8-abcc-02b7b76bf47f.png',
+        "2" : 'https://images.vrt.be/dako2017_1600s_j75/2018/04/26/edac70a0-492c-11e8-abcc-02b7b76bf47f.png',
+      },
       rating: 4.6,
       duration: 40,
       image:

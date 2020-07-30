@@ -56,7 +56,7 @@ class Recipe {
   bool isVegan;                         // Vegan recipe?
   final List<String> ingredients;       // Ingredients.
   final List<String> stepDescriptions;  // A list of descriptions. Each element represents a step.
-  List<String> stepImages;        // Image URL of each step.
+  Map<String, String> stepImages;       // Step images.
   double rating;                        // Rating of dish.
   double weightedRating;                // Weighted rating.
   int duration;                         // How long it takes to make the recipe.
@@ -84,7 +84,7 @@ class Recipe {
   ): 
     ingredients = List<String>(),
     stepDescriptions = List<String>(),
-    stepImages = List<String>();
+    stepImages = Map<String, String>();
 
   Recipe({
     this.id,
@@ -122,7 +122,7 @@ class Recipe {
           stepDescriptions: data.containsKey('stepDescriptions') ?
             new List<String>.from(data['stepDescriptions']) : [],
           stepImages: data.containsKey('stepImages') ?
-            new List<String>.from(data['stepImages']) : [],
+            new Map<String, String>.from( data['stepImages'] ) : {},
           rating: data.containsKey('rating') ? data['rating'].toDouble() : 0.0,
           weightedRating : data.containsKey('weightedRating') ? data['weightedRating'].toDouble() : 0.0,
           duration: data.containsKey('duration') ? data['duration']: 0,
@@ -145,7 +145,7 @@ class Recipe {
       'isVegan' : isVegan ??= false,
       'ingredients' : ingredients != null ? ingredients : [],
       'stepDescriptions' : stepDescriptions != null ? stepDescriptions : [],
-      'stepImages' : stepImages != null ? stepImages : [],
+      'stepImages' : stepImages != null ? stepImages : {},
       'rating' : rating != null ? rating : 0.0,
       'weightedRating' : weightedRating != null ? weightedRating : 0.0,
       'duration' : duration ??= 0,

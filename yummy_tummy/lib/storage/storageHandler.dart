@@ -56,7 +56,7 @@ class StorageHandler{
   Future<void> uploadAndSetRecipeImages(List<File> images, String recipeID) async {
 
     String path;
-    List<String> locations = List<String>();
+    Map<String, String> locations = Map<String, String>();
     RecipeServiceFirestore recipeService = new RecipeServiceFirestore();
 
     path = createImagePath(ImageType.recipe_result, recipeID, null);
@@ -66,7 +66,7 @@ class StorageHandler{
       if (images[i] != null ){
         path = createImagePath(ImageType.recipe_step, recipeID, i);
         String downloadURL = await uploadFile(images[i], path);
-        locations.add(downloadURL);
+        locations[i.toString()] = downloadURL;
       }
     }
 
