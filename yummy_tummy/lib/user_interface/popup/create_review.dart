@@ -15,7 +15,7 @@ class CreateReviewScreen extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return _CreateScreen( startingStars , _recipeID );
+    return _CreateScreen( startingStars);
   }
 
 }
@@ -25,10 +25,10 @@ class _CreateScreen extends State<CreateReviewScreen> {
   Review _review;
   int _currentStars = 0;
 
-  _CreateScreen(int startingStars, String recipeID )
+  _CreateScreen(int startingStars)
   {
     _currentStars = startingStars;
-    _review = Review(recipeID: recipeID);
+    _review = Review(recipeID: widget._recipeID);
   }
 
   var _controller = TextEditingController();
