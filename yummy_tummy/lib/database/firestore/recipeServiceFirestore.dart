@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:yummytummy/database/firestore/userServiceFirestore.dart';
 import 'package:yummytummy/database/interfaces/recipeService.dart';
 import 'package:yummytummy/database/query/queryInfo.dart';
 import 'package:yummytummy/model/recipe.dart';
@@ -13,11 +15,13 @@ const documentLimit = 5;
 class RecipeServiceFirestore implements RecipeService {
 
   final db;
+  final UserServiceFirestore userService;
   final ConsoleWriter consoleWriter;
 
   /// Constructor.
   RecipeServiceFirestore() :
         this.db = Firestore.instance,
+        this.userService = new UserServiceFirestore(),
         this.consoleWriter = new ConsoleWriter();
 
   /// Add a new recipe to the database. Returns the document ID.
@@ -124,7 +128,12 @@ class RecipeServiceFirestore implements RecipeService {
     Recipe recipe;
     for( int i=0; i<user.favourites.length; i++){
       recipe = await getRecipeFromID(user.favourites[i]);
-      recipes[i] = recipe;
+      if (recipe != null){
+        recipes[i] = recipe;
+      } else {
+        // Remove favourites from user.
+        // Modify user document.
+      }
     }
     return recipes;
 
