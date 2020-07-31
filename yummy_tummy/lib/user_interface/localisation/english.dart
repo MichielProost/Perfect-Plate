@@ -53,7 +53,7 @@ class English extends Language {
   {
     switch(page){
       case UserPage.medals:
-        return 'Your medals are still loading';
+        return 'Your medals are still loading.';
         break;
       case UserPage.recipes:
         return "You haven't published any recipes yet!";
@@ -64,17 +64,8 @@ class English extends Language {
     }
     return '';
   }
-
-  @override
-  String getMessage(String messageName) {
-    return super.messages.containsKey( messageName.toLowerCase() ) ?
-      super.messages[ messageName.toLowerCase() ] :
-      messageName;
-  }
   
-  English()
-  {
-    super.messages.addAll({
+  English() : super({
       'type_here'             : 'Type here',
       'close_menu'            : 'Close menu',
       'recipe_database_error' : 'Something went wrong while loading recipes',
@@ -96,6 +87,5 @@ class English extends Language {
       'user_preferences'      : 'Personal preferences',
       'profile_login_error'   : 'Please log in to see your profile page',
     });
-  }
 
 }
