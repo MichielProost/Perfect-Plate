@@ -37,7 +37,7 @@ class _CreateScreen extends State<CreateReviewScreen> {
       child: Column(
         children: <Widget>[
           Expanded(
-            flex: 2,
+            flex: 4,
             child: Card(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
