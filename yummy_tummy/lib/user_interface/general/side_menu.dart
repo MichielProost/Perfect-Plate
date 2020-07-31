@@ -32,7 +32,7 @@ class _Menu extends State<SideMenu> {
                       height: 75.0,
                     ),
                     Text(
-                      "Yummy Tummy",
+                      "Perfect Plate",
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
