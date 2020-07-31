@@ -13,7 +13,7 @@ class Dutch extends Language {
   String appPageName(AppPage page) {
     switch(page) {
       case AppPage.feed:
-        return 'Ontdek';
+        return 'Ontdekken';
         break;
       case AppPage.search:
         return 'Zoeken';
@@ -169,7 +169,7 @@ class Dutch extends Language {
 
       // Form/recipe language
       'search_recipes_title'  : 'Zoek naar recepten',
-      'select_diet'           : 'Kies uw diëet',
+      'select_diet'           : 'Kies uw dieet',
       'select_course'         : 'Kies uw type maal',
       'ingredients'           : 'Ingrediënten',
       'ingredients_selector'  : 'Kies uw ingrediënten',
