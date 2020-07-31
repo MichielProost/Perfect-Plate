@@ -116,9 +116,7 @@ class RecipeServiceFirestore implements RecipeService {
           for (int i = 0; i < docs.documents.length; i ++)
           {
             DocumentSnapshot snap = docs.documents[i];
-            recipes.add(
-              Recipe.fromMap(docs.documents[i].data, docs.documents[i].documentID)
-            );
+            recipes[i] = Recipe.fromMap(docs.documents[i].data, docs.documents[i].documentID);
 
             consoleWriter.FetchedDocument(CollectionType.Recipe, snap.documentID);
           }
