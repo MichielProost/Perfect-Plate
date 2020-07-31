@@ -3,8 +3,8 @@ import 'package:yummytummy/database/firestore/recipeServiceFirestore.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/review.dart';
 import 'package:yummytummy/user_interface/components/rating_row.dart';
-import 'package:yummytummy/user_interface/components/recipe_card.dart';
 import 'package:yummytummy/user_interface/localisation/localization.dart';
+import 'package:yummytummy/user_interface/popup/recipe_page.dart';
 
 import '../constants.dart';
 
@@ -28,18 +28,18 @@ class _Card extends State<ReviewCard> {
     if (widget.allowRecipeLink)
     {
       Recipe recipe = await RecipeServiceFirestore().getRecipeFromID( widget._review.recipeID );
-      showDialog(context: context, child: RecipeCard(recipe));
+      showDialog(context: context, child: RecipePage(recipe));
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return 
-    InkWell(
-      onTap: () => _handleOpenRecipe(context),
-      enableFeedback: widget.allowRecipeLink,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+    Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: InkWell(
+        onTap: () => _handleOpenRecipe(context),
+        enableFeedback: widget.allowRecipeLink,
         child: Card(
           child: Padding(
             padding: const EdgeInsets.all(10.0),
