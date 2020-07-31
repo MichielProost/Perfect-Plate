@@ -196,7 +196,7 @@ class RecipeServiceFirestore implements RecipeService {
   /// Search recipes in the database by specifying fields.
   /// RecipeQuery: Info of a particular query.
   /// SortField: Sort the acquired recipes.
-  Future<RecipeQuery> searchRecipes(RecipeQuery info, SortField sortField, DietField dietField, RecipeType typeField, List<String> ingredients) async {
+  Future<RecipeQuery> searchRecipes(RecipeQuery info, SortField sortField, DietField dietField, RecipeType typeField, List<String> ingredients, {LanguagePick language : LanguagePick.other}) async {
 
     // Check if we can fetch documents.
     if(!info.hasMore) {
@@ -212,6 +212,9 @@ class RecipeServiceFirestore implements RecipeService {
     if (typeField != RecipeType.any){
       query = query.where("type", isEqualTo: typeField.index);
     }
+    //if (language != LanguagePick.other){
+    //  query = query.where("language", isEqualTo: language.index);
+    //}
 
     // Ingredients
     if (ingredients.isNotEmpty){
