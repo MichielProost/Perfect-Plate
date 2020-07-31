@@ -15,6 +15,12 @@ class UserContentBuffer {
   final List<Recipe> _recipes = List<Recipe>();
   final List<Review> _reviews = List<Review>();
 
+  UserContentBuffer._privateConstructor();
+
+  static final UserContentBuffer _instance = UserContentBuffer._privateConstructor();
+
+  static UserContentBuffer get instance => _instance;
+
   Future<List<Recipe>> getUserRecipes(User user) async
   {
     if (_recipes.length == 0)

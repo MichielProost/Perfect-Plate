@@ -42,7 +42,7 @@ extension UserPageUtil on UserPage {
 
 class _Screen extends State<ProfileScreen> {
 
-  final UserContentBuffer _contentBuffer = UserContentBuffer();
+  final UserContentBuffer _contentBuffer = UserContentBuffer.instance;
   Map<UserPage, List<Widget>> _pageWidgetMap = Map<UserPage, List<Widget>>();
 
   _Screen()

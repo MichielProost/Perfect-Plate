@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:yummytummy/database/buffer/User_content_buffer.dart';
 import 'package:yummytummy/database/firestore/userServiceFirestore.dart';
 import 'package:yummytummy/model/recipe.dart';
+import 'package:yummytummy/model/review.dart';
 import 'package:yummytummy/user_interface/components/rating_row.dart';
+import 'package:yummytummy/user_interface/components/review_card.dart';
 import 'package:yummytummy/user_interface/components/selectable_stars.dart';
 import 'package:yummytummy/user_interface/general/icon_builder.dart';
 import 'package:yummytummy/user_interface/localisation/localization.dart';
 import 'package:yummytummy/user_interface/popup/create_review.dart';
+import 'package:yummytummy/user_interface/popup/info_popup.dart';
 import 'package:yummytummy/user_interface/popup/recipe_ratings.dart';
+import 'package:yummytummy/user_interface/popup/widget_popup.dart';
 import 'package:yummytummy/user_interface/widgets/better_expansion_tile.dart';
 
 import '../constants.dart';
@@ -123,7 +128,22 @@ class _RecipePageState extends State<RecipePage> {
                             Text( Localization.instance.language.getMessage( 'please_leave_review' ) ),
                             SelectableStars(
                               35.0,
-                              onTap: ( rating ) => showDialog(context: context, child: CreateReviewScreen(_recipe.id, startingStars: rating,)),
+                              onTap: ( rating ) async {
+                                List<Review> reviews = await UserContentBuffer.instance.getUserReviews( Constants.appUser );
+                                
+                                Review userReview;
+
+                                for (Review review in reviews)
+                                  if (review.recipeID == _recipe.id)
+                                    userReview = review;
+
+                                if (userReview == null)
+                                  showDialog(context: context, child: CreateReviewScreen(_recipe.id, startingStars: rating,));
+                                else
+                                  showDialog(context: context, child: WidgetPopup(
+                                    ReviewCard( userReview )
+                                  ));
+                              }
                             ),
                           ],
                         ),
