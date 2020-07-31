@@ -1,15 +1,20 @@
+import 'dart:io';
+
 /// Functions as a template for new screens. Should not actually be used
 
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:yummytummy/database/buffer/User_content_buffer.dart';
 import 'package:yummytummy/model/board/medal_board.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/review.dart';
 import 'package:yummytummy/model/user.dart';
+import 'package:yummytummy/storage/storageHandler.dart';
 import 'package:yummytummy/user_interface/components/buttons/google_signin_button_wrapper.dart';
 import 'package:yummytummy/user_interface/components/medal_widget.dart';
 import 'package:yummytummy/user_interface/components/recipe_card.dart';
 import 'package:yummytummy/user_interface/localisation/localization.dart';
+import 'package:yummytummy/user_interface/popup/create_recipe_card.dart';
 
 import 'components/review_card.dart';
 import 'components/waiting_indicator.dart';
@@ -44,6 +49,8 @@ class _Screen extends State<ProfileScreen> {
 
   final UserContentBuffer _contentBuffer = UserContentBuffer.instance;
   Map<UserPage, List<Widget>> _pageWidgetMap = Map<UserPage, List<Widget>>();
+
+  FileImage profileImage;
 
   _Screen()
   {
@@ -85,16 +92,78 @@ class _Screen extends State<ProfileScreen> {
   {
     return Column(
       children: <Widget>[
-        /// Profile picture
-          // TODO implement profile picture
-          // TODO implement profile picture changing
+          /// Profile picture
           Padding(
             padding: const EdgeInsets.all(15.0),
-            child: CircleAvatar(
-              backgroundColor: Constants.main,
-              radius: 60.0,
-              child: Image(
-                image: AssetImage('images/user_pic.png'),
+            child: GestureDetector(
+              onTapDown: (details) {
+
+                StorageHandler imageHandler = StorageHandler();
+
+                Offset tapLocation = details.globalPosition;
+                
+                double left;
+                double top;
+                if (tapLocation != null)
+                {
+                  left = tapLocation.dx;
+                  top = tapLocation.dy;
+                }
+                else
+                {
+                  left = MediaQuery.of(context).size.width / 3;
+                  top = MediaQuery.of(context).size.height / 3;
+                }
+                showMenu(
+                  context: context,
+                  position: RelativeRect.fromLTRB(left, top, MediaQuery.of(context).size.width - left, MediaQuery.of(context).size.height - top),
+                  items: <PopupMenuEntry>[
+                    PopupMenuItem(
+                      value: ImageInput.camera,
+                      child: InkWell(
+                        child: Text( Localization.instance.language.getMessage( 'camera' ) ),
+                        onTap: () async {
+                          File selected = await imageHandler.getPicture( ImageSource.camera );
+                          setState(() {
+                            if (selected != null) {
+                              profileImage = FileImage( selected );
+                              imageHandler.uploadAndSetProfileImage( selected );
+                            }
+                          });
+                        },
+                      ),
+                    ),
+                    PopupMenuItem(
+                      value: ImageInput.gallery,
+                      child: InkWell(
+                        child: Text( Localization.instance.language.getMessage( 'gallery' ) ),
+                        onTap: () async {
+                          File selected = await imageHandler.getPicture( ImageSource.gallery );
+                          setState(() {
+                            if (selected != null) {
+                              profileImage = FileImage( selected );
+                              imageHandler.uploadAndSetProfileImage( selected );
+                            }
+                          });
+                        },
+                      ),
+                    ),
+                  ]
+                );
+              },
+              child: 
+              (Constants.appUser.image == null || Constants.appUser.image == '') && profileImage == null ?
+              CircleAvatar(
+                backgroundColor: Constants.main,
+                radius: 60.0,
+                child: Image(
+                  image: AssetImage('images/user_pic.png'),
+                ),
+              ) :
+              CircleAvatar(
+                backgroundColor: Constants.main,
+                backgroundImage: NetworkImage( Constants.appUser.image ),
+                radius: 60.0,
               ),
             ),
           ),
