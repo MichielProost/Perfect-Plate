@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yummytummy/database/dummy/dummydatabase.dart';
+import 'package:yummytummy/database/firestore/reviewServiceFirestore.dart';
 import 'package:yummytummy/database/interfaces/reviewService.dart';
 import 'package:yummytummy/model/review.dart';
 import 'package:yummytummy/user_interface/components/rating_row.dart';
@@ -10,7 +10,7 @@ class RecipeRatings extends StatelessWidget {
   final String _recipeID;
   final RatingRow _ratingRow;
 
-  final ReviewService _reviewService = DummyDatabase( delayInMilliseconds: 100 );
+  final ReviewService _reviewService = ReviewServiceFirestore();
 
   RecipeRatings(this._recipeID, this._ratingRow);
 
