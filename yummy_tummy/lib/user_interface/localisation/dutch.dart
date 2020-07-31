@@ -140,6 +140,7 @@ class Dutch extends Language {
       'set'                   : 'Zet',
       'add'                   : 'Voeg toe',
       'none'                  : 'Geen',
+      'accept'                : 'Akkoord',
 
       // Units
       'hour_unit'             : 'u',
@@ -206,6 +207,10 @@ class Dutch extends Language {
       'rank_overview_sidemenu': 'Informatie over ranks',
       'rank_overview_title'   : 'Dit is een overzicht van alle ranks en uw voortgang tot iedere rank.',
       'user_preferences'      : 'Persoonlijke voorkeuren',
+
+      // Delete recipe
+      'delete_recipe_title'   : 'Recept verwijderen!',
+      'delete_recipe_warning' : 'Klik akkoord om dit recept te verwijderen. Deze actie kan NIET ongedaan gemaakt worden.',
 
       // Seperate input
       'camera'                : 'Camera',

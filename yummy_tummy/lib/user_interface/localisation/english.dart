@@ -75,6 +75,7 @@ class English extends Language {
       'set'                   : 'Set',
       'add'                   : 'Add',
       'none'                  : 'None',
+      'accept'                : 'Accept',
 
       // Units
       'hour_unit'             : 'h',
@@ -141,6 +142,10 @@ class English extends Language {
       'rank_overview_sidemenu': 'Rank information',
       'rank_overview_title'   : 'This is an overview of all ranks and your progress towards them',
       'user_preferences'      : 'Personal preferences',
+
+      // Delete recipe
+      'delete_recipe_title'   : 'Deleting a recipe!',
+      'delete_recipe_warning' : 'Click submit below to delete this recipe. This action can NOT be undone, press cancel to go back',
 
       // Seperate input
       'camera'                : 'Camera',

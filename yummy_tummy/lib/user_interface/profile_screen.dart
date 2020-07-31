@@ -177,7 +177,7 @@ class _Screen extends State<ProfileScreen> {
 
       // Add a RecipeCard for each recipe
       for (Recipe recipe in recipes)
-        _pageWidgetMap[ _activePage ].add( RecipeCard( recipe ) );
+        _pageWidgetMap[ _activePage ].add( RecipeCard( recipe, canBeDeleted: true, ) );
 
     }
     else if ( _activePage == UserPage.reviews )

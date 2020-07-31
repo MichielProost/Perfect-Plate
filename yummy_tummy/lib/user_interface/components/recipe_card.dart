@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:yummytummy/database/firestore/recipeServiceFirestore.dart';
 import 'package:yummytummy/database/firestore/userServiceFirestore.dart';
+import 'package:yummytummy/database/interfaces/recipeService.dart';
 import 'package:yummytummy/database/interfaces/userService.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/user_interface/localisation/localization.dart';
+import 'package:yummytummy/user_interface/popup/action_popup.dart';
+import 'package:yummytummy/user_interface/popup/info_popup.dart';
 import 'package:yummytummy/user_interface/popup/recipe_page.dart';
 import 'package:yummytummy/user_interface/popup/snackbar_util.dart';
 
@@ -15,11 +19,12 @@ class RecipeCard extends StatefulWidget {
   final Recipe _recipe;
   final bool _showBookmark;
   final bool _showNumReviews;
-  bool _value;
+  final bool _isDeleteAble;
 
-  RecipeCard(this._recipe, {bool showBookmark: false, bool showNumReviews: false}): 
+  RecipeCard(this._recipe, {bool showBookmark: false, bool showNumReviews: false, bool canBeDeleted: false}): 
     _showBookmark = showBookmark,
-    _showNumReviews = showNumReviews;
+    _showNumReviews = showNumReviews,
+    _isDeleteAble = canBeDeleted;
 
   @override
   State<StatefulWidget> createState() => _RecipeCardState(_recipe, showBookmark: _showBookmark);
@@ -44,6 +49,20 @@ class _RecipeCardState extends State<RecipeCard> {
       padding: const EdgeInsets.all(4.0),
       child: InkWell(
         onTap: () => showDialog(context: context, child: RecipePage(_recipe)),
+        onLongPress: () {
+          if (widget._isDeleteAble)
+            showDialog(
+              context: context,
+              child: ActionPopup(
+                icon: Icons.report,
+                title: Localization.instance.language.getMessage( 'delete_recipe_title' ),
+                text: Localization.instance.language.getMessage( 'delete_recipe_warning' ),
+                onAccept: () {
+                  RecipeServiceFirestore().deleteRecipe( _recipe.id );
+                },
+              ),  
+            );
+        },
         child: Card(
           color: Constants.gray,
           shape: _recipe.userMap.containsKey('id') && _recipe.userMap['id'] == Constants.magnetarID && false
