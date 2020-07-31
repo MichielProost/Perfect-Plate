@@ -18,14 +18,12 @@ const documentLimit = 5;
 class RecipeServiceFirestore implements RecipeService {
 
   final db;
-  final UserServiceFirestore userService;
   final StorageHandler storageHandler;
   final ConsoleWriter consoleWriter;
 
   /// Constructor.
   RecipeServiceFirestore() :
         this.db = Firestore.instance,
-        this.userService = new UserServiceFirestore(),
         this.storageHandler = new StorageHandler(),
         this.consoleWriter = new ConsoleWriter();
 
@@ -164,6 +162,7 @@ class RecipeServiceFirestore implements RecipeService {
       for (int i=0; i<toDeleteFav.length; i++){
         user.favourites.remove(toDeleteFav[i]);
       }
+      UserServiceFirestore userService = new UserServiceFirestore();
       await userService.modifyUser(user, user.id);
     }
 
