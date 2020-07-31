@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:yummytummy/database/firestore/reviewServiceFirestore.dart';
 import 'package:yummytummy/database/firestore/userServiceFirestore.dart';
 import 'package:yummytummy/database/interfaces/recipeService.dart';
 import 'package:yummytummy/database/query/queryInfo.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/review.dart';
 import 'package:yummytummy/model/user.dart';
+import 'package:yummytummy/storage/storageHandler.dart';
 import 'package:yummytummy/user_interface/constants.dart';
 import 'package:yummytummy/utils/calculateRatings.dart';
 import 'package:yummytummy/utils/consoleWriter.dart';
@@ -17,12 +19,14 @@ class RecipeServiceFirestore implements RecipeService {
 
   final db;
   final UserServiceFirestore userService;
+  final StorageHandler storageHandler;
   final ConsoleWriter consoleWriter;
 
   /// Constructor.
   RecipeServiceFirestore() :
         this.db = Firestore.instance,
         this.userService = new UserServiceFirestore(),
+        this.storageHandler = new StorageHandler(),
         this.consoleWriter = new ConsoleWriter();
 
   /// Add a new recipe to the database. Returns the document ID.
@@ -44,11 +48,29 @@ class RecipeServiceFirestore implements RecipeService {
   /// Delete a recipe from the database when given a document ID.
   Future<void> deleteRecipe(String recipeID) async {
 
-    this.db.collection("recipes")
+    // Get recipe object from ID.
+    Recipe recipe = await getRecipeFromID(recipeID);
+
+    // Delete recipe document in database.
+    await this.db.collection("recipes")
         .document(recipeID)
         .delete();
 
     consoleWriter.DeletedDocument(CollectionType.Recipe, recipeID);
+
+    // Delete recipe images in Firebase storage.
+    storageHandler.deleteRecipeImages(recipe);
+
+    // Make review service.
+    ReviewServiceFirestore reviewService = new ReviewServiceFirestore();
+
+    // Get recipe reviews.
+    List<Review> reviews = await reviewService.getReviewsFromRecipe(recipeID);
+
+    // Delete recipe reviews.
+    for (int i = 0; i < reviews.length; i++){
+      await reviewService.deleteReview(reviews[i].id);
+    }
 
   }
 

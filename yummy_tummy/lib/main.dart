@@ -10,8 +10,8 @@ import 'model/test.dart';
 /// Main function just runs the app.
 void main() {
   runApp(YummyTummy());
-  // Test test = new Test();
-  // test.testMethods();
+  Test test = new Test();
+  test.testMethods();
 }
 
 class YummyTummy extends StatelessWidget {

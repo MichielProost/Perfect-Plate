@@ -120,7 +120,7 @@ class ReviewServiceFirestore implements ReviewService {
         reviews[i] = review;
         consoleWriter.FetchedDocument(CollectionType.Review, review.id);
       }
-      return docs.documents.isNotEmpty ? reviews : null;
+      return docs.documents.isNotEmpty ? reviews : List<Review>();
     });
     return fetchedReviews;
 

@@ -170,7 +170,7 @@ class Test {
   /// TEST: Delete a recipe from the database.
   void testDeleteRecipe() async {
 
-    recipeService.deleteRecipe("89koX9rhGmeHlpD6ooz2");
+    recipeService.deleteRecipe("9VAxZX6ml8OWtB8sTDoo");
     
   }
 
