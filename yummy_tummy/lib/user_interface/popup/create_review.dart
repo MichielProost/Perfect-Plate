@@ -37,111 +37,121 @@ class _CreateScreen extends State<CreateReviewScreen> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 250.0),
-      child: Card(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            
-            // Close menu row
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+      padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 70.0),
+      child: Column(
+        children: <Widget>[
+          Card(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                CloseButton()
-              ],
-            ),
-            
-            // Thank you for reviewing text
-            Text(
-              Localization.instance.language.getMessage( 'thank_you_review' ),
-              style: TextStyle(
-                fontSize: 17.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-
-            // Spacing
-            SizedBox(
-              height: 5.0,
-            ),
-
-            // Select rating row
-            SelectableStars(35.0, startRating: _currentStars, onTap: (rating) => _currentStars = rating,),
-
-            // Spacing
-            SizedBox(
-              height: 5.0,
-            ),
-
-            // Text input
-            Padding(
-              padding: const EdgeInsets.symmetric( horizontal: 15.0 ),
-              child: TextFormField(
-                enableSuggestions: true,
-                controller: _controller,
-                maxLines: 10,
-                decoration: InputDecoration(
-                  focusColor: Constants.main,
-                  hintText: Localization.instance.language.getMessage( 'review_type_here' ),
-                  enabledBorder: UnderlineInputBorder(      
-                    borderSide: BorderSide(
-                      color: Constants.text_gray,
-                      width: 3.0
-                    ),
+                
+                // Close menu row
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    CloseButton()
+                  ],
+                ),
+                
+                // Thank you for reviewing text
+                Text(
+                  Localization.instance.language.getMessage( 'thank_you_review' ),
+                  style: TextStyle(
+                    fontSize: 17.0,
+                    fontWeight: FontWeight.bold,
                   ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Constants.main,
-                      width: 3.0
+                ),
+
+                // Spacing
+                SizedBox(
+                  height: 5.0,
+                ),
+
+                // Select rating row
+                SelectableStars(35.0, startRating: _currentStars, onTap: (rating) => _currentStars = rating,),
+
+                // Spacing
+                SizedBox(
+                  height: 5.0,
+                ),
+
+                // Text input
+                Padding(
+                  padding: const EdgeInsets.symmetric( horizontal: 15.0 ),
+                  child: TextFormField(
+                    enableSuggestions: true,
+                    controller: _controller,
+                    maxLines: 10,
+                    decoration: InputDecoration(
+                      focusColor: Constants.main,
+                      hintText: Localization.instance.language.getMessage( 'review_type_here' ),
+                      enabledBorder: UnderlineInputBorder(      
+                        borderSide: BorderSide(
+                          color: Constants.text_gray,
+                          width: 3.0
+                        ),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Constants.main,
+                          width: 3.0
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ),
 
-            // Spacing
-            Expanded(
-              child: SizedBox(
-                height: 20.0,
-              ),
-            ),
-
-            // Action buttons
-            Padding(
-              padding: EdgeInsets.only(bottom: 20.0),
-              child: Row(
-
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
-                children: <Widget>[
-                  
-                  // Cancel button
-                  FlatButton(
-                    onPressed: () => Navigator.pop(context, null), 
-                    child: Text(Localization.instance.language.getMessage( 'cancel' ), style: Constants.buttonStyle,),
+                // Spacing
+                Expanded(
+                  child: SizedBox(
+                    height: 20.0,
                   ),
+                ),
 
-                  // Submit button
-                  FlatButton(
-                    onPressed: () {
-                      // Update review
-                      _review.description = _controller.text;
-                      _review.rating = _currentStars;
-                      _review.userMap = Constants.appUser.toCompactMap();
+                // Action buttons
+                Padding(
+                  padding: EdgeInsets.only(bottom: 20.0),
+                  child: Row(
 
-                      // Save review
-                      widget._reviewService.addReview( _review );
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 
-                      Navigator.pop(context, null);
-                    }, 
-                    child: Text(Localization.instance.language.getMessage( 'submit' ), style: Constants.buttonStyle,),
+                    children: <Widget>[
+                      
+                      // Cancel button
+                      FlatButton(
+                        onPressed: () => Navigator.pop(context, null), 
+                        child: Text(Localization.instance.language.getMessage( 'cancel' ), style: Constants.buttonStyle,),
+                      ),
+
+                      // Submit button
+                      FlatButton(
+                        onPressed: () {
+                          // Update review
+                          _review.description = _controller.text;
+                          _review.rating = _currentStars;
+                          _review.userMap = Constants.appUser.toCompactMap();
+
+                          // Save review
+                          widget._reviewService.addReview( _review );
+
+                          Navigator.pop(context, null);
+                        }, 
+                        child: Text(Localization.instance.language.getMessage( 'submit' ), style: Constants.buttonStyle,),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
+                ),
 
-          ],
-        ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: SizedBox(
+              height: 1.0,
+              width: 1.0,
+            ),
+          ),
+        ],
       ),
     );
   }
