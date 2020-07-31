@@ -47,13 +47,6 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
     return;
   }
 
-  /// Returns recipe object with a given title.
-  /// NOT functional in dummy database!
-  Future<Recipe> getRecipeFromTitle(String title) async {
-    await enforceDelay();
-    return Recipe(title: title);
-  }
-
   /// Returns all recipes made by a specific user.
   /// Field: Specify user by name or id.
   /// Value: Value of the field.
@@ -388,5 +381,11 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
         favourites: ['2'],
       ),
     ];
+  }
+
+  @override
+  Future<List<Recipe>> getRecipesFromTitle(String title) async {
+    await enforceDelay();
+    return getRecipes();
   }
 }

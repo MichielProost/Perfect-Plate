@@ -90,9 +90,10 @@ class Test {
   void testGetRecipeFromTitle() async {
 
     // Get recipe object from title.
-    Recipe fetchedRecipe = await recipeService.getRecipeFromTitle("Panna cotta met tartaar van kiwi en kokoscrumble");
+    List<Recipe> fetchedRecipes = await recipeService.getRecipesFromTitle("Panna cotta met tartaar van kiwi en kokoscrumble");
     // Print summary of fetched recipe.
-    fetchedRecipe.printSummary();
+    for (Recipe recipe in fetchedRecipes)
+      recipe.printSummary();
 
   }
 
@@ -206,10 +207,12 @@ class Test {
   /// TEST: Modify an existing review.
   testModifyRecipe() async {
 
-    Recipe recipe = await recipeService.getRecipeFromTitle("Panna cotta met tartaar van kiwi en kokoscrumble");
-    recipe.title = "Other title";
-    await recipeService.modifyRecipe(recipe, recipe.id);
-
+    List<Recipe> recipes = await recipeService.getRecipesFromTitle("Panna cotta met tartaar van kiwi en kokoscrumble");
+    for (Recipe recipe in recipes) 
+    {
+      recipe.title = "Other title";
+      await recipeService.modifyRecipe(recipe, recipe.id);
+    }
   }
 
   /// TEST: Search recipes based on a number of criteria.
