@@ -39,7 +39,7 @@ class _Card extends State<ReviewCard> {
       onTap: () => _handleOpenRecipe(context),
       enableFeedback: widget.allowRecipeLink,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30.0),
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: Card(
           child: Padding(
             padding: const EdgeInsets.all(10.0),
@@ -54,12 +54,13 @@ class _Card extends State<ReviewCard> {
                     // Recipe rating
                     RatingRow.withSize(
                       widget._review.rating.toDouble(),
-                      size: 25.0,
+                      size: 23.0,
                     ),
 
                     // User name
                     Text( 
                       widget._review.user.name,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 15.0
