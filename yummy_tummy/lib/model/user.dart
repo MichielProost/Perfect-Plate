@@ -1,5 +1,6 @@
 import 'package:yummytummy/model/board/medal_board.dart';
 import 'package:yummytummy/model/recipe.dart';
+import 'package:yummytummy/user_interface/localisation/localization.dart';
 import 'package:yummytummy/utils/stringFunctions.dart';
 
 // const JUNIOR_LIM = 2000;
@@ -81,6 +82,7 @@ class User{
   // Preferences
   DietField dietFieldPreference = DietField.any;
   RecipeType recipeTypePreference = RecipeType.any;
+  LanguagePick languagePreference = LanguagePick.other;
 
   User({
     this.id,
@@ -92,6 +94,7 @@ class User{
     this.board,
     this.dietFieldPreference,
     this.recipeTypePreference,
+    this.languagePreference,
   });
 
   /// Deserialize received data from Firestore.
@@ -100,8 +103,12 @@ class User{
       : this(
           id: id != null ? id : data['id'],
           name: data.containsKey('name') ? data['name'] : '',
-          dietFieldPreference: data.containsKey('dietFieldPreference') ? DietField.values[ data['dietFieldPreference']] : DietField.any,
-          recipeTypePreference: data.containsKey('recipeTypePreference') ? RecipeType.values[data['recipeTypePreference']] : RecipeType.any,
+          dietFieldPreference: data.containsKey('dietFieldPreference') ?
+            DietField.values[ data['dietFieldPreference']] : DietField.any,
+          recipeTypePreference: data.containsKey('recipeTypePreference') ?
+            RecipeType.values[data['recipeTypePreference']] : RecipeType.any,
+          languagePreference: data.containsKey('languagePreference') ?
+            LanguagePick.values[data['languagePreference']] : LanguagePick.other,
           score: data.containsKey('score') ? data['score'] : 0,
           rank: data.containsKey('rank') ? RankType.values[data['rank']] : RankType.dishwasher,
           favourites: data.containsKey('favourites') ?
@@ -121,6 +128,7 @@ class User{
     this.board                = user.board;
     this.dietFieldPreference  = user.dietFieldPreference;
     this.recipeTypePreference = user.recipeTypePreference;
+    this.languagePreference   = user.languagePreference;
   }
 
   /// Convert class object to data structure 'Map'.
@@ -132,6 +140,7 @@ class User{
       'favourites' : favourites != null ? favourites : [],
       'dietFieldPreference' : dietFieldPreference.index,
       'recipeTypePreference' : recipeTypePreference.index,
+      'languagePreference' : languagePreference.index,
       'image' : image??= '',
       'board' : board != null ? board.toMap() : {},
     };
