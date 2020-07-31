@@ -212,9 +212,9 @@ class RecipeServiceFirestore implements RecipeService {
     if (typeField != RecipeType.any){
       query = query.where("type", isEqualTo: typeField.index);
     }
-    //if (language != LanguagePick.other){
-    //  query = query.where("language", isEqualTo: language.index);
-    //}
+    if (language != LanguagePick.other){
+      query = query.where("language", isEqualTo: language.index);
+    }
 
     // Ingredients
     if (ingredients.isNotEmpty){
