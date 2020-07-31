@@ -7,6 +7,7 @@ import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/user_interface/components/buttons/google_signin_button_wrapper.dart';
 import 'package:yummytummy/user_interface/constants.dart';
+import 'package:yummytummy/user_interface/localisation/localization.dart';
 import 'package:yummytummy/user_interface/popup/snackbar_util.dart';
 
 import 'components/recipe_card.dart';
@@ -36,7 +37,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
           {
             return snapshot.hasError ?
               //TODO implement language
-              SnackBarUtil.createTextSnackBar("An error occured while retrieving the recipes!") :
+              SnackBarUtil.createTextSnackBar( Localization.instance.language.getMessage( 'recipe_database_error' ) ) :
               Theme(
                 data: Constants.themeData,
                 child: ! Constants.appUser.isLoggedIn() ?
@@ -46,7 +47,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          'Please log in to see your saved recipes!',
+                          Localization.instance.language.getMessage( '' ),
                           textAlign: TextAlign.center,
                           style: Constants.emptyScreenStyle,
                         ),
@@ -65,7 +66,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                       Padding(
                         padding: const EdgeInsets.only( top: 8.0 ),
                         child: Text(
-                          'You have no favourites yet.\nBookmark a recipe to save it to this screen.',
+                          Localization.instance.language.getMessage( 'no_bookmarks_yet' ),
                           textAlign: TextAlign.center,
                           style: Constants.emptyScreenStyle,
                         ),

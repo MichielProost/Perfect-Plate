@@ -4,6 +4,7 @@ import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/user_interface/components/rating_row.dart';
 import 'package:yummytummy/user_interface/components/selectable_stars.dart';
 import 'package:yummytummy/user_interface/general/icon_builder.dart';
+import 'package:yummytummy/user_interface/localisation/localization.dart';
 import 'package:yummytummy/user_interface/popup/create_review.dart';
 import 'package:yummytummy/user_interface/popup/recipe_ratings.dart';
 import 'package:yummytummy/user_interface/widgets/better_expansion_tile.dart';
@@ -119,7 +120,7 @@ class _RecipePageState extends State<RecipePage> {
                         padding: const EdgeInsets.only(top: 20.0),
                         child: Column(
                           children: <Widget>[
-                            Text("Leave a review for this recipe!"),
+                            Text( Localization.instance.language.getMessage( 'please_leave_review' ) ),
                             SelectableStars(
                               35.0,
                               onTap: ( rating ) => showDialog(context: context, child: CreateReviewScreen(_recipe.id, startingStars: rating,)),
@@ -373,7 +374,7 @@ class _RecipePageState extends State<RecipePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   buildIconInfo(Icons.fastfood, _recipe.getReadableType(), true),
-                  buildIconInfoCustom(CustomIcon.vegetarian, "Vegetarian", _recipe.isVegetarian),
+                  buildIconInfoCustom(CustomIcon.vegetarian, Localization.instance.language.dietFieldName( DietField.vegetarian ), _recipe.isVegetarian),
                 ],
               ),
               SizedBox(
@@ -385,7 +386,7 @@ class _RecipePageState extends State<RecipePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   buildIconInfo(Icons.timer, _recipe.duration.toString() + "''", true),
-                  buildIconInfoCustom(CustomIcon.vegan, "Vegan", _recipe.isVegan),
+                  buildIconInfoCustom(CustomIcon.vegan, Localization.instance.language.dietFieldName( DietField.vegan ), _recipe.isVegan),
                 ],
               ),
             ],
@@ -418,7 +419,7 @@ class _RecipePageState extends State<RecipePage> {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
-            "Ingredients",
+            Localization.instance.language.getMessage( 'ingredients' ),
             style: TextStyle(
               fontWeight: FontWeight.bold,
             ),
@@ -462,7 +463,7 @@ class _RecipePageState extends State<RecipePage> {
       ),
       child: BetterExpansionTile(
         title: Text(
-          "Step " + (index + 1).toString(),
+          Localization.instance.language.getMessage( 'step' ) + '' + (index + 1).toString(),
           style: TextStyle(
             fontWeight: FontWeight.bold,
           ),

@@ -4,6 +4,7 @@ import 'package:yummytummy/database/interfaces/userService.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/user_interface/components/action_button.dart';
 import 'package:yummytummy/user_interface/constants.dart';
+import 'package:yummytummy/user_interface/localisation/localization.dart';
 
 class ProfileSettings extends StatefulWidget {
   
@@ -46,7 +47,7 @@ class _ProfileSettingsState extends State<ProfileSettings>{
 
             // Title
             Text(
-              "Personal preferences",
+              Localization.instance.language.getMessage( 'user_preferences' ),
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18.0,
@@ -68,7 +69,7 @@ class _ProfileSettingsState extends State<ProfileSettings>{
                     padding: const EdgeInsets.only(left: 40.0),
                     child: Align(
                       alignment: Alignment.centerLeft,
-                      child: Text("Diet of choice")
+                      child: Text(Localization.instance.language.getMessage( 'select_diet' )),
                     ),
                   ),
 
@@ -89,7 +90,7 @@ class _ProfileSettingsState extends State<ProfileSettings>{
                         .map<DropdownMenuItem<DietField>>((DietField value) {
                       return DropdownMenuItem<DietField>(
                         value: value,
-                        child: Text(value.getString()),
+                        child: Text(Localization.instance.language.dietFieldName( value )),
                       );
                     }).toList(),
                   ),
@@ -99,7 +100,7 @@ class _ProfileSettingsState extends State<ProfileSettings>{
                     padding: const EdgeInsets.only(left: 40.0),
                     child: Align(
                       alignment: Alignment.centerLeft,
-                      child: Text("Dish preference")
+                      child: Text(Localization.instance.language.getMessage( 'select_course' )),
                     ),
                   ),
 
@@ -120,7 +121,7 @@ class _ProfileSettingsState extends State<ProfileSettings>{
                         .map<DropdownMenuItem<RecipeType>>((RecipeType value) {
                       return DropdownMenuItem<RecipeType>(
                         value: value,
-                        child: Text(value.getString()),
+                        child: Text( Localization.instance.language.recipeTypeName( value ) ),
                       );
                     }).toList(),
                   ),
@@ -132,7 +133,7 @@ class _ProfileSettingsState extends State<ProfileSettings>{
             Spacer(),
 
             ActionButton(
-              'Okay',
+              Localization.instance.language.getMessage( 'submit' ),
               onClick: () { _saveChanges(); Navigator.pop(context); },
             ),
 

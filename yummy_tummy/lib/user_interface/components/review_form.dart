@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yummytummy/user_interface/components/selectable_stars.dart';
+import 'package:yummytummy/user_interface/localisation/localization.dart';
 
 import '../constants.dart';
 
@@ -27,9 +28,8 @@ class _Form extends State<ReviewForm> {
       padding: const EdgeInsets.only(top: 20.0),
       child: Column(
         children: <Widget>[
-          //TODO add language
           Text(
-            "Rate this recipe!",
+            Localization.instance.language.getMessage( 'create_review_title' ),
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 16.0
@@ -49,9 +49,8 @@ class _Form extends State<ReviewForm> {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
-              //TODO add language system
               Text(
-                "Send review"
+                Localization.instance.language.getMessage( 'submit' )
               ),
               IconButton(
                 icon: Icon(

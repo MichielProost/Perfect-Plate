@@ -10,6 +10,7 @@ import 'package:yummytummy/user_interface/popup/snackbar_util.dart';
 
 import 'components/recipe_card.dart';
 import 'constants.dart';
+import 'localisation/localization.dart';
 
 class FeedScreen extends StatefulWidget {
   
@@ -90,7 +91,7 @@ class _FeedScreenState extends State<FeedScreen> {
           {
             return snapshot.hasError ?
               //TODO implement language
-              SnackBarUtil.createTextSnackBar("An error occured while retrieving the recipes!") :
+              SnackBarUtil.createTextSnackBar( Localization.instance.language.getMessage( 'recipe_database_error' ) ) :
               Theme(
                 data: Constants.themeData,
                 child: ListView(
@@ -101,7 +102,7 @@ class _FeedScreenState extends State<FeedScreen> {
                       Padding(
                         padding: const EdgeInsets.only( top: 20.0 ),
                         child: Text(
-                          "Woops, no recipes found!\n \n Please edit your preferences.\n \n:-(",
+                          Localization.instance.language.getMessage( 'no_recipes_found' ),
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 20.0,

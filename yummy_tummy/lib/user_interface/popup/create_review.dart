@@ -3,6 +3,7 @@ import 'package:yummytummy/database/firestore/reviewServiceFirestore.dart';
 import 'package:yummytummy/database/interfaces/reviewService.dart';
 import 'package:yummytummy/model/review.dart';
 import 'package:yummytummy/user_interface/components/selectable_stars.dart';
+import 'package:yummytummy/user_interface/localisation/localization.dart';
 import '../constants.dart';
 
 class CreateReviewScreen extends StatefulWidget {
@@ -52,7 +53,7 @@ class _CreateScreen extends State<CreateReviewScreen> {
             
             // Thank you for reviewing text
             Text(
-              "Thank you for reviewing this recipe!",
+              Localization.instance.language.getMessage( 'thank_you_review' ),
               style: TextStyle(
                 fontSize: 17.0,
                 fontWeight: FontWeight.bold,
@@ -81,7 +82,7 @@ class _CreateScreen extends State<CreateReviewScreen> {
                 maxLines: 10,
                 decoration: InputDecoration(
                   focusColor: Constants.main,
-                  hintText: "Feel free to leave your opinion here",
+                  hintText: Localization.instance.language.getMessage( 'review_type_here' ),
                   enabledBorder: UnderlineInputBorder(      
                     borderSide: BorderSide(
                       color: Constants.text_gray,
@@ -117,7 +118,7 @@ class _CreateScreen extends State<CreateReviewScreen> {
                   // Cancel button
                   FlatButton(
                     onPressed: () => Navigator.pop(context, null), 
-                    child: Text("Cancel", style: Constants.buttonStyle,),
+                    child: Text(Localization.instance.language.getMessage( 'cancel' ), style: Constants.buttonStyle,),
                   ),
 
                   // Submit button
@@ -133,7 +134,7 @@ class _CreateScreen extends State<CreateReviewScreen> {
 
                       Navigator.pop(context, null);
                     }, 
-                    child: Text("Submit", style: Constants.buttonStyle,),
+                    child: Text(Localization.instance.language.getMessage( 'submit' ), style: Constants.buttonStyle,),
                   ),
                 ],
               ),

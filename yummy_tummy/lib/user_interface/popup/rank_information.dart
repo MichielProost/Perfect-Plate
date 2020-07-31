@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/user_interface/components/action_button.dart';
 import 'package:yummytummy/user_interface/constants.dart';
+import 'package:yummytummy/user_interface/localisation/localization.dart';
 
 class RankInformation extends StatelessWidget {
   
@@ -27,7 +28,7 @@ class RankInformation extends StatelessWidget {
                   ),
                   
                   Text(
-                    "These are the available ranks and your progress towards all of them.",
+                    Localization.instance.language.getMessage( 'rank_overview_title' ),
                     style: TextStyle(
                       fontWeight: FontWeight.bold
                     ),
@@ -37,7 +38,7 @@ class RankInformation extends StatelessWidget {
                     _RankProgressTile(rank, rank.getRequiredScore() != 0 ? Constants.appUser.score / rank.getRequiredScore() : 1.0),
 
                   ActionButton(
-                    "Close menu",
+                    Localization.instance.language.getMessage( 'close_menu' ),
                     onClick: () => Navigator.pop(context),
                   ),
                 ],
@@ -70,7 +71,7 @@ class _RankProgressTile extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Text(
-              rank.getString(),
+              Localization.instance.language.rankName( rank ),
             ),
 
             Padding(

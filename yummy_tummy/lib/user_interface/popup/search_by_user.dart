@@ -7,6 +7,7 @@ import 'package:yummytummy/user_interface/components/action_button.dart';
 import 'package:yummytummy/user_interface/components/custom_textfield.dart';
 import 'package:yummytummy/user_interface/components/recipe_card.dart';
 import 'package:yummytummy/user_interface/constants.dart';
+import 'package:yummytummy/user_interface/localisation/localization.dart';
 import 'package:yummytummy/user_interface/widgets/better_expansion_tile.dart';
 
 class SearchByName extends StatefulWidget {
@@ -84,7 +85,7 @@ class _SearchByNameState extends State<SearchByName> {
 
       if (_foundRecipes.length == 0) {
         _foundRecipes.add( Text(
-          "\nThis author does not exist or has no recipes\n \n:-(",
+          Localization.instance.language.getMessage( 'author_not_found' ),
           textAlign: TextAlign.center,
           style: Constants.emptyScreenStyle,
         ));
@@ -107,7 +108,7 @@ class _SearchByNameState extends State<SearchByName> {
         
         // Expandable exterior
         title: Text(
-          "Search by name",
+          Localization.instance.language.getMessage( 'search_recipes_title' ),
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 20.0,
@@ -132,7 +133,7 @@ class _SearchByNameState extends State<SearchByName> {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "Search for recipes by a specific user",
+                    Localization.instance.language.getMessage( 'search_by_user_title' ),
                     textAlign: TextAlign.left,
                   ),
                 ),
@@ -141,7 +142,7 @@ class _SearchByNameState extends State<SearchByName> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10.0),
                   child: CustomTextField(
-                    hint: "User name here (exact match)",
+                    hint: Localization.instance.language.getMessage( 'search_by_user_hint' ),
                     onChanged: (content) => _searchedAuthor = content,
                     callback: (content) {
                       _searchedAuthor = content;
@@ -153,7 +154,7 @@ class _SearchByNameState extends State<SearchByName> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 10.0),
                   child: ActionButton(
-                    "Search",
+                    Localization.instance.language.getMessage( 'show_recipes' ),
                     onClick: () {
                       handleSearch();
                     },

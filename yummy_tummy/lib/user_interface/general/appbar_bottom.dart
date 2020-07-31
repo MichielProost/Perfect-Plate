@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yummytummy/user_interface/localisation/localization.dart';
 
 import '../constants.dart';
 import '../screen_handler.dart';
@@ -31,7 +32,7 @@ class AppBarBottomState extends State<AppBarBottom> {
   }
 
 
-  Widget createNavButton(IconData icon, String text, AppPage page)
+  Widget createNavButton(IconData icon, AppPage page)
   {
     //Color elementColor = _currentPage == page ? Constants.accent : Colors.white;
     Color elementColor = _currentPage == page ? Colors.white : Colors.grey.shade400;
@@ -53,7 +54,7 @@ class AppBarBottomState extends State<AppBarBottom> {
                 size: 30.0,
               ),
               Text(
-                text,
+                Localization.instance.language.appPageName( page ),
                 maxLines: 1,
                 style: TextStyle(
                   color: elementColor,
@@ -77,13 +78,13 @@ class AppBarBottomState extends State<AppBarBottom> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            createNavButton(Icons.star, "Feed", AppPage.feed),
-            createNavButton(Icons.search, "Search", AppPage.search),
+            createNavButton(Icons.star, AppPage.feed),
+            createNavButton(Icons.search, AppPage.search),
             Expanded(
               child: SizedBox(),
             ),
-            createNavButton(Icons.bookmark, "Saved", AppPage.favourites),
-            createNavButton(Icons.person, "Profile", AppPage.profile)
+            createNavButton(Icons.bookmark, AppPage.favourites),
+            createNavButton(Icons.person, AppPage.profile)
           ],
         ),
       ),

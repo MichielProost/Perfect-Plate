@@ -9,6 +9,7 @@ import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/user_interface/components/buttons/google_signin_button_wrapper.dart';
 import 'package:yummytummy/user_interface/components/medal_widget.dart';
 import 'package:yummytummy/user_interface/components/recipe_card.dart';
+import 'package:yummytummy/user_interface/localisation/localization.dart';
 import 'package:yummytummy/user_interface/popup/recipe_page.dart';
 
 import 'components/review_card.dart';
@@ -70,7 +71,7 @@ class _Screen extends State<ProfileScreen> {
       showDialog(context: context, child: RecipePage( recipe ));
   }
 
-  Widget buildContentLink(String name, UserPage userPage)
+  Widget buildContentLink(UserPage userPage)
   {
     return InkWell(
       onTap: () {
@@ -81,7 +82,7 @@ class _Screen extends State<ProfileScreen> {
       child: Column(
         children: <Widget>[
           Text(
-            name,
+            Localization.instance.language.profilePageName( userPage ),
             style: TextStyle(
               fontSize: 20.0,
               color: _activePage == userPage ? Constants.main : Constants.text_gray,
@@ -124,7 +125,7 @@ class _Screen extends State<ProfileScreen> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10.0),
             child: Text(
-              Constants.appUser.rank.getString(),
+              Localization.instance.language.rankName( Constants.appUser.rank ),
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 15.0,
@@ -164,9 +165,9 @@ class _Screen extends State<ProfileScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                buildContentLink("Medals" , UserPage.medals ),
-                buildContentLink("Recipes", UserPage.recipes),
-                buildContentLink("Reviews", UserPage.reviews),
+                buildContentLink(UserPage.medals),
+                buildContentLink(UserPage.recipes),
+                buildContentLink(UserPage.reviews),
               ],
             ),
 
@@ -280,7 +281,7 @@ class _Screen extends State<ProfileScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Text(
-              "Please log in to see your profile page.",
+              Localization.instance.language.getMessage( 'profile_login_error' ),
               textAlign: TextAlign.center,
               style: Constants.emptyScreenStyle,
             ),
@@ -339,9 +340,7 @@ class _Screen extends State<ProfileScreen> {
                   else
                     return Center(
                       child: Text(
-                        _activePage != UserPage.medals ? 
-                        "You haven't published " + _activePage.getString().toLowerCase() + " yet!" : 
-                        "Your medals are being loaded...",
+                        Localization.instance.language.emptyProfilePageError( _activePage ),
                         style: TextStyle(
                           fontSize: 18.0,
                           fontWeight: FontWeight.bold,

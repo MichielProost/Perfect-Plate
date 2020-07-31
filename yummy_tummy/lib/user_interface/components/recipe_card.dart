@@ -3,6 +3,7 @@ import 'package:yummytummy/database/firestore/userServiceFirestore.dart';
 import 'package:yummytummy/database/interfaces/userService.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/user.dart';
+import 'package:yummytummy/user_interface/localisation/localization.dart';
 import 'package:yummytummy/user_interface/popup/recipe_page.dart';
 import 'package:yummytummy/user_interface/popup/snackbar_util.dart';
 
@@ -87,8 +88,9 @@ class _RecipeCardState extends State<RecipeCard> {
                           setState(() {
                             _isBookMarked = !_isBookMarked;
                           });
-                          // TODO implement language system
-                          String text = _isBookMarked ? 'This recipe will not be deleted' : 'This recipe will be deleted soon. Press the save button again to undo this action.';
+                          String text = _isBookMarked ? 
+                            Localization.instance.language.getMessage( 'undo_unfavourite' ) : 
+                            Localization.instance.language.getMessage( 'unfavourite' );
                           Scaffold.of(context).removeCurrentSnackBar();
                           Scaffold.of(context).showSnackBar(SnackBarUtil.createTextSnackBar(text));
                         },
@@ -108,7 +110,9 @@ class _RecipeCardState extends State<RecipeCard> {
                     widget._showNumReviews ?
                       RatingRow(_recipe.rating, _recipe.numberOfReviews) :
                       RatingRow(_recipe.rating),
-                    Text( RankType.dishwasher.getRank( _recipe.userMap['rank'] ).getString() ),
+                    Text(
+                      Localization.instance.language.rankName( RankType.dishwasher.getRank( _recipe.userMap['rank'] ) ) 
+                    ),
                     Text( _recipe.userMap['name'] ),
                   ],
                 ),

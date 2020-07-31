@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 import 'package:yummytummy/database/authentication/google.dart';
 import 'package:yummytummy/user_interface/constants.dart';
+import 'package:yummytummy/user_interface/localisation/localization.dart';
 
 class GoogleSigninButtonWrapper extends StatefulWidget {
 
@@ -27,7 +28,7 @@ class _SigninButton extends State<GoogleSigninButtonWrapper> {
       onPressed: () {
         handleAuthChange();
       },
-      text: Constants.appUser.isLoggedIn() ? "Sign out of Google" : "Log in with Google",
+      text: Constants.appUser.isLoggedIn() ? Localization.instance.language.getMessage( 'log_out_from_google' ) : Localization.instance.language.getMessage( 'log_in_with_google' ),
     );
   }
 

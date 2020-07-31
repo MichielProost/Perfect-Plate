@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yummytummy/user_interface/localisation/localization.dart';
 import 'package:yummytummy/user_interface/screen_handler.dart';
 
 import 'constants.dart';
@@ -7,7 +8,7 @@ import 'general/side_menu.dart';
 
 class HomeScreen extends StatelessWidget {
 
-  Widget buildIconLink(IconData icon, AppPage page, String text, BuildContext context)
+  Widget buildIconLink(IconData icon, AppPage page, BuildContext context)
   {
     return InkWell(
       onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ScreenHandler( page ))),
@@ -27,7 +28,7 @@ class HomeScreen extends StatelessWidget {
               color: Colors.white,
             ),
             Text(
-              text,
+              Localization.instance.language.appPageName( page ),
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 20.0,
@@ -69,16 +70,16 @@ class HomeScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                buildIconLink(Icons.home, AppPage.feed, "Feed", context),
-                buildIconLink(Icons.search, AppPage.search, "Search", context),
+                buildIconLink(Icons.home, AppPage.feed, context),
+                buildIconLink(Icons.search, AppPage.search, context),
               ],
             ),
             Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                buildIconLink(Icons.bookmark, AppPage.favourites, "Saved", context),
-                buildIconLink(Icons.person, AppPage.profile, "Profile", context),
+                buildIconLink(Icons.bookmark, AppPage.favourites, context),
+                buildIconLink(Icons.person, AppPage.profile, context),
               ],
             ),
             Spacer(

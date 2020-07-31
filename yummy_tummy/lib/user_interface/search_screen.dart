@@ -7,6 +7,7 @@ import 'package:yummytummy/database/interfaces/recipeService.dart';
 import 'package:yummytummy/database/query/queryInfo.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/user_interface/components/recipe_card.dart';
+import 'package:yummytummy/user_interface/localisation/localization.dart';
 import 'package:yummytummy/user_interface/widgets/better_expansion_tile.dart';
 
 import 'constants.dart';
@@ -104,7 +105,7 @@ class _SearchScreen extends State<SearchScreen> {
                 key: _expansionTile,
                 title: Center(
                     child: Text(
-                      "Search for recipes",
+                      Localization.instance.language.getMessage( 'search_recipes_title' ),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 20.0,
@@ -131,7 +132,7 @@ class _SearchScreen extends State<SearchScreen> {
                               padding: const EdgeInsets.only(left: 60.0),
                               child: Align(
                                 alignment: Alignment.centerLeft,
-                                child: Text("Diet of choice")
+                                child: Text( Localization.instance.language.getMessage( 'select_diet' ) )
                               ),
                             ),
 
@@ -152,7 +153,7 @@ class _SearchScreen extends State<SearchScreen> {
                                   .map<DropdownMenuItem<DietField>>((DietField value) {
                                 return DropdownMenuItem<DietField>(
                                   value: value,
-                                  child: Text(value.getString()),
+                                  child: Text( Localization.instance.language.dietFieldName( value ) ),
                                 );
                               }).toList(),
                             ),
@@ -162,7 +163,7 @@ class _SearchScreen extends State<SearchScreen> {
                               padding: const EdgeInsets.only(left: 60.0),
                               child: Align(
                                 alignment: Alignment.centerLeft,
-                                child: Text("Type of dish")
+                                child: Text( Localization.instance.language.getMessage( 'select_course' ) )
                               ),
                             ),
 
@@ -183,7 +184,7 @@ class _SearchScreen extends State<SearchScreen> {
                                   .map<DropdownMenuItem<RecipeType>>((RecipeType value) {
                                 return DropdownMenuItem<RecipeType>(
                                   value: value,
-                                  child: Text(value.getString()),
+                                  child: Text( Localization.instance.language.recipeTypeName(value) ),
                                 );
                               }).toList(),
                             ),
@@ -200,7 +201,7 @@ class _SearchScreen extends State<SearchScreen> {
                           padding: const EdgeInsets.symmetric(horizontal: 40.0),
                           child: Column(
                             children: <Widget>[
-                              Text("Add required ingredients below:"),
+                              Text( Localization.instance.language.getMessage( 'ingredients_selector' ) ),
                               TextFormField(
                                 enableSuggestions: true,
                                 controller: _controller,
@@ -215,7 +216,7 @@ class _SearchScreen extends State<SearchScreen> {
                                 },
                                 decoration: InputDecoration(
                                   focusColor: Constants.main,
-                                  hintText: "Add required ingredients here (optional)",
+                                  hintText: Localization.instance.language.getMessage( 'ingredients_hint' ),
                                 ),
                               ),
                             ],
@@ -247,7 +248,7 @@ class _SearchScreen extends State<SearchScreen> {
                             child: RaisedButton(
                               color: Constants.main,
                               child: Text(
-                                "Show recipes",
+                                Localization.instance.language.getMessage( 'show_recipes' ),
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,

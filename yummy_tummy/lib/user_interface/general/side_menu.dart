@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:yummytummy/user_interface/components/buttons/google_signin_button_wrapper.dart';
 import 'package:yummytummy/user_interface/constants.dart';
+import 'package:yummytummy/user_interface/localisation/localization.dart';
 import 'package:yummytummy/user_interface/popup/profile_settings.dart';
 import 'package:yummytummy/user_interface/popup/rank_information.dart';
 import 'package:yummytummy/user_interface/popup/search_by_user.dart';
@@ -64,9 +65,9 @@ class _Menu extends State<SideMenu> {
               
 
               // Clickable elements
-              _SideListItem("Look up recipes by author", Icons.search, SearchByName()),
-              _SideListItem("Rank information", Icons.info, RankInformation(), mustBeLoggedInToView: true,),
-              _SideListItem("Personal preferences", Icons.settings, ProfileSettings(), mustBeLoggedInToView: true,),
+              _SideListItem(Localization.instance.language.getMessage( 'search_by_user_title' ), Icons.search, SearchByName()),
+              _SideListItem(Localization.instance.language.getMessage( 'rank_overview_sidemenu' ), Icons.info, RankInformation(), mustBeLoggedInToView: true,),
+              _SideListItem(Localization.instance.language.getMessage( 'user_preferences' ), Icons.settings, ProfileSettings(), mustBeLoggedInToView: true,),
 
               // Maximise space and logout button for logged in users
               Spacer(),

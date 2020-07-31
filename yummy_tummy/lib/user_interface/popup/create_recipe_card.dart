@@ -10,6 +10,7 @@ import 'package:yummytummy/user_interface/components/action_button.dart';
 import 'package:yummytummy/user_interface/components/choose_image_icon.dart';
 import 'package:yummytummy/user_interface/components/custom_textfield.dart';
 import 'package:yummytummy/user_interface/components/error_card.dart';
+import 'package:yummytummy/user_interface/localisation/localization.dart';
 
 import '../constants.dart';
 import 'info_popup.dart';
@@ -72,8 +73,6 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
   @override
   Widget build(BuildContext context) {
 
-    print("Length: " + _steps.length.toString());
-
     if (scrollToTop)
       SchedulerBinding.instance.addPostFrameCallback((_){ _scrollToBottom(); });
 
@@ -92,7 +91,7 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    "Create a new recipe",
+                    Localization.instance.language.getMessage( 'create_recipe' ),
                     textAlign: TextAlign.center,
                     style: Constants.emptyScreenStyle,
                   ),
@@ -120,7 +119,9 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                             child: CustomTextField(
                               key: _titleKey,
                               startValue: _title ?? "",
-                              hint: this._title == null ? "Set the recipe's title here" : '[Title] ' + this._title,
+                              hint: this._title == null ? 
+                                Localization.instance.language.getMessage( 'choose_title_here' ) : 
+                                '[' + Localization.instance.language.getMessage( 'title' ) + '] ' + this._title,
                               maxLines: 1,
                               onChanged: (String text) {
                                 _title = text;
@@ -136,7 +137,7 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 5.0),
                           child: ActionButton(
-                            "Set", 
+                            Localization.instance.language.getMessage( 'set' ), 
                             width: 50.0,
                             onClick: () {
                               setState(() {
@@ -183,7 +184,7 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                                     PopupMenuItem(
                                       value: ImageInput.camera,
                                       child: InkWell(
-                                        child: Text("Camera"),
+                                        child: Text( Localization.instance.language.getMessage( 'camera' ) ),
                                         onTap: () async {
                                           File selected = await imageHandler.getPicture( ImageSource.camera );
                                           setState(() {
@@ -196,7 +197,7 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                                     PopupMenuItem(
                                       value: ImageInput.gallery,
                                       child: InkWell(
-                                        child: Text("Gallery"),
+                                        child: Text( Localization.instance.language.getMessage( 'gallery' ) ),
                                         onTap: () async {
                                           File selected = await imageHandler.getPicture( ImageSource.gallery );
                                           setState(() {
@@ -226,7 +227,9 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                             child: CustomTextField(
                               key: _descriptionkey,
                               startValue: _description ?? "",
-                              hint: _description == null ? "Set the recipe's description here" : '[Description] ' + _description,
+                              hint: _description == null ? 
+                                Localization.instance.language.getMessage( 'description_here' ) : 
+                                '[' + Localization.instance.language.getMessage( 'description' ) + '] ' + _description,
                               maxLines: 10,
                               onChanged: (String text) {
                                 _description = text;
@@ -242,7 +245,7 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 5.0),
                           child: ActionButton(
-                            "Set", 
+                            Localization.instance.language.getMessage( 'set' ), 
                             width: 50.0,
                             onClick: () {
                               setState(() {
@@ -272,7 +275,7 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                             padding: const EdgeInsets.only(left: 30.0),
                             child: Align(
                               alignment: Alignment.centerLeft,
-                              child: Text("Diet of this recipe")
+                              child: Text( Localization.instance.language.getMessage( 'select_diet' ) )
                             ),
                           ),
                           
@@ -295,7 +298,10 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                                   .map<DropdownMenuItem<DietField>>((DietField value) {
                                 return DropdownMenuItem<DietField>(
                                   value: value,
-                                  child: Text( value == DietField.any ? "None" : value.getString() ),
+                                  child: Text( value == DietField.any ? 
+                                    Localization.instance.language.getMessage( 'none' ) : 
+                                    Localization.instance.language.dietFieldName( value ),
+                                  ),
                                 );
                               }).toList(),
                             ),
@@ -306,7 +312,7 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                             padding: const EdgeInsets.only(left: 30.0),
                             child: Align(
                               alignment: Alignment.centerLeft,
-                              child: Text("Type of dish")
+                              child: Text( Localization.instance.language.getMessage( 'select_course' ) )
                             ),
                           ),
 
@@ -329,7 +335,10 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                                   .map<DropdownMenuItem<RecipeType>>((RecipeType value) {
                                 return DropdownMenuItem<RecipeType>(
                                   value: value,
-                                  child: Text(value == RecipeType.any ? "Set recipe type" : value.getString()),
+                                  child: Text(value == RecipeType.any ? 
+                                    Localization.instance.language.getMessage( 'set_course' ) : 
+                                    Localization.instance.language.recipeTypeName( value ),
+                                  ),
                                 );
                               }).toList(),
                             ),
@@ -340,7 +349,7 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                             padding: const EdgeInsets.only(left: 30.0),
                             child: Align(
                               alignment: Alignment.centerLeft,
-                              child: Text("Preparation time")
+                              child: Text( Localization.instance.language.getMessage( 'preparation_time' ) )
                             ),
                           ),
 
@@ -363,7 +372,8 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                                 return DropdownMenuItem<String>(
                                   value: value.toString(),
                                   child: Text(
-                                    (value / 60).floor().toString() + "h" + (value%60).toString() + "m"
+                                    (value / 60).floor().toString() + Localization.instance.language.getMessage( 'hour_unit' ) + 
+                                    (value % 60).toString() + Localization.instance.language.getMessage( 'minute_unit' ),
                                   ),
                                 );
                               }).toList(),
@@ -377,7 +387,7 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                     Padding(
                       padding: const EdgeInsets.symmetric( vertical: 8.0 ),
                       child: Text(
-                        "Ingredients",
+                        Localization.instance.language.getMessage( 'ingredients' ),
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 18.0,
@@ -394,7 +404,7 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                             padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5.0),
                             child: CustomTextField(
                               key: _addIngredientKey,
-                              hint: "Add an ingredient here",
+                              hint: Localization.instance.language.getMessage( 'add_ingredient_hint' ),
                               maxLines: 1,
                               callback: (content) {
                                 setState(() {
@@ -407,7 +417,7 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 5.0),
                           child: ActionButton(
-                            "Add", 
+                            Localization.instance.language.getMessage( 'add' ), 
                             width: 50.0,
                             onClick: () {
                               setState(() {
@@ -437,7 +447,7 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                     Padding(
                       padding: const EdgeInsets.symmetric( vertical: 8.0 ),
                       child: Text(
-                        "Step descriptions",
+                        Localization.instance.language.getMessage( 'step_descriptions' ),
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 18.0,
@@ -459,27 +469,39 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 10.0),
                       child: ActionButton(
-                        "Submit recipe!",
+                        Localization.instance.language.getMessage( 'submit' ),
                         onClick: () async {
                           _errors = List<String>();
 
                           if (_title == null || _title == "")
-                            _errors.add("Please provide a recipe title");
+                            _errors.add(
+                              Localization.instance.language.getMessage( 'error_no_title' )
+                            );
 
                           if (_banner == null)
-                            _errors.add("Please provide a recipe banner");
+                            _errors.add(
+                              Localization.instance.language.getMessage( 'error_no_banner' )
+                            );
 
                           if (_description != null && _description.length < 15)
-                            _errors.add("Please provide a longer description");
+                            _errors.add(
+                              Localization.instance.language.getMessage( 'error_short_descr' )
+                            );
 
                           if (_recipeType == RecipeType.any)
-                            _errors.add("Please select a recipe type");
+                            _errors.add(
+                              Localization.instance.language.getMessage( 'error_no_type' )
+                            );
 
                           if (_ingredients.length == 0)
-                            _errors.add("Please add at least one ingredient");
+                            _errors.add(
+                              Localization.instance.language.getMessage( 'error_no_ingredients' )
+                            );
 
                           if (_steps.length == 0)
-                            _errors.add("Please incude at least one step");
+                            _errors.add(
+                              Localization.instance.language.getMessage( 'error_no_steps' )
+                            );
 
                           if (_errors.length == 0)
                           {
@@ -500,7 +522,13 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                             imageHandler.uploadAndSetRecipeImages(recipeImages, recipeID);
 
                             Navigator.pop(context);
-                            showDialog(context: context, child: InfoPopup("Created a recipe!", "Thank you for adding a new recipe."));
+                            showDialog(
+                              context: context, 
+                              child: InfoPopup(
+                                Localization.instance.language.getMessage( 'created_recipe' ), 
+                                Localization.instance.language.getMessage( 'thank_you_recipe' ),
+                              ),
+                            );
                           }
                           else
                           {
@@ -549,7 +577,7 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                       onChanged: (content) {
                         _steps[index] = content;
                       },
-                      hint: _steps.length > index ? _steps[index] : "Add step info here",
+                      hint: _steps.length > index ? _steps[index] : Localization.instance.language.getMessage( 'step_info_hint' ),
                       key: stepKeys[index],
                     ),
                   ),
@@ -581,7 +609,9 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: ActionButton(
-                        index == _steps.length ? "Add step" : "Update step",
+                        index == _steps.length ? 
+                          Localization.instance.language.getMessage( 'add_step' ) : 
+                          Localization.instance.language.getMessage( 'update_step' ),
                         onClick: () {
                           setState(() {
                             if (index >= _steps.length) {
@@ -664,7 +694,7 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
             PopupMenuItem(
               value: ImageInput.camera,
               child: InkWell(
-                child: Text("Camera"),
+                child: Text( Localization.instance.language.getMessage( 'camera' ) ),
                 onTap: () async {
                   File selected = await imageHandler.getPicture( ImageSource.camera );
                   setState(() {
@@ -683,7 +713,7 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
             PopupMenuItem(
               value: ImageInput.gallery,
               child: InkWell(
-                child: Text("Gallery"),
+                child: Text( Localization.instance.language.getMessage( 'gallery' ) ),
                 onTap: () async {
                   File selected = await imageHandler.getPicture( ImageSource.gallery );
                   setState(() {
