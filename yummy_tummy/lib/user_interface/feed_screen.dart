@@ -90,7 +90,6 @@ class _FeedScreenState extends State<FeedScreen> {
           if (snapshot.connectionState == ConnectionState.done) 
           {
             return snapshot.hasError ?
-              //TODO implement language
               SnackBarUtil.createTextSnackBar( Localization.instance.language.getMessage( 'recipe_database_error' ) ) :
               Theme(
                 data: Constants.themeData,

@@ -10,7 +10,6 @@ import 'package:yummytummy/user_interface/components/buttons/google_signin_butto
 import 'package:yummytummy/user_interface/components/medal_widget.dart';
 import 'package:yummytummy/user_interface/components/recipe_card.dart';
 import 'package:yummytummy/user_interface/localisation/localization.dart';
-import 'package:yummytummy/user_interface/popup/recipe_page.dart';
 
 import 'components/review_card.dart';
 import 'components/waiting_indicator.dart';
@@ -58,18 +57,6 @@ class _Screen extends State<ProfileScreen> {
 
   // Initialize starting page
   UserPage _activePage = UserPage.medals;
-
-  void _openRecipeID( String recipeID ) async
-  {
-    Recipe recipe;
-    List<Recipe> recipes = await _contentBuffer.getUserRecipes( Constants.appUser );
-    for (Recipe element in recipes)
-      if (element.id == recipeID)
-        recipe = element;
-    
-    if (recipe != null)
-      showDialog(context: context, child: RecipePage( recipe ));
-  }
 
   Widget buildContentLink(UserPage userPage)
   {

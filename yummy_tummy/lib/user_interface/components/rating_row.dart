@@ -8,16 +8,16 @@ class RatingRow extends StatelessWidget {
 
   final double _rating;
   final int _numRatings;
-  final double _rating_size;
+  final double _ratingSize;
 
 
   /// Creates a row of stars that accurately display the given rating
   /// The rating should be in the range [0, 5]
   /// A rating smaller than 0 will result in zero filled stars, and a rating bigger than five will result in five filled stars
-  RatingRow(this._rating, [this._numRatings]) : _rating_size = DEFAULT_SIZE;
+  RatingRow(this._rating, [this._numRatings]) : _ratingSize = DEFAULT_SIZE;
   RatingRow.withSize(this._rating, {int numRatings, double size: DEFAULT_SIZE}) : 
     _numRatings = numRatings,
-    _rating_size = size
+    _ratingSize = size
   ;
 
 
@@ -26,7 +26,7 @@ class RatingRow extends StatelessWidget {
   {
     return Icon(
       icon,
-      size: _rating_size,
+      size: _ratingSize,
       color: Constants.accent,
     );
   }
@@ -89,7 +89,7 @@ class RatingRow extends StatelessWidget {
           padding: const EdgeInsets.only(left: 5.0),
           child: Icon(
             Icons.person,
-            size: _rating_size,
+            size: _ratingSize,
           ),
         ),
 

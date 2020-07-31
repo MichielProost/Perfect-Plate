@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/user_interface/localisation/localization.dart';
 
@@ -30,7 +29,6 @@ extension Type on RecipeType {
   // Get a user-ready String of the rank name
   String getString()
   {
-    //TODO implement better way to implement this with regards to languages
     String lowercase = this.toString().toLowerCase().split('.').last;
     return '${lowercase[0].toUpperCase()}${lowercase.substring(1)}';
   }
@@ -40,7 +38,6 @@ extension Diet on DietField {
   // Get a user-ready String of the rank name
   String getString()
   {
-    //TODO implement better way to implement this with regards to languages
     String lowercase = this.toString().toLowerCase().split('.').last;
     return '${lowercase[0].toUpperCase()}${lowercase.substring(1)}';
   }
@@ -64,7 +61,6 @@ class Recipe {
   int duration;                         // How long it takes to make the recipe.
   String image;                         // Image URL of result.
   int numberOfReviews;            // Number of reviews.
-  // TODO watch out!! User is mutable, and can be edited from anywhere!
   final User user;                      // User object.
   Map<String, dynamic> userMap;   // Duplicate data. Information of user.
 
@@ -163,7 +159,6 @@ class Recipe {
 
   /// Convert the RecipeType field to a readable format where the first letter is uppercase and return it
   String getReadableType() {
-    //TODO Better way to retreive a display name of this type (multiple languages)
     String lowercase = type.toString().toLowerCase().split('.')[1];
     return '${lowercase[0].toUpperCase()}${lowercase.substring(1)}';
   }

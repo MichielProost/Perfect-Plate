@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:yummytummy/user_interface/popup/create_recipe_card.dart';
-import 'package:yummytummy/user_interface/popup/recipe_page.dart';
 import 'package:yummytummy/user_interface/popup/snackbar_util.dart';
 
 import '../constants.dart';

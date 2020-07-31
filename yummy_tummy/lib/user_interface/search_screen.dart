@@ -1,7 +1,6 @@
 /// Functions as a template for new screens. Should not actually be used
 
 import 'package:flutter/material.dart';
-import 'package:yummytummy/database/dummy/dummydatabase.dart';
 import 'package:yummytummy/database/firestore/recipeServiceFirestore.dart';
 import 'package:yummytummy/database/interfaces/recipeService.dart';
 import 'package:yummytummy/database/query/queryInfo.dart';

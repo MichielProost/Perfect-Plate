@@ -27,6 +27,9 @@ class Localization {
       case LanguagePick.dutch:
         this.language = Dutch();
         break;
+      case LanguagePick.other:
+        this.language = English();
+        break;
     }
   }
 

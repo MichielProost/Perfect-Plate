@@ -285,20 +285,7 @@ class _RecipePageState extends State<RecipePage> {
         //     Icons.info_outline,
         //     size: 35.0,
         //   ),
-        //   // TODO add proper language system
         //   onPressed:  () => showDialog(context: context, child: InfoPopup("Description", _recipe.description, Icons.info_outline)),
-        // ),
-
-        // TODO implement timer
-        // Timer button
-        // IconButton(
-        //   icon: Icon(
-        //     Icons.timer,
-        //     size: 35.0,
-        //   ),
-        //   onPressed: () {
-        //     // TODO add timer
-        //   },
         // ),
 
         // TODO implement sharing
@@ -415,7 +402,6 @@ class _RecipePageState extends State<RecipePage> {
     return Column(
       children: <Widget>[
         buildDivider(),
-        //TODO add language system
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
@@ -456,14 +442,13 @@ class _RecipePageState extends State<RecipePage> {
   /// Create an ExpansionTile for the step with given index
   Widget buildExpansionTile(int index) {
     print(_recipe.stepImages);
-    // TODO add language support
     return Theme(
       data: ThemeData(
         accentColor: Constants.main,
       ),
       child: BetterExpansionTile(
         title: Text(
-          Localization.instance.language.getMessage( 'step' ) + '' + (index + 1).toString(),
+          Localization.instance.language.getMessage( 'step' ) + ' ' + (index + 1).toString(),
           style: TextStyle(
             fontWeight: FontWeight.bold,
           ),

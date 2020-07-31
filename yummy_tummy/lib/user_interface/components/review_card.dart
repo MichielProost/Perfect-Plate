@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:yummytummy/database/firestore/recipeServiceFirestore.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/review.dart';
-import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/user_interface/components/rating_row.dart';
 import 'package:yummytummy/user_interface/components/recipe_card.dart';
 import 'package:yummytummy/user_interface/localisation/localization.dart';

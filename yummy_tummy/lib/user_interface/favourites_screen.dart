@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:yummytummy/database/firestore/recipeServiceFirestore.dart';
 import 'package:yummytummy/database/interfaces/recipeService.dart';
 import 'package:yummytummy/model/recipe.dart';
-import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/user_interface/components/buttons/google_signin_button_wrapper.dart';
 import 'package:yummytummy/user_interface/constants.dart';
 import 'package:yummytummy/user_interface/localisation/localization.dart';
@@ -27,7 +26,6 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Constants;
     return Scaffold(
       backgroundColor: Constants.background,
       body: FutureBuilder<List<Recipe>>(
@@ -36,7 +34,6 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
           if (snapshot.connectionState == ConnectionState.done) 
           {
             return snapshot.hasError ?
-              //TODO implement language
               SnackBarUtil.createTextSnackBar( Localization.instance.language.getMessage( 'recipe_database_error' ) ) :
               Theme(
                 data: Constants.themeData,
