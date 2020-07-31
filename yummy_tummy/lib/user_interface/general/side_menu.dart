@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:yummytummy/database/firestore/recipeServiceFirestore.dart';
-import 'package:yummytummy/database/interfaces/recipeService.dart';
 import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/user_interface/components/buttons/google_signin_button_wrapper.dart';
 import 'package:yummytummy/user_interface/constants.dart';
@@ -8,7 +7,6 @@ import 'package:yummytummy/user_interface/localisation/localization.dart';
 import 'package:yummytummy/user_interface/popup/profile_settings.dart';
 import 'package:yummytummy/user_interface/popup/rank_information.dart';
 import 'package:yummytummy/user_interface/popup/search_by_field.dart';
-import 'package:yummytummy/user_interface/popup/search_by_user.dart';
 
 class SideMenu extends StatefulWidget{
 

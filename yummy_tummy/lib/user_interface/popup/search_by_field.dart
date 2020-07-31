@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:yummytummy/database/firestore/recipeServiceFirestore.dart';
-import 'package:yummytummy/database/interfaces/recipeService.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/user_interface/components/action_button.dart';
 import 'package:yummytummy/user_interface/components/custom_textfield.dart';
@@ -10,8 +8,6 @@ import 'package:yummytummy/user_interface/localisation/localization.dart';
 import 'package:yummytummy/user_interface/widgets/better_expansion_tile.dart';
 
 class SearchByField extends StatefulWidget {
-  
-  final RecipeService recipeService = RecipeServiceFirestore();
 
   final String explanationMessage;
   final String textBoxHint;
