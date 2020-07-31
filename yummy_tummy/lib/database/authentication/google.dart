@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:yummytummy/database/firestore/userServiceFirestore.dart';
@@ -6,6 +8,7 @@ import 'package:yummytummy/model/board/board_functions.dart';
 import 'package:yummytummy/model/board/medal_board.dart';
 import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/user_interface/constants.dart';
+import 'package:yummytummy/user_interface/home_screen.dart';
 
 class GoogleAuthHandler{
 
@@ -14,7 +17,11 @@ class GoogleAuthHandler{
   UserServiceFirestore userService = new UserServiceFirestore();
 
   /// Sign in with Google.
-  Future<void> handleSignIn() async {
+  Future<void> handleSignIn({HomeScreenState screen}) async {
+    
+    // Stop homescreen touching
+    if (screen != null)
+      screen.setTouchable(false);
 
     // TODO Michiel: handle log in cancel (PlatformException!!)
     GoogleSignInAccount googleAccount = await _googleSignIn.signIn();
@@ -57,6 +64,10 @@ class GoogleAuthHandler{
     Constants.appUser = new AppUser(googleUser.uid, userData);
 
     userService.scoreListener();
+
+    // Re-enable homescreen touching
+    if (screen != null)
+      screen.setTouchable(true);
 
   }
 

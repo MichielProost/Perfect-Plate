@@ -25,8 +25,6 @@ class YummyTummy extends StatelessWidget {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown
     ]);
-
-    GoogleAuthHandler().handleSignIn();
     
     // DummyDataHandler().createDummyRecipes(20);
     // DummyDataHandler().deleteDummyRecipes();
