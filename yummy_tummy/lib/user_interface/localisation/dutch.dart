@@ -131,29 +131,85 @@ class Dutch extends Language {
   }
 
   Dutch() : super({
-    'type_here'             : 'Typ hier',
-    'close_menu'            : 'Sluit menu',
-    'recipe_database_error' : 'Er ging iets mist tijdens het laden van de recepten',
-    'no_bookmarks_yet'      : 'U heeft nog geen opgeslagen reccepten\n \n Markeer aub een recept als favoriet om het hier op te slaan',
-    'no_recipes_found'      : 'Er werden geen recepten gevonden, wijzig uw zoekparameters aub',
-    'search_recipes_title'  : 'Zoek naar recepten',
-    'select_diet'           : 'Kies uw diëet',
-    'select_course'         : 'Kies uw maal',
-    'ingredients'           : 'Ingrediënten',
-    'ingredients_selector'  : 'Kies uw ingrediënten',
-    'ingredients_hint'      : 'Voeg hier ingrediënten toe (optioneel)',
-    'submit'                : 'Indienen',
-    'show_recipes'          : 'Zoek recepten',
-    'cancel'                : 'Annuleren',
-    'thank_you_review'      : 'Hartelijk bedankt voor het aanmaken van een beoordeling!',
-    'please_leave_review'   : 'Laat aub een beoordeling achter voor dit recept.',
-    'step'                  : 'Stap',
-    'author_not_found'      : 'Deze gebruiker bestaat niet of heeft nog geen recepten gepubliceerd.',
-    'search_by_user_title'  : 'Zoek recepten van een maker',
-    'search_by_user_hint'   : 'Gebruikersnaam hier (exacte match)',
-    'rank_overview_title'   : 'Dit is een overzicht van alle ranks en uw voortgang tot iedere rank.',
-    'user_preferences'      : 'Persoonlijke voorkeuren',
-    'profile_login_error'   : 'Log eerst in om uw profielpagina te kunnen bekijken',
-    'bookmarks_login_error' : 'Please log in to see your favourites.',
-  });
+      
+      // General
+      'type_here'             : 'Typ hier',
+      'close_menu'            : 'Sluit menu',
+      'submit'                : 'Indienen',
+      'cancel'                : 'Annuleren',
+      'set'                   : 'Zet',
+      'add'                   : 'Voeg toe',
+      'none'                  : 'Geen',
+
+      // Units
+      'hour_unit'             : 'u',
+      'minute_unit'           : 'm',
+
+      // Errors
+      'recipe_database_error' : 'Er ging iets mis tijdens het laden van de recepten. Probeer opnieuw aub.',
+      'no_bookmarks_yet'      : 'U heeft nog geen favorieten\n \n Voeg een recept toe aan je favorieten om deze hier te zien',
+      'no_recipes_found'      : 'Er werden geen recepten gevonden, herbekijk uw zoekparameters aub',
+      'author_not_found'      : 'Deze gebruiker bestaat niet of heeft nog geen recepten. Controlleer ook de hoofdletters aub.',
+      'profile_login_error'   : 'Log in om uw profielpagina te zien.',
+      'bookmarks_login_error' : 'Log in om uw opgeslagen recepten te zien.',
+
+      // Favourite actions
+      'undo_unfavourite'      : 'Dit recept wordt niet uit uw favorieten gehaald.',
+      'unfavourite'           : 'Dit recept wordt binennkort verwijderd. Druk nogmaals op het icoon om deze actie ongedaan te maken',
+
+      // Create recipe errors
+      'error_no_title'        : 'Geef een titel op aub',
+      'error_no_banner'       : 'Neem een bannerfoto aub',
+      'error_short_descr'     : 'Maak de beschrijving iets langer aub',
+      'error_no_type'         : 'Kies aub een type maaltijd voor dit recept',
+      'error_no_ingredients'  : 'Voeg aub minstens één ingredient toe',
+      'error_no_steps'        : 'Voeg aub minstens één stap toe',
+
+      // Form/recipe language
+      'search_recipes_title'  : 'Zoek naar recepten',
+      'select_diet'           : 'Kies uw diëet',
+      'select_course'         : 'Kies uw type maal',
+      'ingredients'           : 'Ingrediënten',
+      'ingredients_selector'  : 'Kies uw ingrediënten',
+      'ingredients_hint'      : 'Voeg ingrediënten hier toe (optioneel)',
+      'show_recipes'          : 'Zoek recepten',
+      'step'                  : 'Stap',
+
+      // Create recipe specific language
+      'create_recipe'         : 'Maak een nieuw recept',
+      'choose_title_here'     : 'Kies hier een titel voor dit recept',
+      'title'                 : 'Titel',
+      'description_here'      : 'Geef hier een korte beschrijving van het recept',
+      'description'           : 'Beschrijving',
+      'add_ingredient_hint'   : 'Voeg hier een ingrediënt toe',
+      'set_course'            : 'Kies het type maal',
+      'step_info_hint'        : 'Voeg hier info over een stap toe',
+      'preparation_time'      : 'Bereidingsduur',
+      'step_descriptions'     : 'Beschrijvingen van stappen',
+      'created_recipe'        : 'Recept aangemaakt!',
+      'thank_you_recipe'      : 'Hartelijk bedankt voor het maken van een nieuw recept!',
+      'add_step'              : 'Voeg stap toe',
+      'update_step'           : 'Update stap',
+
+      // Review language
+      'create_review_title'   : 'Beoordeel dit recept!',      
+      'thank_you_review'      : 'Hartelijk bedankt voor het achterlaten van een beoordeling!',
+      'please_leave_review'   : 'Laat aub een beoordeling achter voor dit recept.',
+      'review_type_here'      : 'Voel u vrij om hier uw mening achter te laten',
+      
+      // Side menu language
+      'search_by_user_title'  : 'Zoek recepten op maker',
+      'search_by_user_hint'   : 'Gebruikersnaam hier (exacte match)',
+      'rank_overview_sidemenu': 'Informatie over ranks',
+      'rank_overview_title'   : 'Dit is een overzicht van alle ranks en uw voortgang tot iedere rank.',
+      'user_preferences'      : 'Persoonlijke voorkeuren',
+
+      // Seperate input
+      'camera'                : 'Camera',
+      'gallery'               : 'Gallerij',
+
+      // Log in/out language
+      'log_in_with_google'    : 'Log in met Google',
+      'log_out_from_google'   : 'Log uit van Google',
+    });
 }
