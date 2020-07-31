@@ -4,7 +4,8 @@ import 'dutch.dart';
 
 enum LanguagePick {
   english,
-  dutch
+  dutch,
+  other
 }
 
 class Localization {
