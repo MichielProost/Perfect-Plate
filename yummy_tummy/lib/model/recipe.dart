@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:yummytummy/model/user.dart';
+import 'package:yummytummy/user_interface/localisation/localization.dart';
 
 // Recipes can be sorted by the following fields.
 enum SortField {
@@ -52,6 +53,7 @@ class Recipe {
   String title;                         // Title of recipe.
   String description;                   // Main description.
   RecipeType type;                      // Type of recipe.
+  LanguagePick language;                // Language that the recipe is written in.
   bool isVegetarian;                    // Vegetarian recipe?
   bool isVegan;                         // Vegan recipe?
   final List<String> ingredients;       // Ingredients.
@@ -75,6 +77,7 @@ class Recipe {
       this.title,
       this.description,
       this.type,
+      this.language,
       this.isVegetarian,
       this.isVegan,
       this.rating,
@@ -92,6 +95,7 @@ class Recipe {
     this.title,
     this.description,
     this.type,
+    this.language,
     this.isVegetarian,
     this.isVegan,
     this.ingredients,
@@ -115,6 +119,7 @@ class Recipe {
           title: data.containsKey('title') ? data['title'] : '',
           description: data.containsKey('description') ? data['description'] : '',
           type: data.containsKey('type') ? RecipeType.values[data['type']] : RecipeType.any,
+          language: data.containsKey('language') ? LanguagePick.values[data['language']] : LanguagePick.english,
           isVegetarian: data.containsKey('isVegetarian') ? data['isVegetarian'] : false,
           isVegan: data.containsKey('isVegan') ? data['isVegan'] : false,
           ingredients: data.containsKey('ingredients') ?
@@ -141,6 +146,7 @@ class Recipe {
       'title' : title ??= '',
       'description' : description ??= '',
       'type' : type != null ? type.index : RecipeType.any.index,
+      'language' : language != null ? language.index : LanguagePick.english.index,
       'isVegetarian' : isVegetarian ??= false,
       'isVegan' : isVegan ??= false,
       'ingredients' : ingredients != null ? ingredients : [],
