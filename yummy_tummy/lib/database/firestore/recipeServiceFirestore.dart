@@ -104,19 +104,28 @@ class RecipeServiceFirestore implements RecipeService {
   }
 
   /// Returns recipe object with a given title.
-  Future<Recipe> getRecipeFromTitle(String title) async {
+  Future<List<Recipe>> getRecipesFromTitle(String title) async {
 
-    Recipe fetchedRecipe =
+    List<Recipe> fetchedRecipes =
     await this.db.collection("recipes")
         .where("title", isEqualTo: title)
         .getDocuments()
         .then((QuerySnapshot docs) {
-      return docs.documents.isNotEmpty ? Recipe.fromMap(
-          docs.documents[0].data, docs.documents[0].documentID) : null;
+          
+          List<Recipe> recipes = List<Recipe>(docs.documents.length);
+          for (int i = 0; i < docs.documents.length; i ++)
+          {
+            DocumentSnapshot snap = docs.documents[i];
+            recipes.add(
+              Recipe.fromMap(docs.documents[i].data, docs.documents[i].documentID)
+            );
+
+            consoleWriter.FetchedDocument(CollectionType.Recipe, snap.documentID);
+          }
+      return recipes ?? List<Recipe>();
     });
 
-    consoleWriter.FetchedDocument(CollectionType.Recipe, fetchedRecipe.id);
-    return fetchedRecipe;
+    return fetchedRecipes;
 
   }
 

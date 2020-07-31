@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yummytummy/database/firestore/recipeServiceFirestore.dart';
-import 'package:yummytummy/database/interfaces/recipeService.dart';
 import 'package:yummytummy/model/recipe.dart';
-import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/user_interface/components/action_button.dart';
 import 'package:yummytummy/user_interface/components/custom_textfield.dart';
 import 'package:yummytummy/user_interface/components/recipe_card.dart';
@@ -10,21 +7,28 @@ import 'package:yummytummy/user_interface/constants.dart';
 import 'package:yummytummy/user_interface/localisation/localization.dart';
 import 'package:yummytummy/user_interface/widgets/better_expansion_tile.dart';
 
-class SearchByName extends StatefulWidget {
-  
-  final RecipeService recipeService = RecipeServiceFirestore();
+class SearchByField extends StatefulWidget {
+
+  final String explanationMessage;
+  final String textBoxHint;
+  final String noRecipesFoundMessage;
+
+  final Future<List<Recipe>> Function(String parameter) searchFunction;
+
+  SearchByField(this.explanationMessage, this.textBoxHint, this.noRecipesFoundMessage, this.searchFunction);
+
 
   @override
   State<StatefulWidget> createState() {
-    return _SearchByNameState();
+    return _SearchByFieldState();
   }
 
 }
 
-class _SearchByNameState extends State<SearchByName> {
+class _SearchByFieldState extends State<SearchByField> {
   
   List<Widget> _foundRecipes;
-  String _searchedAuthor;
+  String _searched;
 
   final GlobalKey<BetterExpansionTileState> _expansionTileKey = new GlobalKey();
 
@@ -72,11 +76,11 @@ class _SearchByNameState extends State<SearchByName> {
 
   void handleSearch() async
   {
-    if (_searchedAuthor == null || _searchedAuthor == '')
+    if (_searched == null || _searched == '')
       return;
 
     _foundRecipes = List<Widget>();
-    List<Recipe> found = await widget.recipeService.getRecipesFromUser(UserMapField.name, _searchedAuthor);
+    List<Recipe> found = await widget.searchFunction(_searched);
     setState(() {
       for (Recipe recipe in found)
       {
@@ -85,7 +89,7 @@ class _SearchByNameState extends State<SearchByName> {
 
       if (_foundRecipes.length == 0) {
         _foundRecipes.add( Text(
-          Localization.instance.language.getMessage( 'author_not_found' ),
+          widget.noRecipesFoundMessage,
           textAlign: TextAlign.center,
           style: Constants.emptyScreenStyle,
         ));
@@ -133,7 +137,7 @@ class _SearchByNameState extends State<SearchByName> {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    Localization.instance.language.getMessage( 'search_by_user_title' ),
+                    widget.explanationMessage,
                     textAlign: TextAlign.left,
                   ),
                 ),
@@ -142,10 +146,10 @@ class _SearchByNameState extends State<SearchByName> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10.0),
                   child: CustomTextField(
-                    hint: Localization.instance.language.getMessage( 'search_by_user_hint' ),
-                    onChanged: (content) => _searchedAuthor = content,
+                    hint: widget.textBoxHint,
+                    onChanged: (content) => _searched = content,
                     callback: (content) {
-                      _searchedAuthor = content;
+                      _searched = content;
                       handleSearch();
                     },
                   ),

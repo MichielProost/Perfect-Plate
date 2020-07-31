@@ -150,6 +150,7 @@ class Dutch extends Language {
       'no_bookmarks_yet'      : 'U heeft nog geen favorieten\n \n Voeg een recept toe aan je favorieten om deze hier te zien',
       'no_recipes_found'      : 'Er werden geen recepten gevonden, herbekijk uw zoekparameters aub',
       'author_not_found'      : 'Deze gebruiker bestaat niet of heeft nog geen recepten. Controlleer ook de hoofdletters aub.',
+      'title_not_found'       : 'Er zijn geen recepten met deze titel gevonden.',
       'profile_login_error'   : 'Log in om uw profielpagina te zien.',
       'bookmarks_login_error' : 'Log in om uw opgeslagen recepten te zien.',
 
@@ -200,6 +201,8 @@ class Dutch extends Language {
       // Side menu language
       'search_by_user_title'  : 'Zoek recepten op maker',
       'search_by_user_hint'   : 'Gebruikersnaam hier (exacte match)',
+      'search_by_recipe_title': 'Zoek recepten op titel',
+      'search_by_title_hint'  : 'Geef de titel hier (exacte match)',
       'rank_overview_sidemenu': 'Informatie over ranks',
       'rank_overview_title'   : 'Dit is een overzicht van alle ranks en uw voortgang tot iedere rank.',
       'user_preferences'      : 'Persoonlijke voorkeuren',

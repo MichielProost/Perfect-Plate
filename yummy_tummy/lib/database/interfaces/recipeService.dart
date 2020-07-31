@@ -19,8 +19,9 @@ abstract class RecipeService {
   /// Modify an existing recipe with a given document ID.
   Future<void> modifyRecipe(Recipe recipe, String recipeID);
 
-  /// Returns recipe object with a given title.
-  Future<Recipe> getRecipeFromTitle(String title);
+  /// Returns a list of recipes that match this exact title.
+  /// Never returns null, but can return an empty list if no matches are found.
+  Future<List<Recipe>> getRecipesFromTitle(String title);
 
   /// Returns all recipes made by a specific user.
   /// Field: Specify user by name or id.

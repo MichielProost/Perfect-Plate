@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:yummytummy/database/firestore/recipeServiceFirestore.dart';
+import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/user_interface/components/buttons/google_signin_button_wrapper.dart';
 import 'package:yummytummy/user_interface/constants.dart';
 import 'package:yummytummy/user_interface/localisation/localization.dart';
 import 'package:yummytummy/user_interface/popup/profile_settings.dart';
 import 'package:yummytummy/user_interface/popup/rank_information.dart';
-import 'package:yummytummy/user_interface/popup/search_by_user.dart';
+import 'package:yummytummy/user_interface/popup/search_by_field.dart';
 
 class SideMenu extends StatefulWidget{
 
@@ -65,7 +67,22 @@ class _Menu extends State<SideMenu> {
               
 
               // Clickable elements
-              _SideListItem(Localization.instance.language.getMessage( 'search_by_user_title' ), Icons.search, SearchByName()),
+              _SideListItem(Localization.instance.language.getMessage( 'search_by_user_title' ), Icons.search, SearchByField(
+                Localization.instance.language.getMessage( 'search_by_user_title' ),
+                Localization.instance.language.getMessage( 'search_by_user_hint' ),
+                Localization.instance.language.getMessage( 'author_not_found' ),
+                (String message) {
+                  return RecipeServiceFirestore().getRecipesFromUser(UserMapField.name, message);
+                }
+              )),
+              _SideListItem(Localization.instance.language.getMessage( 'search_by_recipe_title' ), Icons.search, SearchByField(
+                Localization.instance.language.getMessage( 'search_by_recipe_title' ),
+                Localization.instance.language.getMessage( 'search_by_title_hint' ),
+                Localization.instance.language.getMessage( 'title_not_found' ),
+                (String message) {
+                  return RecipeServiceFirestore().getRecipesFromTitle(message);
+                }
+              )),
               _SideListItem(Localization.instance.language.getMessage( 'rank_overview_sidemenu' ), Icons.info, RankInformation(), mustBeLoggedInToView: true,),
               _SideListItem(Localization.instance.language.getMessage( 'user_preferences' ), Icons.settings, ProfileSettings(), mustBeLoggedInToView: true,),
 

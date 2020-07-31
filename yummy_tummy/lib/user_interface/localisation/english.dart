@@ -85,6 +85,7 @@ class English extends Language {
       'no_bookmarks_yet'      : 'You have no bookmarked recipes yet\n \n Please favourite a recipe to store it here',
       'no_recipes_found'      : 'No recipes were found, please update your search parameters',
       'author_not_found'      : 'This user was not found or does not have any recipes',
+      'title_not_found'       : 'No recipes with this title have been found.',
       'profile_login_error'   : 'Please log in to see your profile page.',
       'bookmarks_login_error' : 'Please log in to see your favourites.',
 
@@ -135,6 +136,8 @@ class English extends Language {
       // Side menu language
       'search_by_user_title'  : 'Search recipes by creator',
       'search_by_user_hint'   : 'User name here (exact match)',
+      'search_by_recipe_title': 'Search recipes by title',
+      'search_by_title_hint'  : 'Recipe title here (exact match)',
       'rank_overview_sidemenu': 'Rank information',
       'rank_overview_title'   : 'This is an overview of all ranks and your progress towards them',
       'user_preferences'      : 'Personal preferences',
