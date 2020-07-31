@@ -92,7 +92,7 @@ class English extends Language {
       'step'                  : 'Step',
       'author_not_found'      : 'This user was not found or does not have any recipes',
       'search_by_user_title'  : 'Search recipes by creator',
-      'rank_overview_title'   : 'This is an overview of all ranks and your progress toward them',
+      'rank_overview_title'   : 'This is an overview of all ranks and your progress towards them',
       'user_preferences'      : 'Personal preferences',
       'profile_login_error'   : 'Please log in to see your profile page',
     });

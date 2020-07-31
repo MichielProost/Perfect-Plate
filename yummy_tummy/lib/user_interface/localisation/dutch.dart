@@ -99,7 +99,7 @@ class Dutch extends Language {
         return 'Sous-chef';
         break;
       case RankType.head_chef:
-        return 'Hoofdchef';
+        return 'Chef-kok';
         break;
       case RankType.executive_chef:
         return 'Executive chef';
