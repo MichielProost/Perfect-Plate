@@ -99,24 +99,25 @@ class User{
 
   /// Deserialize received data from Firestore.
   /// Initialize a new user object.
-  User.fromMap(Map<String, dynamic> data, String id)
-      : this(
-          id: id != null ? id : data['id'],
-          name: data.containsKey('name') ? data['name'] : '',
-          dietFieldPreference: data.containsKey('dietFieldPreference') ?
-            DietField.values[ data['dietFieldPreference']] : DietField.any,
-          recipeTypePreference: data.containsKey('recipeTypePreference') ?
-            RecipeType.values[data['recipeTypePreference']] : RecipeType.any,
-          languagePreference: data.containsKey('languagePreference') ?
-            LanguagePick.values[data['languagePreference']] : LanguagePick.other,
-          score: data.containsKey('score') ? data['score'] : 0,
-          rank: data.containsKey('rank') ? RankType.values[data['rank']] : RankType.dishwasher,
-          favourites: data.containsKey('favourites') ?
-            new List<String>.from(data['favourites']) : [],
-          image: data.containsKey('image') ? data['image'] : '',
-          board: data.containsKey('board') ?
-            MedalBoard.fromMap(Map<String, dynamic>.from(data['board'])) : null,
-        );
+  User.fromMap(Map<String, dynamic> data, String id) :
+        this.id = id != null ? id : data['id'],
+        this.name = data.containsKey('name') ? data['name'] : '',
+        this.dietFieldPreference = data.containsKey('dietFieldPreference') ?
+        DietField.values[ data['dietFieldPreference']] : DietField.any,
+        this.recipeTypePreference = data.containsKey('recipeTypePreference') ?
+        RecipeType.values[data['recipeTypePreference']] : RecipeType.any,
+        this.languagePreference = data.containsKey('languagePreference') ?
+        LanguagePick.values[data['languagePreference']] : LanguagePick.other,
+        this.score = data.containsKey('score') ? data['score'] : 0,
+        this.rank = data.containsKey('rank') ? RankType.values[data['rank']] : RankType.dishwasher,
+        this.favourites = data.containsKey('favourites') ?
+        new List<String>.from(data['favourites']) : [],
+        this.image = data.containsKey('image') ? data['image'] : ''
+        {
+          Localization.instance.setLanguage( languagePreference );
+          this.board = data.containsKey('board') ?
+          MedalBoard.fromMap(Map<String, dynamic>.from(data['board'])) : null;
+        }
 
   /// Modify non-final fields of user.
   void setUser(User user){

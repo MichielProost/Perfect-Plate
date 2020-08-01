@@ -239,5 +239,19 @@ class Dutch extends Language {
       // Log in/out language
       'log_in_with_google'    : 'Log in met Google',
       'log_out_from_google'   : 'Log uit van Google',
+
+      // Medal titles
+      'create_recipes_bronze' : 'Creëer een gerecht',
+      'create_recipes_silver' : 'Creëer 3 gerechten',
+      'create_recipes_gold'   : 'Creëer 5 gerechten',
+      'write_reviews_bronze'  : 'Schrijf 1 review',
+      'write_reviews_silver'  : 'Schrijf 5 reviews',
+      'write_reviews_gold'    : 'Schrijf 15 reviews',
+      'receive_reviews_bronze': 'Krijg 1 review',
+      'receive_reviews_silver': 'Krijg 5 reviews',
+      'receive_reviews_gold'  : 'Krijg 15 reviews',
+      'log_in_medal'          : 'Log in',
+      'add_favourite_medal'   : 'Sla 3 gerechten op',
+      'share_medal'           : 'Deel een gerecht',
     });
 }

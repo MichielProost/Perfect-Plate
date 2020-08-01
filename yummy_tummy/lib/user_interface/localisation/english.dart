@@ -174,6 +174,20 @@ class English extends Language {
       // Log in/out language
       'log_in_with_google'    : 'Log in with Google',
       'log_out_from_google'   : 'Log out from Google',
+
+      // Medal titles
+      'create_recipes_bronze' : 'Create 1 recipe',
+      'create_recipes_silver' : 'Create 3 recipes',
+      'create_recipes_gold'   : 'Create 5 recipes',
+      'write_reviews_bronze'  : 'Write 1 review',
+      'write_reviews_silver'  : 'Write 5 reviews',
+      'write_reviews_gold'    : 'Write 15 reviews',
+      'receive_reviews_bronze': 'Receive 1 review',
+      'receive_reviews_silver': 'Receive 5 reviews',
+      'receive_reviews_gold'  : 'Receive 15 reviews',
+      'log_in_medal'          : 'Log in',
+      'add_favourite_medal'   : 'Favourite 3 recipes',
+      'share_medal'           : 'Share a recipe',
     });
 
 }
