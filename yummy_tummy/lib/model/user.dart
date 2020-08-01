@@ -114,7 +114,6 @@ class User{
         new List<String>.from(data['favourites']) : [],
         this.image = data.containsKey('image') ? data['image'] : ''
         {
-          Localization.instance.setLanguage( languagePreference );
           this.board = data.containsKey('board') ?
           MedalBoard.fromMap(Map<String, dynamic>.from(data['board'])) : null;
         }

@@ -23,7 +23,7 @@ class Localization {
 
   void setLanguage( LanguagePick language )
   {
-    print('Setting $languagePick to $language');
+    // print('Setting $languagePick to $language');
     _languagePick = language;
     switch (language){
       case LanguagePick.english:
