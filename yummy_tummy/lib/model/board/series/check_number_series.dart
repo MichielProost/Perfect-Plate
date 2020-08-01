@@ -9,8 +9,8 @@ abstract class CheckNumberSeries extends Series {
   List<int> goals = new List<int>();
 
   /// Constructor.
-  CheckNumberSeries(this.goals, List<Medal> medals)
-      : super(medals);
+  CheckNumberSeries(this.goals, List<Medal> medals, String title)
+      : super(medals, title);
 
 }
 
@@ -20,8 +20,8 @@ class CheckNumberOfOwnRecipes extends CheckNumberSeries {
   int amountOfOwnRecipes = 0;
 
   /// Constructor.
-  CheckNumberOfOwnRecipes(List<int> goals, List<Medal> medals)
-      : super(goals, medals);
+  CheckNumberOfOwnRecipes(List<int> goals, List<Medal> medals, String title)
+      : super(goals, medals, title);
 
   void checkCurrentMedalAchieved(List<dynamic> objects) {
     // The input is a list of the user's own recipes.
@@ -55,8 +55,8 @@ class CheckNumberOfOwnReviews extends CheckNumberSeries {
   int amountOfOwnReviews = 0;
 
   /// Constructor.
-  CheckNumberOfOwnReviews(List<int> goals, List<Medal> medals)
-      : super(goals, medals);
+  CheckNumberOfOwnReviews(List<int> goals, List<Medal> medals, String title)
+      : super(goals, medals, title);
 
   void checkCurrentMedalAchieved(List<dynamic> objects) {
     // The input is a list of the user's own reviews.
@@ -90,8 +90,8 @@ class CheckNumberOfReceivedReviews extends CheckNumberSeries {
   int amountOfReceivedReviews = 0;
 
   /// Constructor.
-  CheckNumberOfReceivedReviews(List<int> goals, List<Medal> medals)
-      : super(goals, medals);
+  CheckNumberOfReceivedReviews(List<int> goals, List<Medal> medals, String title)
+      : super(goals, medals, title);
 
   void checkCurrentMedalAchieved(List<dynamic> objects) {
     // The input is a list of the user's own recipes.
@@ -133,8 +133,8 @@ class CheckNumberOfFavourites extends CheckNumberSeries {
   int amountOfFavourites = 0;
 
   /// Constructor.
-  CheckNumberOfFavourites(List<int> goals, List<Medal> medals)
-      : super(goals, medals);
+  CheckNumberOfFavourites(List<int> goals, List<Medal> medals, String title)
+      : super(goals, medals, title);
 
   void checkCurrentMedalAchieved(List<dynamic> objects) {
     // The input is a list of the user's favourite recipes.

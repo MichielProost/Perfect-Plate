@@ -253,5 +253,14 @@ class Dutch extends Language {
       'log_in_medal'          : 'Log in',
       'add_favourite_medal'   : 'Sla 3 gerechten op',
       'share_medal'           : 'Deel een gerecht',
+
+      // Series titles
+      'create_recipes_series' : 'creëer_gerechten',
+      'write_reviews_series'  : 'schrijf_reviews',
+      'receive_reviews_series': 'krijg_reviews',
+      'login_series'          : 'login',
+      'add_favourite_series'  : 'add_favourite',
+      'share_series'          : 'share'
+
     });
 }

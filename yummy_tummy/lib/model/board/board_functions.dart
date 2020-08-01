@@ -19,7 +19,8 @@ Map<String, Series> dataToSeriesMap(Map<String, dynamic> data){
         new Medal(MedalType.silver,
             Localization.instance.language.getMessage("create_recipes_silver")),
         new Medal(MedalType.gold,
-            Localization.instance.language.getMessage("create_recipes_gold"))]
+            Localization.instance.language.getMessage("create_recipes_gold"))],
+        Localization.instance.language.getMessage("create_recipes_series")
     );
     create_recipes.setCurrentScore(data['create_recipes']);
     seriesMap['create_recipes'] = create_recipes;
@@ -33,7 +34,8 @@ Map<String, Series> dataToSeriesMap(Map<String, dynamic> data){
           new Medal(MedalType.silver,
               Localization.instance.language.getMessage("write_reviews_silver")),
           new Medal(MedalType.gold,
-              Localization.instance.language.getMessage("write_reviews_gold"))]
+              Localization.instance.language.getMessage("write_reviews_gold"))],
+        Localization.instance.language.getMessage("write_reviews_series")
     );
     write_reviews.setCurrentScore(data['write_reviews']);
     seriesMap['write_reviews'] = write_reviews;
@@ -47,7 +49,8 @@ Map<String, Series> dataToSeriesMap(Map<String, dynamic> data){
           new Medal(MedalType.silver,
               Localization.instance.language.getMessage("receive_reviews_silver")),
           new Medal(MedalType.gold,
-              Localization.instance.language.getMessage("receive_reviews_gold"))]
+              Localization.instance.language.getMessage("receive_reviews_gold"))],
+        Localization.instance.language.getMessage("receive_reviews_series")
     );
     receive_reviews.setCurrentScore(data['receive_reviews']);
     seriesMap['receive_reviews'] = receive_reviews;
@@ -56,7 +59,8 @@ Map<String, Series> dataToSeriesMap(Map<String, dynamic> data){
   if (data.containsKey('login')) {
     Series login = new CheckLoginSeries(
         [ new Medal(MedalType.bronze,
-              Localization.instance.language.getMessage("log_in_medal")) ]
+              Localization.instance.language.getMessage("log_in_medal")) ],
+        Localization.instance.language.getMessage("login_series")
     );
     login.setCurrentScore(data['login']);
     seriesMap['login'] = login;
@@ -66,7 +70,8 @@ Map<String, Series> dataToSeriesMap(Map<String, dynamic> data){
     Series login = new CheckNumberOfFavourites(
         [3],
         [ new Medal(MedalType.silver,
-            Localization.instance.language.getMessage("add_favourite_medal")) ]
+            Localization.instance.language.getMessage("add_favourite_medal")) ],
+        Localization.instance.language.getMessage("add_favourite_series")
     );
     login.setCurrentScore(data['add_favourite']);
     seriesMap['add_favourite'] = login;
@@ -75,7 +80,8 @@ Map<String, Series> dataToSeriesMap(Map<String, dynamic> data){
   if (data.containsKey('share')) {
     Series share = new CheckShareSeries(
         [ new Medal(MedalType.gold,
-            Localization.instance.language.getMessage("share_medal")) ]
+            Localization.instance.language.getMessage("share_medal")) ],
+        Localization.instance.language.getMessage("share_series")
     );
     share.setCurrentScore(data['share']);
     seriesMap['share'] = share;

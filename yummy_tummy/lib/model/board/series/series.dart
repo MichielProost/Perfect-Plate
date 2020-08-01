@@ -2,12 +2,14 @@ import 'package:yummytummy/model/board/medal.dart';
 
 abstract class Series {
 
+  String title;
   List<Medal> medals;
   int currentScore = 0;
 
   /// Constructor.
-  Series(List<Medal> medals){
+  Series(List<Medal> medals, String title){
     this.medals = medals;
+    this.title = title;
   }
 
   /// Return the next medal to be earned in this series.

@@ -188,6 +188,14 @@ class English extends Language {
       'log_in_medal'          : 'Log in',
       'add_favourite_medal'   : 'Favourite 3 recipes',
       'share_medal'           : 'Share a recipe',
+
+      // Series titles
+      'create_recipes_series' : 'create_recipes',
+      'write_reviews_series'  : 'write_reviews',
+      'receive_reviews_series': 'receive_reviews',
+      'login_series'          : 'login',
+      'add_favourite_series'  : 'add_favourite',
+      'share_series'          : 'share'
     });
 
 }

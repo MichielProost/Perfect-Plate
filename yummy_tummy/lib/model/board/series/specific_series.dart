@@ -6,8 +6,8 @@ import 'package:yummytummy/user_interface/constants.dart';
 class CheckLoginSeries extends Series {
 
   /// Constructor.
-  CheckLoginSeries(List<Medal> medals)
-      : super(medals);
+  CheckLoginSeries(List<Medal> medals, String title)
+      : super(medals, title);
 
   /// objects: Should be an empty list [].
   void checkCurrentMedalAchieved(List<dynamic> objects){
@@ -32,8 +32,8 @@ class CheckLoginSeries extends Series {
 class CheckShareSeries extends Series {
 
   /// Constructor.
-  CheckShareSeries(List<Medal> medals)
-      : super(medals);
+  CheckShareSeries(List<Medal> medals, String title)
+      : super(medals, title);
 
   /// objects: Should be an empty list [].
   void checkCurrentMedalAchieved(List<dynamic> objects){
