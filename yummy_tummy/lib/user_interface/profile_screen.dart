@@ -5,6 +5,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:yummytummy/database/buffer/User_content_buffer.dart';
+import 'package:yummytummy/database/firestore/userServiceFirestore.dart';
+import 'package:yummytummy/database/interfaces/userService.dart';
 import 'package:yummytummy/model/board/medal_board.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/review.dart';
@@ -124,12 +126,11 @@ class _Screen extends State<ProfileScreen> {
                         child: Text( Localization.instance.language.getMessage( 'camera' ) ),
                         onTap: () async {
                           File selected = await imageHandler.getPicture( ImageSource.camera );
-                          setState(() {
-                            if (selected != null) {
-                              profileImage = FileImage( selected );
-                              imageHandler.uploadAndSetProfileImage( selected );
-                            }
-                          });
+                          if (selected != null) {
+                            profileImage = FileImage( selected );
+                            await imageHandler.uploadAndSetProfileImage( selected );
+                          }
+                          setState(() {});
                         },
                       ),
                     ),
@@ -139,15 +140,29 @@ class _Screen extends State<ProfileScreen> {
                         child: Text( Localization.instance.language.getMessage( 'gallery' ) ),
                         onTap: () async {
                           File selected = await imageHandler.getPicture( ImageSource.gallery );
-                          setState(() {
-                            if (selected != null) {
-                              profileImage = FileImage( selected );
-                              imageHandler.uploadAndSetProfileImage( selected );
-                            }
-                          });
+                          if (selected != null) {
+                            profileImage = FileImage( selected );
+                            await imageHandler.uploadAndSetProfileImage( selected );
+                          }
+                          setState(() {});
                         },
                       ),
                     ),
+                    if (Constants.appUser.image != null && Constants.appUser.image != '')
+                      PopupMenuItem(
+                        value: ImageInput.gallery,
+                        child: InkWell(
+                          child: Text( Localization.instance.language.getMessage( 'delete' ) ),
+                          onTap: () async {
+                            UserService userService = UserServiceFirestore();
+                            await userService.deleteProfilePicture( Constants.appUser );
+                            setState(() {
+                              profileImage = null;
+                            });
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ),
                   ]
                 );
               },
@@ -162,7 +177,7 @@ class _Screen extends State<ProfileScreen> {
               ) :
               CircleAvatar(
                 backgroundColor: Constants.main,
-                backgroundImage: NetworkImage( Constants.appUser.image ),
+                backgroundImage: NetworkImage( Constants.appUser.image ) ?? profileImage,
                 radius: 60.0,
               ),
             ),
@@ -363,12 +378,6 @@ class _Screen extends State<ProfileScreen> {
               title: buildNavigator(),
               backgroundColor: Constants.background,
             ),
-
-            // Recipes or review depending on the selected page
-            // for (Widget widget in displayed)
-            //   SliverToBoxAdapter(
-            //     child: widget,
-            //   ),
 
             // Recipes or review depending on the selected page
             SliverToBoxAdapter(

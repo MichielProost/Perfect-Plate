@@ -141,6 +141,7 @@ class Dutch extends Language {
       'add'                   : 'Voeg toe',
       'none'                  : 'Geen',
       'accept'                : 'Akkoord',
+      'delete'                : 'Verwijder',
 
       // Units
       'hour_unit'             : 'u',

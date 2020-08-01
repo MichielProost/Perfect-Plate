@@ -76,6 +76,7 @@ class English extends Language {
       'add'                   : 'Add',
       'none'                  : 'None',
       'accept'                : 'Accept',
+      'delete'                : 'Delete',
 
       // Units
       'hour_unit'             : 'h',

@@ -388,4 +388,10 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
     await enforceDelay();
     return getRecipes();
   }
+
+  @override
+  Future<void> deleteProfilePicture(User user) {
+    // TODO: implement deleteProfilePicture
+    throw UnimplementedError();
+  }
 }

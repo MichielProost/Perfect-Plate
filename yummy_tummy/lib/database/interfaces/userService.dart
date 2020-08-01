@@ -15,6 +15,9 @@ abstract class UserService{
   /// Returns true if user exists.
   Future<bool> userExists(String userID);
 
+  /// Deletes the profile picture of a user from storage and resets the local user's profile picture
+  Future<void> deleteProfilePicture(User user);
+
   /// Listens to the app user's document for changes.
   void scoreListener();
 
