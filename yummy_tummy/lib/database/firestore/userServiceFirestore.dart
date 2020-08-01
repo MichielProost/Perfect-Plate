@@ -6,6 +6,7 @@ import 'package:yummytummy/database/interfaces/userService.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/review.dart';
 import 'package:yummytummy/model/user.dart';
+import 'package:yummytummy/storage/storageHandler.dart';
 import 'package:yummytummy/user_interface/constants.dart';
 import 'package:yummytummy/utils/consoleWriter.dart';
 
@@ -96,6 +97,20 @@ class UserServiceFirestore implements UserService {
     } catch (e) {
       return false;
     }
+
+  }
+
+  /// Delete a user's profile picture.
+  Future<void> deleteProfilePicture(User user){
+
+    // Create storage handler.
+    StorageHandler handler = new StorageHandler();
+    // Delete profile image from Firebase storage.
+    handler.deleteImage(user.image);
+    // Reset image field to an empty string.
+    user.image = "";
+    // Modify user document.
+    modifyUser(user, user.id);
 
   }
 
