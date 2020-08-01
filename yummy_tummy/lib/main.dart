@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:yummytummy/database/authentication/google.dart';
 import 'package:yummytummy/user_interface/home_screen.dart';
 import 'package:yummytummy/user_interface/localisation/localization.dart';
 import 'model/test.dart';
@@ -8,7 +7,7 @@ import 'model/test.dart';
 /// Main function just runs the app.
 void main() {
 
-  Localization.instance.setLanguage( LanguagePick.dutch );
+  Localization.instance.setLanguage( LanguagePick.english );
 
   runApp(YummyTummy());
   Test test = new Test();

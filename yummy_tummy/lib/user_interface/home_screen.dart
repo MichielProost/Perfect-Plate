@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:yummytummy/database/authentication/google.dart';
 import 'package:yummytummy/user_interface/localisation/localization.dart';
+import 'package:yummytummy/user_interface/popup/profile_settings.dart';
 import 'package:yummytummy/user_interface/screen_handler.dart';
 
 import 'constants.dart';
@@ -21,12 +23,19 @@ class HomeScreenState extends State<HomeScreen> {
   bool _canTouch = true;
   bool hasBeenBuilt = false;
 
+  bool hasAccount = true;
+  bool hasGottenPopup = false;
+
   HomeScreenState()
   {
-    GoogleAuthHandler().handleSignIn(screen: this);
+    signInAndCheckForNewUser();
   }
 
-  setTouchable(bool canTouch)
+  void signInAndCheckForNewUser() async {
+    hasAccount = await GoogleAuthHandler().handleSignIn(screen: this);      
+  }
+
+  void setTouchable(bool canTouch)
   {
     if (hasBeenBuilt)
       setState(() {
@@ -69,6 +78,18 @@ class HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      if (!hasGottenPopup && !hasAccount && Constants.appUser.isLoggedIn())
+      {
+        hasGottenPopup = true;
+        showDialog(
+          context: context,
+          child: ProfileSettings(),
+        );
+      }
+    });
+    
     hasBeenBuilt = true;
     return  
     AbsorbPointer(

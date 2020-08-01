@@ -25,10 +25,16 @@ class _ProfileSettingsState extends State<ProfileSettings>{
   LanguagePick _languagePreference = LanguagePick.other;  // Set to other for display purposes. If kept (or set to) other, language changes will be ignored
 
   void _saveChanges() {
+
+    // Food preferences
     Constants.appUser.dietFieldPreference = _dietPreference;
     Constants.appUser.recipeTypePreference = _coursePreference;
-    if ( _languagePreference != LanguagePick.other )
+
+    // Handle language preference
+    if ( _languagePreference != LanguagePick.other ) {
       Constants.appUser.languagePreference = _languagePreference;
+      Localization.instance.setLanguage( _languagePreference );
+    }
 
     widget.userService.modifyUser( Constants.appUser , Constants.appUser.id);
   }
