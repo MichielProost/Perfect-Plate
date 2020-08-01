@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:yummytummy/database/firestore/userServiceFirestore.dart';
 import 'package:yummytummy/database/interfaces/userService.dart';
+import 'package:yummytummy/model/app_user.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/user_interface/components/action_button.dart';
 import 'package:yummytummy/user_interface/constants.dart';
@@ -21,10 +22,13 @@ class _ProfileSettingsState extends State<ProfileSettings>{
 
   DietField _dietPreference = Constants.appUser.dietFieldPreference;
   RecipeType _coursePreference = Constants.appUser.recipeTypePreference;
+  LanguagePick _languagePreference = LanguagePick.other;  // Set to other for display purposes. If kept (or set to) other, language changes will be ignored
 
   void _saveChanges() {
     Constants.appUser.dietFieldPreference = _dietPreference;
     Constants.appUser.recipeTypePreference = _coursePreference;
+    if ( _languagePreference != LanguagePick.other )
+      Constants.appUser.languagePreference = _languagePreference;
 
     widget.userService.modifyUser( Constants.appUser , Constants.appUser.id);
   }
@@ -69,6 +73,39 @@ class _ProfileSettingsState extends State<ProfileSettings>{
                         crossAxisCount: 2,
                         children: <Widget>[
                           
+                          // Text label
+                          Padding(
+                            padding: const EdgeInsets.only(left: 40.0),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(Localization.instance.language.getMessage( 'select_language' )),
+                            ),
+                          ),
+
+                          // Language dropdown
+                          DropdownButton<LanguagePick>(
+                            value: _languagePreference,
+                            icon: Icon(Icons.keyboard_arrow_down),
+                            isExpanded: true,
+                            iconSize: 24,
+                            elevation: 16,
+                            style: TextStyle(color: Colors.black),
+                            onChanged: (LanguagePick newValue) {
+                              setState(() {
+                                _languagePreference = newValue;
+                              });
+                            },
+                            items: 
+                            LanguagePick.values.map<DropdownMenuItem<LanguagePick>>(
+                              (LanguagePick value) {
+                                return DropdownMenuItem<LanguagePick>(
+                                  value: value,
+                                  child: Text(value != LanguagePick.other ? Localization.instance.language.languageName( value ) : Localization.instance.language.getMessage( 'select_language' )),
+                                );
+                              }
+                            ).toList(),
+                          ),
+
                           // Text label
                           Padding(
                             padding: const EdgeInsets.only(left: 40.0),

@@ -1,6 +1,7 @@
 import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/user_interface/localisation/language.dart';
+import 'package:yummytummy/user_interface/localisation/localization.dart';
 import 'package:yummytummy/user_interface/screen_handler.dart';
 import 'package:yummytummy/user_interface/profile_screen.dart';
 
@@ -31,6 +32,23 @@ class English extends Language {
   @override
   String rankName(RankType rank){
     return rank.getString();
+  }
+
+  @override
+  String languageName(LanguagePick language) {
+    switch( language )
+    {
+      case LanguagePick.english:
+        return 'English';
+        break;
+      case LanguagePick.dutch:
+        return 'Dutch';
+        break;
+      case LanguagePick.other:
+        return 'Other';
+        break;
+    }
+    return 'Not supported';
   }
 
   @override
@@ -143,6 +161,7 @@ class English extends Language {
       'rank_overview_sidemenu': 'Rank information',
       'rank_overview_title'   : 'This is an overview of all ranks and your progress towards them',
       'user_preferences'      : 'Personal preferences',
+      'select_language'       : 'Pick your language',
 
       // Delete recipe
       'delete_recipe_title'   : 'Deleting a recipe!',

@@ -1,5 +1,6 @@
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/user.dart';
+import 'package:yummytummy/user_interface/localisation/localization.dart';
 import 'package:yummytummy/user_interface/profile_screen.dart';
 import 'package:yummytummy/user_interface/screen_handler.dart';
 
@@ -14,6 +15,9 @@ abstract class Language {
 
   /// Localised name of each rank.
   String rankName(RankType rank);
+
+  /// Localised names for each language
+  String languageName(LanguagePick language);
 
   /// Localised name of each diet.
   String dietFieldName(DietField diet);

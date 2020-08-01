@@ -1,3 +1,4 @@
+import 'package:yummytummy/user_interface/localisation/localization.dart';
 import 'package:yummytummy/user_interface/screen_handler.dart';
 
 import 'package:yummytummy/user_interface/profile_screen.dart';
@@ -63,6 +64,23 @@ class Dutch extends Language {
         break;
     }
     return '';
+  }
+
+  @override
+  String languageName(LanguagePick language) {
+    switch( language )
+    {
+      case LanguagePick.english:
+        return 'Engels';
+        break;
+      case LanguagePick.dutch:
+        return 'Nederlands';
+        break;
+      case LanguagePick.other:
+        return 'Anders';
+        break;
+    }
+    return 'Niet ondersteund';
   }
 
   @override
@@ -208,6 +226,7 @@ class Dutch extends Language {
       'rank_overview_sidemenu': 'Informatie over ranks',
       'rank_overview_title'   : 'Dit is een overzicht van alle ranks en uw voortgang tot iedere rank.',
       'user_preferences'      : 'Persoonlijke voorkeuren',
+      'select_language'       : 'Kies uw taal',
 
       // Delete recipe
       'delete_recipe_title'   : 'Recept verwijderen!',
