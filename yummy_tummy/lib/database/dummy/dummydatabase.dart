@@ -4,6 +4,7 @@ import 'package:yummytummy/database/interfaces/userService.dart';
 import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/model/review.dart';
 import 'package:yummytummy/model/recipe.dart';
+import 'package:yummytummy/user_interface/localisation/localization.dart';
 
 import '../query/queryInfo.dart';
 
@@ -76,7 +77,7 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
   /// Search recipes in the database by specifying fields.
   /// DietField: Recipes must match with a certain diet.
   /// SortField: Sort the acquired recipes.
-  Future<RecipeQuery> searchRecipes(RecipeQuery info, SortField sortField, DietField dietField, RecipeType typeField, List<String> ingredients) async {
+  Future<RecipeQuery> searchRecipes(RecipeQuery info, SortField sortField, DietField dietField, RecipeType typeField, List<String> ingredients, {LanguagePick language}) async {
     await enforceDelay();
     return new RecipeQuery();
     //TODO: Change implementation in UI.

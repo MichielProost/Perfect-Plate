@@ -32,6 +32,7 @@ class _SearchScreen extends State<SearchScreen> {
   // User set parameters
   DietField _dietField = Constants.appUser.dietFieldPreference;
   RecipeType _recipeType = Constants.appUser.recipeTypePreference;
+  LanguagePick _languagePreference = Constants.appUser.languagePreference;
   SortField _sortField = SortField.weightedRating;
   final List<String> _ingredients = List<String>();
   
@@ -188,9 +189,43 @@ class _SearchScreen extends State<SearchScreen> {
                               }).toList(),
                             ),
 
+
+                            // Text label
+                            Padding(
+                              padding: const EdgeInsets.only(left: 40.0),
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(Localization.instance.language.getMessage( 'select_language' )),
+                              ),
+                            ),
+
+                            // Language dropdown
+                            DropdownButton<LanguagePick>(
+                              value: _languagePreference,
+                              icon: Icon(Icons.keyboard_arrow_down),
+                              isExpanded: true,
+                              iconSize: 24,
+                              elevation: 16,
+                              style: TextStyle(color: Colors.black),
+                              onChanged: (LanguagePick newValue) {
+                                setState(() {
+                                  _languagePreference = newValue;
+                                });
+                              },
+                              items: 
+                              LanguagePick.values.map<DropdownMenuItem<LanguagePick>>(
+                                (LanguagePick value) {
+                                  return DropdownMenuItem<LanguagePick>(
+                                    value: value,
+                                    child: Text(value != LanguagePick.other ? Localization.instance.language.languageName( value ) : Localization.instance.language.languageName( Constants.appUser.languagePreference )),
+                                  );
+                                }
+                              ).toList(),
+                            ),
+
                           ],
                         ),
-                        
+
                         SizedBox(
                           height: 20.0,
                         ),
@@ -338,7 +373,7 @@ class _SearchScreen extends State<SearchScreen> {
 
   void handleSearch() async {
     info = new RecipeQuery();
-    RecipeQuery result = await _recipeService.searchRecipes(info, _sortField, _dietField, _recipeType, _ingredients);
+    RecipeQuery result = await _recipeService.searchRecipes(info, _sortField, _dietField, _recipeType, _ingredients, language: _languagePreference);
     setState(() {
       _hasSearched = true;
       _foundRecipes = result.recipes;

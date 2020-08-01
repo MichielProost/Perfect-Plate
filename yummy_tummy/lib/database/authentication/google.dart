@@ -6,9 +6,11 @@ import 'package:yummytummy/database/firestore/userServiceFirestore.dart';
 import 'package:yummytummy/model/app_user.dart';
 import 'package:yummytummy/model/board/board_functions.dart';
 import 'package:yummytummy/model/board/medal_board.dart';
+import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/user_interface/constants.dart';
 import 'package:yummytummy/user_interface/home_screen.dart';
+import 'package:yummytummy/user_interface/localisation/localization.dart';
 
 class GoogleAuthHandler{
 
@@ -17,7 +19,9 @@ class GoogleAuthHandler{
   UserServiceFirestore userService = new UserServiceFirestore();
 
   /// Sign in with Google.
-  Future<void> handleSignIn({HomeScreenState screen}) async {
+  /// Returns true if the user already exists
+  /// Returns false if this is a new user
+  Future<bool> handleSignIn({HomeScreenState screen}) async {
     
     // Stop homescreen touching
     if (screen != null)
@@ -51,6 +55,9 @@ class GoogleAuthHandler{
         name: googleUser.displayName,
         score: 0,
         rank: RankType.dishwasher,
+        dietFieldPreference: DietField.any,
+        recipeTypePreference: RecipeType.any,
+        languagePreference: LanguagePick.english,
         favourites: [],
         image: '',
         board: new MedalBoard(
@@ -69,6 +76,7 @@ class GoogleAuthHandler{
     if (screen != null)
       screen.setTouchable(true);
 
+    return userExists;
   }
 
   /// Sign out from Google.
