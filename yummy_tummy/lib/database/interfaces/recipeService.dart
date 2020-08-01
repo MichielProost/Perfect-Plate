@@ -1,6 +1,7 @@
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/review.dart';
 import 'package:yummytummy/model/user.dart';
+import 'package:yummytummy/user_interface/localisation/localization.dart';
 
 import '../query/queryInfo.dart';
 
@@ -37,7 +38,7 @@ abstract class RecipeService {
   /// Search recipes in the database by specifying fields.
   /// QueryInfo: Info of a particular query.
   /// SortField: Sort the acquired recipes.
-  Future<RecipeQuery> searchRecipes(RecipeQuery info, SortField sortField, DietField dietField, RecipeType typeField, List<String> ingredients);
+  Future<RecipeQuery> searchRecipes(RecipeQuery info, SortField sortField, DietField dietField, RecipeType typeField, List<String> ingredients, {LanguagePick language});
 
   /// Update average and weighted rating in recipe document.
   Future<void> updateRatings(Review review);
