@@ -13,6 +13,9 @@ class Localization {
   Localization._privateConstructor();
 
   Language language = English();
+  LanguagePick _languagePick = LanguagePick.english;
+
+  LanguagePick get languagePick => _languagePick; 
 
   static final Localization _instance = Localization._privateConstructor();
 
@@ -20,6 +23,8 @@ class Localization {
 
   void setLanguage( LanguagePick language )
   {
+    print('Setting $languagePick to $language');
+    _languagePick = language;
     switch (language){
       case LanguagePick.english:
         this.language = English();
