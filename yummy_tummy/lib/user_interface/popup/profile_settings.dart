@@ -37,6 +37,11 @@ class _ProfileSettingsState extends State<ProfileSettings>{
     }
 
     widget.userService.modifyUser( Constants.appUser , Constants.appUser.id);
+
+    // Check preference medal
+    if ( !Constants.appUser.board.seriesMap['preference'].isFinished() ){
+      Constants.appUser.board.seriesMap['preference'].checkCurrentMedalAchieved([]);
+    }
   }
 
   @override

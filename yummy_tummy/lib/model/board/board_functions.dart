@@ -77,14 +77,14 @@ Map<String, Series> dataToSeriesMap(Map<String, dynamic> data){
     seriesMap['add_favourite'] = login;
   }
 
-  if (data.containsKey('share')) {
-    Series share = new CheckShareSeries(
+  if (data.containsKey('preference')) {
+    Series preference = new CheckPreferenceSeries(
         [ new Medal(MedalType.gold,
-            Localization.instance.language.getMessage("share_medal")) ],
-        Localization.instance.language.getMessage("share_series")
+            Localization.instance.language.getMessage("preference_medal")) ],
+        Localization.instance.language.getMessage("preference_series")
     );
-    share.setCurrentScore(data['share']);
-    seriesMap['share'] = share;
+    preference.setCurrentScore(data['preference']);
+    seriesMap['preference'] = preference;
   }
 
   return seriesMap;
@@ -103,8 +103,8 @@ Map<String, dynamic> seriesToDataMap(Map<String, Series> seriesMap){
         seriesMap['login'].getMedalsAchieved() : 0,
     'add_favourite' : seriesMap.containsKey('add_favourite') ?
         seriesMap['add_favourite'].getMedalsAchieved() : 0,
-    'share' : seriesMap.containsKey('share') ?
-        seriesMap['share'].getMedalsAchieved() : 0,
+    'preference' : seriesMap.containsKey('preference') ?
+        seriesMap['preference'].getMedalsAchieved() : 0,
   };
 }
 
@@ -116,7 +116,7 @@ Map<String, dynamic> getDefaultDataMap(){
   data['receive_reviews'] = 0;
   data['login'] = 0;
   data['add_favourite'] = 0;
-  data['share'] = 0;
+  data['preference'] = 0;
   return data;
 
 }

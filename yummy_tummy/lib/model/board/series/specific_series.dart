@@ -29,10 +29,10 @@ class CheckLoginSeries extends Series {
 
 }
 
-class CheckShareSeries extends Series {
+class CheckPreferenceSeries extends Series {
 
   /// Constructor.
-  CheckShareSeries(List<Medal> medals, String title)
+  CheckPreferenceSeries(List<Medal> medals, String title)
       : super(medals, title);
 
   /// objects: Should be an empty list [].

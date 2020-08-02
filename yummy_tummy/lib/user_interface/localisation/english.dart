@@ -187,15 +187,15 @@ class English extends Language {
       'receive_reviews_gold'  : 'Receive 15 reviews',
       'log_in_medal'          : 'Log in',
       'add_favourite_medal'   : 'Favourite 3 recipes',
-      'share_medal'           : 'Share a recipe',
+      'preference_medal'      : 'Set a preference',
 
       // Series titles
       'create_recipes_series' : 'create_recipes',
       'write_reviews_series'  : 'write_reviews',
       'receive_reviews_series': 'receive_reviews',
-      'login_series'          : 'login',
-      'add_favourite_series'  : 'add_favourite',
-      'share_series'          : 'share'
+      'login_series'          : 'log_in',
+      'add_favourite_series'  : 'favourite_recipes',
+      'preference_series'     : 'set_a_preference',
     });
 
 }
