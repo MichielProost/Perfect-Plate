@@ -192,7 +192,7 @@ class _SearchScreen extends State<SearchScreen> {
 
                             // Text label
                             Padding(
-                              padding: const EdgeInsets.only(left: 40.0),
+                              padding: const EdgeInsets.only(left: 60.0),
                               child: Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(Localization.instance.language.getMessage( 'select_language' )),
