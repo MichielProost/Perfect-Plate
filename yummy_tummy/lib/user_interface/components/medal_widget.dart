@@ -17,8 +17,8 @@ class MedalWidget extends StatelessWidget {
   final double progress;
   
   MedalWidget(this.title, this.type, this.isAchieved, this.hasNext, this.progress);
-  MedalWidget.series(Series series, String seriesTitle) : 
-    title       = series.getEarnedMedal() != null ? series.getEarnedMedal().title : seriesTitle,
+  MedalWidget.series(Series series) : 
+    title       = series.getEarnedMedal() != null ? series.getEarnedMedal().title : series.title,
     type        = series.getEarnedMedal() != null ? series.getEarnedMedal().medalType : MedalType.bronze,
     isAchieved  = series.getEarnedMedal() != null,
     hasNext     = series.getMedalsAchieved() != series.getMedalAmount(),

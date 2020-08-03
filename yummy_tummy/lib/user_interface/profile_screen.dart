@@ -306,7 +306,7 @@ class _Screen extends State<ProfileScreen> {
       MedalBoard board = Constants.appUser.board;
       List<Widget> series = List<Widget>();
       board.seriesMap.forEach((key, value) {
-        series.add( MedalWidget.series(value, key.replaceAll('_', ' ')) );
+        series.add( MedalWidget.series(value) );
       });
 
       // Add the widgets to the listview as rows (per two)
