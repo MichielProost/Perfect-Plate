@@ -36,33 +36,30 @@ class AppBarBottomState extends State<AppBarBottom> {
   {
     //Color elementColor = _currentPage == page ? Constants.accent : Colors.white;
     Color elementColor = _currentPage == page ? Colors.white : Colors.grey.shade400;
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-      child: SizedBox(
-        height: 70.0,
-        width: 70.0,
-        child: InkWell(
-          onTap: () { 
-            _controller.jumpToPage(page.index);
-            refresh(page);
-          },
-          child: Column(
-            children: <Widget>[
-              Icon(
-                icon,
+    return SizedBox(
+      height: 70.0,
+      width: 70.0,
+      child: InkWell(
+        onTap: () { 
+          _controller.jumpToPage(page.index);
+          refresh(page);
+        },
+        child: Column(
+          children: <Widget>[
+            Icon(
+              icon,
+              color: elementColor,
+              size: 30.0,
+            ),
+            Text(
+              Localization.instance.language.appPageName( page ),
+              maxLines: 1,
+              style: TextStyle(
                 color: elementColor,
-                size: 30.0,
+                fontWeight: _currentPage == page ? FontWeight.bold : FontWeight.normal,
               ),
-              Text(
-                Localization.instance.language.appPageName( page ),
-                maxLines: 1,
-                style: TextStyle(
-                  color: elementColor,
-                  fontWeight: _currentPage == page ? FontWeight.bold : FontWeight.normal,
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -74,15 +71,13 @@ class AppBarBottomState extends State<AppBarBottom> {
       shape: CircularNotchedRectangle(),
       color: Constants.main,
       child: Padding(
-        padding: const EdgeInsets.only(top: 15.0),
+        padding: const EdgeInsets.only(top: 15.0, left: 15.0, right: 15.0),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             createNavButton(Icons.star, AppPage.feed),
             createNavButton(Icons.search, AppPage.search),
-            Expanded(
-              child: SizedBox(),
-            ),
+            SizedBox(width: 65.0,),
             createNavButton(Icons.bookmark, AppPage.favourites),
             createNavButton(Icons.person, AppPage.profile)
           ],
