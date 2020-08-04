@@ -73,6 +73,7 @@ class ReviewServiceFirestore implements ReviewService {
         .updateData({
       "rating" : review.rating,
       "description" : review.description,
+      "userMap" : review.userMap,
     });
 
     consoleWriter.ModifiedDocument(CollectionType.Review, reviewID);
