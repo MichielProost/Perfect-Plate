@@ -8,12 +8,57 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:27199903884:android:5c1768588fba3a20f5c3a9",
+        "android_client_info": {
+          "package_name": "be.dezijwegel.perfectplate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "27199903884-9bqgqhnpvbiqrh3e2d8vgnmfvpd20lvg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwBcsYWMKVbnS_6b7LhJTJom11Q801oKE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "27199903884-9bqgqhnpvbiqrh3e2d8vgnmfvpd20lvg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:27199903884:android:1dcfbe3a614652ebf5c3a9",
         "android_client_info": {
           "package_name": "com.example.yummytummy"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "27199903884-v8fcn64ihdp8v6cg1ofa8hi04kkbke9d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.yummytummy",
+            "certificate_hash": "902f93f02f97b765b7a2f8dc3f16e5f581a432b0"
+          }
+        },
+        {
+          "client_id": "27199903884-ikqp8ot1srd6gi4cl597ssibp02mmlm4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.yummytummy",
+            "certificate_hash": "09704c2b1da73a5b72ce55855fdc8d3fd8979193"
+          }
+        },
         {
           "client_id": "27199903884-9bqgqhnpvbiqrh3e2d8vgnmfvpd20lvg.apps.googleusercontent.com",
           "client_type": 3

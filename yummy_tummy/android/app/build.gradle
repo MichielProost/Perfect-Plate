@@ -39,7 +39,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.example.yummytummy"
+        applicationId "be.dezijwegel.perfectplate"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode flutterVersionCode.toInteger()
