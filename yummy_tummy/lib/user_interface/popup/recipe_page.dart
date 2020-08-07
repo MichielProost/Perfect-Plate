@@ -120,35 +120,36 @@ class _RecipePageState extends State<RecipePage> {
                       ),
                     ),
 
-                    SliverToBoxAdapter(
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 20.0),
-                        child: Column(
-                          children: <Widget>[
-                            Text( Localization.instance.language.getMessage( 'please_leave_review' ) ),
-                            SelectableStars(
-                              35.0,
-                              onTap: ( rating ) async {
-                                List<Review> reviews = await UserContentBuffer.instance.getUserReviews( Constants.appUser );
-                                
-                                Review userReview;
+                    if (_recipe.user.id != Constants.appUser.id && Constants.appUser.isLoggedIn())
+                      SliverToBoxAdapter(
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 20.0),
+                          child: Column(
+                            children: <Widget>[
+                              Text( Localization.instance.language.getMessage( 'please_leave_review' ) ),
+                              SelectableStars(
+                                35.0,
+                                onTap: ( rating ) async {
+                                  List<Review> reviews = await UserContentBuffer.instance.getUserReviews( Constants.appUser );
+                                  
+                                  Review userReview;
 
-                                for (Review review in reviews)
-                                  if (review.recipeID == _recipe.id)
-                                    userReview = review;
+                                  for (Review review in reviews)
+                                    if (review.recipeID == _recipe.id)
+                                      userReview = review;
 
-                                if (userReview == null)
-                                  showDialog(context: context, child: CreateReviewScreen(_recipe.id, startingStars: rating,));
-                                else
-                                  showDialog(context: context, child: WidgetPopup(
-                                    ReviewCard( userReview )
-                                  ));
-                              }
-                            ),
-                          ],
+                                  if (userReview == null)
+                                    showDialog(context: context, child: CreateReviewScreen(_recipe.id, startingStars: rating,));
+                                  else
+                                    showDialog(context: context, child: WidgetPopup(
+                                      ReviewCard( userReview )
+                                    ));
+                                }
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
                     
                   ],
                 ),
