@@ -3,6 +3,7 @@ import 'package:yummytummy/database/firestore/recipeServiceFirestore.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/review.dart';
 import 'package:yummytummy/user_interface/components/rating_row.dart';
+import 'package:yummytummy/user_interface/components/text/TimeAgoText.dart';
 import 'package:yummytummy/user_interface/localisation/localization.dart';
 import 'package:yummytummy/user_interface/popup/recipe_page.dart';
 
@@ -69,9 +70,10 @@ class _Card extends State<ReviewCard> {
                   ],
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-
+                    
+                    TimeAgoText(widget._review.timestamp),
 
                     // User rank
                     Text(
@@ -81,8 +83,9 @@ class _Card extends State<ReviewCard> {
                 ),
 
                 // Description
+                if (widget._review.description.length != 0)
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 7.0),
+                  padding: const EdgeInsets.only(top: 7.0, bottom: 7.0),
                   child: Text( 
                     widget._review.description 
                   ),
