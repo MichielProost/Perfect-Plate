@@ -190,7 +190,7 @@ class English extends Language {
 
       // Delete recipe
       'delete_recipe_title'   : 'Deleting a recipe!',
-      'delete_recipe_warning' : 'Click submit below to delete this recipe. This action can NOT be undone, press cancel to go back',
+      'delete_recipe_warning' : 'Press accept below to delete this recipe. This action can NOT be undone, press cancel to go back.',
 
       // Seperate input
       'camera'                : 'Camera',

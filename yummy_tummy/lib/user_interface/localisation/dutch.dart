@@ -255,7 +255,7 @@ class Dutch extends Language {
 
       // Delete recipe
       'delete_recipe_title'   : 'Recept verwijderen!',
-      'delete_recipe_warning' : 'Klik akkoord om dit recept te verwijderen. Deze actie kan NIET ongedaan gemaakt worden.',
+      'delete_recipe_warning' : 'Klik akkoord om dit recept te verwijderen. Deze actie kan NIET ongedaan gemaakt worden. Ga terug door op annuleren te drukken.',
 
       // Seperate input
       'camera'                : 'Camera',
