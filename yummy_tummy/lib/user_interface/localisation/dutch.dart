@@ -224,7 +224,7 @@ class Dutch extends Language {
       'search_by_recipe_title': 'Zoek recepten op titel',
       'search_by_title_hint'  : 'Geef de titel hier (exacte match)',
       'rank_overview_sidemenu': 'Informatie over ranks',
-      'rank_overview_title'   : 'Dit is een overzicht van alle ranks en uw voortgang tot iedere rank.',
+      'rank_overview_title'   : 'Uw voortgang tot iedere rank',
       'user_preferences'      : 'Persoonlijke voorkeuren',
       'select_language'       : 'Kies uw taal',
 

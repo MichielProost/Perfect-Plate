@@ -159,7 +159,7 @@ class English extends Language {
       'search_by_recipe_title': 'Search recipes by title',
       'search_by_title_hint'  : 'Recipe title here (exact match)',
       'rank_overview_sidemenu': 'Rank information',
-      'rank_overview_title'   : 'This is an overview of all ranks and your progress towards them',
+      'rank_overview_title'   : 'Your progress towards all ranks',
       'user_preferences'      : 'Personal preferences',
       'select_language'       : 'Pick your language',
 
