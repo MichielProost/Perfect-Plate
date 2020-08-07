@@ -46,6 +46,7 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
   List<String> _errors = List<String>();
 
   // Data holders
+  LanguagePick _languagePick = Constants.appUser.languagePreference;
   String _title;
   File _banner;
   String _description;
@@ -109,6 +110,50 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                   // controller: _controller,
                   shrinkWrap: true,
                   children: <Widget>[
+                    
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      child: GridView.count(
+                        shrinkWrap: true,
+                        childAspectRatio: 4.0 / 1.0,
+                        crossAxisCount: 2,
+                        children: <Widget>[
+
+                          // Select language text
+                          Padding(
+                            padding: const EdgeInsets.only(left: 40.0),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(Localization.instance.language.getMessage( 'select_language' )),
+                            ),
+                          ),
+
+                          // Language dropdown
+                          DropdownButton<LanguagePick>(
+                            value: _languagePick,
+                            icon: Icon(Icons.keyboard_arrow_down),
+                            isExpanded: true,
+                            iconSize: 24,
+                            elevation: 16,
+                            style: TextStyle(color: Colors.black),
+                            onChanged: (LanguagePick newValue) {
+                              setState(() {
+                                _languagePick = newValue;
+                              });
+                            },
+                            items: 
+                            LanguagePick.values.map<DropdownMenuItem<LanguagePick>>(
+                              (LanguagePick value) {
+                                return DropdownMenuItem<LanguagePick>(
+                                  value: value,
+                                  child: Text(value != LanguagePick.other ? Localization.instance.language.languageName( value ) : Localization.instance.language.getMessage( 'select_language' )),
+                                );
+                              }
+                            ).toList(),
+                          ),
+                        ],
+                      ),
+                    ),
 
                     // Recipe title input
                     Row(
@@ -503,12 +548,16 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                               Localization.instance.language.getMessage( 'error_no_steps' )
                             );
 
+                          if (_languagePick == LanguagePick.other)
+                            _languagePick = Constants.appUser.languagePreference;
+
                           if (_errors.length == 0)
                           {
 
                             Recipe recipe = Recipe( duration: _preptime, ingredients: _ingredients,
                                                     stepDescriptions: _steps, title: _title,
                                                     description: _description, type: _recipeType,
+                                                    language: _languagePick,
                                                     isVegetarian: _dietField != DietField.any,
                                                     isVegan: _dietField == DietField.vegan,
                                                     userMap: Constants.appUser.toCompactMap());
