@@ -48,31 +48,31 @@ class _RecipeCardState extends State<RecipeCard> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(4.0),
-      child: InkWell(
-        onTap: () => showDialog(context: context, child: RecipePage(_recipe)),
-        onLongPress: () {
-          if (widget._isDeleteAble)
-            showDialog(
-              context: context,
-              child: ActionPopup(
-                icon: Icons.report,
-                title: Localization.instance.language.getMessage( 'delete_recipe_title' ),
-                text: Localization.instance.language.getMessage( 'delete_recipe_warning' ),
-                onAccept: () {
-                  RecipeServiceFirestore().deleteRecipe( _recipe.id );
-                },
-              ),  
-            );
-        },
-        child: Card(
-          color: Constants.gray,
-          shape: _recipe.userMap.containsKey('id') && _recipe.userMap['id'] == Constants.magnetarID && false
-          ? new RoundedRectangleBorder(
-              side: new BorderSide(color: Constants.main, width: 2.0),
-              borderRadius: BorderRadius.circular(8.0))
-          : new RoundedRectangleBorder(
-              side: new BorderSide(color: Colors.white, width: 2.0),
-              borderRadius: BorderRadius.circular(8.0)),
+      child: Card(
+        color: Constants.gray,
+        shape: _recipe.userMap.containsKey('id') && _recipe.userMap['id'] == Constants.magnetarID && false
+        ? new RoundedRectangleBorder(
+            side: new BorderSide(color: Constants.main, width: 2.0),
+            borderRadius: BorderRadius.circular(8.0))
+        : new RoundedRectangleBorder(
+            side: new BorderSide(color: Colors.white, width: 2.0),
+            borderRadius: BorderRadius.circular(8.0)),
+        child: InkWell(
+          onTap: () => showDialog(context: context, child: RecipePage(_recipe)),
+          onLongPress: () {
+            if (widget._isDeleteAble)
+              showDialog(
+                context: context,
+                child: ActionPopup(
+                  icon: Icons.report,
+                  title: Localization.instance.language.getMessage( 'delete_recipe_title' ),
+                  text: Localization.instance.language.getMessage( 'delete_recipe_warning' ),
+                  onAccept: () {
+                    RecipeServiceFirestore().deleteRecipe( _recipe.id );
+                  },
+                ),  
+              );
+          },
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(
