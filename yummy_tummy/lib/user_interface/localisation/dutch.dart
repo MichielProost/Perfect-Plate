@@ -255,11 +255,11 @@ class Dutch extends Language {
       'preference_medal'      : 'Stel een voorkeur in',
 
       // Series titles
-      'create_recipes_series' : 'creëer gerechten',
-      'write_reviews_series'  : 'schrijf reviews',
-      'receive_reviews_series': 'krijg reviews',
-      'login_series'          : 'log in',
-      'add_favourite_series'  : 'sla gerechten op',
-      'preference_series'     : 'stel een voorkeur in',
+      'create_recipes_series' : 'Maak gerechten',
+      'write_reviews_series'  : 'Schrijf reviews',
+      'receive_reviews_series': 'Krijg reviews',
+      'login_series'          : 'Log in',
+      'add_favourite_series'  : 'Sla gerechten op',
+      'preference_series'     : 'Stel een voorkeur in',
     });
 }
