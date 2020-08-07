@@ -130,7 +130,14 @@ class _RecipeCardState extends State<RecipeCard> {
                     widget._showNumReviews ?
                       RatingRow(_recipe.rating, _recipe.numberOfReviews) :
                       RatingRow(_recipe.rating),
-                    Text( _recipe.userMap['name'] ),
+
+                    Text( 
+                      _recipe.userMap['name'],
+                      style: TextStyle(
+                        color: _recipe.user.id == Constants.magnetarID ? Constants.main : Colors.black,
+                        fontWeight: _recipe.user.id == Constants.magnetarID ? FontWeight.bold : FontWeight.normal,
+                      ),
+                    ),
                   ],
                 ),
                 Row(
@@ -140,7 +147,11 @@ class _RecipeCardState extends State<RecipeCard> {
                       _recipe.timestamp
                     ),
                     Text(
-                      Localization.instance.language.rankName( RankType.dishwasher.getRank( _recipe.userMap['rank'] ) ) 
+                      Localization.instance.language.rankName( RankType.dishwasher.getRank( _recipe.userMap['rank'] ) ),
+                      style: TextStyle(
+                        color: _recipe.user.id == Constants.magnetarID ? Constants.main : Colors.black,
+                        fontWeight: _recipe.user.id == Constants.magnetarID ? FontWeight.bold : FontWeight.normal,
+                      ),
                     ),
                   ],
                 ),
