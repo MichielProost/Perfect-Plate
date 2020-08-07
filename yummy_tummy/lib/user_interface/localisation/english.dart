@@ -1,5 +1,6 @@
 import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/model/recipe.dart';
+import 'package:yummytummy/user_interface/components/text/TimeAgoText.dart';
 import 'package:yummytummy/user_interface/localisation/language.dart';
 import 'package:yummytummy/user_interface/localisation/localization.dart';
 import 'package:yummytummy/user_interface/screen_handler.dart';
@@ -83,6 +84,26 @@ class English extends Language {
     return '';
   }
   
+  @override
+  String getTimedisplay(TimeUnit timeUnit) {
+    
+    switch(timeUnit){
+      case TimeUnit.minutes:
+        return "minutes";
+        break;
+      case TimeUnit.hours:
+        return "hours";
+        break;
+      case TimeUnit.days:
+        return "days";
+        break;
+      case TimeUnit.date:
+        return "";
+        break;
+    }
+    return "time units";
+  }
+
   English() : super({
       
       // General
@@ -95,6 +116,10 @@ class English extends Language {
       'none'                  : 'None',
       'accept'                : 'Accept',
       'delete'                : 'Delete',
+
+      // Post time stamp
+      'posted_x_ago_prefix'   : 'Posted',
+      'posted_x_ago_suffix'   : 'ago',
 
       // Units
       'hour_unit'             : 'h',

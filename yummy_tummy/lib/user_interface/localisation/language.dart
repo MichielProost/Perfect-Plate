@@ -1,5 +1,6 @@
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/user.dart';
+import 'package:yummytummy/user_interface/components/text/TimeAgoText.dart';
 import 'package:yummytummy/user_interface/localisation/localization.dart';
 import 'package:yummytummy/user_interface/profile_screen.dart';
 import 'package:yummytummy/user_interface/screen_handler.dart';
@@ -30,6 +31,9 @@ abstract class Language {
 
   /// When a user is on a profile page but it has no elements (no created recipes, reviews, ...).
   String emptyProfilePageError(UserPage page);
+
+  /// Used for time units.
+  String getTimedisplay(TimeUnit timeUnit);
 
   /// Get any other message.
   String getMessage(String messageName) {

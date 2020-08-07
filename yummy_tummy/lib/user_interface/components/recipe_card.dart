@@ -5,6 +5,7 @@ import 'package:yummytummy/database/interfaces/recipeService.dart';
 import 'package:yummytummy/database/interfaces/userService.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/user.dart';
+import 'package:yummytummy/user_interface/components/text/TimeAgoText.dart';
 import 'package:yummytummy/user_interface/localisation/localization.dart';
 import 'package:yummytummy/user_interface/popup/action_popup.dart';
 import 'package:yummytummy/user_interface/popup/info_popup.dart';
@@ -129,10 +130,18 @@ class _RecipeCardState extends State<RecipeCard> {
                     widget._showNumReviews ?
                       RatingRow(_recipe.rating, _recipe.numberOfReviews) :
                       RatingRow(_recipe.rating),
+                    Text( _recipe.userMap['name'] ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    TimeAgoText(
+                      _recipe.timestamp
+                    ),
                     Text(
                       Localization.instance.language.rankName( RankType.dishwasher.getRank( _recipe.userMap['rank'] ) ) 
                     ),
-                    Text( _recipe.userMap['name'] ),
                   ],
                 ),
                 SizedBox(

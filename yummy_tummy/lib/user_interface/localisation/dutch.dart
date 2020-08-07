@@ -1,3 +1,4 @@
+import 'package:yummytummy/user_interface/components/text/TimeAgoText.dart';
 import 'package:yummytummy/user_interface/localisation/localization.dart';
 import 'package:yummytummy/user_interface/screen_handler.dart';
 
@@ -148,6 +149,26 @@ class Dutch extends Language {
     return '';
   }
 
+  @override
+  String getTimedisplay(TimeUnit timeUnit) {
+    
+    switch(timeUnit){
+      case TimeUnit.minutes:
+        return "minuten";
+        break;
+      case TimeUnit.hours:
+        return "uur";
+        break;
+      case TimeUnit.days:
+        return "dagen";
+        break;
+      case TimeUnit.date:
+        return "";
+        break;
+    }
+    return "tijdseenheden";
+  }
+
   Dutch() : super({
       
       // General
@@ -160,6 +181,10 @@ class Dutch extends Language {
       'none'                  : 'Geen',
       'accept'                : 'Akkoord',
       'delete'                : 'Verwijder',
+
+      // Post time stamp
+      'posted_x_ago_prefix'   : '',
+      'posted_x_ago_suffix'   : 'geleden geplaatst',
 
       // Units
       'hour_unit'             : 'u',
