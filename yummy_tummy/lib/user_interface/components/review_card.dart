@@ -38,10 +38,10 @@ class _Card extends State<ReviewCard> {
     return 
     Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: InkWell(
-        onTap: () => _handleOpenRecipe(context),
-        enableFeedback: widget.allowRecipeLink,
-        child: Card(
+      child: Card(
+        child: InkWell(
+          onTap: () => _handleOpenRecipe(context),
+          enableFeedback: widget.allowRecipeLink,
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(
@@ -93,8 +93,8 @@ class _Card extends State<ReviewCard> {
               ],
             ),
           ),
-          color: Constants.gray,
         ),
+        color: Constants.gray,
       ),
     );
   }
