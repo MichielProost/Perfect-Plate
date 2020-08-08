@@ -341,86 +341,91 @@ class _Screen extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Constants.background,
-      body: Theme(
-        data: Constants.themeData,
-        child: 
-        ! Constants.appUser.isLoggedIn() ?  
-        Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              Localization.instance.language.getMessage( 'profile_login_error' ),
-              textAlign: TextAlign.center,
-              style: Constants.emptyScreenStyle,
-            ),
-            Center(child: GoogleSigninButtonWrapper(
-              onPressed: () {
-                setState(() {});
-              },
-            )),
-          ],
-        ) :
-        CustomScrollView(
-          slivers: <Widget>[
-
-            // Header
-            SliverToBoxAdapter(
-              child: buildHeader(),
-            ),
-
-            // Navigation bar
-            SliverAppBar(
-              automaticallyImplyLeading: false,
-              pinned: true,
-              title: buildNavigator(),
-              backgroundColor: Constants.background,
-            ),
-
-            // Recipes or review depending on the selected page
-            SliverToBoxAdapter(
-              child: FutureBuilder<List<Widget>>(
-                future: _getDisplayedWidgets(),
-                builder: (context, snapshot)
-                {
-                  if (snapshot.connectionState == ConnectionState.none && snapshot.hasData == null)
-                    return Container();
-
-                  if (snapshot.data == null)
-                    return Padding(
-                      padding: const EdgeInsets.only( top: 20.0 ),
-                      child: WaitingIndicator(),
-                    );
-                  else if (snapshot.data.length != 0)
-                    return ListView.builder(
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: snapshot.data.length,
-                      itemBuilder: (context, index) {
-                        return snapshot.data[index];
-                      },
-                    );
-                  else
-                    return Center(
-                      child: Text(
-                        Localization.instance.language.emptyProfilePageError( _activePage ),
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    );
-                }
+    return Theme(
+      data: ThemeData(
+        fontFamily: Constants.fontFamily,
+      ),
+      child: Scaffold(
+        backgroundColor: Constants.background,
+        body: Theme(
+          data: Constants.themeData,
+          child: 
+          ! Constants.appUser.isLoggedIn() ?  
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                Localization.instance.language.getMessage( 'profile_login_error' ),
+                textAlign: TextAlign.center,
+                style: Constants.emptyScreenStyle,
               ),
-            ),
+              Center(child: GoogleSigninButtonWrapper(
+                onPressed: () {
+                  setState(() {});
+                },
+              )),
+            ],
+          ) :
+          CustomScrollView(
+            slivers: <Widget>[
 
-            // Extra padding to prevent overlap with the add recipe button
-            SliverPadding(
-              padding: EdgeInsets.only(bottom: 30.0),
-            ),
-          ],
+              // Header
+              SliverToBoxAdapter(
+                child: buildHeader(),
+              ),
+
+              // Navigation bar
+              SliverAppBar(
+                automaticallyImplyLeading: false,
+                pinned: true,
+                title: buildNavigator(),
+                backgroundColor: Constants.background,
+              ),
+
+              // Recipes or review depending on the selected page
+              SliverToBoxAdapter(
+                child: FutureBuilder<List<Widget>>(
+                  future: _getDisplayedWidgets(),
+                  builder: (context, snapshot)
+                  {
+                    if (snapshot.connectionState == ConnectionState.none && snapshot.hasData == null)
+                      return Container();
+
+                    if (snapshot.data == null)
+                      return Padding(
+                        padding: const EdgeInsets.only( top: 20.0 ),
+                        child: WaitingIndicator(),
+                      );
+                    else if (snapshot.data.length != 0)
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: snapshot.data.length,
+                        itemBuilder: (context, index) {
+                          return snapshot.data[index];
+                        },
+                      );
+                    else
+                      return Center(
+                        child: Text(
+                          Localization.instance.language.emptyProfilePageError( _activePage ),
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      );
+                  }
+                ),
+              ),
+
+              // Extra padding to prevent overlap with the add recipe button
+              SliverPadding(
+                padding: EdgeInsets.only(bottom: 30.0),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -15,6 +15,12 @@ class Constants {
   static final Color green = Colors.green;
   static final Color background = Colors.grey.shade200;
 
+  static final String fontFamily = 'Nunito';
+
+  static final ThemeData globalTheme = ThemeData (
+    fontFamily: fontFamily,
+  );
+
   static final TextStyle buttonStyle = TextStyle(
     fontSize: 17.0,
     fontWeight: FontWeight.bold,

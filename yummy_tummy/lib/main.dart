@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:yummytummy/user_interface/constants.dart';
 import 'package:yummytummy/user_interface/home_screen.dart';
 import 'model/test.dart';
 
@@ -27,6 +28,7 @@ class YummyTummy extends StatelessWidget {
 
     return MaterialApp(
       title: "Perfect Plate",
+      theme: Constants.globalTheme,
       home: HomeScreen(), 
       // home: ScreenHandler(),
     );

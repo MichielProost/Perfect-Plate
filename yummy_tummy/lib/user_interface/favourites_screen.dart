@@ -26,65 +26,70 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Constants.background,
-      body: FutureBuilder<List<Recipe>>(
-        future: _recipeService.getFavouriteRecipes( Constants.appUser ),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) 
-          {
-            return snapshot.hasError ?
-              SnackBarUtil.createTextSnackBar( Localization.instance.language.getMessage( 'recipe_database_error' ) ) :
-              Theme(
-                data: Constants.themeData,
-                child: ! Constants.appUser.isLoggedIn() ?
-                Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          Localization.instance.language.getMessage( '' ),
-                          textAlign: TextAlign.center,
-                          style: Constants.emptyScreenStyle,
-                        ),
-                        GoogleSigninButtonWrapper(
-                          onPressed: () {
-                            setState(() {});
-                          },
-                        ),
-                      ],
-                    ),
-                  ) : 
-                ListView(
-                  children: <Widget>[
-                    
-                    if (snapshot.data.length == 0)
-                      Padding(
-                        padding: const EdgeInsets.only( top: 8.0 ),
-                        child: Text(
-                          Localization.instance.language.getMessage( 'no_bookmarks_yet' ),
-                          textAlign: TextAlign.center,
-                          style: Constants.emptyScreenStyle,
-                        ),
+    return Theme(
+      data: ThemeData(
+        fontFamily: Constants.fontFamily,
+      ),
+      child: Scaffold(
+        backgroundColor: Constants.background,
+        body: FutureBuilder<List<Recipe>>(
+          future: _recipeService.getFavouriteRecipes( Constants.appUser ),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) 
+            {
+              return snapshot.hasError ?
+                SnackBarUtil.createTextSnackBar( Localization.instance.language.getMessage( 'recipe_database_error' ) ) :
+                Theme(
+                  data: Constants.themeData,
+                  child: ! Constants.appUser.isLoggedIn() ?
+                  Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            Localization.instance.language.getMessage( '' ),
+                            textAlign: TextAlign.center,
+                            style: Constants.emptyScreenStyle,
+                          ),
+                          GoogleSigninButtonWrapper(
+                            onPressed: () {
+                              setState(() {});
+                            },
+                          ),
+                        ],
                       ),
+                    ) : 
+                  ListView(
+                    children: <Widget>[
+                      
+                      if (snapshot.data.length == 0)
+                        Padding(
+                          padding: const EdgeInsets.only( top: 8.0 ),
+                          child: Text(
+                            Localization.instance.language.getMessage( 'no_bookmarks_yet' ),
+                            textAlign: TextAlign.center,
+                            style: Constants.emptyScreenStyle,
+                          ),
+                        ),
 
-                    for (Recipe recipe in snapshot.data) 
-                      RecipeCard(recipe, showBookmark: true, showNumReviews: true,),
+                      for (Recipe recipe in snapshot.data) 
+                        RecipeCard(recipe, showBookmark: true, showNumReviews: true,),
 
-                    SizedBox(
-                      height: 30.0,
-                    ),
-                  ],
-                ),
-              );
-          } 
-          else
-          {
-            return WaitingIndicator();
-          }
-        },
-      ), 
+                      SizedBox(
+                        height: 30.0,
+                      ),
+                    ],
+                  ),
+                );
+            } 
+            else
+            {
+              return WaitingIndicator();
+            }
+          },
+        ), 
+      ),
     );
   }
 }

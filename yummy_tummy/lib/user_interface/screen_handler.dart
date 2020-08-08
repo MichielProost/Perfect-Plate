@@ -64,28 +64,33 @@ class _ScreenHandler extends State<ScreenHandler> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBarTop(),
-      drawer: SideMenu(),
-      backgroundColor: Constants.gray,
-      body: Center(
-        child: PageView (
-          controller: _controller,
-          onPageChanged:(index) => {
-            _currentPage = AppPage.values[index],
-            _appBarBottom.appBarBottomState.refresh(_currentPage),
-          },
-          children: <Widget>[
-            widget._pages[AppPage.feed],
-            widget._pages[AppPage.search],
-            widget._pages[AppPage.favourites],
-            widget._pages[AppPage.profile],
-          ],
-        ),
+    return Theme(
+      data: ThemeData(
+        fontFamily: Constants.fontFamily,
       ),
-      floatingActionButton: AddRecipeButton(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: _appBarBottom,
+      child: Scaffold(
+        appBar: AppBarTop(),
+        drawer: SideMenu(),
+        backgroundColor: Constants.gray,
+        body: Center(
+          child: PageView (
+            controller: _controller,
+            onPageChanged:(index) => {
+              _currentPage = AppPage.values[index],
+              _appBarBottom.appBarBottomState.refresh(_currentPage),
+            },
+            children: <Widget>[
+              widget._pages[AppPage.feed],
+              widget._pages[AppPage.search],
+              widget._pages[AppPage.favourites],
+              widget._pages[AppPage.profile],
+            ],
+          ),
+        ),
+        floatingActionButton: AddRecipeButton(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        bottomNavigationBar: _appBarBottom,
+      ),
     );
   }
 

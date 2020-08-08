@@ -44,131 +44,136 @@ class _RecipePageState extends State<RecipePage> {
 
     RatingRow ratingView = RatingRow(_recipe.rating, _recipe.numberOfReviews);
 
-    return Padding(
-      padding: const EdgeInsets.only(left: 5.0, right: 5.0, top: 5.0, bottom: 5.0),
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              
-              // Button bar for user
-              buildButtonBar(),
+    return Theme(
+      data: ThemeData(
+        fontFamily: Constants.fontFamily,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.only(left: 5.0, right: 5.0, top: 5.0, bottom: 5.0),
+        child: Card(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                
+                // Button bar for user
+                buildButtonBar(),
 
-              Padding(
-                padding: const EdgeInsets.only(bottom: 3.0, left: 10.0, right: 10.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    InkWell(
-                      borderRadius: BorderRadius.circular(10.0),
-                      onTap: () => showDialog(context: context, child: RecipeRatings( _recipe.id, ratingView )),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 3.0, vertical: 2.0),
-                        child: ratingView,
-                      ),
-                    ),
-                    Text(_recipe.userMap['name']),
-                  ],
-                ),
-              ),
-
-              // Scrollable recipe
-              Expanded(
-                child: CustomScrollView(
-                  slivers: <Widget>[
-
-                    // Banner with image and title
-                    SliverAppBar(
-                      backgroundColor: Constants.main,
-                      pinned: false,
-                      floating: true,
-                      leading: Container(),
-                      forceElevated: true,
-                      expandedHeight: RecipePage.BANNER_HEIGTH,
-                      flexibleSpace: FlexibleSpaceBar(
-                        title: buildTitle(),
-                        background: buildBackground(),
-                      ),
-                    ),
-
-
-                    // Summary text
-                    SliverToBoxAdapter(
-                      child: buildIntroText(),
-                    ),
-
-                    // Info panel with recipe type, prep time, diet, ...
-                    SliverToBoxAdapter(
-                      child: buildInfoPanel(),
-                    ),
-
-                    // Ingredient list
-                    SliverToBoxAdapter(
-                      child: buildIngredients(),
-                    ),
-
-                    // Show all steps
-                    SliverList(
-                      delegate: SliverChildListDelegate(
-                        <Widget>[
-                          // for (int x = 0; x < 20; x++) 
-                          for (int stepNumber = 0; stepNumber < _recipe.stepDescriptions.length; stepNumber++) 
-                            buildExpansionTile(stepNumber)
-                        ]
-                      ),
-                    ),
-
-                    if (_recipe.user.id != Constants.appUser.id && Constants.appUser.isLoggedIn())
-                      SliverToBoxAdapter(
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 3.0, left: 10.0, right: 10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      InkWell(
+                        borderRadius: BorderRadius.circular(10.0),
+                        onTap: () => showDialog(context: context, child: RecipeRatings( _recipe.id, ratingView )),
                         child: Padding(
-                          padding: const EdgeInsets.only(top: 20.0),
-                          child: Column(
-                            children: <Widget>[
-                              Text( Localization.instance.language.getMessage( 'please_leave_review' ) ),
-                              SelectableStars(
-                                35.0,
-                                onTap: ( rating ) async {
-                                  List<Review> reviews = await UserContentBuffer.instance.getUserReviews( Constants.appUser );
-                                  
-                                  Review userReview;
-
-                                  for (Review review in reviews)
-                                    if (review.recipeID == _recipe.id)
-                                      userReview = review;
-
-                                  if (userReview == null)
-                                    showDialog(context: context, child: CreateReviewScreen(_recipe.id, startingStars: rating,));
-                                  else
-                                    showDialog(context: context, child: WidgetPopup(
-                                      ReviewCard( userReview )
-                                    ));
-                                }
-                              ),
-                            ],
-                          ),
+                          padding: EdgeInsets.symmetric(horizontal: 3.0, vertical: 2.0),
+                          child: ratingView,
                         ),
                       ),
-                    
-                  ],
+                      Text(_recipe.userMap['name']),
+                    ],
+                  ),
                 ),
-              ),
 
-              // Recipe info: ingrediënts and steps
-              //  Container(
-              //    height: MediaQuery.of(context).size.height,
-              //    width: MediaQuery.of(context).size.width,
-              //    child: ListWheelScrollView(
-              //       itemExtent: 3,
-              //       children: <Widget>[
-              //         for (int i= 0; i < steps.length; i++)
-              //           Text("Placeholder"),
-              //           //buildStepWidget(i, steps[i]),
-              //       ],
-              //     ),
-              //  ),
-            ],
+                // Scrollable recipe
+                Expanded(
+                  child: CustomScrollView(
+                    slivers: <Widget>[
+
+                      // Banner with image and title
+                      SliverAppBar(
+                        backgroundColor: Constants.main,
+                        pinned: false,
+                        floating: true,
+                        leading: Container(),
+                        forceElevated: true,
+                        expandedHeight: RecipePage.BANNER_HEIGTH,
+                        flexibleSpace: FlexibleSpaceBar(
+                          title: buildTitle(),
+                          background: buildBackground(),
+                        ),
+                      ),
+
+
+                      // Summary text
+                      SliverToBoxAdapter(
+                        child: buildIntroText(),
+                      ),
+
+                      // Info panel with recipe type, prep time, diet, ...
+                      SliverToBoxAdapter(
+                        child: buildInfoPanel(),
+                      ),
+
+                      // Ingredient list
+                      SliverToBoxAdapter(
+                        child: buildIngredients(),
+                      ),
+
+                      // Show all steps
+                      SliverList(
+                        delegate: SliverChildListDelegate(
+                          <Widget>[
+                            // for (int x = 0; x < 20; x++) 
+                            for (int stepNumber = 0; stepNumber < _recipe.stepDescriptions.length; stepNumber++) 
+                              buildExpansionTile(stepNumber)
+                          ]
+                        ),
+                      ),
+
+                      if (_recipe.user.id != Constants.appUser.id && Constants.appUser.isLoggedIn())
+                        SliverToBoxAdapter(
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 20.0),
+                            child: Column(
+                              children: <Widget>[
+                                Text( Localization.instance.language.getMessage( 'please_leave_review' ) ),
+                                SelectableStars(
+                                  35.0,
+                                  onTap: ( rating ) async {
+                                    List<Review> reviews = await UserContentBuffer.instance.getUserReviews( Constants.appUser );
+                                    
+                                    Review userReview;
+
+                                    for (Review review in reviews)
+                                      if (review.recipeID == _recipe.id)
+                                        userReview = review;
+
+                                    if (userReview == null)
+                                      showDialog(context: context, child: CreateReviewScreen(_recipe.id, startingStars: rating,));
+                                    else
+                                      showDialog(context: context, child: WidgetPopup(
+                                        ReviewCard( userReview )
+                                      ));
+                                  }
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      
+                    ],
+                  ),
+                ),
+
+                // Recipe info: ingrediënts and steps
+                //  Container(
+                //    height: MediaQuery.of(context).size.height,
+                //    width: MediaQuery.of(context).size.width,
+                //    child: ListWheelScrollView(
+                //       itemExtent: 3,
+                //       children: <Widget>[
+                //         for (int i= 0; i < steps.length; i++)
+                //           Text("Placeholder"),
+                //           //buildStepWidget(i, steps[i]),
+                //       ],
+                //     ),
+                //  ),
+              ],
+            ),
           ),
         ),
       ),

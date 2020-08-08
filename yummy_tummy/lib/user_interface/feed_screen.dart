@@ -82,51 +82,56 @@ class _FeedScreenState extends State<FeedScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Constants.background,
-      body: FutureBuilder<RecipeQuery> (
-        future: _getQuery(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) 
-          {
-            return snapshot.hasError ?
-              SnackBarUtil.createTextSnackBar( Localization.instance.language.getMessage( 'recipe_database_error' ) ) :
-              Theme(
-                data: Constants.themeData,
-                child: ListView(
-                  controller: controller,
-                  children: <Widget>[
-                    
-                    if (snapshot.data == null || snapshot.data.recipes.length == 0)
-                      Padding(
-                        padding: const EdgeInsets.only( top: 20.0 ),
-                        child: Text(
-                          Localization.instance.language.getMessage( 'no_recipes_found' ),
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
+    return Theme(
+      data: ThemeData(
+        fontFamily: Constants.fontFamily,
+      ),
+      child: Scaffold(
+        backgroundColor: Constants.background,
+        body: FutureBuilder<RecipeQuery> (
+          future: _getQuery(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) 
+            {
+              return snapshot.hasError ?
+                SnackBarUtil.createTextSnackBar( Localization.instance.language.getMessage( 'recipe_database_error' ) ) :
+                Theme(
+                  data: Constants.themeData,
+                  child: ListView(
+                    controller: controller,
+                    children: <Widget>[
+                      
+                      if (snapshot.data == null || snapshot.data.recipes.length == 0)
+                        Padding(
+                          padding: const EdgeInsets.only( top: 20.0 ),
+                          child: Text(
+                            Localization.instance.language.getMessage( 'no_recipes_found' ),
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
-                      ),
 
-                      if (snapshot.data != null && snapshot.data.recipes.length != 0)
-                        for (Recipe recipe in snapshot.data.recipes) 
-                          RecipeCard(recipe, showBookmark: false, showNumReviews: true),
+                        if (snapshot.data != null && snapshot.data.recipes.length != 0)
+                          for (Recipe recipe in snapshot.data.recipes) 
+                            RecipeCard(recipe, showBookmark: false, showNumReviews: true),
 
-                    SizedBox(
-                      height: 30.0,
-                    ),  
-                ],
-            ),
-              );
-          } 
-          else
-          {
-            return WaitingIndicator();
-          }
-        },
-      ), 
+                      SizedBox(
+                        height: 30.0,
+                      ),  
+                  ],
+              ),
+                );
+            } 
+            else
+            {
+              return WaitingIndicator();
+            }
+          },
+        ), 
+      ),
     );
   }
 }

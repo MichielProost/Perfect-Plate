@@ -36,65 +36,70 @@ class _Card extends State<ReviewCard> {
   @override
   Widget build(BuildContext context) {
     return 
-    Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Card(
-        child: InkWell(
-          onTap: () => _handleOpenRecipe(context),
-          enableFeedback: widget.allowRecipeLink,
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
+    Theme(
+      data: ThemeData(
+        fontFamily: Constants.fontFamily,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: Card(
+          child: InkWell(
+            onTap: () => _handleOpenRecipe(context),
+            enableFeedback: widget.allowRecipeLink,
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
 
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
 
-                    // Recipe rating
-                    RatingRow.withSize(
-                      widget._review.rating.toDouble(),
-                      size: 23.0,
-                    ),
-
-                    // User name
-                    Text( 
-                      widget._review.user.name,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15.0
+                      // Recipe rating
+                      RatingRow.withSize(
+                        widget._review.rating.toDouble(),
+                        size: 23.0,
                       ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    
-                    TimeAgoText(widget._review.timestamp),
 
-                    // User rank
-                    Text(
-                      Localization.instance.language.rankName( widget._review.user.rank ),
-                    ),
-                  ],
-                ),
-
-                // Description
-                if (widget._review.description.length != 0)
-                Padding(
-                  padding: const EdgeInsets.only(top: 7.0, bottom: 7.0),
-                  child: Text( 
-                    widget._review.description 
+                      // User name
+                      Text( 
+                        widget._review.user.name,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15.0
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ],
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      
+                      TimeAgoText(widget._review.timestamp),
+
+                      // User rank
+                      Text(
+                        Localization.instance.language.rankName( widget._review.user.rank ),
+                      ),
+                    ],
+                  ),
+
+                  // Description
+                  if (widget._review.description.length != 0)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 7.0, bottom: 7.0),
+                    child: Text( 
+                      widget._review.description 
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
+          color: Constants.gray,
         ),
-        color: Constants.gray,
       ),
     );
   }
