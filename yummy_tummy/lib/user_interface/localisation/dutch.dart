@@ -150,21 +150,19 @@ class Dutch extends Language {
   }
 
   @override
-  String getTimedisplay(TimeUnit timeUnit) {
+  String getTimedisplay(TimeUnit timeUnit, bool isSingular) {
     
     switch(timeUnit){
       case TimeUnit.minutes:
-        return "minuten";
-        break;
+        return isSingular ? 'minuut' : 'minuten';
       case TimeUnit.hours:
-        return "uur";
-        break;
+        return isSingular ? 'uur' : 'uur';
       case TimeUnit.days:
-        return "dagen";
-        break;
+        return isSingular ? 'dag' : 'dagen';
+      case TimeUnit.weeks:
+        return isSingular ? 'week' : 'weken';
       case TimeUnit.date:
-        return "";
-        break;
+        return '';
     }
     return "tijdseenheden";
   }

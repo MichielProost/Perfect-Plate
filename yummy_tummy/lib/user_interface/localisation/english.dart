@@ -85,21 +85,19 @@ class English extends Language {
   }
   
   @override
-  String getTimedisplay(TimeUnit timeUnit) {
+  String getTimedisplay(TimeUnit timeUnit, bool isSingular) {
     
     switch(timeUnit){
       case TimeUnit.minutes:
-        return "minutes";
-        break;
+        return isSingular ? 'minute' : 'minutes';
       case TimeUnit.hours:
-        return "hours";
-        break;
+        return isSingular ? 'hour' : 'hours';
       case TimeUnit.days:
-        return "days";
-        break;
+        return isSingular ? 'day' : 'days';
+      case TimeUnit.weeks:
+        return isSingular ? 'week' : 'weeks';
       case TimeUnit.date:
-        return "";
-        break;
+        return '';
     }
     return "time units";
   }

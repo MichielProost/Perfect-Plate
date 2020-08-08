@@ -33,7 +33,7 @@ abstract class Language {
   String emptyProfilePageError(UserPage page);
 
   /// Used for time units.
-  String getTimedisplay(TimeUnit timeUnit);
+  String getTimedisplay(TimeUnit timeUnit, bool isSingular);
 
   /// Get any other message.
   String getMessage(String messageName) {

@@ -6,6 +6,7 @@ enum TimeUnit {
   minutes,
   hours,
   days,
+  weeks,
   date
 }
 
@@ -13,6 +14,7 @@ const int millisecondsPerMinute = 60000;
 const int millisecondsPerHour = 3600000;
 const int millisecondsPerDay = 86400000;
 const int millisecondsPerWeek = 604800000;
+const int millisecondsPerMonth = 2419200000;
 
 class TimeAgoText extends StatelessWidget {
   
@@ -28,6 +30,8 @@ class TimeAgoText extends StatelessWidget {
       return TimeUnit.hours;
     else if (deltaMilliseconds < millisecondsPerWeek)  // Less than 1 week ago
       return TimeUnit.days;
+    else if (deltaMilliseconds < millisecondsPerMonth) // Less than 1 month ago
+      return TimeUnit.weeks;
     else
       return TimeUnit.date;
   }
@@ -44,10 +48,10 @@ class TimeAgoText extends StatelessWidget {
         return milliseconds ~/ millisecondsPerHour;
       case TimeUnit.days:
         return milliseconds ~/ millisecondsPerDay;
-        break;
+      case TimeUnit.weeks:
+        return milliseconds ~/ millisecondsPerWeek;
       case TimeUnit.date:
         return -1;
-        break;
     }
     return -1;
   }
@@ -77,7 +81,7 @@ class TimeAgoText extends StatelessWidget {
       timeIndicator = dateToString( then.toDate() );
     else
       timeIndicator =   Localization.instance.language.getMessage('posted_x_ago_prefix') 
-                      + ' ' + time.toString() + ' ' + Localization.instance.language.getTimedisplay(timeUnit) + ' '
+                      + ' ' + time.toString() + ' ' + Localization.instance.language.getTimedisplay(timeUnit, time==1) + ' '
                       + Localization.instance.language.getMessage('posted_x_ago_suffix');
 
     return Text(

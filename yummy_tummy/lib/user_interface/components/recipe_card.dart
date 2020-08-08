@@ -127,9 +127,10 @@ class _RecipeCardState extends State<RecipeCard> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    widget._showNumReviews ?
-                      RatingRow(_recipe.rating, _recipe.numberOfReviews) :
-                      RatingRow(_recipe.rating),
+
+                    TimeAgoText(
+                      _recipe.timestamp
+                    ),
 
                     Text( 
                       _recipe.userMap['name'],
@@ -143,9 +144,10 @@ class _RecipeCardState extends State<RecipeCard> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    TimeAgoText(
-                      _recipe.timestamp
-                    ),
+                    widget._showNumReviews ?
+                      RatingRow(_recipe.rating, _recipe.numberOfReviews) :
+                      RatingRow(_recipe.rating),
+                    
                     Text(
                       Localization.instance.language.rankName( RankType.dishwasher.getRank( _recipe.userMap['rank'] ) ),
                       style: TextStyle(
