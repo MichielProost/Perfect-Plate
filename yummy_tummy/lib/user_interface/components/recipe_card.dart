@@ -5,6 +5,7 @@ import 'package:yummytummy/database/interfaces/recipeService.dart';
 import 'package:yummytummy/database/interfaces/userService.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/user.dart';
+import 'package:yummytummy/user_interface/components/loading/waiting_progress_indicator.dart';
 import 'package:yummytummy/user_interface/components/text/TimeAgoText.dart';
 import 'package:yummytummy/user_interface/localisation/localization.dart';
 import 'package:yummytummy/user_interface/popup/action_popup.dart';
@@ -175,6 +176,12 @@ class _RecipeCardState extends State<RecipeCard> {
                         height: 140.0,
                         child: Image(
                           image: NetworkImage(_recipe.image),
+                          loadingBuilder: (context, child, loadingProgress) {
+                            if (loadingProgress == null) return child;
+                            return Center(
+                              child: WaitingProgressIndicator(loadingProgress.cumulativeBytesLoaded, loadingProgress.expectedTotalBytes),
+                            );
+                          },
                           fit: BoxFit.cover,
                         ),
                       ),
