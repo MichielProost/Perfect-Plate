@@ -32,7 +32,7 @@ class _FeedScreenState extends State<FeedScreen> {
   void fetchNextRecipes() async
   {
     // query = await _recipeService.searchRecipes(query, SortField.weightedRating, Constants.appUser.dietFieldPreference, Constants.appUser.recipeTypePreference, List<String>());
-    query = await _recipeService.searchRecipes(query, SortField.weightedRating, Constants.appUser.dietFieldPreference, RecipeType.any, List<String>());
+    query = await _recipeService.searchRecipes(query, SortField.weightedRating, Constants.appUser.dietFieldPreference, RecipeType.any, List<String>(), language: Constants.appUser.languagePreference);
     setState(() {});
   }
 
@@ -69,7 +69,7 @@ class _FeedScreenState extends State<FeedScreen> {
       if (query.hasMore)
       {
         // query = await _recipeService.searchRecipes(query, SortField.weightedRating, Constants.appUser.dietFieldPreference, Constants.appUser.recipeTypePreference, List<String>());
-        query = await _recipeService.searchRecipes(query, SortField.weightedRating, Constants.appUser.dietFieldPreference, RecipeType.any, List<String>());
+        query = await _recipeService.searchRecipes(query, SortField.weightedRating, Constants.appUser.dietFieldPreference, RecipeType.any, List<String>(), language: Constants.appUser.languagePreference);
         controller = new ScrollController( initialScrollOffset: currentPos )..addListener( _scrollListener );
         setState(() {});
       }

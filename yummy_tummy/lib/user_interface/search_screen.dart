@@ -217,7 +217,7 @@ class _SearchScreen extends State<SearchScreen> {
                                 (LanguagePick value) {
                                   return DropdownMenuItem<LanguagePick>(
                                     value: value,
-                                    child: Text(value != LanguagePick.other ? Localization.instance.language.languageName( value ) : Localization.instance.language.languageName( Constants.appUser.languagePreference )),
+                                    child: Text(value != LanguagePick.other ? Localization.instance.language.languageName( value ) : Localization.instance.language.getMessage( 'any' )),
                                   );
                                 }
                               ).toList(),

@@ -179,6 +179,7 @@ class Dutch extends Language {
       'none'                  : 'Geen',
       'accept'                : 'Akkoord',
       'delete'                : 'Verwijder',
+      'any'                   : 'Alles',
 
       // Post time stamp
       'posted_x_ago_prefix'   : '',

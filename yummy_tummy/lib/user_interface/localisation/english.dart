@@ -114,6 +114,7 @@ class English extends Language {
       'none'                  : 'None',
       'accept'                : 'Accept',
       'delete'                : 'Delete',
+      'any'                   : 'Any',
 
       // Post time stamp
       'posted_x_ago_prefix'   : 'Posted',
