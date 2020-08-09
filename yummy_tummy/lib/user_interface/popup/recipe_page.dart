@@ -1,4 +1,7 @@
+import 'package:audioplayers/audio_cache.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_picker/Picker.dart';
 import 'package:yummytummy/database/buffer/User_content_buffer.dart';
 import 'package:yummytummy/database/firestore/userServiceFirestore.dart';
 import 'package:yummytummy/model/recipe.dart';
@@ -7,13 +10,14 @@ import 'package:yummytummy/user_interface/components/loading/waiting_progress_in
 import 'package:yummytummy/user_interface/components/rating_row.dart';
 import 'package:yummytummy/user_interface/components/review_card.dart';
 import 'package:yummytummy/user_interface/components/selectable_stars.dart';
+import 'package:yummytummy/user_interface/components/text/TimeAgoText.dart';
 import 'package:yummytummy/user_interface/general/icon_builder.dart';
 import 'package:yummytummy/user_interface/localisation/localization.dart';
 import 'package:yummytummy/user_interface/popup/create_review.dart';
-import 'package:yummytummy/user_interface/popup/info_popup.dart';
 import 'package:yummytummy/user_interface/popup/recipe_ratings.dart';
 import 'package:yummytummy/user_interface/popup/widget_popup.dart';
 import 'package:yummytummy/user_interface/widgets/better_expansion_tile.dart';
+import 'package:yummytummy/user_interface/widgets/cook_timer.dart';
 
 import '../constants.dart';
 
@@ -34,6 +38,9 @@ class _RecipePageState extends State<RecipePage> {
   final Recipe _recipe;
   bool _isFavorite;
   
+  final GlobalKey<CookTimerState> timerKey = GlobalKey<CookTimerState>();
+  bool _isTiming = false;
+  int _startSeconds = 0;
 
   _RecipePageState(this._recipe) {
     _isFavorite = Constants.appUser.favourites.contains( _recipe.id );
@@ -304,6 +311,9 @@ class _RecipePageState extends State<RecipePage> {
 
   Widget buildButtonBar()
   {
+
+    final AudioCache soundPlayer = AudioCache();
+
     return
     Row(
       children: <Widget>[
@@ -335,25 +345,68 @@ class _RecipePageState extends State<RecipePage> {
 
         // Bookmark button
         IconButton(
-            icon: Icon(
-              _isFavorite ? Icons.bookmark : Icons.bookmark_border,
-              size: 35.0,
-            ),
-            onPressed: () {
-              setState(() {
-                _isFavorite = !_isFavorite;
-              });
-              
-              // Modify app user.
-              if(_isFavorite){
-                Constants.appUser.favourites.add(_recipe.id);
-              } else {
-                Constants.appUser.favourites.remove(_recipe.id);
-              }
-              // Modify user document.
-              userService.modifyUser(Constants.appUser, Constants.appUser.id);
+          icon: Icon(
+            _isFavorite ? Icons.bookmark : Icons.bookmark_border,
+            size: 35.0,
+          ),
+          onPressed: () {
+            setState(() {
+              _isFavorite = !_isFavorite;
+            });
+            
+            // Modify app user.
+            if(_isFavorite){
+              Constants.appUser.favourites.add(_recipe.id);
+            } else {
+              Constants.appUser.favourites.remove(_recipe.id);
+            }
+            // Modify user document.
+            userService.modifyUser(Constants.appUser, Constants.appUser.id);
 
-            }),
+          }
+        ),
+
+        if (!_isTiming)
+          IconButton(
+            icon: Icon(
+              Icons.timer,
+              size: 35.0,
+              color: Colors.black,
+            ), 
+            onPressed: () {
+
+              Picker(
+                adapter: NumberPickerAdapter(data: <NumberPickerColumn>[
+                  NumberPickerColumn(begin: 0, end: 99, suffix: Text( ' ' + Localization.instance.language.getMessage('minute_unit') )),
+                  NumberPickerColumn(begin: 1, end: 59, suffix: Text( ' ' + Localization.instance.language.getMessage('second_unit') )),
+                ]),
+                delimiter: <PickerDelimiter>[
+                  PickerDelimiter(
+                    child: Container(
+                      width: 30.0,
+                      alignment: Alignment.center,
+                      child: Icon(Icons.more_vert),
+                    ),
+                  )
+                ],
+                hideHeader: true,
+                cancelText: Localization.instance.language.getMessage( 'cancel' ),
+                cancelTextStyle: TextStyle(color: Colors.black),
+                confirmText: Localization.instance.language.getMessage( 'set' ),
+                confirmTextStyle: TextStyle(inherit: false, color: Colors.red, fontSize: 22),
+                title: Text( Localization.instance.language.getMessage( 'set_timer' ) ),
+                selectedTextStyle: TextStyle(color: Constants.main),
+                onConfirm: (Picker picker, List<int> value) {
+                  // On time select
+                  setState(() {
+                    _startSeconds = picker.getSelectedValues()[0]*60 + picker.getSelectedValues()[1];
+                    _isTiming = true;
+                  });
+                  
+                },
+              ).showDialog(context);
+            }
+          ),
 
         // Provide space between icons
         Expanded(
@@ -362,6 +415,25 @@ class _RecipePageState extends State<RecipePage> {
             width: 1.0,
           ),
         ),
+
+        if (_isTiming)
+          CookTimer(
+            _startSeconds,
+            key: timerKey,
+            onStop: () => setState( () { _isTiming = false; }),
+            onFinished: () async {
+              await soundPlayer.play( 'sounds/alarm.wav');
+              soundPlayer.clear( 'sounds/alarm.wav' );
+            },
+          ),
+        
+        if (_isTiming)
+          Expanded(
+            child: SizedBox(
+              height: 1.0,
+              width: 1.0,
+            ),
+          ),
 
         // Close recipe button
         CloseButton(),

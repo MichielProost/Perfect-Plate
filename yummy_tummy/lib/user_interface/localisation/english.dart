@@ -123,6 +123,7 @@ class English extends Language {
       // Units
       'hour_unit'             : 'h',
       'minute_unit'           : 'm',
+      'second_unit'           : 's',
 
       // Errors
       'recipe_database_error' : 'Something went wrong while loading recipes',
@@ -194,6 +195,7 @@ class English extends Language {
       // Seperate input
       'camera'                : 'Camera',
       'gallery'               : 'Gallery',
+      'set_timer'             : 'Set your timer',
 
       // Log in/out language
       'log_in_with_google'    : 'Log in with Google',

@@ -188,6 +188,7 @@ class Dutch extends Language {
       // Units
       'hour_unit'             : 'u',
       'minute_unit'           : 'm',
+      'second_unit'           : 's',
 
       // Errors
       'recipe_database_error' : 'Er ging iets mis tijdens het laden van de recepten. Probeer opnieuw aub.',
@@ -259,6 +260,7 @@ class Dutch extends Language {
       // Seperate input
       'camera'                : 'Camera',
       'gallery'               : 'Gallerij',
+      'set_timer'             : 'Stel uw timer in',
 
       // Log in/out language
       'log_in_with_google'    : 'Log in met Google',

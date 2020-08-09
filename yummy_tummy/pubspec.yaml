@@ -30,6 +30,8 @@ dependencies:
   firebase_storage: ^3.1.6
   image_picker: ^0.6.7+4
   flutter_auth_buttons: ^0.8.0  # Contains standard login-buttons for auth providers (Google, Facebook, ...).
+  flutter_picker: ^1.1.5        # Allows us to create easy time/duration pickers
+  audioplayers: ^0.14.0         # Allows asset sounds to be played easily
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -64,6 +66,7 @@ flutter:
     - icons/vegetarian.png
     - icons/vegan.png
     - icons/medal.png
+    - assets/sounds/alarm.wav
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
