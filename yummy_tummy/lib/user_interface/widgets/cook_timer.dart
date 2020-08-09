@@ -58,7 +58,12 @@ class CookTimerState extends State<CookTimer> with SingleTickerProviderStateMixi
       );
     
 
-    timer = Timer.periodic(Duration(seconds: 1), (Timer t) {
+    timer = createTimer();
+  }
+
+  Timer createTimer()
+  {
+    return Timer.periodic(Duration(seconds: 1), (Timer t) {
       if (!_isPaused)
       {
         if (_remainingSeconds > 0)
@@ -108,11 +113,13 @@ class CookTimerState extends State<CookTimer> with SingleTickerProviderStateMixi
             IconButton(
               color: Colors.white,
               onPressed: () {
-
-              if (isPaused && _remainingSeconds == 0)
-                  _remainingSeconds = widget.seconds;
-
+                
                 this.isPaused = !isPaused;
+                
+                if (!isPaused && _remainingSeconds == 0) {
+                  setState( () => _remainingSeconds = widget.seconds);
+                  timer = createTimer();
+                }
 
               },
               icon: AnimatedIcon(
