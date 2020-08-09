@@ -66,8 +66,12 @@ class CookTimerState extends State<CookTimer> with SingleTickerProviderStateMixi
         else {
 
           t.cancel();
+
           if (widget.onFinished != null)
             widget.onFinished();
+
+          isPaused = true;
+
         }
       }
     });
@@ -103,7 +107,13 @@ class CookTimerState extends State<CookTimer> with SingleTickerProviderStateMixi
             // Play/pause
             IconButton(
               color: Colors.white,
-              onPressed: () => this.isPaused = !isPaused,
+              onPressed: () {
+                
+                this.isPaused = !isPaused;
+                
+                if (!isPaused && _remainingSeconds == 0)
+                  _remainingSeconds = widget.seconds;
+              },
               icon: AnimatedIcon(
                 icon: AnimatedIcons.pause_play,
                 progress: playPauseController,
