@@ -459,7 +459,7 @@ class _RecipePageState extends State<RecipePage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  buildIconInfo(Icons.fastfood, _recipe.getReadableType(), true),
+                  buildIconInfo(Icons.fastfood, Localization.instance.language.recipeTypeName( _recipe.type ), true),
                   buildIconInfoCustom(CustomIcon.vegetarian, Localization.instance.language.dietFieldName( DietField.vegetarian ), _recipe.isVegetarian),
                 ],
               ),
