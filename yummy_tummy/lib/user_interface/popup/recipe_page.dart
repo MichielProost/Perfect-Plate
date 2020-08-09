@@ -3,6 +3,7 @@ import 'package:yummytummy/database/buffer/User_content_buffer.dart';
 import 'package:yummytummy/database/firestore/userServiceFirestore.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/review.dart';
+import 'package:yummytummy/user_interface/components/loading/waiting_progress_indicator.dart';
 import 'package:yummytummy/user_interface/components/rating_row.dart';
 import 'package:yummytummy/user_interface/components/review_card.dart';
 import 'package:yummytummy/user_interface/components/selectable_stars.dart';
@@ -500,6 +501,12 @@ class _RecipePageState extends State<RecipePage> {
           if(_recipe.stepImages.containsKey( index.toString() ))
             Image.network( 
               _recipe.stepImages[index.toString()],
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) return child;
+                return Center(
+                  child: WaitingProgressIndicator(loadingProgress.cumulativeBytesLoaded, loadingProgress.expectedTotalBytes),
+                );
+              },
               fit: BoxFit.fitWidth,
             ),
           SizedBox(
