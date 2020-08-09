@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:yummytummy/database/firestore/userServiceFirestore.dart';
 import 'package:yummytummy/database/interfaces/userService.dart';
@@ -10,6 +11,11 @@ import 'package:yummytummy/user_interface/localisation/localization.dart';
 class ProfileSettings extends StatefulWidget {
   
   final UserService userService = UserServiceFirestore();
+
+  ProfileSettings()
+  {
+    FirebaseAnalytics().logEvent(name: 'side_menu_submenu', parameters: {'Option': 'profile_settings'} );
+  }
 
   @override
   State<StatefulWidget> createState() {

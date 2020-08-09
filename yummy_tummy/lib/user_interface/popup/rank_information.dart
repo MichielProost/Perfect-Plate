@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/user_interface/components/action_button.dart';
@@ -6,6 +7,11 @@ import 'package:yummytummy/user_interface/localisation/localization.dart';
 
 class RankInformation extends StatelessWidget {
   
+  RankInformation()
+  {
+    FirebaseAnalytics().logEvent(name: 'side_menu_submenu', parameters: {'Option': 'rank_information'} );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(

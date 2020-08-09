@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 /// Functions as a template for new screens. Should not actually be used
 
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ import 'components/recipe_card.dart';
 import 'components/waiting_indicator.dart';
 
 class FavouritesScreen extends StatefulWidget {
+  
   @override
   State<StatefulWidget> createState() {
     return _FavouritesScreenState();
@@ -23,6 +25,11 @@ class FavouritesScreen extends StatefulWidget {
 class _FavouritesScreenState extends State<FavouritesScreen> {
 
   RecipeService _recipeService = RecipeServiceFirestore();
+
+  _FavouritesScreenState()
+  {
+    FirebaseAnalytics().logEvent(name: 'open_screen', parameters: {'Screen': 'Favourites'} );
+  }
 
   @override
   Widget build(BuildContext context) {

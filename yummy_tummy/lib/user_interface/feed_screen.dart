@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 /// Functions as a template for new screens. Should not actually be used
 
 import 'package:flutter/material.dart';
@@ -28,6 +29,11 @@ class _FeedScreenState extends State<FeedScreen> {
   RecipeQuery query = RecipeQuery();
 
   int lastTimeLoaded = DateTime.now().millisecondsSinceEpoch;
+
+  _FeedScreenState()
+  {
+    FirebaseAnalytics().logEvent(name: 'open_screen', parameters: {'Screen': 'Feed'} );
+  }
 
   void fetchNextRecipes() async
   {

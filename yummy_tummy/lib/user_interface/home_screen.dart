@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:yummytummy/database/authentication/google.dart';
@@ -47,7 +48,10 @@ class HomeScreenState extends State<HomeScreen> {
   Widget buildIconLink(IconData icon, AppPage page, BuildContext context)
   {
     return InkWell(
-      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ScreenHandler( page ))),
+      onTap: () {
+        FirebaseAnalytics().logEvent(name: 'start_screen', parameters: {'Screen': page.toString()} );
+        Navigator.push(context, MaterialPageRoute(builder: (context) => ScreenHandler( page )));
+      },
       child: Container(
         height: 150.0,
         width: 150.0,

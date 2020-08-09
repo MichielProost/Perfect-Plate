@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:yummytummy/user_interface/constants.dart';
 
@@ -51,6 +52,8 @@ class CookTimerState extends State<CookTimer> with SingleTickerProviderStateMixi
   @override
   void initState() {
     super.initState();
+
+    FirebaseAnalytics().logEvent(name: 'custom_widget_usage', parameters: {'Widget': 'CookTimer'} );
 
     playPauseController = AnimationController(
         duration: const Duration(milliseconds: 500), 

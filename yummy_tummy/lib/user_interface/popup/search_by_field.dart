@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/user_interface/components/action_button.dart';
@@ -15,7 +16,9 @@ class SearchByField extends StatefulWidget {
 
   final Future<List<Recipe>> Function(String parameter) searchFunction;
 
-  SearchByField(this.explanationMessage, this.textBoxHint, this.noRecipesFoundMessage, this.searchFunction);
+  SearchByField(this.explanationMessage, this.textBoxHint, this.noRecipesFoundMessage, this.searchFunction) {
+    FirebaseAnalytics().logEvent(name: 'side_menu_submenu', parameters: {'Option': 'search_by_user_or_recipe_name'} );
+  }
 
 
   @override

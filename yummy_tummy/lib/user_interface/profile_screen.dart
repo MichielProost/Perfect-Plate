@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_analytics/firebase_analytics.dart';
 /// Functions as a template for new screens. Should not actually be used
 
 import 'package:flutter/material.dart';
@@ -56,6 +57,9 @@ class _Screen extends State<ProfileScreen> {
 
   _Screen()
   {
+
+    FirebaseAnalytics().logEvent(name: 'open_screen', parameters: {'Screen': 'Profile'} );
+
     _pageWidgetMap = {
       UserPage.recipes : List<Widget>(),
       UserPage.reviews : List<Widget>(),
@@ -71,6 +75,7 @@ class _Screen extends State<ProfileScreen> {
   {
     return InkWell(
       onTap: () {
+        FirebaseAnalytics().logEvent(name: 'user_page_subpage', parameters: {'Page': userPage.getString()} );
         setState(() {
           _activePage = userPage;
         });

@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 /// Functions as a template for new screens. Should not actually be used
 
 import 'package:flutter/material.dart';
@@ -28,6 +29,10 @@ class _SearchScreen extends State<SearchScreen> {
 
   ScrollController _scrollController;
 
+  _SearchScreen()
+  {
+    FirebaseAnalytics().logEvent(name: 'open_screen', parameters: {'Screen': 'Search'} );
+  }
 
   // User set parameters
   DietField _dietField = Constants.appUser.dietFieldPreference;

@@ -100,6 +100,8 @@ class GoogleAuthHandler{
   /// Sign out from Google.
   Future<void> handleSignOut() async {
 
+    FirebaseAnalytics().logEvent(name: 'sign_out', parameters: null );
+
     await _auth.signOut().then((value){
       _googleSignIn.signOut();
     });
