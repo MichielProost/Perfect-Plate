@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -51,10 +52,16 @@ class GoogleAuthHandler{
       // Get user data from database.
       userExists = await userService.userExists(googleUser.uid);
       if (userExists){
+
+        FirebaseAnalytics().logEvent(name: 'startLogin', parameters: {'is_new': false, 'does_log_in': true} );
+
         // Get existing user.
         User user = await userService.getUserFromID(googleUser.uid);
         userData = user.toMap();
       } else {
+
+        FirebaseAnalytics().logEvent(name: 'startLogin', parameters: {'is_new': true, 'does_log_in': true} );
+
         // Create a new user.
         User user = new User(
             id: googleUser.uid,
@@ -77,6 +84,10 @@ class GoogleAuthHandler{
       Constants.appUser = new AppUser(googleUser.uid, userData);
 
       userService.scoreListener();
+    }
+    else
+    {
+      FirebaseAnalytics().logEvent(name: 'startLogin', parameters: {'does_log_in': false} );
     }
 
     // Re-enable homescreen touching

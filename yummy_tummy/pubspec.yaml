@@ -32,6 +32,7 @@ dependencies:
   flutter_auth_buttons: ^0.8.0  # Contains standard login-buttons for auth providers (Google, Facebook, ...).
   flutter_picker: ^1.1.5        # Allows us to create easy time/duration pickers
   audioplayers: ^0.14.0         # Allows asset sounds to be played easily
+  firebase_analytics: ^5.0.11   # Allows us to gather app usage data more precisely
 
 
   # The following adds the Cupertino Icons font to your application.
