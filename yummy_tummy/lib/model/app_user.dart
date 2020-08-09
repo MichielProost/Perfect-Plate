@@ -11,7 +11,7 @@ class AppUser extends User {
     Localization.instance.setLanguage( languagePreference );
   }
 
-  AppUser.offline() : _googleID = "", super(id: "", name: "User", rank: RankType.values[0], score: 0, favourites: List<String>());
+  AppUser.offline() : _googleID = "", super(id: "", name: "User", rank: RankType.values[0], score: 0, favourites: List<String>(), languagePreference: LanguagePick.english);
 
   /// Check if this user is logged in
   bool isLoggedIn()
