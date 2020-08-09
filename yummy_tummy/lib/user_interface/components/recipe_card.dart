@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:yummytummy/database/firestore/recipeServiceFirestore.dart';
 import 'package:yummytummy/database/firestore/userServiceFirestore.dart';
@@ -63,7 +64,10 @@ class _RecipeCardState extends State<RecipeCard> {
               side: new BorderSide(color: Colors.white, width: 2.0),
               borderRadius: BorderRadius.circular(8.0)),
           child: InkWell(
-            onTap: () => showDialog(context: context, child: RecipePage(_recipe)),
+            onTap: () {
+              FirebaseAnalytics().logEvent(name: 'open_recipe', parameters: {'Recipe': _recipe.id} );
+              showDialog(context: context, child: RecipePage(_recipe));
+            },
             onLongPress: () {
               if (widget._isDeleteAble)
                 showDialog(
