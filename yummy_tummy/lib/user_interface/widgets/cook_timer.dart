@@ -108,11 +108,12 @@ class CookTimerState extends State<CookTimer> with SingleTickerProviderStateMixi
             IconButton(
               color: Colors.white,
               onPressed: () {
-                
-                this.isPaused = !isPaused;
-                
-                if (!isPaused && _remainingSeconds == 0)
+
+              if (isPaused && _remainingSeconds == 0)
                   _remainingSeconds = widget.seconds;
+
+                this.isPaused = !isPaused;
+
               },
               icon: AnimatedIcon(
                 icon: AnimatedIcons.pause_play,
