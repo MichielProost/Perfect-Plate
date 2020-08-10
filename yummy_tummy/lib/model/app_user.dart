@@ -1,3 +1,4 @@
+import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/user_interface/localisation/localization.dart';
 
@@ -11,7 +12,12 @@ class AppUser extends User {
     Localization.instance.setLanguage( languagePreference );
   }
 
-  AppUser.offline() : _googleID = "", super(id: "", name: "User", rank: RankType.values[0], score: 0, favourites: List<String>(), languagePreference: LanguagePick.english);
+  AppUser.offline() :
+        _googleID = "", super(id: "", name: "User", rank: RankType.values[0], score: 0,
+          favourites: List<String>(),
+          recipeTypePreference: RecipeType.any,
+          dietFieldPreference: DietField.any,
+          languagePreference: LanguagePick.other);
 
   /// Check if this user is logged in
   bool isLoggedIn()
