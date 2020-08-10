@@ -31,7 +31,7 @@ class StorageHandler{
   /// Get picture from user.
   Future<File> getPicture(ImageSource source) async {
 
-    PickedFile pickedFile = await _picker.getImage(source: source);
+    PickedFile pickedFile = await _picker.getImage(source: source, maxWidth: 500, maxHeight: 500);
 
     return pickedFile == null ? null : File(pickedFile.path);
 

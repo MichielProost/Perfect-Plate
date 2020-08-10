@@ -17,7 +17,7 @@ class AppUser extends User {
           favourites: List<String>(),
           recipeTypePreference: RecipeType.any,
           dietFieldPreference: DietField.any,
-          languagePreference: LanguagePick.other);
+          languagePreference: LanguagePick.english);
 
   /// Check if this user is logged in
   bool isLoggedIn()
