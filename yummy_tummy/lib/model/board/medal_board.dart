@@ -1,4 +1,3 @@
-import 'package:yummytummy/model/board/medal.dart';
 import 'package:yummytummy/model/board/series/series.dart';
 
 import 'board_functions.dart';

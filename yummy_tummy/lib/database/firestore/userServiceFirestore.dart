@@ -1,4 +1,3 @@
-import 'dart:collection';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:yummytummy/database/firestore/recipeServiceFirestore.dart';
 import 'package:yummytummy/database/firestore/reviewServiceFirestore.dart';
@@ -101,6 +100,7 @@ class UserServiceFirestore implements UserService {
   }
 
   /// Delete a user's profile picture.
+  // ignore: missing_return
   Future<void> deleteProfilePicture(User user){
 
     // Create storage handler.

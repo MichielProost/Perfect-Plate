@@ -2,7 +2,6 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:yummytummy/database/firestore/recipeServiceFirestore.dart';
 import 'package:yummytummy/database/firestore/userServiceFirestore.dart';
-import 'package:yummytummy/database/interfaces/recipeService.dart';
 import 'package:yummytummy/database/interfaces/userService.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/user.dart';
@@ -10,7 +9,6 @@ import 'package:yummytummy/user_interface/components/loading/waiting_progress_in
 import 'package:yummytummy/user_interface/components/text/TimeAgoText.dart';
 import 'package:yummytummy/user_interface/localisation/localization.dart';
 import 'package:yummytummy/user_interface/popup/action_popup.dart';
-import 'package:yummytummy/user_interface/popup/info_popup.dart';
 import 'package:yummytummy/user_interface/popup/recipe_page.dart';
 import 'package:yummytummy/user_interface/popup/snackbar_util.dart';
 

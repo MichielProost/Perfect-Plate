@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:yummytummy/user_interface/localisation/localization.dart';
 
 import '../constants.dart';
 import '../screen_handler.dart';

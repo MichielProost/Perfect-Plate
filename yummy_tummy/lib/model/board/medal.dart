@@ -1,8 +1,5 @@
 import 'package:yummytummy/database/firestore/userServiceFirestore.dart';
-import 'package:yummytummy/model/recipe.dart';
-import 'package:yummytummy/model/review.dart';
 import 'package:yummytummy/user_interface/constants.dart';
-import 'package:yummytummy/utils/stringFunctions.dart';
 
 const BRONZE_VALUE = 250;
 const SILVER_VALUE = 750;

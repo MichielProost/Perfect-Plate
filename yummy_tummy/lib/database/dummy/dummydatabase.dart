@@ -70,8 +70,10 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
 
   /// TEST METHOD
   /// lastDocument: Last document from where next records need to be fetched.
-  Future<QueryInfo> queryTest(QueryInfo info, SortField sortField){
+  Future<QueryInfo> queryTest(QueryInfo info, SortField sortField) async {
     //Note: Don't know if this will work yet.
+    await enforceDelay();
+    return QueryInfo();
   }
 
   /// Search recipes in the database by specifying fields.
@@ -80,7 +82,6 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
   Future<RecipeQuery> searchRecipes(RecipeQuery info, SortField sortField, DietField dietField, RecipeType typeField, List<String> ingredients, {LanguagePick language}) async {
     await enforceDelay();
     return new RecipeQuery();
-    //TODO: Change implementation in UI.
   }
 
   /// TEMPORARY: UI will use this method instead.
@@ -391,8 +392,8 @@ class DummyDatabase implements RecipeService, ReviewService, UserService {
   }
 
   @override
-  Future<void> deleteProfilePicture(User user) {
-    // TODO: implement deleteProfilePicture
-    throw UnimplementedError();
+  Future<void> deleteProfilePicture(User user) async {
+    await enforceDelay();
+    return;
   }
 }

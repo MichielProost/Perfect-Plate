@@ -2,7 +2,6 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:yummytummy/database/firestore/userServiceFirestore.dart';
 import 'package:yummytummy/database/interfaces/userService.dart';
-import 'package:yummytummy/model/app_user.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/user_interface/components/action_button.dart';
 import 'package:yummytummy/user_interface/constants.dart';

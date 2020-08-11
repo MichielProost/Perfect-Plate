@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:yummytummy/database/buffer/User_content_buffer.dart';
 import 'package:yummytummy/database/firestore/reviewServiceFirestore.dart';
 import 'package:yummytummy/database/firestore/userServiceFirestore.dart';
@@ -9,7 +8,6 @@ import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/review.dart';
 import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/storage/storageHandler.dart';
-import 'package:yummytummy/user_interface/constants.dart';
 import 'package:yummytummy/user_interface/localisation/localization.dart';
 import 'package:yummytummy/utils/calculateRatings.dart';
 import 'package:yummytummy/utils/consoleWriter.dart';
