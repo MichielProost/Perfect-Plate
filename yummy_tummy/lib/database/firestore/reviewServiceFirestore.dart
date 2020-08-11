@@ -1,5 +1,6 @@
 import 'dart:collection';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:yummytummy/database/buffer/User_content_buffer.dart';
 import 'package:yummytummy/database/firestore/recipeServiceFirestore.dart';
 import 'package:yummytummy/database/interfaces/reviewService.dart';
 import 'package:yummytummy/model/review.dart';
@@ -32,6 +33,10 @@ class ReviewServiceFirestore implements ReviewService {
     RecipeServiceFirestore recipeService = new RecipeServiceFirestore();
     recipeService.updateRatings(review);
 
+    // TODO Make sure all fields are present in review
+    // Add the newly created review to cache
+    UserContentBuffer.instance.addReview( review );
+
     consoleWriter.CreatedDocument(CollectionType.Review, documentID);
     return documentID;
 
@@ -43,6 +48,10 @@ class ReviewServiceFirestore implements ReviewService {
     this.db.collection("reviews")
         .document(reviewID)
         .delete();
+
+    // TODO Make sure all fields are present in review
+    // Remove this review from cache
+    UserContentBuffer.instance.removeReview( Review(id: reviewID) );
 
     consoleWriter.DeletedDocument(CollectionType.Review, reviewID);
 

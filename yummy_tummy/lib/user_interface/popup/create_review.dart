@@ -128,7 +128,7 @@ class _CreateScreen extends State<CreateReviewScreen> {
                           FlatButton(
                             onPressed: () {
                               // Update review
-                              _review = Review(recipeID: widget._recipeID);
+                              _review = Review(recipeID: widget._recipeID, user: Constants.appUser);
                               _review.description = _controller.text;
                               _review.rating = _currentStars;
                               _review.userMap = Constants.appUser.toCompactMap();

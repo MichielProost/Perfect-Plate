@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:yummytummy/database/buffer/User_content_buffer.dart';
 import 'package:yummytummy/database/firestore/reviewServiceFirestore.dart';
 import 'package:yummytummy/database/firestore/userServiceFirestore.dart';
 import 'package:yummytummy/database/interfaces/recipeService.dart';
@@ -39,6 +40,10 @@ class RecipeServiceFirestore implements RecipeService {
       return value.documentID;
     });
 
+    // TODO Make sure all fields are present in recipe (including ID)
+    // Add the newly created recipe to cache
+    UserContentBuffer.instance.addRecipe( recipe );
+
     consoleWriter.CreatedDocument(CollectionType.Recipe, documentID);
     return documentID;
 
@@ -70,6 +75,10 @@ class RecipeServiceFirestore implements RecipeService {
     for (int i = 0; i < reviews.length; i++){
       await reviewService.deleteReview(reviews[i].id);
     }
+
+    // TODO Make sure all fields are present in recipe (including ID)
+    // Remove the deleted recipe from cache
+    UserContentBuffer.instance.removeRecipe( recipe );
 
   }
 

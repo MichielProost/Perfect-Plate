@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:yummytummy/database/firestore/recipeServiceFirestore.dart';
 import 'package:yummytummy/model/recipe.dart';
@@ -77,7 +78,7 @@ class _Card extends State<ReviewCard> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       
-                      TimeAgoText(widget._review.timestamp),
+                      TimeAgoText(widget._review.timestamp ?? Timestamp.now()),
 
                       // User rank
                       Text(
