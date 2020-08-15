@@ -14,7 +14,12 @@ enum ActivePage {
 class AppBarTop extends StatelessWidget implements PreferredSizeWidget {
 
   final AppBar _appbar = AppBar(
-    title: Text("Perfect Plate"),
+    title: Text(
+      'Perfect Plate',
+      style: TextStyle(
+        fontWeight: FontWeight.bold,
+      ),
+    ),
     backgroundColor: Constants.main,
   );
 

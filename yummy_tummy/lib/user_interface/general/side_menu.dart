@@ -124,6 +124,7 @@ class _SideListItem extends StatelessWidget {
         text,
         style: TextStyle(
           color: Colors.white,
+          fontWeight: FontWeight.bold,
         ),
       ),
       leading: Icon(
