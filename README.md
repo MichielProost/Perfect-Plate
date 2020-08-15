@@ -1,9 +1,11 @@
 <img align="left" width="20%" src="https://lh3.googleusercontent.com/LNAWDR0Kb1cERKkqV188X-4VFDi0W4M4wKexBBz6omcrlXEgtEuBBOHTVFtvaCahNg=s180-rw?raw=true">
 
 # Perfect Plate
-The application acts as a database for user-made recipes. Cheffs around the world can make, share and review recipes. Additionally, we want to make the learning process for beginners more fun!
+This Android application allows cheffs around the world to create, review and discover new recipes. Users can gain experience and level up in this app by completing challenges like creating a certain amount of recipes.
 
-## Description
+[Get it on the play store!](https://play.google.com/store/apps/details?id=be.dezijwegel.perfectplate)
+
+## App description
 
 Look up recipes!
 - By diet (vegan, vegetarian, ...)
