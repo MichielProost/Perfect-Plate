@@ -5,6 +5,7 @@ import 'package:yummytummy/database/firestore/recipeServiceFirestore.dart';
 import 'package:yummytummy/database/firestore/userServiceFirestore.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/user_interface/constants.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 /// Type of images that can be stored in Firebase.
 enum ImageType{
@@ -29,7 +30,11 @@ class StorageHandler{
   /// Get picture from user.
   Future<File> getPicture(ImageSource source) async {
 
-    PickedFile pickedFile = await _picker.getImage(source: source, maxWidth: 500, maxHeight: 500);
+    PickedFile pickedFile;
+
+    if (await Permission.camera.request().isGranted){
+      pickedFile = await _picker.getImage(source: source, maxWidth: 500, maxHeight: 500);
+    }
 
     return pickedFile == null ? null : File(pickedFile.path);
 

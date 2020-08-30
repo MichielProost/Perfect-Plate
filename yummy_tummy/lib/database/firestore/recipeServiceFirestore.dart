@@ -256,7 +256,6 @@ class RecipeServiceFirestore implements RecipeService {
     Recipe recipe;
     for (int i = 0; i < docs.documents.length; i++){
       recipe = Recipe.fromMap(docs.documents[i].data, docs.documents[i].documentID);
-      print(info.documentIDs);
       if (!info.documentIDs.contains(recipe.id)){
         info.documentIDs.add(recipe.id);
         info.recipes.add(recipe);
