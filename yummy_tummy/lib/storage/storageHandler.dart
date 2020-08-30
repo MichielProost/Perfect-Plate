@@ -32,7 +32,17 @@ class StorageHandler{
 
     PickedFile pickedFile;
 
-    if (await Permission.camera.request().isGranted){
+    PermissionStatus previous = Constants.appUser.statuses[Permission.camera];
+
+    Constants.appUser.statuses[Permission.camera] =
+      await Permission.camera.request();
+
+    if (Constants.appUser.statuses[Permission.camera] != previous){
+      UserServiceFirestore userService = new UserServiceFirestore();
+      userService.modifyUser(Constants.appUser, Constants.appUser.id);
+    }
+
+    if (Constants.appUser.statuses[Permission.camera].isGranted){
       pickedFile = await _picker.getImage(source: source, maxWidth: 500, maxHeight: 500);
     }
 

@@ -1,6 +1,8 @@
+import 'package:permission_handler/permission_handler.dart';
 import 'package:yummytummy/model/board/medal_board.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/user_interface/localisation/localization.dart';
+import 'package:yummytummy/utils/permissionFunctions.dart';
 import 'package:yummytummy/utils/stringFunctions.dart';
 
 // const JUNIOR_LIM = 2000;
@@ -71,18 +73,20 @@ extension Rank on RankType {
 
 class User{
 
-  final String id;                // Document ID.
-  String name;                    // Name of user.
-  int score;                      // User's total score.
-  RankType rank;                  // User's rank.
-  List<String> favourites;        // Document IDs of user's favourite recipes.
-  String image;                   // User's profile picture.
-  MedalBoard board;               // User's medal board.
+  final String id;                            // Document ID.
+  String name;                                // Name of user.
+  int score;                                  // User's total score.
+  RankType rank;                              // User's rank.
+  List<String> favourites;                    // Document IDs of user's favourite recipes.
+  String image;                               // User's profile picture.
+  MedalBoard board;                           // User's medal board.
 
   // Preferences
   DietField dietFieldPreference = DietField.any;
   RecipeType recipeTypePreference = RecipeType.any;
   LanguagePick languagePreference = LanguagePick.other;
+
+  Map<Permission, PermissionStatus> statuses; // Permissions statuses.
 
   User({
     this.id,
@@ -95,6 +99,7 @@ class User{
     this.dietFieldPreference,
     this.recipeTypePreference,
     this.languagePreference,
+    this.statuses,
   });
 
   /// Deserialize received data from Firestore.
@@ -112,7 +117,9 @@ class User{
         this.rank = data.containsKey('rank') ? RankType.values[data['rank']] : RankType.dishwasher,
         this.favourites = data.containsKey('favourites') ?
         new List<String>.from(data['favourites']) : [],
-        this.image = data.containsKey('image') ? data['image'] : ''
+        this.image = data.containsKey('image') ? data['image'] : '',
+        this.statuses = data.containsKey('statuses') ?
+          dataToStatusesMap(Map<String, bool>.from(data['statuses'])) : getDefaultStatusesMap()
         {
           this.board = data.containsKey('board') ?
           MedalBoard.fromMap(Map<String, dynamic>.from(data['board'])) : null;
@@ -143,6 +150,7 @@ class User{
       'languagePreference' : languagePreference.index,
       'image' : image??= '',
       'board' : board != null ? board.toMap() : {},
+      'statuses' : statuses != null ? statusesToDataMap(statuses) : {},
     };
   }
 

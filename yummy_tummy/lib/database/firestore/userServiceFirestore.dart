@@ -8,6 +8,7 @@ import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/storage/storageHandler.dart';
 import 'package:yummytummy/user_interface/constants.dart';
 import 'package:yummytummy/utils/consoleWriter.dart';
+import 'package:yummytummy/utils/permissionFunctions.dart';
 
 /// Firestore specific user services.
 class UserServiceFirestore implements UserService {
@@ -71,6 +72,7 @@ class UserServiceFirestore implements UserService {
       'languagePreference' : user.languagePreference.index,
       'image' : user.image,
       'board' : user.board.toMap(),
+      'statuses' : statusesToDataMap(user.statuses),
     });
 
     consoleWriter.ModifiedDocument(CollectionType.User, userID);

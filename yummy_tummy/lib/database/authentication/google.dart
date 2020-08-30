@@ -10,6 +10,7 @@ import 'package:yummytummy/model/user.dart';
 import 'package:yummytummy/user_interface/constants.dart';
 import 'package:yummytummy/user_interface/home_screen.dart';
 import 'package:yummytummy/user_interface/localisation/localization.dart';
+import 'package:yummytummy/utils/permissionFunctions.dart';
 
 class GoogleAuthHandler{
 
@@ -72,6 +73,7 @@ class GoogleAuthHandler{
             languagePreference: LanguagePick.english,
             favourites: [],
             image: '',
+            statuses: getDefaultStatusesMap(),
             board: new MedalBoard(
                 seriesMap: dataToSeriesMap(getDefaultDataMap()))
         );
