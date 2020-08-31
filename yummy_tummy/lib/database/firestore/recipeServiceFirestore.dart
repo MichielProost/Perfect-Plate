@@ -27,7 +27,7 @@ class RecipeServiceFirestore implements RecipeService {
         this.storageHandler = new StorageHandler(),
         this.consoleWriter = new ConsoleWriter();
 
-  /// Add a new recipe to the database. Returns the document ID.
+  /// Add a new [Recipe] to the database. Returns the document ID.
   Future<String> addRecipe(Recipe recipe) async {
 
     // Create a new recipe document.
@@ -47,7 +47,7 @@ class RecipeServiceFirestore implements RecipeService {
 
   }
 
-  /// Delete a recipe from the database when given a document ID.
+  /// Delete a [Recipe] from the database when given a document ID [recipeID].
   Future<void> deleteRecipe(String recipeID) async {
 
     // Get recipe object from ID.
@@ -80,7 +80,7 @@ class RecipeServiceFirestore implements RecipeService {
 
   }
 
-  /// Returns recipe object from document ID.
+  /// Returns [Recipe] object from document ID [recipeID].
   Future<Recipe> getRecipeFromID(String recipeID) async {
 
     Recipe recipe =
@@ -97,7 +97,7 @@ class RecipeServiceFirestore implements RecipeService {
 
   }
 
-  /// Modify an existing recipe with a given document ID.
+  /// Modify an existing [Recipe] with a given document ID [recipeID].
   Future<void> modifyRecipe(Recipe recipe, String recipeID) async {
 
     await this.db.collection("recipes")
@@ -110,7 +110,8 @@ class RecipeServiceFirestore implements RecipeService {
 
   }
 
-  /// Returns recipe object with a given title.
+  /// Returns a list of [Recipe] objects that match this exact title.
+  /// Never returns null, but can return an empty list if no matches are found.
   Future<List<Recipe>> getRecipesFromTitle(String title) async {
 
     List<Recipe> fetchedRecipes =
@@ -135,8 +136,8 @@ class RecipeServiceFirestore implements RecipeService {
   }
 
   /// Returns all recipes made by a specific user.
-  /// Field: Specify user by name or id.
-  /// Value: Value of the field.
+  /// [field] : Specify user by name or id.
+  /// [value] : Value of the field.
   Future<List<Recipe>> getRecipesFromUser(UserMapField field, String value) async {
 
     List<Recipe> fetchedRecipes=
@@ -157,7 +158,7 @@ class RecipeServiceFirestore implements RecipeService {
 
   }
 
-  /// Returns all recipes in the user's favourite list.
+  /// Returns all [Recipe] objects in the user's favourite list.
   Future<List<Recipe>> getFavouriteRecipes(User user) async {
 
     List<String> toDeleteFav = new List<String>();
@@ -184,7 +185,7 @@ class RecipeServiceFirestore implements RecipeService {
     return recipes;
   }
 
-  /// Returns all vegetarian recipes.
+  /// Returns all vegetarian [Recipe] objects.
   Future<List<Recipe>> getVegetarianRecipes(SortField sortField) async {
 
     List<Recipe> fetchedRecipes=
@@ -208,8 +209,12 @@ class RecipeServiceFirestore implements RecipeService {
   }
 
   /// Search recipes in the database by specifying fields.
-  /// RecipeQuery: Info of a particular query.
-  /// SortField: Sort the acquired recipes.
+  /// [QueryInfo] : Info of a particular query.
+  /// [SortField] : Sort the acquired recipes.
+  /// [dietField] : Desired diet of recipes. Should be [DietField.any] when all diets are allowed.
+  /// [typeField] : Desired type of recipes. Should be [RecipeType.any] when all types are allowed.
+  /// [ingredients] : The ingredients that the recipes should contain. Should be an empty string if all recipes are allowed.
+  /// [language] : Desired language of recipes.
   Future<RecipeQuery> searchRecipes(RecipeQuery info, SortField sortField, DietField dietField, RecipeType typeField, List<String> ingredients, {LanguagePick language : LanguagePick.other}) async {
 
     // Check if we can fetch documents.
@@ -276,7 +281,8 @@ class RecipeServiceFirestore implements RecipeService {
 
   }
 
-  /// Update average and weighted rating in recipe document.
+  /// Update ratings (average and weighted) in [Recipe] document.
+  /// [review] : A new review to a particular recipe.
   Future<void> updateRatings(Review review) async {
 
     // Get recipe object from ID.

@@ -17,7 +17,7 @@ class ReviewServiceFirestore implements ReviewService {
         this.db = Firestore.instance,
         this.consoleWriter = new ConsoleWriter();
 
-  /// Add a new review to the database. Returns the document ID.
+  /// Add a new [Review] to the database. Returns the document ID.
   Future<String> addReview(Review review) async {
 
     // Create a new review document.
@@ -41,7 +41,7 @@ class ReviewServiceFirestore implements ReviewService {
 
   }
 
-  /// Delete a review from the database when given a document ID.
+  /// Delete a [Review] from the database when given a document ID [reviewID].
   Future<void> deleteReview(String reviewID) async {
 
     this.db.collection("reviews")
@@ -56,7 +56,7 @@ class ReviewServiceFirestore implements ReviewService {
 
   }
 
-  /// Returns review object from document ID.
+  /// Returns [Review] object from document ID [reviewID].
   Future<Review> getReviewFromID(String reviewID) async {
 
     Review review =
@@ -73,7 +73,7 @@ class ReviewServiceFirestore implements ReviewService {
 
   }
 
-  /// Modify an existing review with a given document ID.
+  /// Modify an existing [Review] with a given document ID [reviewID].
   Future<void> modifyReview(Review review, String reviewID) async {
 
     await this.db.collection("reviews")
@@ -88,9 +88,9 @@ class ReviewServiceFirestore implements ReviewService {
 
   }
 
-  /// Returns all reviews made by a specific user.
-  /// Field: Specify user by name or id.
-  /// Value: Value of the field.
+  /// Returns all [Review] objects made by a specific user.
+  /// [field] : Specify user by name or id.
+  /// [value] : Value of the field.
   Future<List<Review>> getReviewsFromUser(UserMapField field, String value) async {
 
     List<Review> fetchedReviews=
@@ -112,7 +112,7 @@ class ReviewServiceFirestore implements ReviewService {
 
   }
 
-  /// Returns all reviews made for a specific recipe.
+  /// Returns all [Review] objects made for a specific [Recipe] with [recipeID].
   Future<List<Review>> getReviewsFromRecipe(String recipeID) async {
 
     List<Review> fetchedReviews=

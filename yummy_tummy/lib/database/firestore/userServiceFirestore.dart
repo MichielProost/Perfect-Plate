@@ -21,7 +21,7 @@ class UserServiceFirestore implements UserService {
         this.db = Firestore.instance,
         this.consoleWriter = new ConsoleWriter();
 
-  /// Add a new user to the database. Returns the document ID.
+  /// Add a new [User] to the database. Returns the document ID.
   Future<String> addUser(User user, String userID) async {
 
     DocumentReference docReference =
@@ -40,7 +40,7 @@ class UserServiceFirestore implements UserService {
 
   }
 
-  /// Returns user object from document ID.
+  /// Returns [User] object from document ID [userID].
   Future<User> getUserFromID(String userID) async {
 
     User user =
@@ -57,7 +57,7 @@ class UserServiceFirestore implements UserService {
 
   }
 
-  /// Modify an existing user with a given document ID.
+  /// Modify an existing [User] with a given document ID [userID].
   Future<void> modifyUser(User user, String userID) async {
 
     await this.db.collection("users")
@@ -79,7 +79,7 @@ class UserServiceFirestore implements UserService {
 
   }
 
-  /// Returns true if user exists.
+  /// Returns true if [User] with [userID] exists.
   Future<bool> userExists(String userID) async{
 
     bool exists = false;
@@ -101,8 +101,7 @@ class UserServiceFirestore implements UserService {
 
   }
 
-  /// Delete a user's profile picture.
-  // ignore: missing_return
+  /// Deletes the profile picture of a [User] from storage and resets the local [User]'s profile picture.
   Future<void> deleteProfilePicture(User user){
 
     // Create storage handler.
@@ -116,7 +115,8 @@ class UserServiceFirestore implements UserService {
 
   }
 
-  /// Listens to the app user's document for changes.
+  /// Listens to the app [User]'s document for changes.
+  /// Upgrades the [User]'s [Rank] when necessary.
   void scoreListener() async {
 
     RecipeServiceFirestore recipeService = new RecipeServiceFirestore();

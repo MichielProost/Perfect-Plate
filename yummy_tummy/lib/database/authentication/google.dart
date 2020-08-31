@@ -19,8 +19,8 @@ class GoogleAuthHandler{
   UserServiceFirestore userService = new UserServiceFirestore();
 
   /// Sign in with Google.
-  /// Returns true if the user already exists
-  /// Returns false if this is a new user
+  /// Returns true in case of an existing user.
+  /// Returns false in case of a new user.
   Future<bool> handleSignIn({HomeScreenState screen}) async {
 
     bool userExists = false;

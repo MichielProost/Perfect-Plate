@@ -4,24 +4,24 @@ import 'package:yummytummy/model/user.dart';
 /// INTERFACE: Required methods when changing database.
 abstract class ReviewService{
 
-  /// Add a new review to the database. Returns the document ID.
+  /// Add a new [Review] to the database. Returns the document ID.
   Future<String> addReview(Review review);
 
-  /// Delete a review from the database when given a document ID.
+  /// Delete a [Review] from the database when given a document ID [reviewID].
   Future<void> deleteReview(String reviewID);
 
-  /// Returns review object from document ID.
+  /// Returns [Review] object from document ID [reviewID].
   Future<Review> getReviewFromID(String reviewID);
 
-  /// Modify an existing review with a given document ID.
+  /// Modify an existing [Review] with a given document ID [reviewID].
   Future<void> modifyReview(Review review, String reviewID);
 
-  /// Returns all reviews made by a specific user.
-  /// Field: Specify user by name or id.
-  /// Value: Value of the field.
+  /// Returns all [Review] objects made by a specific user.
+  /// [field] : Specify user by name or id.
+  /// [value] : Value of the field.
   Future<List<Review>> getReviewsFromUser(UserMapField field, String value);
 
-  /// Returns all reviews made for a specific recipe.
+  /// Returns all [Review] objects made for a specific [Recipe] with [recipeID].
   Future<List<Review>> getReviewsFromRecipe(String recipeID);
 
 }
