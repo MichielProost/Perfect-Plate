@@ -60,9 +60,9 @@ class Recipe {
   double weightedRating;                // Weighted rating.
   int duration;                         // How long it takes to make the recipe.
   String image;                         // Image URL of result.
-  int numberOfReviews;            // Number of reviews.
+  int numberOfReviews;                  // Number of reviews.
   final User user;                      // User object.
-  Map<String, dynamic> userMap;   // Duplicate data. Information of user.
+  Map<String, dynamic> userMap;         // Duplicate data. Information of user.
 
   Recipe.editable(
     this.id,
@@ -106,8 +106,8 @@ class Recipe {
     this.userMap,
   });
 
-  /// Deserialize received data from database.
-  /// Initialize a new recipe object.
+  /// Deserialize received [data] from database.
+  /// Initialize a new [Recipe] object.
   Recipe.fromMap(Map<String, dynamic> data, String id)
       : this(
           id: id,
@@ -157,13 +157,13 @@ class Recipe {
     };
   }
 
-  /// Convert the RecipeType field to a readable format where the first letter is uppercase and return it
+  /// Convert the RecipeType field to a readable format where the first letter is uppercase and return it.
   String getReadableType() {
     String lowercase = type.toString().toLowerCase().split('.')[1];
     return '${lowercase[0].toUpperCase()}${lowercase.substring(1)}';
   }
 
-  /// Print summary of recipe to console.
+  /// Print summary of [Recipe] to console.
   void printSummary(){
     print("Document ID: " + this.id);
     print("Date: " + this.timestamp.toDate().toString());

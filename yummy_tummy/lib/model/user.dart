@@ -39,9 +39,9 @@ enum RankType {
 
 extension Rank on RankType {
 
-  /// Get the corresponding rank of this index.
+  /// Get the corresponding [Rank] of this [index].
   /// Must be >= 0.
-  /// An index that is too high will simply result in the highest rank.
+  /// An [index] that is too high will simply result in the highest [Rank].
   RankType getRank(int index)
   {
     if (index == null)
@@ -49,15 +49,15 @@ extension Rank on RankType {
     return index < RankType.values.length ? RankType.values[index] : RankType.values[ RankType.values.length-1 ];
   }
 
-  /// Get the next rank in line
-  /// Will be null if there is no next rank available
+  /// Get the next [Rank] in line.
+  /// Will be null if there is no next [Rank] available
   RankType getNextRank()
   {
     return RankType.values.length-1 > this.index ? RankType.values[ this.index + 1 ] : null;
   }
 
-  /// Get the required score to achieve this rank
-  /// Will be 0 if the rank doesn't have a mapped score
+  /// Get the required score to achieve this rank.
+  /// Will be 0 if the [Rank] doesn't have a mapped score.
   int getRequiredScore()
   {
     return rankupMap.containsKey( this ) ? rankupMap[ this ] : 0;
@@ -102,8 +102,8 @@ class User{
     this.statuses,
   });
 
-  /// Deserialize received data from Firestore.
-  /// Initialize a new user object.
+  /// Deserialize received [data] from Firestore.
+  /// Initialize a new [User] object.
   User.fromMap(Map<String, dynamic> data, String id) :
         this.id = id != null ? id : data['id'],
         this.name = data.containsKey('name') ? data['name'] : '',
@@ -125,7 +125,7 @@ class User{
           MedalBoard.fromMap(Map<String, dynamic>.from(data['board'])) : null;
         }
 
-  /// Modify non-final fields of user.
+  /// Modify non-final fields of [User].
   void setUser(User user){
     this.name                 = user.name;
     this.score                = user.score;
@@ -166,18 +166,18 @@ class User{
     return type.getRank(type.index + 1);
   }
 
-  /// Check if this user has the possibility of gaining another rank
+  /// Check if this [User] has the possibility of gaining another [Rank].
   bool hasNextRank()
   {
     return rank.index < RankType.values.length-1;
   }
 
-  /// Upgrade user to the next rank.
+  /// Upgrade [User] to the next [Rank].
   void upgradeRank(){
     this.rank = getNextRank(this.rank);
   }
 
-  /// Checks if the user's rank can be upgraded.
+  /// Checks if the [User]'s [Rank] can be upgraded.
   bool checkRankUpgrade(){
 
     if (this.score >=
@@ -188,12 +188,12 @@ class User{
 
   }
 
-  /// Get the medal's score based on its type.
+  /// Get the [Medal]'s score based on its type.
   int getRankLimit(RankType type) {
     return type.getRequiredScore();
   }
 
-  /// Print summary of user to console.
+  /// Print summary of [User] to console.
   void printSummary(){
     print("Document ID: " + this.id);
     print("Name: " + this.name);

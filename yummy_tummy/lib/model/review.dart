@@ -44,8 +44,8 @@ class Review{
     }
   ) : userMap = Map<String, dynamic>();
 
-  /// Deserialize received data from Firestore.
-  /// Initialize a new review object.
+  /// Deserialize received [data] from Firestore.
+  /// Initialize a new [Review] object.
   Review.fromMap(Map<String, dynamic> data, String id)
       : this(
           id: id,
@@ -70,7 +70,7 @@ class Review{
     };
   }
 
-  /// Print summary of review to console.
+  /// Print summary of [Review] to console.
   void printSummary(){
     print("Document ID: " + this.id);
     print("Recipe ID: " + this.recipeID);

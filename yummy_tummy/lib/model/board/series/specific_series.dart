@@ -9,7 +9,7 @@ class CheckLoginSeries extends Series {
   CheckLoginSeries(List<Medal> medals, String title)
       : super(medals, title);
 
-  /// objects: Should be an empty list [].
+  /// [objects] : Should be an empty list [].
   void checkCurrentMedalAchieved(List<dynamic> objects){
     if (Constants.appUser.isLoggedIn()){
       super.isAchieved();
@@ -35,7 +35,7 @@ class CheckPreferenceSeries extends Series {
   CheckPreferenceSeries(List<Medal> medals, String title)
       : super(medals, title);
 
-  /// objects: Should be an empty list [].
+  /// [objects] : Should be an empty list [].
   void checkCurrentMedalAchieved(List<dynamic> objects){
     super.isAchieved();
   }

@@ -5,7 +5,9 @@ import 'dart:math';
 // Our choice: M = 50.
 const Q = 72;
 
-/// Calculate new average rating based on old average rating.
+/// Calculate new average rating based on old average rating [oldRating].
+/// [newValue] : The score of the new [Review].
+/// [amount] : The amount of total reviews for a particular [Recipe]
 double calculateAverageRating(double oldRating, int newValue, int amount){
 
   return

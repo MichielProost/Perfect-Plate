@@ -23,7 +23,7 @@ class MedalBoard {
     };
   }
 
-  /// Print summary of medal board to console.
+  /// Print summary of [MedalBoard] to console.
   printSummary(){
     var seriesList = seriesMap.entries.toList();
     for(int i = 0; i < seriesList.length; i++){

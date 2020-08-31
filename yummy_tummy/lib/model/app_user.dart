@@ -19,7 +19,7 @@ class AppUser extends User {
           dietFieldPreference: DietField.any,
           languagePreference: LanguagePick.english);
 
-  /// Check if this user is logged in
+  /// Check if this [AppUser] is logged in.
   bool isLoggedIn()
   {
     return _googleID != "";

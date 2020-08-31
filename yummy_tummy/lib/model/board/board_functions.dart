@@ -4,6 +4,7 @@ import 'package:yummytummy/model/board/series/series.dart';
 import 'package:yummytummy/model/board/series/specific_series.dart';
 import 'package:yummytummy/user_interface/localisation/localization.dart';
 
+/// Transform the received [data] map from Firebase into a [Series] map.
 Map<String, Series> dataToSeriesMap(Map<String, dynamic> data){
 
   Localization.instance.language.getMessage("create_recipes_bronze");
@@ -91,6 +92,7 @@ Map<String, Series> dataToSeriesMap(Map<String, dynamic> data){
 
 }
 
+/// Transform the internal [Series] map into a data map for Firebase.
 Map<String, dynamic> seriesToDataMap(Map<String, Series> seriesMap){
   return {
     'create_recipes' : seriesMap.containsKey('create_recipes') ?
@@ -108,6 +110,7 @@ Map<String, dynamic> seriesToDataMap(Map<String, Series> seriesMap){
   };
 }
 
+/// The default data map for storing the provided [Series] in Firebase.
 Map<String, dynamic> getDefaultDataMap(){
 
   Map<String, dynamic> data = new Map<String, dynamic>();

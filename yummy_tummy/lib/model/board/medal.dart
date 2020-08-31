@@ -5,7 +5,7 @@ const BRONZE_VALUE = 250;
 const SILVER_VALUE = 750;
 const GOLD_VALUE = 1500;
 
-/// Every medal is either bronze, silver or gold.
+/// Every [Medal] is either bronze, silver or gold.
 enum MedalType{
   bronze,
   silver,
@@ -24,7 +24,7 @@ class Medal{
     score = getMedalScore(medalType);
   }
 
-  /// When the user's medal is achieved..
+  /// When the user's [Medal] is achieved..
   isAchieved(){
     achieved = true;
 
@@ -36,7 +36,7 @@ class Medal{
     userService.modifyUser(Constants.appUser, Constants.appUser.id);
   }
 
-  /// Get the medal's score based on its type.
+  /// Get the [Medal]'s score based on its type.
   /// Returns 0 if something goes wrong.
   int getMedalScore(MedalType medalType){
 
@@ -55,7 +55,7 @@ class Medal{
 
   }
 
-  /// Print summary of medal to console.
+  /// Print summary of [Medal] to console.
   void printSummary(){
     print("Medal type: " + this.medalType.toString().split('.').last);
     print("Title: " + this.title);

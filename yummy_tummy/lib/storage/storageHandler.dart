@@ -27,7 +27,9 @@ class StorageHandler{
     _picker = new ImagePicker();
   }
 
-  /// Get picture from user.
+  /// Get picture from [User].
+  /// Returns the received [file].
+  /// Returns null when something goes wrong.
   Future<File> getPicture(ImageSource source) async {
 
     PickedFile pickedFile;
@@ -50,8 +52,8 @@ class StorageHandler{
 
   }
 
-  /// Upload a file to Firebase.
-  /// File will be uploaded to the given path.
+  /// Upload a [file] to Firebase.
+  /// [file] will be uploaded to the given [path].
   Future<String> uploadFile(File image, String path) async {
 
       StorageReference ref = _storageReference.child(path);
@@ -62,10 +64,10 @@ class StorageHandler{
 
   }
 
-  /// Upload all images of a specific recipe to Firebase.
-  /// Set the appropriate image URLs in recipe document.
-  /// images: First element of list contains image banner.
-  /// images: Other elements contain step images.
+  /// Upload all images of a specific [Recipe] with [recipeID] to Firebase.
+  /// Set the appropriate image URLs in [Recipe] document.
+  /// [images] : First element of list contains image banner.
+  /// [images] : Other elements contain step images.
   Future<void> uploadAndSetRecipeImages(List<File> images, String recipeID) async {
 
     String path;
@@ -90,7 +92,7 @@ class StorageHandler{
 
   }
 
-  /// Upload an image of the logged in user to Firebase.
+  /// Upload an [image] of the logged in user to Firebase.
   /// Set the appropriate image URL in user document.
   Future<void> uploadAndSetProfileImage(File image) async {
 
@@ -108,10 +110,10 @@ class StorageHandler{
   }
 
   /// Create a Firebase storage path.
-  /// type: Type of image to store in Firebase.
-  /// recipeID: Give the recipe ID when dealing with recipe related paths.
+  /// [type] : Type of image to store in Firebase.
+  /// [recipeID] : Give the [recipeID] when dealing with [Recipe] related paths.
   /// Should be null when dealing with other paths.
-  /// stepNumber: Give the recipe step number when dealing with step images.
+  /// [stepNumber] : Give the recipe step number when dealing with step images.
   /// Should be null otherwise.
   String createImagePath(ImageType type, String recipeID, int stepNumber){
 
@@ -131,7 +133,7 @@ class StorageHandler{
 
   }
 
-  /// Checks if file exists in Firebase storage.
+  /// Checks if file with [path] exists in Firebase storage.
   /// Prints an error when file doesn't exist (unavoidable).
   Future<bool> fileExists(String path) async {
     bool exists = false;
@@ -145,7 +147,7 @@ class StorageHandler{
 
   }
 
-  /// Delete all images (banner + steps) of a specific recipe object.
+  /// Delete all images (banner + steps) of a specific [Recipe] object.
   Future<void> deleteRecipeImages(Recipe recipe) async{
     await deleteImage(recipe.image);
     var seriesList = recipe.stepImages.entries.toList();
@@ -154,7 +156,7 @@ class StorageHandler{
     }
   }
 
-  /// Delete an image in Firebase storage.
+  /// Delete an image with [downloadURL] in Firebase storage.
   Future<void> deleteImage(String downloadURL) async {
     StorageReference imageRef = await _storage.getReferenceFromUrl(downloadURL);
     await imageRef.delete().then((value){

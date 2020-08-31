@@ -3,7 +3,7 @@ import 'package:yummytummy/model/board/medal.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/model/review.dart';
 
-/// Checks a number to determine whether the current medal has been achieved.
+/// Checks a number to determine whether the current [Medal] has been achieved.
 abstract class CheckNumberSeries extends Series {
 
   List<int> goals = new List<int>();
@@ -14,7 +14,7 @@ abstract class CheckNumberSeries extends Series {
 
 }
 
-/// Checks the number of own recipes to determine whether the current medal has been achieved.
+/// Checks the number of own recipes to determine whether the current [Medal] has been achieved.
 class CheckNumberOfOwnRecipes extends CheckNumberSeries {
 
   int amountOfOwnRecipes = 0;
@@ -49,7 +49,7 @@ class CheckNumberOfOwnRecipes extends CheckNumberSeries {
 
 }
 
-/// Checks the number of own reviews to determine whether the current medal has been achieved.
+/// Checks the number of own reviews to determine whether the current [Medal] has been achieved.
 class CheckNumberOfOwnReviews extends CheckNumberSeries {
 
   int amountOfOwnReviews = 0;
@@ -84,7 +84,7 @@ class CheckNumberOfOwnReviews extends CheckNumberSeries {
 
 }
 
-/// Checks the number of received reviews to determine whether the current medal has been achieved.
+/// Checks the number of received reviews to determine whether the current [Medal] has been achieved.
 class CheckNumberOfReceivedReviews extends CheckNumberSeries {
 
   int amountOfReceivedReviews = 0;
