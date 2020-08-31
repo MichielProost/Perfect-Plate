@@ -1,0 +1,3 @@
+Perfect Plate does not require camera or gallery access to function but it may ask for permission when needed. 
+Actions like uploading a profile picture or creating a recipe require camera or gallery access but permission for access will be asked.
+Uploaded images are stored in a secure database (Firebase by Google) and can always be deleted by the user himself by deleting the created recipe, deleting their profile picture or uploading a new profile picture.
