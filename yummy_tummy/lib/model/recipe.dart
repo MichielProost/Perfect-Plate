@@ -22,7 +22,8 @@ enum RecipeType {
   soups,
   salads,
   mains,
-  desserts
+  desserts,
+  drinks
 }
 
 extension Type on RecipeType {

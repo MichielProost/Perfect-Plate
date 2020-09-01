@@ -27,6 +27,23 @@ class StorageHandler{
     _picker = new ImagePicker();
   }
 
+  /// Returns true if the [User] allows camera access. Returns false otherwise.
+  Future<bool> checkAndRequestCameraPermissions() async {
+    PermissionStatus previous =
+        Constants.appUser.statuses[Permission.camera];
+    if (previous != PermissionStatus.granted) {
+      Constants.appUser.statuses[Permission.camera] =
+        await Permission.camera.request();
+      if (Constants.appUser.statuses[Permission.camera] != previous){
+        UserServiceFirestore userService = new UserServiceFirestore();
+        userService.modifyUser(Constants.appUser, Constants.appUser.id);
+      }
+      return Constants.appUser.statuses[Permission.camera] == PermissionStatus.granted;
+    } else {
+      return true;
+    }
+  }
+
   /// Get picture from [User].
   /// Returns the received [file].
   /// Returns null when something goes wrong.
@@ -34,17 +51,7 @@ class StorageHandler{
 
     PickedFile pickedFile;
 
-    PermissionStatus previous = Constants.appUser.statuses[Permission.camera];
-
-    Constants.appUser.statuses[Permission.camera] =
-      await Permission.camera.request();
-
-    if (Constants.appUser.statuses[Permission.camera] != previous){
-      UserServiceFirestore userService = new UserServiceFirestore();
-      userService.modifyUser(Constants.appUser, Constants.appUser.id);
-    }
-
-    if (Constants.appUser.statuses[Permission.camera].isGranted){
+    if (await checkAndRequestCameraPermissions()){
       pickedFile = await _picker.getImage(source: source, maxWidth: 500, maxHeight: 500);
     }
 
