@@ -48,9 +48,13 @@ class StorageHandler{
   /// Returns null when something goes wrong.
   Future<File> getPicture(ImageSource source) async {
 
-    PickedFile pickedFile;
+    // Redundant permission check for people who deny permissions
+    if (source == ImageSource.camera)
+      await Permission.camera.request();
+    else
+      await Permission.photos.request();
 
-    pickedFile = await _picker.getImage(source: source, maxWidth: 500, maxHeight: 500);
+    PickedFile pickedFile = await _picker.getImage(source: source, maxWidth: 500, maxHeight: 500);
 
     return pickedFile == null ? null : File(pickedFile.path);
 
