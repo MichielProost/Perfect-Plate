@@ -145,6 +145,9 @@ class Dutch extends Language {
       case RecipeType.desserts:
         return 'Desserten';
         break;
+      case RecipeType.drinks:
+        return 'Drank';
+        break;
     }
     return '';
   }
