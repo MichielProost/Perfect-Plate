@@ -29,11 +29,10 @@ class StorageHandler{
 
   /// Returns true if the [User] allows camera access. Returns false otherwise.
   Future<bool> checkAndRequestCameraPermissions() async {
-    PermissionStatus previous =
-        Constants.appUser.statuses[Permission.camera];
+    // TODO either remove this or integrate gathering user permission data in main.dart
+    PermissionStatus previous = Constants.appUser.statuses[Permission.camera];
     if (previous != PermissionStatus.granted) {
-      Constants.appUser.statuses[Permission.camera] =
-        await Permission.camera.request();
+      Constants.appUser.statuses[Permission.camera] = await Permission.camera.request();
       if (Constants.appUser.statuses[Permission.camera] != previous){
         UserServiceFirestore userService = new UserServiceFirestore();
         userService.modifyUser(Constants.appUser, Constants.appUser.id);
@@ -51,9 +50,7 @@ class StorageHandler{
 
     PickedFile pickedFile;
 
-    if (await checkAndRequestCameraPermissions()){
-      pickedFile = await _picker.getImage(source: source, maxWidth: 500, maxHeight: 500);
-    }
+    pickedFile = await _picker.getImage(source: source, maxWidth: 500, maxHeight: 500);
 
     return pickedFile == null ? null : File(pickedFile.path);
 
