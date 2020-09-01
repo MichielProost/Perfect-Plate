@@ -227,9 +227,9 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                                   position: RelativeRect.fromLTRB(left, top, MediaQuery.of(context).size.width - left, MediaQuery.of(context).size.height - top),
                                   items: <PopupMenuEntry>[
                                     PopupMenuItem(
-                                      value: ImageInput.camera,
-                                      child: InkWell(
-                                        child: Text( Localization.instance.language.getMessage( 'camera' ) ),
+                                      enabled: false,
+                                      child: ListTile(
+                                        title: Text( Localization.instance.language.getMessage( 'camera' ) ),
                                         onTap: () async {
                                           File selected = await imageHandler.getPicture( ImageSource.camera );
                                           setState(() {
@@ -240,9 +240,9 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                                       ),
                                     ),
                                     PopupMenuItem(
-                                      value: ImageInput.gallery,
-                                      child: InkWell(
-                                        child: Text( Localization.instance.language.getMessage( 'gallery' ) ),
+                                      enabled: false,
+                                      child: ListTile(
+                                        title: Text( Localization.instance.language.getMessage( 'gallery' ) ),
                                         onTap: () async {
                                           File selected = await imageHandler.getPicture( ImageSource.gallery );
                                           setState(() {
@@ -741,9 +741,9 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
           position: RelativeRect.fromLTRB(left, top, MediaQuery.of(context).size.width - left, MediaQuery.of(context).size.height - top),
           items: <PopupMenuEntry>[
             PopupMenuItem(
-              value: ImageInput.camera,
-              child: InkWell(
-                child: Text( Localization.instance.language.getMessage( 'camera' ) ),
+              enabled: false,
+              child: ListTile(
+                title: Text( Localization.instance.language.getMessage( 'camera' ) ),
                 onTap: () async {
                   File selected = await imageHandler.getPicture( ImageSource.camera );
                   setState(() {
@@ -760,9 +760,9 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
               ),
             ),
             PopupMenuItem(
-              value: ImageInput.gallery,
-              child: InkWell(
-                child: Text( Localization.instance.language.getMessage( 'gallery' ) ),
+              enabled: false,
+              child: ListTile(
+                title: Text( Localization.instance.language.getMessage( 'gallery' ) ),
                 onTap: () async {
                   File selected = await imageHandler.getPicture( ImageSource.gallery );
                   setState(() {

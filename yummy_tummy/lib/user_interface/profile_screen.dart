@@ -126,9 +126,9 @@ class _Screen extends State<ProfileScreen> {
                   position: RelativeRect.fromLTRB(left, top, MediaQuery.of(context).size.width - left, MediaQuery.of(context).size.height - top),
                   items: <PopupMenuEntry>[
                     PopupMenuItem(
-                      value: ImageInput.camera,
-                      child: InkWell(
-                        child: Text( Localization.instance.language.getMessage( 'camera' ) ),
+                      enabled: false,
+                      child: ListTile(
+                        title: Text( Localization.instance.language.getMessage( 'camera' ) ),
                         onTap: () async {
                           File selected = await imageHandler.getPicture( ImageSource.camera );
                           if (selected != null) {
@@ -140,9 +140,9 @@ class _Screen extends State<ProfileScreen> {
                       ),
                     ),
                     PopupMenuItem(
-                      value: ImageInput.gallery,
-                      child: InkWell(
-                        child: Text( Localization.instance.language.getMessage( 'gallery' ) ),
+                      enabled: false,
+                      child: ListTile(
+                        title: Text( Localization.instance.language.getMessage( 'gallery' ) ),
                         onTap: () async {
                           File selected = await imageHandler.getPicture( ImageSource.gallery );
                           if (selected != null) {
@@ -155,9 +155,9 @@ class _Screen extends State<ProfileScreen> {
                     ),
                     if (Constants.appUser.image != null && Constants.appUser.image != '')
                       PopupMenuItem(
-                        value: ImageInput.gallery,
-                        child: InkWell(
-                          child: Text( Localization.instance.language.getMessage( 'delete' ) ),
+                        enabled: false,
+                        child: ListTile(
+                          title: Text( Localization.instance.language.getMessage( 'delete' ) ),
                           onTap: () async {
                             UserService userService = UserServiceFirestore();
                             await userService.deleteProfilePicture( Constants.appUser );
