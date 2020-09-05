@@ -262,7 +262,7 @@ class Dutch extends Language {
 
       // Seperate input
       'camera'                : 'Camera',
-      'gallery'               : 'Gallerij',
+      'gallery'               : 'Galerij',
       'set_timer'             : 'Stel uw timer in',
 
       // Log in/out language
