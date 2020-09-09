@@ -57,8 +57,11 @@ class StorageHandler{
     List<File> images = await ChristianPickerImage.pickImages(maxImages: 1);
 
     final dir = await path_provider.getTemporaryDirectory();
-    print('dir = $dir');
+
     final targetPath = dir.absolute.path + "/temp.jpg";
+
+    if (images == null || images.length == 0)
+      return null;
 
     File compressedImage = await compressAndGetFile(images[0], targetPath);
 
