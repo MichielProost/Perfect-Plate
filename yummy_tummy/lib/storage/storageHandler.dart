@@ -142,6 +142,7 @@ class StorageHandler{
         break;
       case ImageType.recipe_step:
         path = path + "/$recipeID/" + "step$stepNumber.png";
+        break;
     }
     return path;
 
@@ -173,7 +174,7 @@ class StorageHandler{
   /// Delete an image with [downloadURL] in Firebase storage.
   Future<void> deleteImage(String downloadURL) async {
     StorageReference imageRef = await _storage.getReferenceFromUrl(downloadURL);
-    await imageRef.delete().then((value){
+      await imageRef.delete().then((value){
     }).catchError((error) {
       print("ERROR: Could not delete file with URL: " + downloadURL);
     });
