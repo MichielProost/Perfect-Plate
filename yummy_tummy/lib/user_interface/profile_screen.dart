@@ -4,7 +4,6 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 /// Functions as a template for new screens. Should not actually be used
 
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:yummytummy/database/buffer/User_content_buffer.dart';
 import 'package:yummytummy/database/firestore/userServiceFirestore.dart';
 import 'package:yummytummy/database/interfaces/userService.dart';
@@ -17,7 +16,6 @@ import 'package:yummytummy/user_interface/components/buttons/google_signin_butto
 import 'package:yummytummy/user_interface/components/medal_widget.dart';
 import 'package:yummytummy/user_interface/components/recipe_card.dart';
 import 'package:yummytummy/user_interface/localisation/localization.dart';
-import 'package:yummytummy/user_interface/popup/create_recipe_card.dart';
 
 import 'components/review_card.dart';
 import 'components/waiting_indicator.dart';
