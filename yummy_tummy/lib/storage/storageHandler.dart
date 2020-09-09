@@ -1,11 +1,13 @@
 import 'dart:io';
+import 'package:christian_picker_image/christian_picker_image.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:yummytummy/database/firestore/recipeServiceFirestore.dart';
 import 'package:yummytummy/database/firestore/userServiceFirestore.dart';
 import 'package:yummytummy/model/recipe.dart';
 import 'package:yummytummy/user_interface/constants.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:path_provider/path_provider.dart' as path_provider;
 
 /// Type of images that can be stored in Firebase.
 enum ImageType{
@@ -18,13 +20,11 @@ class StorageHandler{
 
   FirebaseStorage _storage;
   StorageReference _storageReference;
-  ImagePicker _picker;
 
   /// Constructor.
   StorageHandler(){
     _storage = FirebaseStorage.instance;
     _storageReference = _storage.ref();
-    _picker = new ImagePicker();
   }
 
   /// Returns true if the [User] allows camera access. Returns false otherwise.
@@ -46,17 +46,23 @@ class StorageHandler{
   /// Get picture from [User].
   /// Returns the received [file].
   /// Returns null when something goes wrong.
-  Future<File> getPicture(ImageSource source) async {
+  Future<File> getPicture() async {
 
     // Redundant permission check for people who deny permissions
-    if (source == ImageSource.camera)
-      await Permission.camera.request();
-    else
-      await Permission.photos.request();
+    await [
+      Permission.camera,
+      Permission.storage,
+    ].request();
 
-    PickedFile pickedFile = await _picker.getImage(source: source, maxWidth: 500, maxHeight: 500);
+    List<File> images = await ChristianPickerImage.pickImages(maxImages: 1);
 
-    return pickedFile == null ? null : File(pickedFile.path);
+    final dir = await path_provider.getTemporaryDirectory();
+    print('dir = $dir');
+    final targetPath = dir.absolute.path + "/temp.jpg";
+
+    File compressedImage = await compressAndGetFile(images[0], targetPath);
+
+    return  compressedImage == null ? null : compressedImage;
 
   }
 
@@ -64,11 +70,11 @@ class StorageHandler{
   /// [file] will be uploaded to the given [path].
   Future<String> uploadFile(File image, String path) async {
 
-      StorageReference ref = _storageReference.child(path);
+    StorageReference ref = _storageReference.child(path);
 
-      StorageUploadTask uploadTask = ref.putFile(image);
+    StorageUploadTask uploadTask = ref.putFile(image);
 
-      return await (await uploadTask.onComplete ).ref.getDownloadURL();
+    return await (await uploadTask.onComplete ).ref.getDownloadURL();
 
   }
 
@@ -148,7 +154,7 @@ class StorageHandler{
     await _storageReference.child(path).getDownloadURL().then((value){
       exists = true;
     })
-    .catchError((error) {
+        .catchError((error) {
       exists = false;
     });
     return exists;
@@ -171,6 +177,14 @@ class StorageHandler{
     }).catchError((error) {
       print("ERROR: Could not delete file with URL: " + downloadURL);
     });
+  }
+
+  /// Compresses the original [file].
+  /// Returns the compressed [file].
+  Future<File> compressAndGetFile(File file, String targetPath) async {
+    return FlutterImageCompress.compressAndGetFile(
+        file.absolute.path, targetPath,
+        quality: 70);
   }
 
 }

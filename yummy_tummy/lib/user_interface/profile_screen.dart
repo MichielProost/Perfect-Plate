@@ -130,7 +130,7 @@ class _Screen extends State<ProfileScreen> {
                       child: ListTile(
                         title: Text( Localization.instance.language.getMessage( 'camera' ) ),
                         onTap: () async {
-                          File selected = await imageHandler.getPicture( ImageSource.camera );
+                          File selected = await imageHandler.getPicture(  );
                           if (selected != null) {
                             profileImage = FileImage( selected );
                             await imageHandler.uploadAndSetProfileImage( selected );
@@ -144,7 +144,7 @@ class _Screen extends State<ProfileScreen> {
                       child: ListTile(
                         title: Text( Localization.instance.language.getMessage( 'gallery' ) ),
                         onTap: () async {
-                          File selected = await imageHandler.getPicture( ImageSource.gallery );
+                          File selected = await imageHandler.getPicture(  );
                           if (selected != null) {
                             profileImage = FileImage( selected );
                             await imageHandler.uploadAndSetProfileImage( selected );

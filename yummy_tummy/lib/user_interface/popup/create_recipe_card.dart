@@ -231,7 +231,7 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                                       child: ListTile(
                                         title: Text( Localization.instance.language.getMessage( 'camera' ) ),
                                         onTap: () async {
-                                          File selected = await imageHandler.getPicture( ImageSource.camera );
+                                          File selected = await imageHandler.getPicture(  );
                                           setState(() {
                                             if (selected != null)
                                               _banner = selected;
@@ -244,7 +244,7 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                                       child: ListTile(
                                         title: Text( Localization.instance.language.getMessage( 'gallery' ) ),
                                         onTap: () async {
-                                          File selected = await imageHandler.getPicture( ImageSource.gallery );
+                                          File selected = await imageHandler.getPicture(  );
                                           setState(() {
                                             if (selected != null)
                                               _banner = selected;
@@ -745,7 +745,7 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
               child: ListTile(
                 title: Text( Localization.instance.language.getMessage( 'camera' ) ),
                 onTap: () async {
-                  File selected = await imageHandler.getPicture( ImageSource.camera );
+                  File selected = await imageHandler.getPicture(  );
                   setState(() {
                     if (selected != null)
                       if (index >= _steps.length) {
@@ -764,7 +764,7 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
               child: ListTile(
                 title: Text( Localization.instance.language.getMessage( 'gallery' ) ),
                 onTap: () async {
-                  File selected = await imageHandler.getPicture( ImageSource.gallery );
+                  File selected = await imageHandler.getPicture(  );
                   setState(() {
                     if (selected != null)
                       if (index >= _steps.length) {

@@ -15,8 +15,10 @@ class YummyTummy extends StatelessWidget {
 
   void _initPermissions() async
   {
-    await Permission.camera.request();
-    await Permission.photos.request();
+    await [
+      Permission.camera,
+      Permission.storage,
+    ].request();
   }
 
   @override
