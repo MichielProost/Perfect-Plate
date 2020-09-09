@@ -195,6 +195,7 @@ class English extends Language {
       // Seperate input
       'camera'                : 'Camera',
       'gallery'               : 'Gallery',
+      'pick_image'            : 'Pick image',
       'set_timer'             : 'Set your timer',
 
       // Log in/out language

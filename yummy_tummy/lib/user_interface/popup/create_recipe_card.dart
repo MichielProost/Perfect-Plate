@@ -208,52 +208,58 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
                               width: 200.0,
                               image: _banner,
                               size: 50.0,
-                              callback: (tapLocation) {
+                              callback: (tapLocation) async {
                                 
-                                double left;
-                                double top;
-                                if (tapLocation != null)
-                                {
-                                  left = tapLocation.dx;
-                                  top = tapLocation.dy;
-                                }
-                                else
-                                {
-                                  left = MediaQuery.of(context).size.width / 3;
-                                  top = MediaQuery.of(context).size.height / 3;
-                                }
-                                showMenu(
-                                  context: context,
-                                  position: RelativeRect.fromLTRB(left, top, MediaQuery.of(context).size.width - left, MediaQuery.of(context).size.height - top),
-                                  items: <PopupMenuEntry>[
-                                    PopupMenuItem(
-                                      enabled: false,
-                                      child: ListTile(
-                                        title: Text( Localization.instance.language.getMessage( 'camera' ) ),
-                                        onTap: () async {
-                                          File selected = await imageHandler.getPicture(  );
-                                          setState(() {
-                                            if (selected != null)
-                                              _banner = selected;
-                                          });
-                                        },
-                                      ),
-                                    ),
-                                    PopupMenuItem(
-                                      enabled: false,
-                                      child: ListTile(
-                                        title: Text( Localization.instance.language.getMessage( 'gallery' ) ),
-                                        onTap: () async {
-                                          File selected = await imageHandler.getPicture(  );
-                                          setState(() {
-                                            if (selected != null)
-                                              _banner = selected;
-                                          });
-                                        },
-                                      ),
-                                    ),
-                                  ]
-                                );
+                                File selected = await imageHandler.getPicture();
+                                setState(() {
+                                  if (selected != null)
+                                    _banner = selected;
+                                });
+
+                                // double left;
+                                // double top;
+                                // if (tapLocation != null)
+                                // {
+                                //   left = tapLocation.dx;
+                                //   top = tapLocation.dy;
+                                // }
+                                // else
+                                // {
+                                //   left = MediaQuery.of(context).size.width / 3;
+                                //   top = MediaQuery.of(context).size.height / 3;
+                                // }
+                                // showMenu(
+                                //   context: context,
+                                //   position: RelativeRect.fromLTRB(left, top, MediaQuery.of(context).size.width - left, MediaQuery.of(context).size.height - top),
+                                //   items: <PopupMenuEntry>[
+                                //     PopupMenuItem(
+                                //       enabled: false,
+                                //       child: ListTile(
+                                //         title: Text( Localization.instance.language.getMessage( 'camera' ) ),
+                                //         onTap: () async {
+                                //           File selected = await imageHandler.getPicture(  );
+                                //           setState(() {
+                                //             if (selected != null)
+                                //               _banner = selected;
+                                //           });
+                                //         },
+                                //       ),
+                                //     ),
+                                //     PopupMenuItem(
+                                //       enabled: false,
+                                //       child: ListTile(
+                                //         title: Text( Localization.instance.language.getMessage( 'gallery' ) ),
+                                //         onTap: () async {
+                                //           File selected = await imageHandler.getPicture(  );
+                                //           setState(() {
+                                //             if (selected != null)
+                                //               _banner = selected;
+                                //           });
+                                //         },
+                                //       ),
+                                //     ),
+                                //   ]
+                                // );
                               },
                             ),
                           ],
@@ -722,64 +728,77 @@ class _CreateRecipePage extends State<CreateRecipeCard> {
       width: 100.0,
       image: index < _images.length ? _images[index] : null,
       size: 25.0,
-      callback: (tapLocation) {
+      callback: (tapLocation) async {
         
-        double left;
-        double top;
-        if (tapLocation != null)
-        {
-          left = tapLocation.dx;
-          top = tapLocation.dy;
-        }
-        else
-        {
-          left = MediaQuery.of(context).size.width / 3;
-          top = MediaQuery.of(context).size.height / 3;
-        }
-        showMenu(
-          context: context,
-          position: RelativeRect.fromLTRB(left, top, MediaQuery.of(context).size.width - left, MediaQuery.of(context).size.height - top),
-          items: <PopupMenuEntry>[
-            PopupMenuItem(
-              enabled: false,
-              child: ListTile(
-                title: Text( Localization.instance.language.getMessage( 'camera' ) ),
-                onTap: () async {
-                  File selected = await imageHandler.getPicture(  );
-                  setState(() {
-                    if (selected != null)
-                      if (index >= _steps.length) {
-                        _images.add( selected );
-                      } 
-                      else
-                      {
-                        _images[ index ] = selected;
-                      }
-                  });
-                },
-              ),
-            ),
-            PopupMenuItem(
-              enabled: false,
-              child: ListTile(
-                title: Text( Localization.instance.language.getMessage( 'gallery' ) ),
-                onTap: () async {
-                  File selected = await imageHandler.getPicture(  );
-                  setState(() {
-                    if (selected != null)
-                      if (index >= _steps.length) {
-                        _images.add( selected );
-                      } 
-                      else
-                      {
-                        _images[ index ] = selected;
-                      }
-                  });
-                },
-              ),
-            ),
-          ]
-        );
+        // double left;
+        // double top;
+        // if (tapLocation != null)
+        // {
+        //   left = tapLocation.dx;
+        //   top = tapLocation.dy;
+        // }
+        // else
+        // {
+        //   left = MediaQuery.of(context).size.width / 3;
+        //   top = MediaQuery.of(context).size.height / 3;
+        // }
+
+        File selected = await imageHandler.getPicture();
+        setState(() {
+          if (selected != null)
+            if (index >= _steps.length) {
+              _images.add( selected );
+            } 
+            else
+            {
+              _images[ index ] = selected;
+            }
+        });
+
+        // showMenu(
+        //   context: context,
+        //   position: RelativeRect.fromLTRB(left, top, MediaQuery.of(context).size.width - left, MediaQuery.of(context).size.height - top),
+        //   items: <PopupMenuEntry>[
+        //     PopupMenuItem(
+        //       enabled: false,
+        //       child: ListTile(
+        //         title: Text( Localization.instance.language.getMessage( 'camera' ) ),
+        //         onTap: () async {
+        //           File selected = await imageHandler.getPicture(  );
+        //           setState(() {
+        //             if (selected != null)
+        //               if (index >= _steps.length) {
+        //                 _images.add( selected );
+        //               } 
+        //               else
+        //               {
+        //                 _images[ index ] = selected;
+        //               }
+        //           });
+        //         },
+        //       ),
+        //     ),
+        //     PopupMenuItem(
+        //       enabled: false,
+        //       child: ListTile(
+        //         title: Text( Localization.instance.language.getMessage( 'gallery' ) ),
+        //         onTap: () async {
+        //           File selected = await imageHandler.getPicture(  );
+        //           setState(() {
+        //             if (selected != null)
+        //               if (index >= _steps.length) {
+        //                 _images.add( selected );
+        //               } 
+        //               else
+        //               {
+        //                 _images[ index ] = selected;
+        //               }
+        //           });
+        //         },
+        //       ),
+        //     ),
+        //   ]
+        // );
       },
     );
   }

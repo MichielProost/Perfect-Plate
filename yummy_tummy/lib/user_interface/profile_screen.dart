@@ -128,23 +128,9 @@ class _Screen extends State<ProfileScreen> {
                     PopupMenuItem(
                       enabled: false,
                       child: ListTile(
-                        title: Text( Localization.instance.language.getMessage( 'camera' ) ),
+                        title: Text( Localization.instance.language.getMessage( 'pick_image' ) ),
                         onTap: () async {
-                          File selected = await imageHandler.getPicture(  );
-                          if (selected != null) {
-                            profileImage = FileImage( selected );
-                            await imageHandler.uploadAndSetProfileImage( selected );
-                          }
-                          setState(() {});
-                        },
-                      ),
-                    ),
-                    PopupMenuItem(
-                      enabled: false,
-                      child: ListTile(
-                        title: Text( Localization.instance.language.getMessage( 'gallery' ) ),
-                        onTap: () async {
-                          File selected = await imageHandler.getPicture(  );
+                          File selected = await imageHandler.getPicture();
                           if (selected != null) {
                             profileImage = FileImage( selected );
                             await imageHandler.uploadAndSetProfileImage( selected );
